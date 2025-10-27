@@ -1,16 +1,158 @@
+using System;
+using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] Transform _cameraTarget;
+
+    // Camera Movement
+    [SerializeField] Vector2 _moveSpeed;
+    [SerializeField] AnimationCurve _moveSpeedZoomCurve = AnimationCurve.Linear(0, 0.5f, 1f, 1f);
+    [SerializeField] float _moveSmoothing;
+    [SerializeField] float _keyboardMoveSpeedAdjustement;
+    [SerializeField] Vector2 _maxCameraXpos;
+    [SerializeField] Vector2 _maxCameraZpos;
+    Vector3 _targetCameraTargetPosition = Vector2.zero;
+    Vector2 _mouseMoveInput = Vector2.zero;
+    Vector2 _keyboardMoveInput = Vector2.zero;
+    bool _mouseMoveEnabled = false;
+
+    // Camera Zoom
+    [SerializeField] float _zoomSpeed;
+    [SerializeField] float _zoomSmoothing;
+    [SerializeField] AnimationCurve _zoomSpeedZoomCurve = AnimationCurve.Linear(0, 1f, 1f, .5f);
+    float _targetOrbitRadialAxis = 0;
+    float _zoomLevel = 0;
+    float _zoomInput = 0;
+
+    // Manager
+    CameraManager _cameraManager;
+
+    #region Input
+    void OnMouseMove(InputValue value)
     {
-        
+        // the pan need to be inverted so it look like you grab the terrain and move
+        if (_mouseMoveEnabled) _mouseMoveInput = value.Get<Vector2>() * -1;
+        // we need to make sure that we want to pan
+        else _mouseMoveInput = Vector3.zero;
+    }
+    void OnMouseEnableMovePressed(InputAction.CallbackContext value)
+    {
+        // if the button is pressed the value will be over 0
+        _mouseMoveEnabled = 0 < value.ReadValue<float>();
+    }
+    void OnKeyboardMove(InputValue value)
+    {
+        // we need to make sure that we aren't already moving with the mouse
+        if (!_mouseMoveEnabled) _keyboardMoveInput = value.Get<Vector2>();
+        else _keyboardMoveInput = Vector3.zero;
+    }
+    void OnZoom(InputValue value)
+    {
+        // inverted the zoom since if we scrolldown the y is higher
+        _zoomInput = value.Get<float>() * -1;
     }
 
-    // Update is called once per frame
+    #endregion
+
+    #region Unity
+    void Awake()
+    {
+        _cameraManager = GameManager.instance.cameraManager;
+        RefreshZoomLevel(_cameraManager.mainCameraOrbit.RadialAxis);
+        _targetOrbitRadialAxis = _cameraManager.mainCameraOrbit.RadialAxis.Value;
+    }
     void Update()
     {
-        
+        UpdateMovement();
     }
+
+    void OnEnable()
+    {
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        InputAction enableMoveAction = playerInput.actions["MouseEnableMove"];
+        enableMoveAction.started += OnMouseEnableMovePressed;
+        enableMoveAction.canceled += OnMouseEnableMovePressed;
+        enableMoveAction.Enable();
+    }
+    void OnDisable()
+    {
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        InputAction enableMoveAction = playerInput.actions["MouseEnableMove"];
+        enableMoveAction.started -= OnMouseEnableMovePressed;
+        enableMoveAction.canceled -= OnMouseEnableMovePressed;
+        enableMoveAction.Disable();
+    }
+    #endregion
+
+    #region Control
+    void UpdateMovement()
+    {
+        // Camera movement
+        MoveCamera(_mouseMoveInput + _keyboardMoveInput * _keyboardMoveSpeedAdjustement);
+
+        // Camera Zoom
+        ZoomCamera(_zoomInput);
+    }
+
+    void MoveCamera(Vector2 mouvement2Delta)
+    {
+        Vector3 movement3 = new Vector3(mouvement2Delta.x * _moveSpeed.x, 0, mouvement2Delta.y * _moveSpeed.y);
+        Vector3 motion = movement3 * Time.unscaledDeltaTime;
+
+        // The more zoomed you are the less move you will do
+        float zoomMultiplier = _moveSpeedZoomCurve.Evaluate(_zoomLevel);
+        _targetCameraTargetPosition += motion * zoomMultiplier;
+
+        // If we don't need to move the Camera then we don't
+        if (Vector3.Distance(_targetCameraTargetPosition, _cameraTarget.position) < 0.01f) return;
+
+        // Clamping the position so the camera can't go ouside of the game bound
+        Vector3 clampedPos = Vector3.zero;
+        clampedPos.x = Math.Clamp(_targetCameraTargetPosition.x, _maxCameraXpos.x, _maxCameraXpos.y);
+        clampedPos.z = Math.Clamp(_targetCameraTargetPosition.z, _maxCameraZpos.x, _maxCameraZpos.y);
+
+        _targetCameraTargetPosition = clampedPos;
+
+        // Smoothing the movement so it feels more floaty
+        Vector3 smoothMotion = Vector3.zero;
+        smoothMotion.x = Mathf.Lerp(_cameraTarget.position.x, _targetCameraTargetPosition.x, Time.unscaledDeltaTime * _moveSmoothing);
+        smoothMotion.z = Mathf.Lerp(_cameraTarget.position.z, _targetCameraTargetPosition.z, Time.unscaledDeltaTime * _moveSmoothing);
+
+        _cameraTarget.position = smoothMotion;
+    }
+
+    void ZoomCamera(float zoomDelta)
+    {
+        float motion = zoomDelta * _zoomSpeed * Time.unscaledDeltaTime;
+        InputAxis radialAxis = _cameraManager.mainCameraOrbit.RadialAxis;
+
+        // The more zoomed you are the more it zoom fast
+        float zoomMultiplier = _zoomSpeedZoomCurve.Evaluate(_zoomLevel);
+        _targetOrbitRadialAxis += motion * zoomMultiplier;
+
+        // If we don't need to move the Camera then we don't
+        if (Mathf.Abs(radialAxis.Value - _targetOrbitRadialAxis) < 0.01f) return;
+
+        RefreshZoomLevel(radialAxis);
+
+        // Clamping the zoom so there is a limit to the zoom in and out
+        _targetOrbitRadialAxis = Math.Clamp(_targetOrbitRadialAxis, radialAxis.Range.x, radialAxis.Range.y);
+
+        // smoothing the zoom so it feels less clancky with the wheel scroll dent
+        float smoothMotion = Mathf.Lerp(radialAxis.Value, _targetOrbitRadialAxis, Time.unscaledDeltaTime * _zoomSmoothing);
+
+        _cameraManager.mainCameraOrbit.RadialAxis.Value = smoothMotion;
+    }
+    #endregion
+
+    #region Calculate
+
+    void RefreshZoomLevel(InputAxis radialAxis)
+    {
+        _zoomLevel = Mathf.InverseLerp(radialAxis.Range.x, radialAxis.Range.y, radialAxis.Value);
+    }
+    #endregion
 }

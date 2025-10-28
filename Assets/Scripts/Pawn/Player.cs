@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] Transform _cameraTarget;
 
-    // Camera Movement
+    [Header("Camera Movement")]
     [SerializeField] Vector2 _moveSpeed;
     [SerializeField] AnimationCurve _moveSpeedZoomCurve = AnimationCurve.Linear(0, 0.5f, 1f, 1f);
     [SerializeField] float _moveSmoothing;
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     Vector2 _keyboardMoveInput = Vector2.zero;
     bool _mouseMoveEnabled = false;
 
-    // Camera Zoom
+    [Header("Camera Zoom")]
     [SerializeField] float _zoomSpeed;
     [SerializeField] float _zoomSmoothing;
     [SerializeField] AnimationCurve _zoomSpeedZoomCurve = AnimationCurve.Linear(0, 1f, 1f, .5f);

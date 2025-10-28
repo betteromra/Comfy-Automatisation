@@ -64,11 +64,19 @@ public class OutlineFeature : ScriptableRendererFeature
             // Pass 2: Horizontal blur
             RenderBlurPass(renderGraph, maskTex, blurTexH, settings.blurMaterialHorizontal, "Outline Horizontal Blur", true);
 
+<<<<<<< HEAD
             // Pass 3: Vertical blur
             RenderBlurPass(renderGraph, blurTexH, blurTexV, settings.blurMaterialVertical, "Outline Vertical Blur", false);
 
             // Pass 4: Composite (needs both original mask and blurred mask)
             RenderCompositePass(renderGraph, maskTex, blurTexV, resources.activeColorTexture, cameraData);
+=======
+            // Pass 3: Vertical blur  
+            RenderBlurPass(renderGraph, blurTexH, blurTexV, settings.blurMaterialVertical, "Outline Vertical Blur", false);
+
+            // Pass 4: Composite
+            RenderCompositePass(renderGraph, blurTexV, resources.activeColorTexture, cameraData);
+>>>>>>> bc3ca86f5c604b2a3ff6044e9b68b13353598e41
         }
 
         private void RenderMaskPass(RenderGraph renderGraph, TextureHandle maskTex, UniversalCameraData cameraData, UniversalResourceData resources)
@@ -89,7 +97,11 @@ public class OutlineFeature : ScriptableRendererFeature
 
                     var selected = Object.FindObjectsByType<SelectableObjects>(FindObjectsSortMode.None);
                     int renderedCount = 0;
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> bc3ca86f5c604b2a3ff6044e9b68b13353598e41
                     foreach (var obj in selected)
                     {
                         if (obj.IsSelected)
@@ -102,7 +114,11 @@ public class OutlineFeature : ScriptableRendererFeature
                             }
                         }
                     }
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> bc3ca86f5c604b2a3ff6044e9b68b13353598e41
                     // Debug: Log if no objects were rendered
                     if (renderedCount == 0)
                     {
@@ -136,16 +152,26 @@ public class OutlineFeature : ScriptableRendererFeature
             }
         }
 
+<<<<<<< HEAD
         private void RenderCompositePass(RenderGraph renderGraph, TextureHandle maskTex, TextureHandle blurTex, TextureHandle colorTarget, UniversalCameraData cameraData)
+=======
+        private void RenderCompositePass(RenderGraph renderGraph, TextureHandle blurTex, TextureHandle colorTarget, UniversalCameraData cameraData)
+>>>>>>> bc3ca86f5c604b2a3ff6044e9b68b13353598e41
         {
             using (var builder = renderGraph.AddRasterRenderPass<CompositePassData>("Outline Composite", out var passData))
             {
                 passData.settings = settings;
+<<<<<<< HEAD
                 passData.maskTexture = maskTex;
                 passData.blurTexture = blurTex;
 
                 builder.SetRenderAttachment(colorTarget, 0, AccessFlags.ReadWrite); // IMPORTANT: ReadWrite to preserve scene
                 builder.UseTexture(maskTex, AccessFlags.Read);
+=======
+                passData.blurTexture = blurTex;
+
+                builder.SetRenderAttachment(colorTarget, 0, AccessFlags.ReadWrite); // IMPORTANT: ReadWrite to preserve scene
+>>>>>>> bc3ca86f5c604b2a3ff6044e9b68b13353598e41
                 builder.UseTexture(blurTex, AccessFlags.Read);
                 builder.AllowPassCulling(false);
 
@@ -155,7 +181,10 @@ public class OutlineFeature : ScriptableRendererFeature
 
                     // Set shader properties for composite
                     data.settings.compositeMaterial.SetColor("_OutlineColor", data.settings.outlineColor);
+<<<<<<< HEAD
                     data.settings.compositeMaterial.SetTexture("_MaskTex", data.maskTexture);
+=======
+>>>>>>> bc3ca86f5c604b2a3ff6044e9b68b13353598e41
                     data.settings.compositeMaterial.SetTexture("_BlurTex", data.blurTexture);
 
                     // Draw fullscreen triangle to composite outline
@@ -179,7 +208,10 @@ public class OutlineFeature : ScriptableRendererFeature
         private class CompositePassData
         {
             public OutlineSettings settings;
+<<<<<<< HEAD
             public TextureHandle maskTexture;
+=======
+>>>>>>> bc3ca86f5c604b2a3ff6044e9b68b13353598e41
             public TextureHandle blurTexture;
         }
     }
@@ -203,4 +235,8 @@ public class OutlineFeature : ScriptableRendererFeature
             renderer.EnqueuePass(outlinePass);
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> bc3ca86f5c604b2a3ff6044e9b68b13353598e41

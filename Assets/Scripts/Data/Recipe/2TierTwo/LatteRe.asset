@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6bfd6f3950257d4e8655a34d55dea9c, type: 3}
+  m_Name: LatteRe
+  m_EditorClassIdentifier: 
+  _ingredientsInput:
+  - _ressource: {fileID: 11400000, guid: d43f76cedc6162c48ae109803a28b22f, type: 2}
+    _amount: 2
+  - _ressource: {fileID: 11400000, guid: e5dac6b26b8119f4484075b6ca7c1016, type: 2}
+    _amount: 1
+  _ingredientsOutput:
+  - _ressource: {fileID: 11400000, guid: 34d8cc98a05b154418fba2a8b34f550e, type: 2}
+    _amount: 1

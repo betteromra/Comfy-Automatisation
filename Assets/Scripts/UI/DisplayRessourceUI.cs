@@ -10,10 +10,12 @@ public class DisplayRessourceUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI _value;
     [SerializeField] Image[] _ingredientsImage;
     [SerializeField] TextMeshProUGUI _description;
+    [SerializeField] Color[] _quality;
 
     void Refresh()
     {
         _name.text = _ressource.actualName;
+        _name.color = _quality[(int)_ressource.quality];
         _weight.text = _ressource.weight + "";
         _value.text = _ressource.rawValue + ""; // to change to actual value in the future
 
@@ -35,7 +37,7 @@ public class DisplayRessourceUI : MonoBehaviour
 
                 // show all the ingredient for the ressource
                 ingredientImage.gameObject.SetActive(true);
-                ingredientImage.sprite = ingredient.ressource.sprite;
+                ingredientImage.sprite = ingredient.ressource.icon;
             }
             else
             {
@@ -45,6 +47,10 @@ public class DisplayRessourceUI : MonoBehaviour
                 ingredientImage.gameObject.SetActive(false);
             }
         }
+    }
+
+    void ShowRawRecipe()
+    {
     }
 
 

@@ -7,7 +7,5 @@ public class BuildingSO : ScriptableObject, Makeable
   public Sprite sprite { get => _sprite; }
   [SerializeField] RecipeSO _recipe; // what it take to make itself
   public RecipeSO recipe { get => _recipe; }
-  [SerializeField] RecipeSO[] _craftableRecipes; // the recipe the building can craft
-  public RecipeSO[] craftableRecipes { get => _craftableRecipes; }
 }
 

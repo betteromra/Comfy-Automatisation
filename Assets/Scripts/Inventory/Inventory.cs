@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] int _maxDifferentRessourceAmount = int.MaxValue;
     int _differentRessourceAmount = 0;
     // Maximum amount of the same ressource
-    [SerializeField] int _maxSameRessourceAmount = int.MaxValue;
+    [SerializeField] int _maxSameRessourceSpace = int.MaxValue;
     Dictionary<RessourceSO, int> _objectStored;
 
     #region Managing
@@ -36,9 +36,11 @@ public class Inventory : MonoBehaviour
             return;
         }
 
+
+
         if (_objectStored.ContainsKey(objectToAdd))
         {
-            if (_maxSameRessourceAmount <= _objectStored[objectToAdd] + amount)
+            if (_maxSameRessourceSpace <= (_objectStored[objectToAdd] + amount) * objectToAdd.spacePerUnit)
             {
                 _objectStored[objectToAdd] += amount;
             }
@@ -50,7 +52,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            if (_maxSameRessourceAmount <= amount)
+            if (_maxSameRessourceSpace <= amount * objectToAdd.spacePerUnit)
             {
                 _objectStored.Add(objectToAdd, amount);
             }

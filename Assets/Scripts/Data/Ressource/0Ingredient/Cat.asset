@@ -16,6 +16,7 @@ MonoBehaviour:
   _description: Miaow
   _sprite: {fileID: 0}
   _recipe: {fileID: 0}
+  _spacePerUnit: 4
   _weight: 10
   _rawValue: 30
   _quality: 1

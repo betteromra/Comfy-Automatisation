@@ -2,15 +2,9 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] protected BuildingSO _buildingSO;
+    [SerializeField] protected MeshRenderer _meshRenderer;
+    [SerializeField] protected BoxCollider _collider;
+    [SerializeField] protected InputNode[] _inputNode;
+    [SerializeField] protected OutputNode[] _outputNode;
 }

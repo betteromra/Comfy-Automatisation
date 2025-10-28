@@ -17,10 +17,14 @@ public class RessourceSO : ScriptableObject, Makeable
   }
   [SerializeField, TextArea] string _description;
   public string description { get => _description; }
+  [SerializeField] Sprite _icon;
+  public Sprite icon { get => _icon; }
   [SerializeField] Sprite _sprite;
   public Sprite sprite { get => _sprite; }
   [SerializeField] RecipeSO _recipe; // what it take to make itself
   public RecipeSO recipe { get => _recipe; }
+  [SerializeField] int _spacePerUnit = 1;
+  public int spacePerUnit { get => _spacePerUnit; }
   [SerializeField] int _weight;
   public int weight { get => _weight; }
   // the value of the item based on his raw ressource

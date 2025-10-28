@@ -1,45 +1,48 @@
 Shader "Hidden/OutlineComposite"
 {
-    Properties 
-    { 
+    Properties
+    {
         _MainTex ("Main Texture", 2D) = "white" {}
-        _BlurTex ("Blur Texture", 2D) = "white" {} 
-        _OutlineColor("Outline Color", Color) = (0,1,0,1) 
+        _BlurTex ("Blur Texture", 2D) = "white" {}
+        _MaskTex ("Mask Texture", 2D) = "white" {}
+        _OutlineColor("Outline Color", Color) = (0,1,0,1)
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" }
-        
+
         // Blend to overlay on top of scene
         Blend SrcAlpha OneMinusSrcAlpha
         ZWrite Off
         ZTest Always
         Cull Off
-        
+
         Pass
         {
             Name "Outline Composite"
-            
+
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-            struct Attributes 
-            { 
+            struct Attributes
+            {
                 uint vertexID : SV_VertexID;
             };
-            
-            struct Varyings 
-            { 
-                float4 positionHCS : SV_POSITION; 
-                float2 uv : TEXCOORD0; 
+
+            struct Varyings
+            {
+                float4 positionHCS : SV_POSITION;
+                float2 uv : TEXCOORD0;
             };
 
-            TEXTURE2D(_MainTex); 
+            TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
-            TEXTURE2D(_BlurTex); 
+            TEXTURE2D(_BlurTex);
             SAMPLER(sampler_BlurTex);
+            TEXTURE2D(_MaskTex);
+            SAMPLER(sampler_MaskTex);
             float4 _OutlineColor;
 
             Varyings vert(Attributes IN)
@@ -53,15 +56,20 @@ Shader "Hidden/OutlineComposite"
 
             half4 frag(Varyings IN) : SV_Target
             {
-                // Sample the blurred mask - use RED channel since mask outputs white (1,1,1,1)
-                half4 blur = SAMPLE_TEXTURE2D(_BlurTex, sampler_BlurTex, IN.uv);
-                
-                // Use the blur's red channel as mask intensity
-                half outlineMask = blur.r;
-                
-                // Return outline color with alpha based on mask
+                // Traditional outline shader approach:
+                // 1. Sample the original mask (white where objects are)
+                half originalMask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, IN.uv).r;
+
+                // 2. Sample the blurred mask (expanded white area)
+                half blurredMask = SAMPLE_TEXTURE2D(_BlurTex, sampler_BlurTex, IN.uv).r;
+
+                // 3. Multiply blurred mask by inverse of original mask
+                // This gives us ONLY the outline (expanded area - original shape)
+                half outlineOnly = blurredMask * (1.0 - originalMask);
+
+                // 4. Return outline color with alpha based on outline intensity
                 // The blend mode will composite this over the scene
-                return half4(_OutlineColor.rgb, outlineMask * _OutlineColor.a);
+                return half4(_OutlineColor.rgb, outlineOnly * _OutlineColor.a);
             }
             ENDHLSL
         }

@@ -103,8 +103,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   _moveSmoothing: 10
   _keyboardMoveSpeedAdjustement: 3
-  _maxCameraXpos: {x: -100, y: 100}
-  _maxCameraZpos: {x: -100, y: 100}
+  _maxCameraDistance: 140
   _zoomSpeed: 15
   _zoomSmoothing: 10
   _zoomSpeedZoomCurve:

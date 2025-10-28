@@ -8,7 +8,8 @@ public class DisplayRessourceUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI _name;
     [SerializeField] TextMeshProUGUI _weight;
     [SerializeField] TextMeshProUGUI _value;
-    [SerializeField] Image[] _ingredientsImage;
+    [SerializeField] GameObject _recipeContainer;
+    [SerializeField] IngredientUI[] _ingredientsUI;
     [SerializeField] TextMeshProUGUI _description;
     [SerializeField] Color[] _quality;
 
@@ -26,25 +27,36 @@ public class DisplayRessourceUI : MonoBehaviour
 
     void ShowRecipe()
     {
-        for (int i = 0; i < _ingredientsImage.Length; i++)
+        _recipeContainer.SetActive(_ressource.recipe != null);
+        if (!_recipeContainer.activeSelf) return;
+
+        for (int i = 0; i < _ingredientsUI.Length; i++)
         {
-            Image ingredientImage = _ingredientsImage[i];
+            IngredientUI ingredientUI = _ingredientsUI[i];
 
             // if we still have some ressource to show
-            if (_ressource.recipe != null && i < _ressource.recipe.ingredientsInput.Length)
+            if (i < _ressource.recipe.ingredientsInput.Length)
             {
                 Ingredient ingredient = _ressource.recipe.ingredientsInput[i];
 
                 // show all the ingredient for the ressource
-                ingredientImage.gameObject.SetActive(true);
-                ingredientImage.sprite = ingredient.ressource.icon;
+                ingredientUI.gameObject.SetActive(true);
+                ingredientUI.image.sprite = ingredient.ressource.icon;
+                if (ingredient.amount == 1)
+                {
+                    ingredientUI.amount.text = "";
+                }
+                else
+                {
+                    ingredientUI.amount.text = ingredient.amount + "";
+                }
             }
             else
             {
                 // when we found one that was unactive, we know that the other are
                 // also inactive
-                if (!ingredientImage.gameObject.activeSelf) break;
-                ingredientImage.gameObject.SetActive(false);
+                if (!ingredientUI.gameObject.activeSelf) break;
+                ingredientUI.gameObject.SetActive(false);
             }
         }
     }

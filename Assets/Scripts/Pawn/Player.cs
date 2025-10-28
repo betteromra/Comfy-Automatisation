@@ -1,5 +1,6 @@
 using System;
 using Unity.Cinemachine;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,8 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] AnimationCurve _moveSpeedZoomCurve = AnimationCurve.Linear(0, 0.5f, 1f, 1f);
     [SerializeField] float _moveSmoothing;
     [SerializeField] float _keyboardMoveSpeedAdjustement;
-    [SerializeField] Vector2 _maxCameraXpos;
-    [SerializeField] Vector2 _maxCameraZpos;
+    [SerializeField] float _maxCameraDistance;
     Vector3 _targetCameraTargetPosition = Vector2.zero;
     Vector2 _mouseMoveInput = Vector2.zero;
     Vector2 _keyboardMoveInput = Vector2.zero;
@@ -97,10 +97,10 @@ public class Player : MonoBehaviour
         ZoomCamera(_zoomInput);
     }
 
-    void MoveCamera(Vector2 mouvement2Delta)
+    void MoveCamera(Vector2 mouvement2dDelta)
     {
-        Vector3 movement3 = new Vector3(mouvement2Delta.x * _moveSpeed.x, 0, mouvement2Delta.y * _moveSpeed.y);
-        Vector3 motion = movement3 * Time.unscaledDeltaTime;
+        Vector3 movement3d = new Vector3(mouvement2dDelta.x * _moveSpeed.x, 0, mouvement2dDelta.y * _moveSpeed.y);
+        Vector3 motion = movement3d * Time.unscaledDeltaTime;
 
         // The more zoomed you are the less move you will do
         float zoomMultiplier = _moveSpeedZoomCurve.Evaluate(_zoomLevel);
@@ -110,9 +110,28 @@ public class Player : MonoBehaviour
         if (Vector3.Distance(_targetCameraTargetPosition, _cameraTarget.position) < 0.01f) return;
 
         // Clamping the position so the camera can't go ouside of the game bound
-        Vector3 clampedPos = Vector3.zero;
-        clampedPos.x = Math.Clamp(_targetCameraTargetPosition.x, _maxCameraXpos.x, _maxCameraXpos.y);
-        clampedPos.z = Math.Clamp(_targetCameraTargetPosition.z, _maxCameraZpos.x, _maxCameraZpos.y);
+        Vector3 clampedPos = _targetCameraTargetPosition;
+
+        Vector2 clampedPos2d = new Vector2(Math.Abs(clampedPos.x), Math.Abs(clampedPos.z));
+        float manhattanDifference = clampedPos2d.x + clampedPos2d.y - _maxCameraDistance;
+
+        // we outside of the bound
+        if (manhattanDifference > 0f)
+        {
+            // remove overflow from the larger axis
+            if (clampedPos2d.x > clampedPos2d.y)
+            {
+                clampedPos2d.x -= manhattanDifference;
+            }
+            else
+            {
+                clampedPos2d.y -= manhattanDifference;
+            }
+
+            // put back the right sign
+            clampedPos.x = Mathf.Sign(clampedPos.x) * clampedPos2d.x;
+            clampedPos.z = Mathf.Sign(clampedPos.z) * clampedPos2d.y;
+        }
 
         _targetCameraTargetPosition = clampedPos;
 

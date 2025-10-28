@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "name": "Player Input",
+    "name": "PlayerInput",
     "maps": [
         {
             "name": "Camera",

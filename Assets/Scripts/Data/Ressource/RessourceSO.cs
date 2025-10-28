@@ -6,13 +6,13 @@ public class RessourceSO : ScriptableObject, Makeable
 {
   // Name to be fetched when needing the name used to display
   // in game, else use name
-  [SerializeField] string _inGameName;
-  public string inGameName
+  [SerializeField] string _actualName;
+  public string actualName
   {
     get
     {
-      if (_inGameName == "") return name;
-      else return _inGameName;
+      if (_actualName == "") return name;
+      else return _actualName;
     }
   }
   [SerializeField, TextArea] string _description;

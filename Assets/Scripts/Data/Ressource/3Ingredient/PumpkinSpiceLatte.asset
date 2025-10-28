@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
   m_Name: PumpkinSpiceLatte
   m_EditorClassIdentifier: 
-  _inGameName: Pumpkin spice latte
-  _description: 
+  _actualName: Pumpkin spice latte
+  _description: SO GOOD
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: 0bdd30a92a90d55479ba173d05d78b50, type: 2}
-  _weight: 0
+  _weight: 8
   _rawValue: 0
   _quality: 3

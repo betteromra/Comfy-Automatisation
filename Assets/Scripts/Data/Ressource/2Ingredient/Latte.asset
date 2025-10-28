@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
   m_Name: Latte
   m_EditorClassIdentifier: 
-  _inGameName: 
+  _actualName: 
   _description: 
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: 8874be211ec14304695fa5db2a0baaba, type: 2}
-  _weight: 0
+  _weight: 3
   _rawValue: 0
   _quality: 2

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
   m_Name: HoneyPot
   m_EditorClassIdentifier: 
-  _inGameName: Honey pot
+  _actualName: Honey pot
   _description: 
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: cf70f13eb6621db43980ba60677dabe3, type: 2}
-  _weight: 0
+  _weight: 4
   _rawValue: 0
   _quality: 1

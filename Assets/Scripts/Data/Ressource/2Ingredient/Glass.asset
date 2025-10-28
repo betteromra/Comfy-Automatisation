@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
   m_Name: Glass
   m_EditorClassIdentifier: 
-  _inGameName: 
+  _actualName: 
   _description: 
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: da1961e13819f6748a32defc4509aaa3, type: 2}
-  _weight: 0
+  _weight: 5
   _rawValue: 0
   _quality: 1

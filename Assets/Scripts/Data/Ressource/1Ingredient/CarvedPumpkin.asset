@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
   m_Name: CarvedPumpkin
   m_EditorClassIdentifier: 
-  _inGameName: Carved pumpkin
+  _actualName: Carved pumpkin
   _description: 
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: 09447cb155b4b1049b32e4870ef2dd30, type: 2}
-  _weight: 0
+  _weight: 10
   _rawValue: 0
   _quality: 1

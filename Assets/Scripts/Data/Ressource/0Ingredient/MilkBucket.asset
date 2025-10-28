@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
   m_Name: MilkBucket
   m_EditorClassIdentifier: 
-  _inGameName: Milk bucket
+  _actualName: Milk bucket
   _description: 
   _sprite: {fileID: 0}
   _recipe: {fileID: 0}
-  _weight: 0
+  _weight: 5
   _rawValue: 5
   _quality: 0

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
   m_Name: ApplePie
   m_EditorClassIdentifier: 
-  _inGameName: Apple pie
-  _description: 
+  _actualName: Apple pie
+  _description: MHHHHH
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: f93411b9760441541a3f8c2079ae7be7, type: 2}
-  _weight: 0
+  _weight: 10
   _rawValue: 0
   _quality: 2

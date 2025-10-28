@@ -32,7 +32,7 @@ public class Inventory : MonoBehaviour
         if (WeightLeft() < weightToAdd || DifferentRessourceSpaceLeft() <= 0)
         {
             // too heavy or not enough space
-            Debug.LogError("Failed to add item : " + objectToAdd.inGameName);
+            Debug.LogError("Failed to add item : " + objectToAdd.actualName);
             return;
         }
 
@@ -44,7 +44,7 @@ public class Inventory : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Failed to add item : " + objectToAdd.inGameName);
+                Debug.LogError("Failed to add item : " + objectToAdd.actualName);
                 return;
             }
         }
@@ -56,7 +56,7 @@ public class Inventory : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Failed to add item : " + objectToAdd.inGameName);
+                Debug.LogError("Failed to add item : " + objectToAdd.actualName);
                 return;
             }
         }
@@ -86,7 +86,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Could not remove item : " + objectToAdd.inGameName + " since not present");
+            Debug.LogError("Could not remove item : " + objectToAdd.actualName + " since not present");
         }
     }
 

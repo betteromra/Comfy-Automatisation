@@ -7,4 +7,5 @@ public class Building : MonoBehaviour
     [SerializeField] protected BoxCollider _collider;
     [SerializeField] protected InputNode[] _inputNode;
     [SerializeField] protected OutputNode[] _outputNode;
+    [SerializeField] protected IngredientUI _ingredientUI;
 }

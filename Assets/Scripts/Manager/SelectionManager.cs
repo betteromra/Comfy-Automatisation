@@ -29,18 +29,44 @@ public class SelectionManager : MonoBehaviour
         {
             HandleSelection();
         }
+
+        // Clear selection with Escape key
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ClearSelection();
+        }
     }
 
     private void HandleSelection()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        bool isMultiSelect = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
+                             Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, selectableLayers))
         {
-            ToggleSelection(hit.collider.gameObject);
+            // Check if the hit object has a SelectableObjects component
+            SelectableObjects selectable = hit.collider.GetComponent<SelectableObjects>();
+            if (selectable != null)
+            {
+                if (isMultiSelect)
+                {
+                    ToggleSelection(hit.collider.gameObject);
+                }
+                else
+                {
+                    // Single selection mode - clear others first
+                    if (!IsSelected(hit.collider.gameObject))
+                    {
+                        ClearSelection();
+                        SelectObject(hit.collider.gameObject);
+                    }
+                }
+            }
         }
-        else
+        else if (!isMultiSelect)
         {
+            // Only clear if not holding multi-select key
             ClearSelection();
         }
     }

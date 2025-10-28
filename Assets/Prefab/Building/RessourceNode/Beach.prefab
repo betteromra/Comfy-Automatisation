@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4904889566687348917, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: _buildingSO
+      value: 
+      objectReference: {fileID: 11400000, guid: b03c656497c6f4345b0c99221b29afab, type: 2}
     - target: {fileID: 9116543687190976274, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
       propertyPath: m_Name
       value: Beach

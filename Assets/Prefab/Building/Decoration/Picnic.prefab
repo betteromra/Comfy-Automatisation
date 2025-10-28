@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f93c44415eb0f947b0b7dd8a8e03001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buildingSO: {fileID: 11400000, guid: b39791f9fbb40094587be014ddacdb2b, type: 2}
   _meshRenderer: {fileID: 7161466996725996720}
   _collider: {fileID: 3393860856158166324}
   _inputNode: []

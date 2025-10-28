@@ -48,9 +48,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4904889566687348917, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: _buildingSO
+      value: 
+      objectReference: {fileID: 11400000, guid: d21e042012214b043ab5f5abd30a1261, type: 2}
     - target: {fileID: 9116543687190976274, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
       propertyPath: m_Name
-      value: RessourceNode Variant
+      value: BeeTree
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

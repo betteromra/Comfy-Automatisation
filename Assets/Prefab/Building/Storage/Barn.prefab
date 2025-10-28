@@ -970,7 +970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24368d6a284b5a4594a7f1aaa37788e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingSO: {fileID: 0}
+  _buildingSO: {fileID: 11400000, guid: ae5c639c6fb50f74381ba5d9a990ef21, type: 2}
   _meshRenderer: {fileID: 6687192355819728386}
   _collider: {fileID: 1204255751379873670}
   _inputNode:

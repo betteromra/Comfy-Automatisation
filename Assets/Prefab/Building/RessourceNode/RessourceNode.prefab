@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb58b7211a48da4f91b051fc4f23f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buildingSO: {fileID: 0}
   _meshRenderer: {fileID: 3306921047813897061}
   _collider: {fileID: 7034417085880335073}
   _inputNode: []

@@ -215,11 +215,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8354404690157544027, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       propertyPath: m_Size.x
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8354404690157544027, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       propertyPath: m_Size.z
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8647172215632486482, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       propertyPath: m_Layer
@@ -230,6 +230,7 @@ PrefabInstance:
     - {fileID: 5877887536573833333, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
     - {fileID: 4643745906111332030, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
     - {fileID: 3204912226878464141, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
+    - {fileID: 7145752754423665484, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 720745037061991840, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       insertIndex: -1
@@ -261,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f93c44415eb0f947b0b7dd8a8e03001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingSO: {fileID: 11400000, guid: b39791f9fbb40094587be014ddacdb2b, type: 2}
+  _buildingSO: {fileID: 11400000, guid: df1a7902adfacb9458cce999d1c5794f, type: 2}
   _meshRenderer: {fileID: 7161466996725996720}
   _collider: {fileID: 3393860856158166324}
   _inputNode: []
@@ -269,6 +270,7 @@ MonoBehaviour:
   _ingredientToDisplay:
     _ressource: {fileID: 0}
     _amount: 1
+  _buildingUI: {fileID: 0}
   _ingredientToDisplayUI: {fileID: 0}
 --- !u!4 &6262604308709053135 stripped
 Transform:

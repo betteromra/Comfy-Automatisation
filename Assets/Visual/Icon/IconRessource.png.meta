@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rough_item_sprites_0
+      name: IconRessource_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1283
-        width: 253
-        height: 253
+        x: 4
+        y: 1324
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,20 +112,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38568d05875ca9e4083d857f397f3268
-      internalID: 859763108
+      spriteID: 774c2b555e495b249a8cc1baf7c7aa89
+      internalID: -697606196
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_1
+      name: IconRessource_1
       rect:
         serializedVersion: 2
-        x: 256
-        y: 1283
-        width: 253
-        height: 253
+        x: 270
+        y: 1324
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 815587a765f02e3409da1f3ef8f5a600
-      internalID: -1289986879
+      spriteID: fffaa6db84246484cb888af0a82f5a2e
+      internalID: 695677933
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_2
+      name: IconRessource_2
       rect:
         serializedVersion: 2
-        x: 512
-        y: 1283
-        width: 253
-        height: 253
+        x: 536
+        y: 1324
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,20 +156,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab611b7de4062d64593d186c08668788
-      internalID: 1582726085
+      spriteID: 3ff925001c8b7d5459a169004d8b22a2
+      internalID: -328260005
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_3
+      name: IconRessource_3
       rect:
         serializedVersion: 2
-        x: 768
-        y: 1283
-        width: 253
-        height: 253
+        x: 802
+        y: 1324
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,20 +178,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a39bf6e4752fb844494f3a53936830c5
-      internalID: 1353621064
+      spriteID: 366a3b7ad6f873e4a8ba63654a557cde
+      internalID: -743861268
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_4
+      name: IconRessource_4
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 1283
-        width: 253
-        height: 253
+        x: 1068
+        y: 1324
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +200,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bf61e2a29c203347bd635363177a012
-      internalID: 1423623703
+      spriteID: 5c1eccc0101d16e4babaccdb75c8b8b2
+      internalID: 895463672
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_5
+      name: IconRessource_5
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 1283
-        width: 253
-        height: 253
+        x: 1334
+        y: 1324
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,20 +222,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 398e11b91f5b7be48a422cbc571fae54
-      internalID: -1474927909
+      spriteID: 673a1b6a5fde5354d8534d2c8e756ca0
+      internalID: 1762089586
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_6
+      name: IconRessource_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1027
-        width: 253
-        height: 253
+        x: 4
+        y: 1058
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,20 +244,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47c43d2539005af45ae44fd10fbee089
-      internalID: -229469274
+      spriteID: aeb72e05a4575f64396c3e4f641d5aac
+      internalID: -1554909543
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_7
+      name: IconRessource_7
       rect:
         serializedVersion: 2
-        x: 256
-        y: 1027
-        width: 253
-        height: 253
+        x: 270
+        y: 1058
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,20 +266,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 87102d69a67e8644d86ca61b981d0862
-      internalID: -2022679150
+      spriteID: 7e57df53a5538cd4c93b77312d0022e3
+      internalID: -1400554385
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_8
+      name: IconRessource_8
       rect:
         serializedVersion: 2
-        x: 512
-        y: 1027
-        width: 253
-        height: 253
+        x: 536
+        y: 1058
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,20 +288,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c967a85e40e82c4fb8f74be2aa1ac2f
-      internalID: 786880721
+      spriteID: e623974138b0e6e4ab41840eb90db741
+      internalID: -404419276
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_9
+      name: IconRessource_9
       rect:
         serializedVersion: 2
-        x: 768
-        y: 1027
-        width: 253
-        height: 253
+        x: 802
+        y: 1058
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -310,20 +310,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e00dfd61f7d51c49b4d16ab512b92ed
-      internalID: -1353208420
+      spriteID: 1c275d9e9eb326e45b392e5d1bdd0efb
+      internalID: 1822509660
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_10
+      name: IconRessource_10
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 1027
-        width: 253
-        height: 253
+        x: 1068
+        y: 1058
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -332,20 +332,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cfc967e840049be46ba627ae7f284260
-      internalID: -6810127
+      spriteID: 1edbaf56cfacc1a409e875ab2538a8ec
+      internalID: 1173628859
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_11
+      name: IconRessource_11
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 1027
-        width: 253
-        height: 253
+        x: 1334
+        y: 1058
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -354,20 +354,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3774100b7242b784890a8222541070a0
-      internalID: 1775401293
+      spriteID: 38ae6edc0a559ee4fa90b621178b1e12
+      internalID: 55173653
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_12
+      name: IconRessource_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 771
-        width: 253
-        height: 253
+        x: 4
+        y: 792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,20 +376,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de791eb654e445245b2afbafd9a6d810
-      internalID: -1307784760
+      spriteID: f2618ca349c1ddd4499205dd09f42645
+      internalID: 686086275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_13
+      name: IconRessource_13
       rect:
         serializedVersion: 2
-        x: 256
-        y: 771
-        width: 253
-        height: 253
+        x: 270
+        y: 792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -398,20 +398,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4343f475fef7a174e9f7d407c3d03663
-      internalID: -220029663
+      spriteID: 9f6ed3d3155f08141bf138236fec3230
+      internalID: 1167260711
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_14
+      name: IconRessource_14
       rect:
         serializedVersion: 2
-        x: 512
-        y: 771
-        width: 253
-        height: 253
+        x: 536
+        y: 792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -420,20 +420,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae5ae303d4697964c9fbe789f49c7fbc
-      internalID: -236396740
+      spriteID: 56617ac95aae3f141b060fcc6f6b790e
+      internalID: -953779529
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_15
+      name: IconRessource_15
       rect:
         serializedVersion: 2
-        x: 768
-        y: 771
-        width: 253
-        height: 253
+        x: 802
+        y: 792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -442,20 +442,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 656ea63dca5f77a419991ab281078c01
-      internalID: 1034276743
+      spriteID: f58d76a83748aa24f92e6345059d7289
+      internalID: -414046493
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_16
+      name: IconRessource_16
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 771
-        width: 253
-        height: 253
+        x: 1068
+        y: 792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -464,20 +464,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0bd176d3ebe9048409e300d8c2a09343
-      internalID: 1063132418
+      spriteID: 025f3e4ed996f1c429288b9d8119d270
+      internalID: 40723735
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_17
+      name: IconRessource_17
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 771
-        width: 253
-        height: 253
+        x: 1334
+        y: 792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -486,20 +486,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c88ca832be3db28439a5f0b7d0bce939
-      internalID: -213415499
+      spriteID: a5970c037b5785f45a72a26747530740
+      internalID: -1748034176
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_18
+      name: IconRessource_18
       rect:
         serializedVersion: 2
-        x: 0
-        y: 515
-        width: 253
-        height: 253
+        x: 4
+        y: 526
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -508,20 +508,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: feadb7f540418a1498a0e3ad96714824
-      internalID: -947830877
+      spriteID: 89c5ba32313c2cb4788ebe61fa85d668
+      internalID: 733592871
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_19
+      name: IconRessource_19
       rect:
         serializedVersion: 2
-        x: 256
-        y: 515
-        width: 253
-        height: 253
+        x: 270
+        y: 526
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -530,20 +530,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0273c12ffaf5dda43b3f6718111bd63b
-      internalID: 800853025
+      spriteID: dc206811838b0654c90f04f6d9f7bca3
+      internalID: -1518990192
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_20
+      name: IconRessource_20
       rect:
         serializedVersion: 2
-        x: 512
-        y: 515
-        width: 253
-        height: 253
+        x: 536
+        y: 526
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -552,20 +552,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efd616a1f1b9b4841b3934f74c6f1925
-      internalID: -1486123200
+      spriteID: 3eaa2ef8601db1243b6e7d4efdd3b2da
+      internalID: -364143623
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_21
+      name: IconRessource_21
       rect:
         serializedVersion: 2
-        x: 768
-        y: 515
-        width: 253
-        height: 253
+        x: 802
+        y: 526
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -574,20 +574,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c68aebc4c5f2d54a8d35c8f3a6fa805
-      internalID: 1404658536
+      spriteID: 7b6013b19b32318458e28bea1337363d
+      internalID: 2062636466
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_22
+      name: IconRessource_22
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 515
-        width: 253
-        height: 253
+        x: 1068
+        y: 526
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -596,20 +596,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7dd3b04e4c7a80a4798f8a367680a95f
-      internalID: -534624765
+      spriteID: 596f47a6f5c0f404784f871756c5202c
+      internalID: -1574844328
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_23
+      name: IconRessource_23
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 515
-        width: 253
-        height: 253
+        x: 1334
+        y: 526
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -618,20 +618,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7383d800ae4e21b4596f743cf095df12
-      internalID: 1389664215
+      spriteID: 8e2588a5c34dbb8458511022b9bd0a63
+      internalID: -1287313034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_24
+      name: IconRessource_24
       rect:
         serializedVersion: 2
-        x: 0
-        y: 259
-        width: 253
-        height: 253
+        x: 4
+        y: 260
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -640,20 +640,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 660120c1b9ed5e744a45e5b0cef8d28e
-      internalID: -1991687299
+      spriteID: c85745366dff20149a2b3377e7200f9b
+      internalID: 701752849
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_25
+      name: IconRessource_25
       rect:
         serializedVersion: 2
-        x: 256
-        y: 259
-        width: 253
-        height: 253
+        x: 270
+        y: 260
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -662,20 +662,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71f5052c79e271f4a966ae8a70127e32
-      internalID: 1917017753
+      spriteID: 1368257b76fb7454f83ac90e62e824ef
+      internalID: -1180332769
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_26
+      name: IconRessource_26
       rect:
         serializedVersion: 2
-        x: 512
-        y: 259
-        width: 253
-        height: 253
+        x: 536
+        y: 260
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -684,20 +684,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df148a440c8671a46a6d9a0b5716cd1f
-      internalID: 597299570
+      spriteID: b3cf364c63280354082a50188a0596d5
+      internalID: -1395320807
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_27
+      name: IconRessource_27
       rect:
         serializedVersion: 2
-        x: 768
-        y: 259
-        width: 253
-        height: 253
+        x: 802
+        y: 260
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -706,20 +706,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c235777aef3344a45beb5aafe71b8e43
-      internalID: -1533657251
+      spriteID: f39df3c759e4f0c43a9c713ddeb7b358
+      internalID: 1441267076
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_28
+      name: IconRessource_28
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 259
-        width: 253
-        height: 253
+        x: 1068
+        y: 260
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -728,20 +728,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de1d86e4791046642abbede05ac62e05
-      internalID: 1283907441
+      spriteID: acfca300348cf73409808ba5dc985a7c
+      internalID: 2101591092
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rough_item_sprites_29
+      name: IconRessource_29
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 259
-        width: 253
-        height: 253
+        x: 1334
+        y: 260
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -750,118 +750,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3125c7efdd818fe48afca6ec6e02c14c
-      internalID: 1965555812
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rough_item_sprites_30
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 3
-        width: 253
-        height: 253
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c567f24ac127d9a46a96ea28a2022e9b
-      internalID: -1792788364
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rough_item_sprites_31
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 3
-        width: 253
-        height: 253
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a6a7af10731ff0041a4f69fe410e19ba
-      internalID: 612618148
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rough_item_sprites_32
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 3
-        width: 253
-        height: 253
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9fa67cb1564c4ce4992c632f3e67a1e8
-      internalID: 1906764646
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rough_item_sprites_33
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 3
-        width: 253
-        height: 253
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bb8611410e48dd84083063f76d0b8396
-      internalID: -921901791
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rough_item_sprites_34
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 3
-        width: 253
-        height: 253
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 49cd78533a4716b4aaa5a3d1ee1074c7
-      internalID: -591945997
+      spriteID: 42be2c11e3079894b844890047486817
+      internalID: -742540639
       vertices: []
       indices: 
       edges: []
@@ -870,7 +760,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2d79c085aabc89b4391af515353a65fc
+    spriteID: 5ac7a6b0d4cbba144b2fe20126302c7b
     internalID: 0
     vertices: []
     indices: 
@@ -880,41 +770,36 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      rough_item_sprites_0: 859763108
-      rough_item_sprites_1: -1289986879
-      rough_item_sprites_10: -6810127
-      rough_item_sprites_11: 1775401293
-      rough_item_sprites_12: -1307784760
-      rough_item_sprites_13: -220029663
-      rough_item_sprites_14: -236396740
-      rough_item_sprites_15: 1034276743
-      rough_item_sprites_16: 1063132418
-      rough_item_sprites_17: -213415499
-      rough_item_sprites_18: -947830877
-      rough_item_sprites_19: 800853025
-      rough_item_sprites_2: 1582726085
-      rough_item_sprites_20: -1486123200
-      rough_item_sprites_21: 1404658536
-      rough_item_sprites_22: -534624765
-      rough_item_sprites_23: 1389664215
-      rough_item_sprites_24: -1991687299
-      rough_item_sprites_25: 1917017753
-      rough_item_sprites_26: 597299570
-      rough_item_sprites_27: -1533657251
-      rough_item_sprites_28: 1283907441
-      rough_item_sprites_29: 1965555812
-      rough_item_sprites_3: 1353621064
-      rough_item_sprites_30: -1792788364
-      rough_item_sprites_31: 612618148
-      rough_item_sprites_32: 1906764646
-      rough_item_sprites_33: -921901791
-      rough_item_sprites_34: -591945997
-      rough_item_sprites_4: 1423623703
-      rough_item_sprites_5: -1474927909
-      rough_item_sprites_6: -229469274
-      rough_item_sprites_7: -2022679150
-      rough_item_sprites_8: 786880721
-      rough_item_sprites_9: -1353208420
+      IconRessource_0: -697606196
+      IconRessource_1: 695677933
+      IconRessource_10: 1173628859
+      IconRessource_11: 55173653
+      IconRessource_12: 686086275
+      IconRessource_13: 1167260711
+      IconRessource_14: -953779529
+      IconRessource_15: -414046493
+      IconRessource_16: 40723735
+      IconRessource_17: -1748034176
+      IconRessource_18: 733592871
+      IconRessource_19: -1518990192
+      IconRessource_2: -328260005
+      IconRessource_20: -364143623
+      IconRessource_21: 2062636466
+      IconRessource_22: -1574844328
+      IconRessource_23: -1287313034
+      IconRessource_24: 701752849
+      IconRessource_25: -1180332769
+      IconRessource_26: -1395320807
+      IconRessource_27: 1441267076
+      IconRessource_28: 2101591092
+      IconRessource_29: -742540639
+      IconRessource_3: -743861268
+      IconRessource_4: 895463672
+      IconRessource_5: 1762089586
+      IconRessource_6: -1554909543
+      IconRessource_7: -1400554385
+      IconRessource_8: -404419276
+      IconRessource_9: 1822509660
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

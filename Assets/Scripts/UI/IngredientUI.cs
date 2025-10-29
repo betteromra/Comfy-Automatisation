@@ -24,6 +24,6 @@ public class IngredientUI : MonoBehaviour
         {
             _containerAmount.SetActive(false);
         }
-        _image.gameObject.SetActive(hasRessource);
+        gameObject.SetActive(hasRessource);
     }
 }

@@ -110,9 +110,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _toolBarUI: {fileID: 5606872181244391379}
   _buildingsSO:
+  - {fileID: 11400000, guid: 946b23ea8bbc2364f838189fa699ae8a, type: 2}
   - {fileID: 11400000, guid: 49a952095b847364ab87f025166e6d1a, type: 2}
   - {fileID: 11400000, guid: 8ca2867b8e4394a418cc078375a77414, type: 2}
-  - {fileID: 11400000, guid: 946b23ea8bbc2364f838189fa699ae8a, type: 2}
   - {fileID: 11400000, guid: c5331a8bf9f78f848ba599640ad8636d, type: 2}
   - {fileID: 11400000, guid: b39791f9fbb40094587be014ddacdb2b, type: 2}
   - {fileID: 11400000, guid: df1a7902adfacb9458cce999d1c5794f, type: 2}

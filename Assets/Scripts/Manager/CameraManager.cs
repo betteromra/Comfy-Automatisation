@@ -30,7 +30,7 @@ public class CameraManager : MonoBehaviour
 
     private void Awake()
     {
-        _mainCameraOrbit = _mainCamera.GetComponent<CinemachineOrbitalFollow>();
+        _mainCameraOrbit = _mainCinemachineCamera.GetComponent<CinemachineOrbitalFollow>();
         RefreshZoomLevel(_mainCameraOrbit.RadialAxis);
         _targetOrbitRadialAxis = _mainCameraOrbit.RadialAxis.Value;
         _player = GameManager.instance.player;
@@ -62,7 +62,7 @@ public class CameraManager : MonoBehaviour
     void MoveCamera(Vector2 mouvement2dDelta)
     {
         Vector3 movement3d = new Vector3(mouvement2dDelta.x * _moveSpeed.x, 0, mouvement2dDelta.y * _moveSpeed.y);
-        Vector3 motion = movement3d * Time.unscaledDeltaTime;
+        Vector3 motion = movement3d * Time.deltaTime;
 
         // The more zoomed you are the less move you will do
         float zoomMultiplier = _moveSpeedZoomCurve.Evaluate(_zoomLevel);
@@ -99,15 +99,15 @@ public class CameraManager : MonoBehaviour
 
         // Smoothing the movement so it feels more floaty
         Vector3 smoothMotion = Vector3.zero;
-        smoothMotion.x = Mathf.Lerp(_cameraTarget.position.x, _targetCameraTargetPosition.x, Time.unscaledDeltaTime * _moveSmoothing);
-        smoothMotion.z = Mathf.Lerp(_cameraTarget.position.z, _targetCameraTargetPosition.z, Time.unscaledDeltaTime * _moveSmoothing);
+        smoothMotion.x = Mathf.Lerp(_cameraTarget.position.x, _targetCameraTargetPosition.x, Time.deltaTime * _moveSmoothing);
+        smoothMotion.z = Mathf.Lerp(_cameraTarget.position.z, _targetCameraTargetPosition.z, Time.deltaTime * _moveSmoothing);
 
         _cameraTarget.position = smoothMotion;
     }
 
     void ZoomCamera(float zoomDelta)
     {
-        float motion = zoomDelta * _zoomSpeed * Time.unscaledDeltaTime;
+        float motion = zoomDelta * _zoomSpeed * Time.deltaTime;
         InputAxis radialAxis = _mainCameraOrbit.RadialAxis;
 
         // The more zoomed you are the more it zoom fast
@@ -123,7 +123,7 @@ public class CameraManager : MonoBehaviour
         _targetOrbitRadialAxis = Mathf.Clamp(_targetOrbitRadialAxis, radialAxis.Range.x, radialAxis.Range.y);
 
         // smoothing the zoom so it feels less clancky with the wheel scroll dent
-        float smoothMotion = Mathf.Lerp(radialAxis.Value, _targetOrbitRadialAxis, Time.unscaledDeltaTime * _zoomSmoothing);
+        float smoothMotion = Mathf.Lerp(radialAxis.Value, _targetOrbitRadialAxis, Time.deltaTime * _zoomSmoothing);
 
         _mainCameraOrbit.RadialAxis.Value = smoothMotion;
     }

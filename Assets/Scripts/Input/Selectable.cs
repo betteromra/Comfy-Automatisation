@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
 public class Selectable : MonoBehaviour
 {
     [Header("Visual Feedback")]
@@ -30,7 +29,7 @@ public class Selectable : MonoBehaviour
     {
         renderers = GetComponentsInChildren<Renderer>();
         propertyBlock = new MaterialPropertyBlock();
-        playerController = FindAnyObjectByType<Player>();
+        playerController = GameManager.instance.player;
 
         if (useColorTint)
         {
@@ -49,21 +48,12 @@ public class Selectable : MonoBehaviour
 
     private void OnEnable()
     {
-        if (playerController == null)
-            playerController = FindAnyObjectByType<Player>();
-            
-        if (playerController != null)
-        {
-            playerController.OnSelectionChanged += OnSelectionChanged;
-        }
+        playerController.OnSelectionChanged += OnSelectionChanged;
     }
 
     private void OnDisable()
     {
-        if (playerController != null)
-        {
-            playerController.OnSelectionChanged -= OnSelectionChanged;
-        }
+        playerController.OnSelectionChanged -= OnSelectionChanged;
     }
 
     private void OnSelectionChanged(System.Collections.Generic.HashSet<Renderer> selectedRenderers)
@@ -167,10 +157,10 @@ public class Selectable : MonoBehaviour
     {
         if (playerController == null)
             playerController = FindAnyObjectByType<Player>();
-            
+
         if (playerController != null)
         {
-            playerController.SelectObject(gameObject);
+            playerController.SelectObject(this);
         }
     }
 
@@ -178,10 +168,10 @@ public class Selectable : MonoBehaviour
     {
         if (playerController == null)
             playerController = FindAnyObjectByType<Player>();
-            
+
         if (playerController != null)
         {
-            playerController.DeselectObject(gameObject);
+            playerController.DeselectObject(this);
         }
     }
 
@@ -190,7 +180,7 @@ public class Selectable : MonoBehaviour
         // Clean up if this object was selected
         if (isSelected && playerController != null)
         {
-            playerController.DeselectObject(gameObject);
+            playerController.DeselectObject(this);
         }
     }
 

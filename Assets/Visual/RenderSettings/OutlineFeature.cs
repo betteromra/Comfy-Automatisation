@@ -87,7 +87,7 @@ public class OutlineFeature : ScriptableRendererFeature
                     // Set outline color to mask material
                     data.settings.maskMaterial.SetColor("_OutlineColor", data.settings.outlineColor);
 
-                    var selected = Object.FindObjectsByType<Selectable>(FindObjectsSortMode.None);
+                    var selected = FindObjectsByType<Selectable>(FindObjectsSortMode.None);
                     int renderedCount = 0;
                     foreach (var obj in selected)
                     {
@@ -101,11 +101,12 @@ public class OutlineFeature : ScriptableRendererFeature
                             }
                         }
                     }
+                    // commented for now, uncomment if needed
                     // Debug: Log if no objects were rendered
-                    if (renderedCount == 0)
+                    /*if (renderedCount == 0)
                     {
                         Debug.LogWarning($"OutlineFeature: No selected objects with renderers found! Total SelectableObjects: {selected.Length}");
-                    }
+                    }*/
                 });
             }
         }

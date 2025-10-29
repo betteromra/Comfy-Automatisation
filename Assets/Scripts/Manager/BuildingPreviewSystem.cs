@@ -16,7 +16,7 @@ public class BuildingPreviewSystem : MonoBehaviour
     [SerializeField] private Color invalidColor = new Color(1, 0, 0, 0.5f);
 
     private GameObject currentPreview;
-    private GameObject selectedSourceObject;
+    private Selectable selectedSource;
     private Player playerController;
     private Material previewMaterialInstance;
 
@@ -57,16 +57,16 @@ public class BuildingPreviewSystem : MonoBehaviour
         if (selectedObjects.Count == 1)
         {
             // Get the first (and only) selected object
-            foreach (var obj in selectedObjects)
+            foreach (var selectedObject in selectedObjects)
             {
-                selectedSourceObject = obj;
-                CreatePreview(obj);
+                selectedSource = selectedObject;
+                CreatePreview(selectedObject.gameObject);
                 break;
             }
         }
         else
         {
-            selectedSourceObject = null;
+            selectedSource = null;
         }
     }
 

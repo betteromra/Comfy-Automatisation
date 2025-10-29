@@ -1056,6 +1056,11 @@ Transform:
   - {fileID: 7584189569209077906}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!20 &1463397542 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1105729178734412930, guid: 8837ee5ea2098f84fb4e47f8e59eace5, type: 3}
+  m_PrefabInstance: {fileID: 358921125296618777}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1512765861 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 116436391013206805, guid: bfbbfe8c8991afa458f6462693f19705, type: 3}
@@ -1327,7 +1332,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1129661365988557429, guid: 47eedc1ca076d374aaecab8edf38ed95, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1962547868}
   m_SourcePrefab: {fileID: 100100000, guid: 47eedc1ca076d374aaecab8edf38ed95, type: 3}
 --- !u!4 &1878033134 stripped
 Transform:
@@ -1339,7 +1347,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3088208184426422220, guid: 47eedc1ca076d374aaecab8edf38ed95, type: 3}
   m_PrefabInstance: {fileID: 1878033133}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1962547867}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b24368d6a284b5a4594a7f1aaa37788e, type: 3}
@@ -1407,6 +1415,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3425352613503263699, guid: 7a640dfac8150f641a50dbd622208a75, type: 3}
   m_PrefabInstance: {fileID: 1900167948}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1962547867 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1129661365988557429, guid: 47eedc1ca076d374aaecab8edf38ed95, type: 3}
+  m_PrefabInstance: {fileID: 1878033133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1962547868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962547867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa7a25718d581d47a4fa3810b647ca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  hoverColor: {r: 0, g: 1, b: 0, a: 1}
+  outlineWidth: 0.1
+  useOutline: 1
+  useColorTint: 0
 --- !u!1 &1978135688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,11 +1743,15 @@ PrefabInstance:
     - target: {fileID: 6196260750887293307, guid: 6dc2b44eb37a6ce408e670d47e4ce247, type: 3}
       propertyPath: _mainCamera
       value: 
-      objectReference: {fileID: 225492864}
+      objectReference: {fileID: 1463397542}
     - target: {fileID: 6196260750887293307, guid: 6dc2b44eb37a6ce408e670d47e4ce247, type: 3}
       propertyPath: _cameraTarget
       value: 
       objectReference: {fileID: 1312229388}
+    - target: {fileID: 6196260750887293307, guid: 6dc2b44eb37a6ce408e670d47e4ce247, type: 3}
+      propertyPath: _mainCinemachineCamera
+      value: 
+      objectReference: {fileID: 225492864}
     - target: {fileID: 6214414107800910822, guid: 6dc2b44eb37a6ce408e670d47e4ce247, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

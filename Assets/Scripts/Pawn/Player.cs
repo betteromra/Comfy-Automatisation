@@ -18,9 +18,9 @@ public class Player : MonoBehaviour
     [Header("Selection Settings")]
     [SerializeField] private LayerMask selectableLayers = -1;
     private HashSet<Renderer> selectedRenderers = new HashSet<Renderer>();
-    private HashSet<GameObject> selectedObjects = new HashSet<GameObject>();
+    private HashSet<Selectable> selectedObjects = new HashSet<Selectable>();
 
-    public event System.Action<HashSet<Renderer>> OnSelectionChanged;
+    public event Action<HashSet<Renderer>> OnSelectionChanged;
 
     #region Input
     void OnMouseMove(InputValue value)
@@ -81,20 +81,21 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, selectableLayers))
         {
             // Check if the hit object has a SelectableObjects component
-            Selectable selectable = hit.collider.GetComponent<Selectable>();
+            Selectable selectable = hit.collider.GetComponentInParent<Selectable>();
+
             if (selectable != null)
             {
                 if (isMultiSelect)
                 {
-                    ToggleSelection(hit.collider.gameObject);
+                    ToggleSelection(selectable);
                 }
                 else
                 {
                     // Single selection mode - clear others first
-                    if (!IsSelected(hit.collider.gameObject))
+                    if (!IsSelected(selectable))
                     {
                         ClearSelection();
-                        SelectObject(hit.collider.gameObject);
+                        SelectObject(selectable);
                     }
                 }
             }
@@ -106,27 +107,28 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ToggleSelection(GameObject obj)
+    public void ToggleSelection(Selectable selected)
     {
-        if (selectedObjects.Contains(obj))
+        if (selectedObjects.Contains(selected))
         {
-            DeselectObject(obj);
+            DeselectObject(selected);
         }
         else
         {
-            SelectObject(obj);
+            SelectObject(selected);
         }
 
         OnSelectionChanged?.Invoke(selectedRenderers);
     }
 
-    public void SelectObject(GameObject obj)
+    public void SelectObject(Selectable selected)
     {
-        if (selectedObjects.Contains(obj)) return;
+        if (selectedObjects.Contains(selected)) return;
 
-        selectedObjects.Add(obj);
+        selectedObjects.Add(selected);
 
-        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        Renderer[] renderers = selected.GetComponentsInChildren<Renderer>();
+        Debug.Log(renderers.Length);
         foreach (Renderer renderer in renderers)
         {
             selectedRenderers.Add(renderer);
@@ -135,13 +137,13 @@ public class Player : MonoBehaviour
         OnSelectionChanged?.Invoke(selectedRenderers);
     }
 
-    public void DeselectObject(GameObject obj)
+    public void DeselectObject(Selectable selected)
     {
-        if (!selectedObjects.Contains(obj)) return;
+        if (!selectedObjects.Contains(selected)) return;
 
-        selectedObjects.Remove(obj);
+        selectedObjects.Remove(selected);
 
-        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        Renderer[] renderers = selected.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
             selectedRenderers.Remove(renderer);
@@ -158,9 +160,9 @@ public class Player : MonoBehaviour
     }
 
     public HashSet<Renderer> GetSelectedRenderers() => selectedRenderers;
-    public HashSet<GameObject> GetSelectedObjects() => selectedObjects;
+    public HashSet<Selectable> GetSelectedObjects() => selectedObjects;
 
-    public bool IsSelected(GameObject obj) => selectedObjects.Contains(obj);
+    public bool IsSelected(Selectable slecected) => selectedObjects.Contains(slecected);
 
     #endregion
 

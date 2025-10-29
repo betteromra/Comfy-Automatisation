@@ -93,11 +93,18 @@ public class OutlineFeature : ScriptableRendererFeature
                     {
                         if (obj.IsSelected)
                         {
-                            var renderer = obj.GetComponent<Renderer>();
-                            if (renderer != null)
+                            // Get all renderers that should be outlined (handles parent prefabs with multiple children)
+                            var renderers = obj.GetRenderers();
+                            if (renderers != null)
                             {
-                                cmd.DrawRenderer(renderer, data.settings.maskMaterial);
-                                renderedCount++;
+                                foreach (var renderer in renderers)
+                                {
+                                    if (renderer != null)
+                                    {
+                                        cmd.DrawRenderer(renderer, data.settings.maskMaterial);
+                                        renderedCount++;
+                                    }
+                                }
                             }
                         }
                     }
@@ -105,7 +112,7 @@ public class OutlineFeature : ScriptableRendererFeature
                     // Debug: Log if no objects were rendered
                     /*if (renderedCount == 0)
                     {
-                        Debug.LogWarning($"OutlineFeature: No selected objects with renderers found! Total SelectableObjects: {selected.Length}");
+                        Debug.LogWarning($"OutlineFeature: No selected objects with renderers found! Total Selectable: {selected.Length}");
                     }*/
                 });
             }

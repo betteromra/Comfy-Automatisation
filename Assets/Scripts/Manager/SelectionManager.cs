@@ -1,69 +1,46 @@
-// DEPRECATED: Selection logic has been moved to Player controller
-// This file is kept for reference but should not be used
-
-/*
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SelectionManager : MonoBehaviour
 {
-    public static SelectionManager Instance { get; private set; }
-
     [SerializeField] private LayerMask selectableLayers = -1;
-
+    private HashSet<Selectable> _selectedObjects = new HashSet<Selectable>();
+    public HashSet<Selectable> selectedObjects { get => _selectedObjects; }
     private HashSet<Renderer> selectedRenderers = new HashSet<Renderer>();
-    private HashSet<GameObject> selectedObjects = new HashSet<GameObject>();
+    private Selectable currentHoveredObject = null;
+    public event Action<HashSet<Renderer>> OnSelectionChanged;
 
-    public event System.Action<HashSet<Renderer>> OnSelectionChanged;
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            HandleSelection();
-        }
-
-        // Clear selection with Escape key
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ClearSelection();
-        }
-    }
+    #region Selection Logic
 
     private void HandleSelection()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Camera playerCamera = GameManager.instance.cameraManager.mainCamera;
+        if (playerCamera == null)
+            playerCamera = Camera.main;
+
+        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         bool isMultiSelect = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
-                             Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+                            Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, selectableLayers))
         {
             // Check if the hit object has a SelectableObjects component
-            SelectableObjects selectable = hit.collider.GetComponent<SelectableObjects>();
+            Selectable selectable = hit.collider.GetComponentInParent<Selectable>();
+
             if (selectable != null)
             {
                 if (isMultiSelect)
                 {
-                    ToggleSelection(hit.collider.gameObject);
+                    ToggleSelection(selectable);
                 }
                 else
                 {
                     // Single selection mode - clear others first
-                    if (!IsSelected(hit.collider.gameObject))
+                    if (!IsSelected(selectable))
                     {
                         ClearSelection();
-                        SelectObject(hit.collider.gameObject);
+                        SelectObject(selectable);
                     }
                 }
             }
@@ -75,27 +52,28 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    public void ToggleSelection(GameObject obj)
+    public void ToggleSelection(Selectable selected)
     {
-        if (selectedObjects.Contains(obj))
+        if (selectedObjects.Contains(selected))
         {
-            DeselectObject(obj);
+            DeselectObject(selected);
         }
         else
         {
-            SelectObject(obj);
+            SelectObject(selected);
         }
 
         OnSelectionChanged?.Invoke(selectedRenderers);
     }
 
-    public void SelectObject(GameObject obj)
+    public void SelectObject(Selectable selected)
     {
-        if (selectedObjects.Contains(obj)) return;
+        if (selectedObjects.Contains(selected)) return;
 
-        selectedObjects.Add(obj);
+        selectedObjects.Add(selected);
 
-        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        Renderer[] renderers = selected.GetComponentsInChildren<Renderer>();
+
         foreach (Renderer renderer in renderers)
         {
             selectedRenderers.Add(renderer);
@@ -104,13 +82,13 @@ public class SelectionManager : MonoBehaviour
         OnSelectionChanged?.Invoke(selectedRenderers);
     }
 
-    public void DeselectObject(GameObject obj)
+    public void DeselectObject(Selectable selected)
     {
-        if (!selectedObjects.Contains(obj)) return;
+        if (!selectedObjects.Contains(selected)) return;
 
-        selectedObjects.Remove(obj);
+        selectedObjects.Remove(selected);
 
-        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        Renderer[] renderers = selected.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
             selectedRenderers.Remove(renderer);
@@ -127,8 +105,85 @@ public class SelectionManager : MonoBehaviour
     }
 
     public HashSet<Renderer> GetSelectedRenderers() => selectedRenderers;
-    public HashSet<GameObject> GetSelectedObjects() => selectedObjects;
+    public HashSet<Selectable> GetSelectedObjects() => selectedObjects;
 
-    public bool IsSelected(GameObject obj) => selectedObjects.Contains(obj);
+    public bool IsSelected(Selectable slecected) => selectedObjects.Contains(slecected);
+
+    #endregion
+
+    #region Unity
+
+    void Update()
+    {
+        // Handle hover detection
+        HandleHover();
+    }
+
+    void OnEnable()
+    {
+        GameManager.instance.player.onPressedSelect += HandleSelection;
+        GameManager.instance.player.onPressedDeselect += ClearSelection;
+    }
+
+    void OnDisable()
+    {
+        GameManager.instance.player.onPressedSelect -= HandleSelection;
+        GameManager.instance.player.onPressedDeselect -= ClearSelection;
+    }
+
+    #endregion
+    #region Hover
+    private void HandleHover()
+    {
+        // Don't do hover detection if camera is being moved
+        if (GameManager.instance.player.cameraMouseMove) return;
+
+        Camera playerCamera = GameManager.instance.cameraManager.mainCamera;
+        if (playerCamera == null)
+            playerCamera = Camera.main;
+
+        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, selectableLayers))
+        {
+            Selectable hoveredSelectable = hit.collider.GetComponentInParent<Selectable>();
+
+            if (hoveredSelectable != null)
+            {
+                // New object being hovered
+                if (currentHoveredObject != hoveredSelectable)
+                {
+                    // Clear previous hover
+                    if (currentHoveredObject != null)
+                    {
+                        currentHoveredObject.SetHovered(false);
+                    }
+
+                    // Set new hover
+                    currentHoveredObject = hoveredSelectable;
+                    currentHoveredObject.SetHovered(true);
+                }
+            }
+            else
+            {
+                // Hit something but it's not selectable, clear hover
+                ClearHover();
+            }
+        }
+        else
+        {
+            // Didn't hit anything, clear hover
+            ClearHover();
+        }
+    }
+
+    private void ClearHover()
+    {
+        if (currentHoveredObject != null)
+        {
+            currentHoveredObject.SetHovered(false);
+            currentHoveredObject = null;
+        }
+    }
+    #endregion
 }
-*/

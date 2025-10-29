@@ -17,16 +17,12 @@ public class BuildingPreviewSystem : MonoBehaviour
 
     private GameObject currentPreview;
     private Selectable selectedSource;
-    private Player playerController;
+    private SelectionManager selectionManager;
     private Material previewMaterialInstance;
 
     void Start()
     {
-        playerController = GetComponent<Player>();
-        if (playerController != null)
-        {
-            playerController.OnSelectionChanged += OnSelectionChanged;
-        }
+        selectionManager = GameManager.instance.selectionManager;
 
         if (playerCamera == null)
             playerCamera = Camera.main;
@@ -36,6 +32,16 @@ public class BuildingPreviewSystem : MonoBehaviour
         {
             previewMaterialInstance = new Material(previewMaterial);
         }
+    }
+
+    void OnEnable()
+    {
+        selectionManager.OnSelectionChanged += OnSelectionChanged;
+    }
+
+    void OnDisable()
+    {
+        selectionManager.OnSelectionChanged -= OnSelectionChanged;
     }
 
     void Update()
@@ -52,8 +58,8 @@ public class BuildingPreviewSystem : MonoBehaviour
         ClearPreview();
 
         // Get the selected objects
-        var selectedObjects = playerController.GetSelectedObjects();
-        
+        var selectedObjects = selectionManager.GetSelectedObjects();
+
         if (selectedObjects.Count == 1)
         {
             // Get the first (and only) selected object
@@ -111,7 +117,7 @@ public class BuildingPreviewSystem : MonoBehaviour
         for (int i = 0; i < source.childCount; i++)
         {
             Transform sourceChild = source.GetChild(i);
-            
+
             GameObject targetChild = new GameObject(sourceChild.name);
             targetChild.transform.SetParent(target);
             targetChild.transform.localPosition = sourceChild.localPosition;
@@ -125,11 +131,11 @@ public class BuildingPreviewSystem : MonoBehaviour
     private void ApplyPreviewMaterial(GameObject previewObject)
     {
         MeshRenderer[] renderers = previewObject.GetComponentsInChildren<MeshRenderer>();
-        
+
         foreach (var renderer in renderers)
         {
             Material[] newMaterials = new Material[renderer.sharedMaterials.Length];
-            
+
             if (previewMaterialInstance != null)
             {
                 // Use the preview material
@@ -150,7 +156,7 @@ public class BuildingPreviewSystem : MonoBehaviour
                     newMaterials[i].renderQueue = 3000; // Transparent queue
                 }
             }
-            
+
             renderer.materials = newMaterials;
         }
 
@@ -163,7 +169,7 @@ public class BuildingPreviewSystem : MonoBehaviour
         if (!followMouse || playerCamera == null) return;
 
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-        
+
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer))
         {
             currentPreview.transform.position = hit.point + Vector3.up * previewHeight;
@@ -210,10 +216,7 @@ public class BuildingPreviewSystem : MonoBehaviour
 
     void OnDestroy()
     {
-        if (playerController != null)
-        {
-            playerController.OnSelectionChanged -= OnSelectionChanged;
-        }
+        selectionManager.OnSelectionChanged -= OnSelectionChanged;
 
         ClearPreview();
 

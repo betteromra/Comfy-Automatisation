@@ -73,7 +73,7 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-    
+
     //This places our building, but first has to check if temp exists. It reparents temp, then sets it to null, essentially detatching our prefab to the scene.
     private void OnSelect()
     {
@@ -93,5 +93,17 @@ public class BuildingManager : MonoBehaviour
             return false;
         return true;
 
+    }
+
+    void OnEnable()
+    {
+        // GameManager.instance.player.onPressedBuild += function here;
+        // GameManager.instance.player.onPressedCancelBuild += function here;
+    }
+
+    void OnDisable()
+    {
+        // GameManager.instance.player.onPressedBuild -= function here;
+        // GameManager.instance.player.onPressedCancelBuild -= function here;
     }
 }

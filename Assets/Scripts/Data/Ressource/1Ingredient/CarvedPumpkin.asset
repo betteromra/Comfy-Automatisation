@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actualName: Carved pumpkin
   _description: 
-  _icon: {fileID: -236396740, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
+  _icon: {fileID: -1518990192, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: 09447cb155b4b1049b32e4870ef2dd30, type: 2}
   _spacePerUnit: 4

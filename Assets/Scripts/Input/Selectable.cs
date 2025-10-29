@@ -7,10 +7,10 @@ public class Selectable : MonoBehaviour
     [SerializeField] private float outlineWidth = 0.1f;
     [SerializeField] private Color hoverTint = new Color(1f, 1f, 1f, 0.2f);
     [SerializeField] private float hoverIntensity = 0.3f;
-    
+
     [Header("Selection Settings")]
     [SerializeField] private bool useOutline = true;
-    
+
     [Header("Parent/Prefab Settings")]
     [SerializeField] private bool isParent = false;
     [Tooltip("If empty and isParent is true, all child renderers will be used. Otherwise, only specified renderers.")]
@@ -20,7 +20,7 @@ public class Selectable : MonoBehaviour
     private bool isHovered = false;
     private Renderer[] renderers;
     private MaterialPropertyBlock propertyBlock;
-    private Player playerController;
+    private SelectionManager selectionManager;
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
 
     public bool IsSelected
@@ -49,7 +49,7 @@ public class Selectable : MonoBehaviour
         }
 
         propertyBlock = new MaterialPropertyBlock();
-        playerController = GameManager.instance.player;
+        selectionManager = GameManager.instance.selectionManager;
 
         // Store original colors for each renderer
         foreach (var renderer in renderers)
@@ -70,7 +70,7 @@ public class Selectable : MonoBehaviour
 
     private void OnEnable()
     {
-        playerController.OnSelectionChanged += OnSelectionChanged;
+        selectionManager.OnSelectionChanged += OnSelectionChanged;
     }
 
     private void OnDisable()
@@ -82,10 +82,8 @@ public class Selectable : MonoBehaviour
             ApplyHoverEffect(false);
         }
 
-        if (playerController != null)
-        {
-            playerController.OnSelectionChanged -= OnSelectionChanged;
-        }
+
+        selectionManager.OnSelectionChanged -= OnSelectionChanged;
     }
 
     private void OnSelectionChanged(System.Collections.Generic.HashSet<Renderer> selectedRenderers)
@@ -168,7 +166,7 @@ public class Selectable : MonoBehaviour
                         propertyBlock.SetColor("_Color", hoveredColor);
                         //Debug.Log($"Applied hover to {renderer.gameObject.name} - Original: {originalColor}, Hovered: {hoveredColor}");
                     }
-                    
+
                     renderer.SetPropertyBlock(propertyBlock);
                 }
                 else
@@ -177,7 +175,7 @@ public class Selectable : MonoBehaviour
                     if (originalColors.ContainsKey(renderer))
                     {
                         Color originalColor = originalColors[renderer];
-                        
+
                         if (renderer.sharedMaterial.HasProperty("_BaseColor"))
                         {
                             propertyBlock.SetColor("_BaseColor", originalColor);
@@ -187,7 +185,7 @@ public class Selectable : MonoBehaviour
                             propertyBlock.SetColor("_Color", originalColor);
                         }
                     }
-                    
+
                     renderer.SetPropertyBlock(propertyBlock);
                 }
             }
@@ -196,24 +194,12 @@ public class Selectable : MonoBehaviour
 
     public void ForceSelect()
     {
-        if (playerController == null)
-            playerController = FindAnyObjectByType<Player>();
-
-        if (playerController != null)
-        {
-            playerController.SelectObject(this);
-        }
+        selectionManager.SelectObject(this);
     }
 
     public void ForceDeselect()
     {
-        if (playerController == null)
-            playerController = FindAnyObjectByType<Player>();
-
-        if (playerController != null)
-        {
-            playerController.DeselectObject(this);
-        }
+        selectionManager.DeselectObject(this);
     }
 
     private void OnDestroy()
@@ -225,9 +211,9 @@ public class Selectable : MonoBehaviour
         }
 
         // Clean up if this object was selected
-        if (isSelected && playerController != null)
+        if (isSelected)
         {
-            playerController.DeselectObject(this);
+            selectionManager.DeselectObject(this);
         }
     }
 

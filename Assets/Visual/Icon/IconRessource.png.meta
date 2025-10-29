@@ -100,8 +100,8 @@ TextureImporter:
       name: IconRessource_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 1324
+        x: 0
+        y: 1300
         width: 256
         height: 256
       alignment: 0
@@ -122,8 +122,8 @@ TextureImporter:
       name: IconRessource_1
       rect:
         serializedVersion: 2
-        x: 270
-        y: 1324
+        x: 260
+        y: 1300
         width: 256
         height: 256
       alignment: 0
@@ -144,8 +144,8 @@ TextureImporter:
       name: IconRessource_2
       rect:
         serializedVersion: 2
-        x: 536
-        y: 1324
+        x: 520
+        y: 1300
         width: 256
         height: 256
       alignment: 0
@@ -166,8 +166,8 @@ TextureImporter:
       name: IconRessource_3
       rect:
         serializedVersion: 2
-        x: 802
-        y: 1324
+        x: 780
+        y: 1300
         width: 256
         height: 256
       alignment: 0
@@ -188,8 +188,8 @@ TextureImporter:
       name: IconRessource_4
       rect:
         serializedVersion: 2
-        x: 1068
-        y: 1324
+        x: 1040
+        y: 1300
         width: 256
         height: 256
       alignment: 0
@@ -210,8 +210,8 @@ TextureImporter:
       name: IconRessource_5
       rect:
         serializedVersion: 2
-        x: 1334
-        y: 1324
+        x: 1300
+        y: 1300
         width: 256
         height: 256
       alignment: 0
@@ -232,8 +232,8 @@ TextureImporter:
       name: IconRessource_6
       rect:
         serializedVersion: 2
-        x: 4
-        y: 1058
+        x: 1560
+        y: 1300
         width: 256
         height: 256
       alignment: 0
@@ -254,8 +254,8 @@ TextureImporter:
       name: IconRessource_7
       rect:
         serializedVersion: 2
-        x: 270
-        y: 1058
+        x: 0
+        y: 1040
         width: 256
         height: 256
       alignment: 0
@@ -276,8 +276,8 @@ TextureImporter:
       name: IconRessource_8
       rect:
         serializedVersion: 2
-        x: 536
-        y: 1058
+        x: 260
+        y: 1040
         width: 256
         height: 256
       alignment: 0
@@ -298,8 +298,8 @@ TextureImporter:
       name: IconRessource_9
       rect:
         serializedVersion: 2
-        x: 802
-        y: 1058
+        x: 520
+        y: 1040
         width: 256
         height: 256
       alignment: 0
@@ -320,8 +320,8 @@ TextureImporter:
       name: IconRessource_10
       rect:
         serializedVersion: 2
-        x: 1068
-        y: 1058
+        x: 780
+        y: 1040
         width: 256
         height: 256
       alignment: 0
@@ -342,8 +342,8 @@ TextureImporter:
       name: IconRessource_11
       rect:
         serializedVersion: 2
-        x: 1334
-        y: 1058
+        x: 1040
+        y: 1040
         width: 256
         height: 256
       alignment: 0
@@ -364,8 +364,8 @@ TextureImporter:
       name: IconRessource_12
       rect:
         serializedVersion: 2
-        x: 4
-        y: 792
+        x: 1300
+        y: 1040
         width: 256
         height: 256
       alignment: 0
@@ -386,8 +386,8 @@ TextureImporter:
       name: IconRessource_13
       rect:
         serializedVersion: 2
-        x: 270
-        y: 792
+        x: 1560
+        y: 1040
         width: 256
         height: 256
       alignment: 0
@@ -408,8 +408,8 @@ TextureImporter:
       name: IconRessource_14
       rect:
         serializedVersion: 2
-        x: 536
-        y: 792
+        x: 0
+        y: 780
         width: 256
         height: 256
       alignment: 0
@@ -430,8 +430,8 @@ TextureImporter:
       name: IconRessource_15
       rect:
         serializedVersion: 2
-        x: 802
-        y: 792
+        x: 260
+        y: 780
         width: 256
         height: 256
       alignment: 0
@@ -452,8 +452,8 @@ TextureImporter:
       name: IconRessource_16
       rect:
         serializedVersion: 2
-        x: 1068
-        y: 792
+        x: 520
+        y: 780
         width: 256
         height: 256
       alignment: 0
@@ -474,8 +474,8 @@ TextureImporter:
       name: IconRessource_17
       rect:
         serializedVersion: 2
-        x: 1334
-        y: 792
+        x: 780
+        y: 780
         width: 256
         height: 256
       alignment: 0
@@ -496,8 +496,8 @@ TextureImporter:
       name: IconRessource_18
       rect:
         serializedVersion: 2
-        x: 4
-        y: 526
+        x: 1040
+        y: 780
         width: 256
         height: 256
       alignment: 0
@@ -518,8 +518,8 @@ TextureImporter:
       name: IconRessource_19
       rect:
         serializedVersion: 2
-        x: 270
-        y: 526
+        x: 1300
+        y: 780
         width: 256
         height: 256
       alignment: 0
@@ -540,8 +540,8 @@ TextureImporter:
       name: IconRessource_20
       rect:
         serializedVersion: 2
-        x: 536
-        y: 526
+        x: 1560
+        y: 780
         width: 256
         height: 256
       alignment: 0
@@ -562,8 +562,8 @@ TextureImporter:
       name: IconRessource_21
       rect:
         serializedVersion: 2
-        x: 802
-        y: 526
+        x: 0
+        y: 520
         width: 256
         height: 256
       alignment: 0
@@ -584,8 +584,8 @@ TextureImporter:
       name: IconRessource_22
       rect:
         serializedVersion: 2
-        x: 1068
-        y: 526
+        x: 260
+        y: 520
         width: 256
         height: 256
       alignment: 0
@@ -606,8 +606,8 @@ TextureImporter:
       name: IconRessource_23
       rect:
         serializedVersion: 2
-        x: 1334
-        y: 526
+        x: 520
+        y: 520
         width: 256
         height: 256
       alignment: 0
@@ -628,8 +628,8 @@ TextureImporter:
       name: IconRessource_24
       rect:
         serializedVersion: 2
-        x: 4
-        y: 260
+        x: 780
+        y: 520
         width: 256
         height: 256
       alignment: 0
@@ -650,8 +650,8 @@ TextureImporter:
       name: IconRessource_25
       rect:
         serializedVersion: 2
-        x: 270
-        y: 260
+        x: 1040
+        y: 520
         width: 256
         height: 256
       alignment: 0
@@ -672,8 +672,8 @@ TextureImporter:
       name: IconRessource_26
       rect:
         serializedVersion: 2
-        x: 536
-        y: 260
+        x: 1300
+        y: 520
         width: 256
         height: 256
       alignment: 0
@@ -694,8 +694,8 @@ TextureImporter:
       name: IconRessource_27
       rect:
         serializedVersion: 2
-        x: 802
-        y: 260
+        x: 1560
+        y: 520
         width: 256
         height: 256
       alignment: 0
@@ -716,7 +716,7 @@ TextureImporter:
       name: IconRessource_28
       rect:
         serializedVersion: 2
-        x: 1068
+        x: 0
         y: 260
         width: 256
         height: 256
@@ -738,7 +738,7 @@ TextureImporter:
       name: IconRessource_29
       rect:
         serializedVersion: 2
-        x: 1334
+        x: 260
         y: 260
         width: 256
         height: 256
@@ -752,6 +752,160 @@ TextureImporter:
       bones: []
       spriteID: 42be2c11e3079894b844890047486817
       internalID: -742540639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconRessource_30
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 260
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bb347a709215124a80be11203ab1fe7
+      internalID: 1073639580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconRessource_31
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 260
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0acc0c21cc0f0d4d88c3dc8c2bcf127
+      internalID: 1742855187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconRessource_32
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 260
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5653faacc85aded489194234fc28c7ca
+      internalID: 817392466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconRessource_33
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 260
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c9916b0b085f1642ab5b61f0bffdcb5
+      internalID: 1448692868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconRessource_34
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 260
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b56c85e170b2e7d4c9640d5ef0566fa6
+      internalID: 1048432731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconRessource_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9c10f9fa192c554db84decdde32d504
+      internalID: -55505121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconRessource_36
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f020aba0c5c42a64bbbf9543c09247e6
+      internalID: -47683708
       vertices: []
       indices: 
       edges: []
@@ -794,6 +948,13 @@ TextureImporter:
       IconRessource_28: 2101591092
       IconRessource_29: -742540639
       IconRessource_3: -743861268
+      IconRessource_30: 1073639580
+      IconRessource_31: 1742855187
+      IconRessource_32: 817392466
+      IconRessource_33: 1448692868
+      IconRessource_34: 1048432731
+      IconRessource_35: -55505121
+      IconRessource_36: -47683708
       IconRessource_4: 895463672
       IconRessource_5: 1762089586
       IconRessource_6: -1554909543

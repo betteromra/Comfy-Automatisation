@@ -52,6 +52,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Deselect",
+                    "type": "Button",
+                    "id": "72a012ad-cff6-4368-bed9-9d72016fb81b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "PreviewKeep",
                     "type": "Button",
                     "id": "b4470174-47f7-4203-b23c-34ed371ea9cf",
@@ -64,6 +73,24 @@
                     "name": "PreviewRefinery",
                     "type": "Button",
                     "id": "220848e0-e7b3-47c7-9e61-7cf464345cf7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Build",
+                    "type": "Button",
+                    "id": "5268a6bb-9e43-46ac-87c2-cf51f5b65e02",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CancelBuild",
+                    "type": "Button",
+                    "id": "d17ec0c5-75d3-4a55-884d-cd1915b9f36f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -200,6 +227,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "PreviewRefinery",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53026fca-caae-4d5c-9dbc-72ae2e98cb7f",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Build",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dd602153-0d39-453f-956c-e31c4d973046",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Deselect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91064a1c-282f-4fe2-8557-5ccf7b897bf0",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CancelBuild",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

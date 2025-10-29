@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actualName: Apple pie
   _description: MHHHHH
-  _icon: {fileID: 1423623703, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
+  _icon: {fileID: -404419276, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: f93411b9760441541a3f8c2079ae7be7, type: 2}
   _spacePerUnit: 1

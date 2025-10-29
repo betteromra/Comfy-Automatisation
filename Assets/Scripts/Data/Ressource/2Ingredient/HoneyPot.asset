@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actualName: Honey pot
   _description: 
-  _icon: {fileID: 1063132418, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
+  _icon: {fileID: -1748034176, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: cf70f13eb6621db43980ba60677dabe3, type: 2}
   _spacePerUnit: 1

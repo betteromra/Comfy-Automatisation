@@ -18,6 +18,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] float _moveSmoothing;
     [SerializeField] float _keyboardMoveSpeedAdjustement;
     [SerializeField] float _maxCameraDistance;
+    [SerializeField] AnimationCurve _maxCameraDistanceZoomCurve = AnimationCurve.Linear(0, 0.2f, 1f, 1f);
     Vector3 _targetCameraTargetPosition = Vector2.zero;
     public event Action onMove;
 
@@ -66,35 +67,11 @@ public class CameraManager : MonoBehaviour
         float zoomMultiplier = _moveSpeedZoomCurve.Evaluate(_zoomLevel);
         _targetCameraTargetPosition += motion * zoomMultiplier;
 
+        ClampCameraPosition();
+
         // If we don't need to move the Camera then we don't
         bool atTarget = Vector3.Distance(_targetCameraTargetPosition, _cameraTarget.position) < 0.01f;
         if (atTarget) return;
-
-        // Clamping the position so the camera can't go ouside of the game bound
-        Vector3 clampedPos = _targetCameraTargetPosition;
-
-        Vector2 clampedPos2d = new Vector2(Mathf.Abs(clampedPos.x), Mathf.Abs(clampedPos.z));
-        float manhattanDifference = clampedPos2d.x + clampedPos2d.y - _maxCameraDistance;
-
-        // we outside of the bound
-        if (manhattanDifference > 0f)
-        {
-            // remove overflow from the larger axis
-            if (clampedPos2d.x > clampedPos2d.y)
-            {
-                clampedPos2d.x -= manhattanDifference;
-            }
-            else
-            {
-                clampedPos2d.y -= manhattanDifference;
-            }
-
-            // put back the right sign
-            clampedPos.x = Mathf.Sign(clampedPos.x) * clampedPos2d.x;
-            clampedPos.z = Mathf.Sign(clampedPos.z) * clampedPos2d.y;
-        }
-
-        _targetCameraTargetPosition = clampedPos;
 
         // Smoothing the movement so it feels more floaty
         Vector3 smoothMotion = Vector3.zero;
@@ -144,6 +121,40 @@ public class CameraManager : MonoBehaviour
     void RefreshZoomLevel()
     {
         _zoomLevel = Mathf.InverseLerp(_mainCameraOrbit.RadialAxis.Range.x, _mainCameraOrbit.RadialAxis.Range.y, _mainCameraOrbit.RadialAxis.Value);
+    }
+
+    void ClampCameraPosition()
+    {
+        // Clamping the position so the camera can't go ouside of the game bound
+        Vector3 clampedPos = _targetCameraTargetPosition;
+
+        Vector2 clampedPos2d = new Vector2(Mathf.Abs(clampedPos.x), Mathf.Abs(clampedPos.z));
+        float manhattanDistance = clampedPos2d.x + clampedPos2d.y;
+        float manhattanDifference = manhattanDistance;
+
+        if (clampedPos.x < 0 && clampedPos.z < 0) manhattanDifference = manhattanDistance - _maxCameraDistance;
+        else manhattanDifference = manhattanDistance - _maxCameraDistance * _maxCameraDistanceZoomCurve.Evaluate(_zoomLevel);
+        Debug.Log(_zoomLevel + "  " + manhattanDifference);
+
+        // we outside of the bound
+        if (manhattanDifference > 0f)
+        {
+            // remove overflow from the larger axis
+            if (clampedPos2d.x > clampedPos2d.y)
+            {
+                clampedPos2d.x -= manhattanDifference;
+            }
+            else
+            {
+                clampedPos2d.y -= manhattanDifference;
+            }
+
+            // put back the right sign
+            clampedPos.x = Mathf.Sign(clampedPos.x) * clampedPos2d.x;
+            clampedPos.z = Mathf.Sign(clampedPos.z) * clampedPos2d.y;
+        }
+
+        _targetCameraTargetPosition = clampedPos;
     }
     #endregion
 }

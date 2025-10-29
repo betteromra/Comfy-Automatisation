@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6dae0df2b924045bff3f5b60377ad2, type: 3}
   m_Name: PlaceableJackOLantern
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _icon: {fileID: 0}
+  _recipe: {fileID: 11400000, guid: 1b36675bdf871fa45a925a42b66fffca, type: 2}

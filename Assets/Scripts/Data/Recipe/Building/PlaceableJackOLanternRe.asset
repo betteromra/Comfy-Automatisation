@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: PlaceableJackOLanternRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 2781197fbd37abc428ab7db154c2afa5, type: 2}
-    _amount: 4
-  - _ressource: {fileID: 11400000, guid: 7e319bcbb9c0530479265b363cf6cdc3, type: 2}
+  - _ressource: {fileID: 11400000, guid: 027498f4b49e2a64f8156333b93bfd1d, type: 2}
     _amount: 1
   _ingredientsOutput: []

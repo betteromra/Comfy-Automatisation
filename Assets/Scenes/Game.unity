@@ -2455,22 +2455,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7386845444862953498, guid: 8837ee5ea2098f84fb4e47f8e59eace5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 34.641014
-      objectReference: {fileID: 0}
-    - target: {fileID: 7386845444862953498, guid: 8837ee5ea2098f84fb4e47f8e59eace5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8272261181233316856, guid: 8837ee5ea2098f84fb4e47f8e59eace5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 34.641014
-      objectReference: {fileID: 0}
-    - target: {fileID: 8272261181233316856, guid: 8837ee5ea2098f84fb4e47f8e59eace5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -20
-      objectReference: {fileID: 0}
     - target: {fileID: 8328126831106032574, guid: 8837ee5ea2098f84fb4e47f8e59eace5, type: 3}
       propertyPath: m_Name
       value: Cameras

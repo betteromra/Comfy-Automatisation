@@ -3,7 +3,7 @@
     "name": "PlayerInput",
     "maps": [
         {
-            "name": "Camera",
+            "name": "Game",
             "id": "5a3ef838-b08d-4708-9553-97b064311040",
             "actions": [
                 {
@@ -46,7 +46,7 @@
                     "name": "Select",
                     "type": "Button",
                     "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

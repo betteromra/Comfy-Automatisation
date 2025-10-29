@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    [SerializeField] CinemachineCamera _mainCamera;
-    public CinemachineCamera mainCamera { get => _mainCamera; }
+    [SerializeField] Camera _mainCamera;
+    public Camera mainCamera { get => _mainCamera; }
+    [SerializeField] CinemachineCamera _mainCinemachineCamera;
+    public CinemachineCamera mainCinemachineCamera { get => _mainCinemachineCamera; }
     CinemachineOrbitalFollow _mainCameraOrbit;
     public CinemachineOrbitalFollow mainCameraOrbit { get => _mainCameraOrbit; }
     [SerializeField] Transform _cameraTarget;

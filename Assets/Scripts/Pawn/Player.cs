@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.Cinemachine;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,8 +17,6 @@ public class Player : MonoBehaviour
 
     [Header("Selection Settings")]
     [SerializeField] private LayerMask selectableLayers = -1;
-    [SerializeField] private Camera playerCamera;
-
     private HashSet<Renderer> selectedRenderers = new HashSet<Renderer>();
     private HashSet<GameObject> selectedObjects = new HashSet<GameObject>();
 
@@ -74,17 +70,18 @@ public class Player : MonoBehaviour
 
     private void HandleSelection()
     {
+        Camera playerCamera = GameManager.instance.cameraManager.mainCamera;
         if (playerCamera == null)
             playerCamera = Camera.main;
 
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         bool isMultiSelect = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
-                             Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+                            Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, selectableLayers))
         {
             // Check if the hit object has a SelectableObjects component
-            SelectableObjects selectable = hit.collider.GetComponent<SelectableObjects>();
+            Selectable selectable = hit.collider.GetComponent<Selectable>();
             if (selectable != null)
             {
                 if (isMultiSelect)
@@ -168,11 +165,6 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Unity
-    void Start()
-    {
-        if (playerCamera == null)
-            playerCamera = Camera.main;
-    }
 
     void Update()
     {

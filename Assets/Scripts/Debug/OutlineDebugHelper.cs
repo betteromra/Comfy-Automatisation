@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class OutlineDebugHelper : MonoBehaviour
 {
-    private SelectableObjects selectable;
+    private Selectable selectable;
     private Player playerController;
 
     void Start()
@@ -15,10 +15,10 @@ public class OutlineDebugHelper : MonoBehaviour
         playerController = FindAnyObjectByType<Player>();
         
         // Add SelectableObjects component if not present
-        selectable = GetComponent<SelectableObjects>();
+        selectable = GetComponent<Selectable>();
         if (selectable == null)
         {
-            selectable = gameObject.AddComponent<SelectableObjects>();
+            selectable = gameObject.AddComponent<Selectable>();
             Debug.Log($"Added SelectableObjects to {gameObject.name}");
         }
 

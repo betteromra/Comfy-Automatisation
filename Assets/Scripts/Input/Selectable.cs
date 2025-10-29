@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class SelectableObjects : MonoBehaviour
+public class Selectable : MonoBehaviour
 {
     [Header("Visual Feedback")]
     [SerializeField] private Color normalColor = Color.white;

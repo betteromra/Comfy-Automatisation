@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7766817690221442490, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7848634996754370472, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       propertyPath: m_Name
       value: Picnic
@@ -109,18 +113,10 @@ MonoBehaviour:
   _collider: {fileID: 3393860856158166324}
   _inputNode: []
   _outputNode: []
-  _ingredientUI: {fileID: 5220442927799940867}
---- !u!114 &5220442927799940867 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1484808633369528428, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
-  m_PrefabInstance: {fileID: 6695063443170115439}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be5de1af062c19c48a3da7d115f093a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _ingredientToDisplay:
+    _ressource: {fileID: 0}
+    _amount: 1
+  _ingredientToDisplayUI: {fileID: 0}
 --- !u!23 &7161466996725996720 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4578754479567070175, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}

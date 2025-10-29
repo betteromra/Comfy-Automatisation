@@ -424,7 +424,10 @@ MonoBehaviour:
   - {fileID: 4357802478611286944}
   _outputNode:
   - {fileID: 2992781246924940004}
-  _ingredientUI: {fileID: 8637261288183547313}
+  _ingredientToDisplay:
+    _ressource: {fileID: 0}
+    _amount: 1
+  _ingredientToDisplayUI: {fileID: 8707847564581330427}
   _inputInventory: {fileID: 7338391295164331231}
   _outputInventory: {fileID: 1497316275474288347}
 --- !u!65 &1204255751379873670 stripped
@@ -482,15 +485,15 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4578754479567070175, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
   m_PrefabInstance: {fileID: 7153597425096412637}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8637261288183547313 stripped
+--- !u!114 &8707847564581330427 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1484808633369528428, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1990260965452255270, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
   m_PrefabInstance: {fileID: 7153597425096412637}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be5de1af062c19c48a3da7d115f093a0, type: 3}
+  m_Script: {fileID: 11500000, guid: dd68189866e8724419aba6a7bbaf21c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &8974499704542815923 stripped

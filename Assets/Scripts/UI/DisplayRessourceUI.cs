@@ -41,15 +41,7 @@ public class DisplayRessourceUI : MonoBehaviour
 
                 // show all the ingredient for the ressource
                 ingredientUI.gameObject.SetActive(true);
-                ingredientUI.image.sprite = ingredient.ressource.icon;
-                if (ingredient.amount == 1)
-                {
-                    ingredientUI.amount.text = "";
-                }
-                else
-                {
-                    ingredientUI.amount.text = ingredient.amount + "";
-                }
+                ingredientUI.DisplayIngredient(ingredient);
             }
             else
             {

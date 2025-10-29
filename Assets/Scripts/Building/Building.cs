@@ -8,7 +8,8 @@ public abstract class Building : MonoBehaviour
     [SerializeField] protected InputNode[] _inputNode;
     [SerializeField] protected OutputNode[] _outputNode;
     [SerializeField] protected Ingredient _ingredientToDisplay;
-    [SerializeField] protected IngredientUI _ingredientUI;
+    [SerializeField] IngredientToDisplayUI _ingredientToDisplayUI;
+    public IngredientToDisplayUI ingredientToDisplayUI { get => _ingredientToDisplayUI; }
     protected virtual void Awake()
     {
 

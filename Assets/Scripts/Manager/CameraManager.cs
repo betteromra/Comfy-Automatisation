@@ -23,28 +23,39 @@ public class CameraManager : MonoBehaviour
     [SerializeField] AnimationCurve _zoomSpeedZoomCurve = AnimationCurve.Linear(0, 1f, 1f, .5f);
     float _targetOrbitRadialAxis = 0;
     float _zoomLevel = 0;
+    public float zoomLevel { get => _zoomLevel; }
+    Player _player;
 
     private void Awake()
     {
         _mainCameraOrbit = _mainCamera.GetComponent<CinemachineOrbitalFollow>();
         RefreshZoomLevel(_mainCameraOrbit.RadialAxis);
         _targetOrbitRadialAxis = _mainCameraOrbit.RadialAxis.Value;
+        _player = GameManager.instance.player;
     }
 
-    void Update()
+    private void OnEnable()
     {
-        UpdateMovement();
+        _player.onMoveCamera += UpdateMovement;
+        _player.onZoomCamera += UpdateZoom;
+    }
+
+    private void OnDisable()
+    {
+        _player.onMoveCamera -= UpdateMovement;
+        _player.onZoomCamera -= UpdateZoom;
     }
 
     #region Control
     void UpdateMovement()
     {
-        Player player = GameManager.instance.player;
         // Camera movement
-        MoveCamera(player.mouseMoveInput + player.keyboardMoveInput * _keyboardMoveSpeedAdjustement);
-
+        MoveCamera(_player.mouseMoveInput + _player.keyboardMoveInput * _keyboardMoveSpeedAdjustement);
+    }
+    void UpdateZoom()
+    {
         // Camera Zoom
-        ZoomCamera(player.zoomInput);
+        ZoomCamera(_player.zoomInput);
     }
     void MoveCamera(Vector2 mouvement2dDelta)
     {

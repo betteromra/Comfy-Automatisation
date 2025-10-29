@@ -56,10 +56,4 @@ public class DisplayRessourceUI : MonoBehaviour
     void ShowRawRecipe()
     {
     }
-
-
-    void Update()
-    {
-        Refresh();
-    }
 }

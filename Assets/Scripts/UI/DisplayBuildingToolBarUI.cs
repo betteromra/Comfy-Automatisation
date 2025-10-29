@@ -1,16 +1,26 @@
+using System.Linq;
 using UnityEngine;
 
 public class DisplayBuildingToolBarUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] ToolBarUI _toolBarUI;
+    [SerializeField] BuildingSO[] _buildingsSO;
+    [SerializeField] BuildingToolBarUI[] _buildingsToolBarUI;
+    BuildingSO[] _canCraftBuildingSO;
+    void Awake()
     {
-        
+        _canCraftBuildingSO = _buildingsSO; // to change for actual craftable building
+        Refresh();
     }
 
-    // Update is called once per frame
-    void Update()
+    void Refresh()
     {
-        
+        for (int i = 0; i < _buildingsSO.Length; i++)
+        {
+            BuildingToolBarUI buildingToolBarUI = _buildingsToolBarUI[i];
+            BuildingSO buildingSO = _buildingsSO[i];
+
+            buildingToolBarUI.DisplayBuilding(buildingSO, _canCraftBuildingSO.Contains(buildingSO), _toolBarUI);
+        }
     }
 }

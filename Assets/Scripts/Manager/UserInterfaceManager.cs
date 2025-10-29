@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class UserInterfaceManager : MonoBehaviour
 {
+    [SerializeField] ToolBarUI _toolbar;
     [SerializeField] float ingredientOnBuildingSize = 1;
     CameraManager _cameraManager;
 

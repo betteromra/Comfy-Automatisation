@@ -6,7 +6,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] Building[] _buildings;
     public Building[] buildings { get => _buildings; }
     [SerializeField] BuildingSO _buildingSOToolBarSelected;
-    public BuildingSO buildingSOToolBarSelected { get => buildingSOToolBarSelected; }
+    public BuildingSO buildingSOToolBarSelected { get => _buildingSOToolBarSelected; set => _buildingSOToolBarSelected = value; }
 
     public LayerMask BlockingLayers;
     public GameObject Keep;

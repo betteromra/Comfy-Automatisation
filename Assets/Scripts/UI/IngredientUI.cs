@@ -5,7 +5,6 @@ using UnityEngine;
 public class IngredientUI : MonoBehaviour
 {
     [SerializeField] Image _image;
-    public Image image { get => _image; }
     [SerializeField] GameObject _containerAmount;
     [SerializeField] TextMeshProUGUI _amount;
 

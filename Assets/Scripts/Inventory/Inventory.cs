@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class Inventory : MonoBehaviour
 {
@@ -11,14 +12,29 @@ public class Inventory : MonoBehaviour
     int _differentRessourceAmount = 0;
     // Maximum amount of the same ressource
     [SerializeField] int _maxSameRessourceSpace = int.MaxValue;
-    Dictionary<RessourceSO, int> _objectStored;
+    Dictionary<RessourceSO, int> _ressourceStored = new Dictionary<RessourceSO, int>();
+
+    // Event for when the inventoryChange
+    public event Action onInventoryChange;
 
     #region Managing
-    public bool Contains(RessourceSO objectToAdd, int amount)
+    public int Contains(RessourceSO objectToAdd)
     {
-        if (_objectStored.ContainsKey(objectToAdd))
+        if (objectToAdd == null) return 0;
+        if (_ressourceStored.ContainsKey(objectToAdd))
         {
-            return amount <= _objectStored[objectToAdd];
+            return _ressourceStored[objectToAdd];
+        }
+
+        return 0;
+    }
+
+    public bool ContainsAmount(RessourceSO objectToAdd, int amount)
+    {
+        if (objectToAdd == null || amount == 0) return false;
+        if (_ressourceStored.ContainsKey(objectToAdd))
+        {
+            return amount <= _ressourceStored[objectToAdd];
         }
 
         return false;
@@ -26,6 +42,7 @@ public class Inventory : MonoBehaviour
 
     public void Add(RessourceSO objectToAdd, int amount)
     {
+        if (objectToAdd == null || amount == 0)return;
         int weightToAdd = objectToAdd.weight * amount;
 
         // Verify if the inventory can carry those item
@@ -36,13 +53,12 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-
-
-        if (_objectStored.ContainsKey(objectToAdd))
+        if (_ressourceStored.ContainsKey(objectToAdd))
         {
-            if (_maxSameRessourceSpace <= (_objectStored[objectToAdd] + amount) * objectToAdd.spacePerUnit)
+            if (_maxSameRessourceSpace <= (_ressourceStored[objectToAdd] + amount) * objectToAdd.spacePerUnit)
             {
-                _objectStored[objectToAdd] += amount;
+                _ressourceStored[objectToAdd] += amount;
+                onInventoryChange?.Invoke();
             }
             else
             {
@@ -54,7 +70,8 @@ public class Inventory : MonoBehaviour
         {
             if (_maxSameRessourceSpace <= amount * objectToAdd.spacePerUnit)
             {
-                _objectStored.Add(objectToAdd, amount);
+                _ressourceStored.Add(objectToAdd, amount);
+                onInventoryChange?.Invoke();
             }
             else
             {
@@ -71,16 +88,18 @@ public class Inventory : MonoBehaviour
 
     public void Remove(RessourceSO objectToAdd, int amount)
     {
-        if (_objectStored.ContainsKey(objectToAdd))
+        if (objectToAdd == null || amount == 0) return;
+        if (_ressourceStored.ContainsKey(objectToAdd))
         {
-            _objectStored[objectToAdd] -= amount;
+            _ressourceStored[objectToAdd] -= amount;
+            onInventoryChange?.Invoke();
 
             // keep track of the actual number of ressource removed
             int amountRemoved = amount;
-            if (_objectStored[objectToAdd] < 0) amountRemoved += _objectStored[objectToAdd];
+            if (_ressourceStored[objectToAdd] < 0) amountRemoved += _ressourceStored[objectToAdd];
 
             // Make sure not negative object are stored
-            _objectStored[objectToAdd] = Mathf.Clamp(_objectStored[objectToAdd], 0, int.MaxValue);
+            _ressourceStored[objectToAdd] = Mathf.Clamp(_ressourceStored[objectToAdd], 0, int.MaxValue);
 
             // Adjust weight and ressource space
             _weight -= objectToAdd.weight * amountRemoved;
@@ -90,6 +109,16 @@ public class Inventory : MonoBehaviour
         {
             Debug.LogError("Could not remove item : " + objectToAdd.actualName + " since not present");
         }
+    }
+
+    public RessourceSO MostRessourceInside()
+    {
+        RessourceSO mostRessource = null;
+        foreach (KeyValuePair<RessourceSO, int> ressourceAndAmount in _ressourceStored)
+        {
+            if (ressourceAndAmount.Value > _ressourceStored[mostRessource]) mostRessource = ressourceAndAmount.Key;
+        }
+        return mostRessource;
     }
 
     int WeightLeft()

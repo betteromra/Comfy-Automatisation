@@ -10,9 +10,20 @@ public class IngredientUI : MonoBehaviour
 
     public void DisplayIngredient(Ingredient ingredient)
     {
-        _image.sprite = ingredient.ressource.icon;
+        bool hasRessource = ingredient.ressource != null;
 
-        _containerAmount.SetActive(ingredient.amount != 1);
-        _amount.text = ingredient.amount + "";
+        if (hasRessource)
+        {
+            // display the ressource with the correct ammount
+            _image.sprite = ingredient.ressource.icon;
+
+            _containerAmount.SetActive(ingredient.amount != 1);
+            _amount.text = ingredient.amount + "";
+        }
+        else
+        {
+            _containerAmount.SetActive(false);
+        }
+        _image.gameObject.SetActive(hasRessource);
     }
 }

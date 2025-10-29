@@ -130,11 +130,11 @@ public class CameraManager : MonoBehaviour
 
         Vector2 clampedPos2d = new Vector2(Mathf.Abs(clampedPos.x), Mathf.Abs(clampedPos.z));
         float manhattanDistance = clampedPos2d.x + clampedPos2d.y;
-        float manhattanDifference = manhattanDistance;
+        float manhattanDifference = manhattanDistance - _maxCameraDistance * _maxCameraDistanceZoomCurve.Evaluate(_zoomLevel);
 
-        if (clampedPos.x < 0 && clampedPos.z < 0) manhattanDifference = manhattanDistance - _maxCameraDistance;
-        else manhattanDifference = manhattanDistance - _maxCameraDistance * _maxCameraDistanceZoomCurve.Evaluate(_zoomLevel);
-        Debug.Log(_zoomLevel + "  " + manhattanDifference);
+        // Add a little bit of room for the bottom
+        // Debug.Log(clampedPos.z);
+        // if (clampedPos.z < 0) manhattanDifference -= 10f * Mathf.Abs(1 - _zoomLevel);
 
         // we outside of the bound
         if (manhattanDifference > 0f)

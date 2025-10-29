@@ -12,7 +12,7 @@ public interface Makeable
     // Verify that the inventory have all the ingredient
     foreach (Ingredient ingredient in recipe.ingredientsInput)
     {
-      if (!inputInventory.Contains(ingredient.ressource, ingredient.amount))
+      if (!inputInventory.ContainsAmount(ingredient.ressource, ingredient.amount))
       {
         return false;
       }

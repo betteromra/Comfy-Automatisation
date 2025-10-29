@@ -17,6 +17,9 @@ public abstract class Building : MonoBehaviour
 
     protected void UpdateIngredientToDisplay()
     {
-        _ingredientToDisplayUI.ingredientUI.DisplayIngredient(_ingredientToDisplay);
+        if (_ingredientToDisplayUI != null)
+        {
+            _ingredientToDisplayUI.ingredientUI.DisplayIngredient(_ingredientToDisplay);
+        }
     }
 }

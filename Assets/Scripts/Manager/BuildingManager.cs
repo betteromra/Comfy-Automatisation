@@ -5,6 +5,8 @@ public class BuildingManager : MonoBehaviour
 {
     [SerializeField] Building[] _buildings;
     public Building[] buildings { get => _buildings; }
+    [SerializeField] BuildingSO _buildingSOToolBarSelected;
+    public BuildingSO buildingSOToolBarSelected { get => buildingSOToolBarSelected; }
 
     public LayerMask BlockingLayers;
     public GameObject Keep;
@@ -81,16 +83,15 @@ public class BuildingManager : MonoBehaviour
             temp = null;
         }
     }
-    
+
     //This is a kinda shitty way to do this. It's just +2 in each direction at this point. May change to boxcast. 2 Collisions are expected, itself and the floor.
     private bool CheckPlacementCollision(BoxCollider col)
     {
-        Collider[] collisions = Physics.OverlapBox(col.transform.position, new Vector3((col.size.x/2) + 2, col.size.y/2, (col.size.z/2) + 2), Quaternion.identity);
+        Collider[] collisions = Physics.OverlapBox(col.transform.position, new Vector3((col.size.x / 2) + 2, col.size.y / 2, (col.size.z / 2) + 2), Quaternion.identity);
 
         if (collisions.Length > 2)
             return false;
         return true;
 
     }
-
 }

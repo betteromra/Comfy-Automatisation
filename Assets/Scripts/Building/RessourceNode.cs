@@ -10,5 +10,6 @@ public class RessourceNode : Building
         base.Awake();
         _ressourceNodeSO = _buildingSO as RessourceNodeSO;
         _ingredientToDisplay.ressource = _ressourceNodeSO.ressource;
+        UpdateIngredientToDisplay();
     }
 }

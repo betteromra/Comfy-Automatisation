@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 0}
+  _mainCinemachineCamera: {fileID: 0}
   _cameraTarget: {fileID: 0}
   _moveSpeed: {x: 10, y: 8}
   _moveSpeedZoomCurve:
@@ -74,7 +75,7 @@ MonoBehaviour:
   _moveSmoothing: 20
   _keyboardMoveSpeedAdjustement: 4
   _maxCameraDistance: 140
-  _zoomSpeed: 20
+  _zoomSpeed: 40
   _zoomSmoothing: 20
   _zoomSpeedZoomCurve:
     serializedVersion: 2

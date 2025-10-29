@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using System;
 
 public class CameraManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] float _keyboardMoveSpeedAdjustement;
     [SerializeField] float _maxCameraDistance;
     Vector3 _targetCameraTargetPosition = Vector2.zero;
+    public event Action onMove;
 
     [Header("Camera Zoom")]
     [SerializeField] float _zoomSpeed;
@@ -26,26 +28,22 @@ public class CameraManager : MonoBehaviour
     float _targetOrbitRadialAxis = 0;
     float _zoomLevel = 0;
     public float zoomLevel { get => _zoomLevel; }
+    public event Action onZoom;
     Player _player;
 
     private void Awake()
     {
         _mainCameraOrbit = _mainCinemachineCamera.GetComponent<CinemachineOrbitalFollow>();
-        RefreshZoomLevel(_mainCameraOrbit.RadialAxis);
+        RefreshZoomLevel();
+        _targetCameraTargetPosition = _cameraTarget.position;
         _targetOrbitRadialAxis = _mainCameraOrbit.RadialAxis.Value;
         _player = GameManager.instance.player;
     }
 
-    private void OnEnable()
+    void Update()
     {
-        _player.onMoveCamera += UpdateMovement;
-        _player.onZoomCamera += UpdateZoom;
-    }
-
-    private void OnDisable()
-    {
-        _player.onMoveCamera -= UpdateMovement;
-        _player.onZoomCamera -= UpdateZoom;
+        UpdateMovement();
+        UpdateZoom();
     }
 
     #region Control
@@ -69,7 +67,8 @@ public class CameraManager : MonoBehaviour
         _targetCameraTargetPosition += motion * zoomMultiplier;
 
         // If we don't need to move the Camera then we don't
-        if (Vector3.Distance(_targetCameraTargetPosition, _cameraTarget.position) < 0.01f) return;
+        bool atTarget = Vector3.Distance(_targetCameraTargetPosition, _cameraTarget.position) < 0.01f;
+        if (atTarget) return;
 
         // Clamping the position so the camera can't go ouside of the game bound
         Vector3 clampedPos = _targetCameraTargetPosition;
@@ -103,6 +102,8 @@ public class CameraManager : MonoBehaviour
         smoothMotion.z = Mathf.Lerp(_cameraTarget.position.z, _targetCameraTargetPosition.z, Time.deltaTime * _moveSmoothing);
 
         _cameraTarget.position = smoothMotion;
+
+        if (!atTarget) onMove?.Invoke();
     }
 
     void ZoomCamera(float zoomDelta)
@@ -110,14 +111,21 @@ public class CameraManager : MonoBehaviour
         float motion = zoomDelta * _zoomSpeed * Time.deltaTime;
         InputAxis radialAxis = _mainCameraOrbit.RadialAxis;
 
+        // if we go in another direction don't make it go in the wrong way
+        // for some time of the blend
+        int zoomDeltaSign = Math.Sign(zoomDelta);
+        if (zoomDeltaSign != 0)
+        {
+            if (Math.Sign(_targetOrbitRadialAxis - radialAxis.Value) != zoomDeltaSign) _targetOrbitRadialAxis = radialAxis.Value;
+        }
         // The more zoomed you are the more it zoom fast
         float zoomMultiplier = _zoomSpeedZoomCurve.Evaluate(_zoomLevel);
         _targetOrbitRadialAxis += motion * zoomMultiplier;
 
         // If we don't need to move the Camera then we don't
-        if (Mathf.Abs(radialAxis.Value - _targetOrbitRadialAxis) < 0.01f) return;
-
-        RefreshZoomLevel(radialAxis);
+        bool atTarget = Mathf.Abs(radialAxis.Value - _targetOrbitRadialAxis) < 0.01f;
+        if (atTarget) return;
+        else onMove?.Invoke();
 
         // Clamping the zoom so there is a limit to the zoom in and out
         _targetOrbitRadialAxis = Mathf.Clamp(_targetOrbitRadialAxis, radialAxis.Range.x, radialAxis.Range.y);
@@ -126,14 +134,16 @@ public class CameraManager : MonoBehaviour
         float smoothMotion = Mathf.Lerp(radialAxis.Value, _targetOrbitRadialAxis, Time.deltaTime * _zoomSmoothing);
 
         _mainCameraOrbit.RadialAxis.Value = smoothMotion;
+        RefreshZoomLevel();
+        if (!atTarget) onZoom?.Invoke();
     }
     #endregion
 
     #region Calculate
 
-    void RefreshZoomLevel(InputAxis radialAxis)
+    void RefreshZoomLevel()
     {
-        _zoomLevel = Mathf.InverseLerp(radialAxis.Range.x, radialAxis.Range.y, radialAxis.Value);
+        _zoomLevel = Mathf.InverseLerp(_mainCameraOrbit.RadialAxis.Range.x, _mainCameraOrbit.RadialAxis.Range.y, _mainCameraOrbit.RadialAxis.Value);
     }
     #endregion
 }

@@ -3,15 +3,16 @@ using UnityEngine;
 public class UserInterfaceManager : MonoBehaviour
 {
     [SerializeField] float ingredientOnBuildingSize = 1;
-    Player _player;
+    CameraManager _cameraManager;
 
     private void Awake()
     {
-        _player = GameManager.instance.player;
+        _cameraManager = GameManager.instance.cameraManager;
+        UpdateSize();
     }
     private void OnEnable()
     {
-        _player.onZoomCamera += UpdateSize;
+        _cameraManager.onZoom += UpdateSize;
     }
 
     void UpdateSize()
@@ -21,7 +22,7 @@ public class UserInterfaceManager : MonoBehaviour
         {
             if (building.ingredientToDisplayUI != null)
             {
-                building.ingredientToDisplayUI.transform.localScale *= ingredientOnBuildingSize * zoomLevel;
+                building.ingredientToDisplayUI.transform.localScale = Vector3.one * (.5f + ingredientOnBuildingSize * zoomLevel);
             }
         }
     }

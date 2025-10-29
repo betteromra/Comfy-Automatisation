@@ -706,6 +706,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb58b7211a48da4f91b051fc4f23f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &910127240 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6687192355819728386, guid: 47eedc1ca076d374aaecab8edf38ed95, type: 3}
+  m_PrefabInstance: {fileID: 1878033133}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1095575670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1432,12 +1437,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa7a25718d581d47a4fa3810b647ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  hoverColor: {r: 0, g: 1, b: 0, a: 1}
   outlineWidth: 0.1
+  hoverTint: {r: 0, g: 1, b: 0.018348932, a: 0.2}
+  hoverIntensity: 0.3
   useOutline: 1
-  useColorTint: 0
+  isParent: 0
+  specificRenderers:
+  - {fileID: 910127240}
 --- !u!1 &1978135688
 GameObject:
   m_ObjectHideFlags: 0

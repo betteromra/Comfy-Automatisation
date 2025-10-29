@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask selectableLayers = -1;
     private HashSet<Renderer> selectedRenderers = new HashSet<Renderer>();
     private HashSet<Selectable> selectedObjects = new HashSet<Selectable>();
+    private Selectable currentHoveredObject = null;
 
     public event Action<HashSet<Renderer>> OnSelectionChanged;
 
@@ -170,10 +171,66 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // Handle hover detection
+        HandleHover();
+
         // Clear selection with Escape key
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ClearSelection();
+        }
+    }
+
+    private void HandleHover()
+    {
+        // Don't do hover detection if camera is being moved
+        if (_cameraMouseMove) return;
+
+        Camera playerCamera = GameManager.instance.cameraManager.mainCamera;
+        if (playerCamera == null)
+            playerCamera = Camera.main;
+
+        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, selectableLayers))
+        {
+            Selectable hoveredSelectable = hit.collider.GetComponentInParent<Selectable>();
+
+            if (hoveredSelectable != null)
+            {
+                // New object being hovered
+                if (currentHoveredObject != hoveredSelectable)
+                {
+                    // Clear previous hover
+                    if (currentHoveredObject != null)
+                    {
+                        currentHoveredObject.SetHovered(false);
+                    }
+
+                    // Set new hover
+                    currentHoveredObject = hoveredSelectable;
+                    currentHoveredObject.SetHovered(true);
+                }
+            }
+            else
+            {
+                // Hit something but it's not selectable, clear hover
+                ClearHover();
+            }
+        }
+        else
+        {
+            // Didn't hit anything, clear hover
+            ClearHover();
+        }
+    }
+
+    private void ClearHover()
+    {
+        if (currentHoveredObject != null)
+        {
+            currentHoveredObject.SetHovered(false);
+            currentHoveredObject = null;
         }
     }
 

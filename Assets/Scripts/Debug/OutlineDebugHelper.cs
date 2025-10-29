@@ -14,12 +14,12 @@ public class OutlineDebugHelper : MonoBehaviour
         // Find the player controller
         playerController = FindAnyObjectByType<Player>();
         
-        // Add SelectableObjects component if not present
+        // Add Selectable component if not present
         selectable = GetComponent<Selectable>();
         if (selectable == null)
         {
             selectable = gameObject.AddComponent<Selectable>();
-            Debug.Log($"Added SelectableObjects to {gameObject.name}");
+            Debug.Log($"Added Selectable to {gameObject.name}");
         }
 
         // Auto-select on start for testing

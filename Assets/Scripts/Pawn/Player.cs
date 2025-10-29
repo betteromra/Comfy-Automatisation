@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
         selectedObjects.Add(selected);
 
         Renderer[] renderers = selected.GetComponentsInChildren<Renderer>();
-        Debug.Log(renderers.Length);
+
         foreach (Renderer renderer in renderers)
         {
             selectedRenderers.Add(renderer);

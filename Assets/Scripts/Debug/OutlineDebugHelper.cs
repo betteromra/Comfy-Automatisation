@@ -7,9 +7,13 @@ using UnityEngine;
 public class OutlineDebugHelper : MonoBehaviour
 {
     private SelectableObjects selectable;
+    private Player playerController;
 
     void Start()
     {
+        // Find the player controller
+        playerController = FindAnyObjectByType<Player>();
+        
         // Add SelectableObjects component if not present
         selectable = GetComponent<SelectableObjects>();
         if (selectable == null)
@@ -19,14 +23,14 @@ public class OutlineDebugHelper : MonoBehaviour
         }
 
         // Auto-select on start for testing
-        if (SelectionManager.Instance != null)
+        if (playerController != null)
         {
             selectable.ForceSelect();
             Debug.Log($"<color=green>OutlineDebugHelper: {gameObject.name} is now SELECTED for outline rendering</color>");
         }
         else
         {
-            Debug.LogWarning($"<color=orange>OutlineDebugHelper: SelectionManager not found in scene!</color>");
+            Debug.LogWarning($"<color=orange>OutlineDebugHelper: Player controller not found in scene!</color>");
         }
 
         // Check if object has a renderer
@@ -46,7 +50,7 @@ public class OutlineDebugHelper : MonoBehaviour
         // Toggle selection with Space key
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (SelectionManager.Instance != null)
+            if (playerController != null)
             {
                 if (selectable.IsSelected)
                 {

@@ -18,6 +18,7 @@ public class SelectableObjects : MonoBehaviour
     private Renderer[] renderers;
     private MaterialPropertyBlock propertyBlock;
     private Color[] originalColors;
+    private Player playerController;
 
     public bool IsSelected
     {
@@ -29,6 +30,7 @@ public class SelectableObjects : MonoBehaviour
     {
         renderers = GetComponentsInChildren<Renderer>();
         propertyBlock = new MaterialPropertyBlock();
+        playerController = FindAnyObjectByType<Player>();
 
         if (useColorTint)
         {
@@ -47,17 +49,20 @@ public class SelectableObjects : MonoBehaviour
 
     private void OnEnable()
     {
-        if (SelectionManager.Instance != null)
+        if (playerController == null)
+            playerController = FindAnyObjectByType<Player>();
+            
+        if (playerController != null)
         {
-            SelectionManager.Instance.OnSelectionChanged += OnSelectionChanged;
+            playerController.OnSelectionChanged += OnSelectionChanged;
         }
     }
 
     private void OnDisable()
     {
-        if (SelectionManager.Instance != null)
+        if (playerController != null)
         {
-            SelectionManager.Instance.OnSelectionChanged -= OnSelectionChanged;
+            playerController.OnSelectionChanged -= OnSelectionChanged;
         }
     }
 
@@ -160,26 +165,32 @@ public class SelectableObjects : MonoBehaviour
 
     public void ForceSelect()
     {
-        if (SelectionManager.Instance != null)
+        if (playerController == null)
+            playerController = FindAnyObjectByType<Player>();
+            
+        if (playerController != null)
         {
-            SelectionManager.Instance.SelectObject(gameObject);
+            playerController.SelectObject(gameObject);
         }
     }
 
     public void ForceDeselect()
     {
-        if (SelectionManager.Instance != null)
+        if (playerController == null)
+            playerController = FindAnyObjectByType<Player>();
+            
+        if (playerController != null)
         {
-            SelectionManager.Instance.DeselectObject(gameObject);
+            playerController.DeselectObject(gameObject);
         }
     }
 
     private void OnDestroy()
     {
         // Clean up if this object was selected
-        if (isSelected && SelectionManager.Instance != null)
+        if (isSelected && playerController != null)
         {
-            SelectionManager.Instance.DeselectObject(gameObject);
+            playerController.DeselectObject(gameObject);
         }
     }
 

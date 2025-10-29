@@ -1,3 +1,7 @@
+// DEPRECATED: Selection logic has been moved to Player controller
+// This file is kept for reference but should not be used
+
+/*
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -127,3 +131,4 @@ public class SelectionManager : MonoBehaviour
 
     public bool IsSelected(GameObject obj) => selectedObjects.Contains(obj);
 }
+*/

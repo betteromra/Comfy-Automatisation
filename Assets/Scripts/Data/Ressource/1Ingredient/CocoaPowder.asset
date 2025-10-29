@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actualName: Cocoa powder
   _description: 
+  _icon: {fileID: -220029663, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: c51cb5459250cd1488c4da713f020d35, type: 2}
+  _spacePerUnit: 1
   _weight: 2
   _rawValue: 0
   _quality: 1

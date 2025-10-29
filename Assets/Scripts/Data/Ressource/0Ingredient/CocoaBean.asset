@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actualName: Cocoa bean
   _description: 
+  _icon: {fileID: -1486123200, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
   _sprite: {fileID: 0}
   _recipe: {fileID: 0}
+  _spacePerUnit: 1
   _weight: 3
   _rawValue: 7
   _quality: 0

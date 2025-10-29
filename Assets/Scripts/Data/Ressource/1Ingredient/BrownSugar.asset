@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actualName: Brown sugar
   _description: 
+  _icon: {fileID: -1307784760, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: ec6596e60fea7a641a58623e48c8e4a4, type: 2}
+  _spacePerUnit: 1
   _weight: 3
   _rawValue: 0
   _quality: 1

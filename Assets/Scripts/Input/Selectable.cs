@@ -161,12 +161,12 @@ public class Selectable : MonoBehaviour
                     if (renderer.sharedMaterial.HasProperty("_BaseColor"))
                     {
                         propertyBlock.SetColor("_BaseColor", hoveredColor);
-                        Debug.Log($"Applied hover to {renderer.gameObject.name} - Original: {originalColor}, Hovered: {hoveredColor}");
+                        //Debug.Log($"Applied hover to {renderer.gameObject.name} - Original: {originalColor}, Hovered: {hoveredColor}");
                     }
                     else if (renderer.sharedMaterial.HasProperty("_Color"))
                     {
                         propertyBlock.SetColor("_Color", hoveredColor);
-                        Debug.Log($"Applied hover to {renderer.gameObject.name} - Original: {originalColor}, Hovered: {hoveredColor}");
+                        //Debug.Log($"Applied hover to {renderer.gameObject.name} - Original: {originalColor}, Hovered: {hoveredColor}");
                     }
                     
                     renderer.SetPropertyBlock(propertyBlock);

@@ -706,11 +706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb58b7211a48da4f91b051fc4f23f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!23 &910127240 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6687192355819728386, guid: 47eedc1ca076d374aaecab8edf38ed95, type: 3}
-  m_PrefabInstance: {fileID: 1878033133}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1095575670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1337,10 +1332,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1129661365988557429, guid: 47eedc1ca076d374aaecab8edf38ed95, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1962547868}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47eedc1ca076d374aaecab8edf38ed95, type: 3}
 --- !u!4 &1878033134 stripped
 Transform:
@@ -1352,7 +1344,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3088208184426422220, guid: 47eedc1ca076d374aaecab8edf38ed95, type: 3}
   m_PrefabInstance: {fileID: 1878033133}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1962547867}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b24368d6a284b5a4594a7f1aaa37788e, type: 3}
@@ -1420,30 +1412,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3425352613503263699, guid: 7a640dfac8150f641a50dbd622208a75, type: 3}
   m_PrefabInstance: {fileID: 1900167948}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1962547867 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1129661365988557429, guid: 47eedc1ca076d374aaecab8edf38ed95, type: 3}
-  m_PrefabInstance: {fileID: 1878033133}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1962547868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1962547867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa7a25718d581d47a4fa3810b647ca0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineWidth: 0.1
-  hoverTint: {r: 0, g: 1, b: 0.018348932, a: 0.2}
-  hoverIntensity: 0.3
-  useOutline: 1
-  isParent: 0
-  specificRenderers:
-  - {fileID: 910127240}
 --- !u!1 &1978135688
 GameObject:
   m_ObjectHideFlags: 0

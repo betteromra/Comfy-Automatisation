@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actualName: 
   _description: 
+  _icon: {fileID: 1775401293, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: da1961e13819f6748a32defc4509aaa3, type: 2}
   _spacePerUnit: 2

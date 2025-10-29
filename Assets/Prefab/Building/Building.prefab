@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 844069261832426678}
   - component: {fileID: 2589267037627171199}
   - component: {fileID: 5226877763691530401}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 6552587039068954176}
   - component: {fileID: 788374875138734833}
   - component: {fileID: 4578754479567070175}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2291625337149860718}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Output
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7329219803716371519}
   - component: {fileID: 8354404690157544027}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5274143234248299428}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 720745037061991840}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,9 +427,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4331656399061762528, guid: a615588dce5bc4a4f94b0918ac7567e9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5290864399947557548, guid: a615588dce5bc4a4f94b0918ac7567e9, type: 3}
       propertyPath: m_Name
       value: IngredientToDisplayUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290864399947557548, guid: a615588dce5bc4a4f94b0918ac7567e9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531705976005525316, guid: a615588dce5bc4a4f94b0918ac7567e9, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

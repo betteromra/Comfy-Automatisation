@@ -19,6 +19,7 @@ public class UserInterfaceManager : MonoBehaviour
         float zoomLevel = GameManager.instance.cameraManager.zoomLevel;
         foreach (Building building in GameManager.instance.buildingManager.buildings)
         {
+            Debug.Log(building.name);
             if (building.ingredientToDisplayUI != null)
             {
                 building.ingredientToDisplayUI.transform.localScale *= ingredientOnBuildingSize * zoomLevel;

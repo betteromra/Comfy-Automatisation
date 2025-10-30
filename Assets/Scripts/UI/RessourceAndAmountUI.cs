@@ -7,6 +7,8 @@ public class RessourceAndAmountUI : MonoBehaviour
     [SerializeField] Image _image;
     [SerializeField] GameObject _containerAmount;
     [SerializeField] TextMeshProUGUI _amount;
+    int _ghostAmount;
+    public int ghostAmount { get => _ghostAmount; set => _ghostAmount = value; }
 
     public void DisplayRessourceAndAmount(RessourceSO ressourceSO, int amount)
     {

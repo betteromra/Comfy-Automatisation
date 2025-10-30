@@ -9,6 +9,7 @@ public class BuildingToolBarUI : MonoBehaviour
     {
         _image.sprite = building.icon;
 
+        _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(() => toolBarUI.SelectBuilding(building));
         _button.interactable = canCraft;
     }

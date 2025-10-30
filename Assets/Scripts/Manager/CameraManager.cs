@@ -136,9 +136,8 @@ public class CameraManager : MonoBehaviour
         float manhattanDistance = clampedPos2d.x + clampedPos2d.y;
         float manhattanDifference = manhattanDistance - _maxCameraDistance * _maxCameraDistanceZoomCurve.Evaluate(_zoomLevel);
 
-        // Add a little bit of room for the bottom
-        // Debug.Log(clampedPos.z);
-        // if (clampedPos.z < 0) manhattanDifference -= 10f * Mathf.Abs(1 - _zoomLevel);
+        // Add a little bit of room for the bottom and top
+        manhattanDifference -= _zoomLevel * clampedPos2d.y * .1f;
 
         // we outside of the bound
         if (manhattanDifference > 0f)

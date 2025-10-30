@@ -7,6 +7,8 @@ public class CraftBuilding : Building
     public Inventory inputInventory { get => _inputInventory; }
     [SerializeField] Inventory _outputInventory;
     public Inventory outputInventory { get => _outputInventory; }
+    [SerializeField] RecipeSO _selectedRecipeSO;
+    public RecipeSO selectedRecipeSO { get => _selectedRecipeSO; set => _selectedRecipeSO = value; }
     Timer _craftingTimer;
     public Timer craftingTimer { get => _craftingTimer; }
     public event Action onCrafting;

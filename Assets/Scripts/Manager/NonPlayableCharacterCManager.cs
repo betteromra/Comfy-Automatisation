@@ -18,13 +18,11 @@ public class NonPlayableCharacterCManager : MonoBehaviour
     void OnEnable()
     {
         GameManager.instance.player.onPressedSelect += HandleClick;
-        GameManager.instance.player.onPressedDeselect += HandleClick;
     }
 
     void OnDisable()
     {
         GameManager.instance.player.onPressedSelect -= HandleClick;
-        GameManager.instance.player.onPressedDeselect -= HandleClick;
     }
 
     public void InstansiateNewNPC(Vector3 position)

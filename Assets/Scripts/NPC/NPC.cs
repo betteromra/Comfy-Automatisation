@@ -17,16 +17,20 @@ public struct Carrying
 
 [RequireComponent(typeof(BehaviorGraphAgent))]
 [RequireComponent(typeof(Selectable))]
+[RequireComponent(typeof(NPCPathRenderer))]
 public class NPC : MonoBehaviour
 {
     public event Action<NPC, bool> OnSelfSelected;
     [SerializeField] private int _maxCarryingCapacity = 1;
     private Carrying _carrying;
     private BehaviorGraphAgent _behaviorAgent;
+    private NPCPathRenderer _npcPathRenderer;
 
     void Awake()
     {
         _behaviorAgent = GetComponent<BehaviorGraphAgent>();
+        _npcPathRenderer = GetComponent<NPCPathRenderer>();
+        
         _carrying = new(null, 0);
 
         GetComponent<Selectable>().onSelfSelected += HandleSelection;
@@ -43,6 +47,7 @@ public class NPC : MonoBehaviour
             if (walkingPoints.Value.Count == 2)
             {
                 Unlink(gameObject);
+                CalculatePath();
                 return;
             }
 
@@ -171,8 +176,25 @@ public class NPC : MonoBehaviour
 
     private void HandleSelection(bool isSelected)
     {
-        //Currently only passing the Action with NPC, but may want to handle
-        //Something in this function as well!
+        _npcPathRenderer.SetVisibilityOfLineRenderer(isSelected);
+
+        if (isSelected)
+        {
+            CalculatePath();
+        }
+
         OnSelfSelected.Invoke(this, isSelected);
+    }
+    
+    private void CalculatePath()
+    {
+        if (_behaviorAgent.BlackboardReference.GetVariable("WalkingPoints", out BlackboardVariable<List<GameObject>> walkingPoints))
+        {
+            List<GameObject> walkingPointsList = walkingPoints.Value;
+            if (walkingPointsList.Count == 2)
+            {
+                _npcPathRenderer.DrawPathThroughNPC(walkingPointsList[0].transform.position, walkingPointsList[1].transform.position);
+            }
+        }
     }
 }

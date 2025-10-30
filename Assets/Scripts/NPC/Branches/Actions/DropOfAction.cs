@@ -15,7 +15,7 @@ public partial class DropOfAction : Action
     {
         NPC npc = NPC.Value;
 
-        npc.DropOff(Target);
+        npc.DropOff(Target.Value);
         return Status.Running;
     }
 

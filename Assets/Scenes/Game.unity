@@ -1990,6 +1990,7 @@ Transform:
   - {fileID: 873036644}
   - {fileID: 1388111071}
   - {fileID: 4989582093776985175}
+  - {fileID: 4421870742323167981}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &358921125296618777
@@ -2276,6 +2277,79 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721a8bbcc9ba6134cbc5273608b61371, type: 3}
+--- !u!1001 &4421870742323167980
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2073501780}
+    m_Modifications:
+    - target: {fileID: 6606712884057377677, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: m_Name
+      value: NonPlayableCharacterCManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+--- !u!4 &4421870742323167981 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+  m_PrefabInstance: {fileID: 4421870742323167980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4421870742323167982 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3799328801981626515, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+  m_PrefabInstance: {fileID: 4421870742323167980}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7533918770af64581433571345feea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4481466958784015384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2348,6 +2422,10 @@ PrefabInstance:
       propertyPath: _selectionManager
       value: 
       objectReference: {fileID: 4989582093776985176}
+    - target: {fileID: 4241987553807541675, guid: 5651d3a9ca119694292a769529f5a221, type: 3}
+      propertyPath: _nonPlayableCharacter
+      value: 
+      objectReference: {fileID: 4421870742323167982}
     - target: {fileID: 4241987553807541675, guid: 5651d3a9ca119694292a769529f5a221, type: 3}
       propertyPath: _userInterfaceManager
       value: 

@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
   public SoundManager soundManager { get => _soundManager; }
   [SerializeField] BuildingManager _buildingManager;
   public BuildingManager buildingManager { get => _buildingManager; }
+  [SerializeField] NonPlayableCharacterCManager _nonPlayableCharacter;
+  public NonPlayableCharacterCManager nonPlayableCharacter { get => _nonPlayableCharacter; }
   [SerializeField] UserInterfaceManager _userInterfaceManager;
   public UserInterfaceManager userInterfaceManager { get => _userInterfaceManager; }
   [SerializeField] SelectionManager _selectionManager;
@@ -42,5 +44,6 @@ public class GameManager : MonoBehaviour
     _player = player;
     _buildingManager = buildingManager;
     _userInterfaceManager = userInterfaceManager;
+    _selectionManager = selectionManager;
   }
 }

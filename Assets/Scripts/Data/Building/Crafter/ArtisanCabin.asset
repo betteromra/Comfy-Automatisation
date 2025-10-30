@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53f520e44261499b3ed1c61691e74, type: 3}
   m_Name: ArtisanCabin
   m_EditorClassIdentifier: 
+  _actualName: Artisan cabin
   _icon: {fileID: 0}
   _recipe: {fileID: 11400000, guid: 9f079c8085c7c374fac7c52ff64ad3b5, type: 2}
   _craftableRecipes:

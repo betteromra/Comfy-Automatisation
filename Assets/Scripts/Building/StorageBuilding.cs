@@ -3,6 +3,7 @@ using UnityEngine;
 public class StorageBuilding : Building
 {
     [SerializeField] protected Inventory _inventory;
+    public Inventory inventory { get => _inventory; }
     protected override void Awake()
     {
         base.Awake();
@@ -20,6 +21,6 @@ public class StorageBuilding : Building
     void InventoryChange()
     {
         RessourceSO ressourceSO = _inventory.MostRessourceInside();
-        UpdateIngredientToDisplay(ressourceSO,  _inventory.Contains(ressourceSO));
+        UpdateIngredientToDisplay(ressourceSO, _inventory.Contains(ressourceSO));
     }
 }

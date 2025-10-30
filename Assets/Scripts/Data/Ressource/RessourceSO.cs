@@ -43,6 +43,25 @@ public class RessourceSO : ScriptableObject, Makeable
       return _rawValue;
     }
   }
+  [SerializeField] int _value;
+  public int value
+  {
+    get
+    {
+      // if there is a recipe and it wasn't calculated yet, 
+      // calculate the value from the children add them together
+      if (_recipe != null && _rawValue == 0)
+      {
+        CalculateValue();
+      }
+      else
+      {
+        _value = _rawValue;
+      }
+
+      return _value;
+    }
+  }
   [SerializeField] Quality _quality;
   public Quality quality { get => _quality; }
   // the raw ressource it to take to make this ressource
@@ -69,6 +88,7 @@ public class RessourceSO : ScriptableObject, Makeable
     foreach (Ingredient ingredient in _recipe.ingredientsInput)
     {
       _rawValue += ingredient.ressourceSO.rawValue;
+      _value += ingredient.ressourceSO.value + 2;
     }
   }
   Dictionary<RessourceSO, int> CalculateRawIngredientToMake()

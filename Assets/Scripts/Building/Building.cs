@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Building : MonoBehaviour
 {
     [SerializeField] protected BuildingSO _buildingSO;
+    public BuildingSO buildingSO { get => _buildingSO; set => _buildingSO = value; }
     [SerializeField] protected MeshRenderer _meshRenderer;
     [SerializeField] protected BoxCollider _collider;
     [SerializeField] protected InputNode[] _inputNode;

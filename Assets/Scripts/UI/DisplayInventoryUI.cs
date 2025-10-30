@@ -1,11 +1,29 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UI;
+using TMPro;
 
 public class DisplayInventoryUI : MonoBehaviour
 {
     [SerializeField] Inventory _inventory;
+    public Inventory inventory { get => _inventory; set => _inventory = value; }
     [SerializeField] RessourceAndAmountUI[] _ressourcesAndAmountUI;
+    [SerializeField] TextMeshProUGUI _weight;
+    [SerializeField] TextMeshProUGUI _value;
+    
+    private void OnEnable()
+    {
+        if (_inventory != null)
+        {
+            _inventory.onInventoryChange += Refresh;
+        }
+    }
+    private void OnDisable()
+    {
+        if (_inventory != null)
+        {
+            _inventory.onInventoryChange -= Refresh;
+        }
+    }
     void Refresh()
     {
         List<KeyValuePair<RessourceSO, int>> inventoryContent = _inventory.GetAllContent();
@@ -31,5 +49,8 @@ public class DisplayInventoryUI : MonoBehaviour
                 ressourceAndAmountUI.gameObject.SetActive(false);
             }
         }
+
+        if(_weight != null) _weight.text = inventory.weight + "";
+        if(_value != null) _value.text = inventory.value + "";
     }
 }

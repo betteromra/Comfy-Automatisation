@@ -8,6 +8,9 @@ public class Inventory : MonoBehaviour
     [Header("Limitation")]
     [SerializeField] int _maxWeight = int.MaxValue; // Maximum weight for the inventory
     int _weight = 0;
+    public int weight { get => _weight; }
+    int _value = 0;
+    public int value { get => _value; }
     // Maximum amount of different ressource
     [SerializeField] int _maxDifferentRessourceAmount = int.MaxValue;
     int _differentRessourceAmount = 0;
@@ -46,50 +49,51 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public void Add(RessourceSO objectToAdd, int amount)
+    public bool Add(RessourceSO objectToAdd, int amount)
     {
-        if (objectToAdd == null || amount == 0) return;
+        if (objectToAdd == null || amount == 0) return false;
         int weightToAdd = objectToAdd.weight * amount;
 
         // Verify if the inventory can carry those item
-        if (WeightLeft() < weightToAdd || DifferentRessourceSpaceLeft() <= 0)
+        if (WeightLeft() <= weightToAdd || DifferentRessourceSpaceLeft() <= 0)
         {
             // too heavy or not enough space
-            Debug.LogError("Failed to add item : " + objectToAdd.actualName);
-            return;
+            Debug.LogWarning("Failed to add item : " + objectToAdd.actualName);
+            return false;
         }
 
         if (_ressourceStored.ContainsKey(objectToAdd))
         {
-            if (_maxSameRessourceSpace <= (_ressourceStored[objectToAdd] + amount) * objectToAdd.spacePerUnit)
+            if (_maxSameRessourceSpace >= (_ressourceStored[objectToAdd] + amount) * objectToAdd.spacePerUnit)
             {
                 _ressourceStored[objectToAdd] += amount;
                 onInventoryChange?.Invoke();
             }
             else
             {
-                Debug.LogError("Failed to add item : " + objectToAdd.actualName);
-                return;
+                Debug.LogWarning("Failed to add item : " + objectToAdd.actualName);
+                return false;
             }
         }
         else
         {
-            if (_maxSameRessourceSpace <= amount * objectToAdd.spacePerUnit)
+            if (_maxSameRessourceSpace >= amount * objectToAdd.spacePerUnit)
             {
                 _ressourceStored.Add(objectToAdd, amount);
                 onInventoryChange?.Invoke();
             }
             else
             {
-                Debug.LogError("Failed to add item : " + objectToAdd.actualName);
-                return;
+                Debug.LogWarning("Failed to add item : " + objectToAdd.actualName);
+                return false;
             }
         }
 
         // Adjust weight and ressource space
         _weight += weightToAdd;
+        _value += objectToAdd.value * amount;
         _differentRessourceAmount++;
-
+        return true;
     }
 
     public void Remove(RessourceSO objectToAdd, int amount)
@@ -109,19 +113,28 @@ public class Inventory : MonoBehaviour
 
             // Adjust weight and ressource space
             _weight -= objectToAdd.weight * amountRemoved;
+            _value -= objectToAdd.value * amount;
             _differentRessourceAmount--;
         }
         else
         {
-            Debug.LogError("Could not remove item : " + objectToAdd.actualName + " since not present");
+            Debug.LogWarning("Could not remove item : " + objectToAdd.actualName + " since not present");
         }
     }
 
     public RessourceSO MostRessourceInside()
     {
         RessourceSO mostRessource = null;
+
+        if (_ressourceStored.Count() == 0) return null;
+
         foreach (KeyValuePair<RessourceSO, int> ressourceAndAmount in _ressourceStored)
         {
+            if (mostRessource == null)
+            {
+                mostRessource = ressourceAndAmount.Key;
+                continue;
+            }
             if (ressourceAndAmount.Value > _ressourceStored[mostRessource]) mostRessource = ressourceAndAmount.Key;
         }
         return mostRessource;

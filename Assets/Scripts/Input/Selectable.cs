@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class Selectable : MonoBehaviour
     private MaterialPropertyBlock propertyBlock;
     private SelectionManager selectionManager;
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
+    public event Action<bool> onSelectionChanged;
 
     public bool IsSelected
     {
@@ -86,7 +88,7 @@ public class Selectable : MonoBehaviour
         selectionManager.OnSelectionChanged -= OnSelectionChanged;
     }
 
-    private void OnSelectionChanged(System.Collections.Generic.HashSet<Renderer> selectedRenderers)
+    private void OnSelectionChanged(HashSet<Renderer> selectedRenderers)
     {
         // Check if any of our renderers are in the selected set
         bool wasSelected = isSelected;
@@ -105,6 +107,7 @@ public class Selectable : MonoBehaviour
         if (wasSelected != isSelected)
         {
             UpdateVisualFeedback();
+            onSelectionChanged?.Invoke(isSelected);
         }
     }
 
@@ -249,7 +252,7 @@ public class Selectable : MonoBehaviour
     {
         if (specificRenderers == null) return;
 
-        var list = new System.Collections.Generic.List<Renderer>(specificRenderers);
+        var list = new List<Renderer>(specificRenderers);
         list.Remove(renderer);
         specificRenderers = list.ToArray();
         RefreshRenderers();

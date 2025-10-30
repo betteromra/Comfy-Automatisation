@@ -18,7 +18,7 @@ public class DisplayRessourceUI : MonoBehaviour
         _name.text = _ressource.actualName;
         _name.color = _quality[(int)_ressource.quality];
         _weight.text = _ressource.weight + "";
-        _value.text = _ressource.rawValue + ""; // to change to actual value in the future
+        _value.text = _ressource.value + ""; // to change to actual value in the future
 
         _description.text = _ressource.description;
 

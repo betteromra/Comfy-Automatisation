@@ -26,7 +26,7 @@ public class ToolBarUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     _open = true;
 
     if (_refreshAnimation != null) StopCoroutine(_refreshAnimation);
-    _refreshAnimation = StartCoroutine(ToolBarRefresh());
+    _refreshAnimation = StartCoroutine(Refresh());
   }
 
   public void OnPointerExit(PointerEventData eventData)
@@ -34,10 +34,10 @@ public class ToolBarUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     _open = false;
 
     if (_refreshAnimation != null) StopCoroutine(_refreshAnimation);
-    _refreshAnimation = StartCoroutine(ToolBarRefresh());
+    _refreshAnimation = StartCoroutine(Refresh());
   }
 
-  IEnumerator ToolBarRefresh()
+  IEnumerator Refresh()
   {
     _animationTimer.Restart();
     Vector2 startPosition = _rectTransform.anchoredPosition;

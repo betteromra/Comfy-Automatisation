@@ -61,24 +61,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PreviewKeep",
-                    "type": "Button",
-                    "id": "b4470174-47f7-4203-b23c-34ed371ea9cf",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "PreviewRefinery",
-                    "type": "Button",
-                    "id": "220848e0-e7b3-47c7-9e61-7cf464345cf7",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Build",
                     "type": "Button",
                     "id": "5268a6bb-9e43-46ac-87c2-cf51f5b65e02",
@@ -91,6 +73,24 @@
                     "name": "CancelBuild",
                     "type": "Button",
                     "id": "d17ec0c5-75d3-4a55-884d-cd1915b9f36f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PreviewKeep",
+                    "type": "Button",
+                    "id": "b4470174-47f7-4203-b23c-34ed371ea9cf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PreviewRefinery",
+                    "type": "Button",
+                    "id": "220848e0-e7b3-47c7-9e61-7cf464345cf7",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",

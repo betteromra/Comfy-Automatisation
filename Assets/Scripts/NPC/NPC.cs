@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Behavior;
 using UnityEngine;
@@ -15,18 +16,20 @@ public struct Carrying
 }
 
 [RequireComponent(typeof(BehaviorGraphAgent))]
+[RequireComponent(typeof(Selectable))]
 public class NPC : MonoBehaviour
 {
+    public event Action<NPC, bool> OnSelfSelected;
     [SerializeField] private int _maxCarryingCapacity = 1;
-
     private Carrying _carrying;
-
     private BehaviorGraphAgent _behaviorAgent;
 
     void Awake()
     {
         _behaviorAgent = GetComponent<BehaviorGraphAgent>();
         _carrying = new(null, 0);
+
+        GetComponent<Selectable>().onSelfSelected += HandleSelection;
     }
 
     /// <summary>
@@ -44,13 +47,23 @@ public class NPC : MonoBehaviour
             }
 
             walkingPoints.Value.Add(gameObject);
+            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints.Value);
 
-            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints);
+            Debug.Log(gameObject.name);
+
+            if(_behaviorAgent.BlackboardReference.GetVariable("Target", out BlackboardVariable<GameObject> target))
+            {
+                if(target.Value == null)
+                {
+                    _behaviorAgent.BlackboardReference.SetVariableValue("Target", gameObject);
+                }
+            }
         }
         else
         {
             // If the variable doesn't exist, create a new one
             var newList = new List<GameObject> { gameObject };
+            Debug.Log("Doesnt'");
             _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", newList);
         }
     }
@@ -63,13 +76,26 @@ public class NPC : MonoBehaviour
     {
         if (_behaviorAgent.BlackboardReference.GetVariable("WalkingPoints", out BlackboardVariable<List<GameObject>> walkingPoints))
         {
-            _behaviorAgent.BlackboardReference.GetVariable("Index", out BlackboardVariable<int> index);
+            _behaviorAgent.BlackboardReference.GetVariable("WalkingPointsIndex", out BlackboardVariable<int> index);
             _behaviorAgent.BlackboardReference.GetVariable("Target", out BlackboardVariable<GameObject> target);
-            
+
+            foreach (var item in walkingPoints.Value)
+            {
+                Debug.LogWarning(item);
+            }
+
+            Debug.LogWarning(index);
+            Debug.LogWarning(target.Value);
+
             walkingPoints.Value[index] = gameObject;
             target.Value = gameObject;
 
-            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints);
+            foreach (var item in walkingPoints.Value)
+            {
+                Debug.LogWarning(item);
+            }
+            
+            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints.Value);
         }
     }
 
@@ -81,31 +107,31 @@ public class NPC : MonoBehaviour
     {
         if (_carrying.Amount >= _maxCarryingCapacity)
             return;
-        
+
         if (!target.TryGetComponent<OutputNode>(out var outputNode))
         {
             Debug.LogWarning("NPC tried to pickup at non output node!");
             return;
         }
 
-        RessourceSO ressource = outputNode.ressourceSO;
-        if(ressource == null)
+        Inventory inventory = outputNode.inventory;
+        if (inventory == null)
         {
-            Debug.LogWarning("OutputNode resource set to null!");
+            Debug.LogError("OutputNode inventory is set to null!");
         }
 
         if (_carrying.CurrenltyCarrying == null)
         {
+            //Currently the NPC chooses the resource based on amount.
+            RessourceSO ressource = inventory.MostRessourceInside();
             _carrying.CurrenltyCarrying = ressource;
         }
 
-        if (_carrying.CurrenltyCarrying == ressource)
+        if (inventory.ContainsAmount(_carrying.CurrenltyCarrying, 1))
         {
-            Inventory inventory = outputNode.inventory;
-
-            while (_carrying.Amount < _maxCarryingCapacity && 0 < inventory.Contains(ressource))
+            while (_carrying.Amount < _maxCarryingCapacity && 0 < inventory.Contains(_carrying.CurrenltyCarrying))
             {
-                inventory.Remove(ressource, 1);
+                inventory.Remove(_carrying.CurrenltyCarrying, 1);
                 _carrying.Amount++;
             }
         }
@@ -121,19 +147,32 @@ public class NPC : MonoBehaviour
     {
         if (_carrying.Amount <= 0)
             return;
-        
+
         if (!target.TryGetComponent<InputNode>(out var inputNode))
         {
             Debug.LogWarning("NPC tried to drop of at non input node!");
             return;
         }
 
-        if (inputNode.ressourceSO != _carrying.CurrenltyCarrying)
+        Inventory inventory = inputNode.inventory;
+        if (inventory == null)
+        {
+            Debug.LogError("InputNode inventory is set to null!");
+        }
+
+        if (inventory.ContainsAmount(_carrying.CurrenltyCarrying, 0))
             return;
+
+        inventory.Add(_carrying.CurrenltyCarrying, _carrying.Amount);
 
         _carrying.Amount = 0;
         _carrying.CurrenltyCarrying = null;
+    }
 
-        inputNode.inventory.Add(_carrying.CurrenltyCarrying, _carrying.Amount);
+    private void HandleSelection(bool isSelected)
+    {
+        //Currently only passing the Action with NPC, but may want to handle
+        //Something in this function as well!
+        OnSelfSelected.Invoke(this, isSelected);
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.Behavior;
 using UnityEngine;
 
 public struct Carrying
@@ -12,41 +14,119 @@ public struct Carrying
     }
 }
 
+[RequireComponent(typeof(BehaviorGraphAgent))]
 public class NPC : MonoBehaviour
 {
     [SerializeField] private int _maxCarryingCapacity = 1;
 
     private Carrying _carrying;
 
-    /// <summary>
-    /// Tells the NPC to pick up a resource. Picks up one at a time.
-    /// </summary>
-    /// <param name="ressource">Resource that have been picked up</param>
-    public void PickUp(RessourceSO ressource)
+    private BehaviorGraphAgent _behaviorAgent;
+
+    void Awake()
     {
-        if (_carrying.CurrenltyCarrying == null)
-            _carrying.CurrenltyCarrying = ressource;
-        else if(_carrying.CurrenltyCarrying.actualName == ressource.actualName) //This is not a supersolid way of doing this, and if anyone have a good idea on a solution you're welcome to contact me regarding it.
+        _behaviorAgent = GetComponent<BehaviorGraphAgent>();
+    }
+
+    /// <summary>
+    /// Links the GameObject to the NPC
+    /// </summary>
+    /// <param name="gameObject">Position to walk to</param>
+    public void Link(GameObject gameObject)
+    {
+        if (_behaviorAgent.BlackboardReference.GetVariable("WalkingPoints", out BlackboardVariable<List<GameObject>> walkingPoints))
         {
-            if (_carrying.Amount < _maxCarryingCapacity)
-                _carrying.Amount++;
+            if (walkingPoints.Value.Count == 2)
+            {
+                Unlink(gameObject);
+                return;
+            }
+
+            walkingPoints.Value.Add(gameObject);
+
+            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints);
+        }
+        else
+        {
+            // If the variable doesn't exist, create a new one
+            var newList = new List<GameObject> { gameObject };
+            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", newList);
         }
     }
 
     /// <summary>
-    /// Calls the NPC to drop of resource. Drops of one resource at a time.
+    /// Unlinks current target and sets it equal to provided GameObject
+    /// </summary>
+    /// <param name="gameObject">Position to walk</param>
+    public void Unlink(GameObject gameObject)
+    {
+        if (_behaviorAgent.BlackboardReference.GetVariable("WalkingPoints", out BlackboardVariable<List<GameObject>> walkingPoints))
+        {
+            _behaviorAgent.BlackboardReference.GetVariable("Index", out BlackboardVariable<int> index);
+            _behaviorAgent.BlackboardReference.GetVariable("Target", out BlackboardVariable<GameObject> target);
+            
+            walkingPoints.Value[index] = gameObject;
+            target.Value = gameObject;
+
+            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints);
+        }
+    }
+
+    /// <summary>
+    /// Tells the NPC to pick up a resource. Picks up max at a time.
+    /// </summary>
+    /// <param name="target">The target</param>
+    public void PickUp(GameObject target)
+    {
+        if (_carrying.Amount >= _maxCarryingCapacity)
+            return;
+        
+        if (!target.TryGetComponent<OutputNode>(out var outputNode))
+        {
+            Debug.LogWarning("NPC tried to pickup at non output node!");
+            return;
+        }
+
+        RessourceSO ressource = outputNode.ressourceSO;
+
+        if (_carrying.CurrenltyCarrying == null)
+        {
+            _carrying.CurrenltyCarrying = ressource;
+        }
+        
+        if (_carrying.CurrenltyCarrying == ressource)
+        {
+            Inventory inventory = outputNode.inventory;
+
+            while (_carrying.Amount < _maxCarryingCapacity && 0 < inventory.Contains(ressource))
+            {
+                inventory.Remove(ressource, 1);
+                _carrying.Amount++;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Calls the NPC to drop of resource. Drops of all the resource at a time.
     /// </summary>
     /// <returns>Returns information about the dropped of resource.</returns>
-    public Carrying DropOff()
+    public void DropOff(GameObject target)
     {
-        RessourceSO currentCarry = _carrying.CurrenltyCarrying;
+        if (_carrying.Amount <= 0)
+            return;
+        
+        if (!target.TryGetComponent<InputNode>(out var inputNode))
+        {
+            Debug.LogWarning("NPC tried to drop of at non input node!");
+            return;
+        }
 
-        if (_carrying.Amount > 0)
-            _carrying.Amount--;
+        if (inputNode.ressourceSO != _carrying.CurrenltyCarrying)
+            return;
 
-        if (_carrying.Amount == 0)
-            _carrying.CurrenltyCarrying = null;
+        _carrying.Amount = 0;
+        _carrying.CurrenltyCarrying = null;
 
-        return new Carrying(currentCarry, 1);
+        inputNode.inventory.Add(_carrying.CurrenltyCarrying, _carrying.Amount);
     }
 }

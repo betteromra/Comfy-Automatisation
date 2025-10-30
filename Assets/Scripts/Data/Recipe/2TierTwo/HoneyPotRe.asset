@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: HoneyPotRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 0ca35fa4955bad74d9e77c3c27a3eb6c, type: 2}
-    _amount: 1
-  - _ressource: {fileID: 11400000, guid: 50185d6b9565c6c44a8bf5745933d964, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 50185d6b9565c6c44a8bf5745933d964, type: 2}
     _amount: 2
+  - _ressourceSO: {fileID: 11400000, guid: 0ca35fa4955bad74d9e77c3c27a3eb6c, type: 2}
+    _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: beae62e2a0ea0ee4cbecf6ec1ad905d6, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: beae62e2a0ea0ee4cbecf6ec1ad905d6, type: 2}
     _amount: 1

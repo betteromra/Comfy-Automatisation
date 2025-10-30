@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53f520e44261499b3ed1c61691e74, type: 3}
   m_Name: Refinery
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _icon: {fileID: 0}
   _recipe: {fileID: 11400000, guid: fb8b5d5e162c90045a88f53daab9b34a, type: 2}
-  _craftableRecipes: []
+  _craftableRecipes:
+  - {fileID: 11400000, guid: dcf4267d68031b34b84859c61c0b9570, type: 2}
+  - {fileID: 11400000, guid: ec6596e60fea7a641a58623e48c8e4a4, type: 2}
+  - {fileID: 11400000, guid: 09447cb155b4b1049b32e4870ef2dd30, type: 2}
+  - {fileID: 11400000, guid: c51cb5459250cd1488c4da713f020d35, type: 2}
+  - {fileID: 11400000, guid: 4cb8d066f93338645b1eddee5790ccbb, type: 2}
+  - {fileID: 11400000, guid: 7fb511417725dc94e811a2ec34f7ba17, type: 2}
+  - {fileID: 11400000, guid: 06f90a5e21709b248a8d563436a15bae, type: 2}

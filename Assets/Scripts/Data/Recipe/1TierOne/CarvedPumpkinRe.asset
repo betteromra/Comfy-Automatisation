@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CarvedPumpkinRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 7e319bcbb9c0530479265b363cf6cdc3, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 7e319bcbb9c0530479265b363cf6cdc3, type: 2}
     _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: f4382213337ba7445b0c4381ea281a43, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: f4382213337ba7445b0c4381ea281a43, type: 2}
     _amount: 1

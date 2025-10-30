@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CandleRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 631ffcb2ce062a0468a97d57159d28c4, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 631ffcb2ce062a0468a97d57159d28c4, type: 2}
     _amount: 2
-  - _ressource: {fileID: 11400000, guid: 37c24df94aced694288e15fed2edf3b3, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 37c24df94aced694288e15fed2edf3b3, type: 2}
     _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: c8b49fc0b633df340a414a0e0ec2ab23, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: c8b49fc0b633df340a414a0e0ec2ab23, type: 2}
     _amount: 1

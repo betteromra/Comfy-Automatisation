@@ -68,7 +68,7 @@ public class RessourceSO : ScriptableObject, Makeable
     // go in each children calculate their value and retrieve the correct rawValue
     foreach (Ingredient ingredient in _recipe.ingredientsInput)
     {
-      _rawValue += ingredient.ressource.rawValue;
+      _rawValue += ingredient.ressourceSO.rawValue;
     }
   }
   Dictionary<RessourceSO, int> CalculateRawIngredientToMake()
@@ -79,15 +79,15 @@ public class RessourceSO : ScriptableObject, Makeable
     {
       // if the ingredient have no recipe we hit the bottom of the chain, 
       // we can add this ingredient and the ammount
-      if (ingredient.ressource.recipe == null)
+      if (ingredient.ressourceSO.recipe == null)
       {
-        AddToRawRessourceWithNoDouble(ingredient.ressource, ingredient.amount);
+        AddToRawRessourceWithNoDouble(ingredient.ressourceSO, ingredient.amount);
       }
       // else we calculate the children before and then add his dictonary
       // to ours
       else
       {
-        foreach (KeyValuePair<RessourceSO, int> rawRessourceAndAmount in ingredient.ressource.rawRessourceToMakeSelf)
+        foreach (KeyValuePair<RessourceSO, int> rawRessourceAndAmount in ingredient.ressourceSO.rawRessourceToMakeSelf)
         {
           AddToRawRessourceWithNoDouble(rawRessourceAndAmount.Key, rawRessourceAndAmount.Value);
         }

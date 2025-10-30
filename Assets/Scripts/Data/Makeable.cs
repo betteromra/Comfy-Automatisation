@@ -12,7 +12,7 @@ public interface Makeable
     // Verify that the inventory have all the ingredient
     foreach (Ingredient ingredient in recipe.ingredientsInput)
     {
-      if (!inputInventory.ContainsAmount(ingredient.ressource, ingredient.amount))
+      if (!inputInventory.ContainsAmount(ingredient.ressourceSO, ingredient.amount))
       {
         return false;
       }
@@ -21,13 +21,13 @@ public interface Makeable
     // Use ingredient
     foreach (Ingredient ingredient in recipe.ingredientsInput)
     {
-      inputInventory.Remove(ingredient.ressource, ingredient.amount);
+      inputInventory.Remove(ingredient.ressourceSO, ingredient.amount);
     }
 
     // Give the ressource to the output inventory
     foreach (Ingredient ingredient in recipe.ingredientsOutput)
     {
-      outputInventory.Add(ingredient.ressource, ingredient.amount);
+      outputInventory.Add(ingredient.ressourceSO, ingredient.amount);
     }
 
     return true;

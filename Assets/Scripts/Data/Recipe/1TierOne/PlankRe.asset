@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlankRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 2781197fbd37abc428ab7db154c2afa5, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 2781197fbd37abc428ab7db154c2afa5, type: 2}
     _amount: 2
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: 66368fcc0dcc50840b2bcc13c4e74ef4, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 66368fcc0dcc50840b2bcc13c4e74ef4, type: 2}
     _amount: 1

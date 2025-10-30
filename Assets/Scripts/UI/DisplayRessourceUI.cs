@@ -9,11 +9,11 @@ public class DisplayRessourceUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI _weight;
     [SerializeField] TextMeshProUGUI _value;
     [SerializeField] GameObject _recipeContainer;
-    [SerializeField] IngredientUI[] _ingredientsUI;
+    [SerializeField] RessourceAndAmountUI[] _ressourcesAndAmountUI;
     [SerializeField] TextMeshProUGUI _description;
     [SerializeField] Color[] _quality;
 
-    void Refresh()
+    public void Refresh()
     {
         _name.text = _ressource.actualName;
         _name.color = _quality[(int)_ressource.quality];
@@ -30,25 +30,27 @@ public class DisplayRessourceUI : MonoBehaviour
         _recipeContainer.SetActive(_ressource.recipe != null);
         if (!_recipeContainer.activeSelf) return;
 
-        for (int i = 0; i < _ingredientsUI.Length; i++)
+        int recipeLength = _ressource.recipe.ingredientsInput.Length;
+
+        for (int i = 0; i < _ressourcesAndAmountUI.Length; i++)
         {
-            IngredientUI ingredientUI = _ingredientsUI[i];
+            RessourceAndAmountUI ressourceAndAmountUI = _ressourcesAndAmountUI[i];
 
             // if we still have some ressource to show
-            if (i < _ressource.recipe.ingredientsInput.Length)
+            if (i < recipeLength)
             {
                 Ingredient ingredient = _ressource.recipe.ingredientsInput[i];
 
                 // show all the ingredient for the ressource
-                ingredientUI.gameObject.SetActive(true);
-                ingredientUI.DisplayIngredient(ingredient);
+                ressourceAndAmountUI.gameObject.SetActive(true);
+                ressourceAndAmountUI.DisplayRessourceAndAmount(ingredient.ressourceSO, ingredient.amount);
             }
             else
             {
                 // when we found one that was unactive, we know that the other are
                 // also inactive
-                if (!ingredientUI.gameObject.activeSelf) break;
-                ingredientUI.gameObject.SetActive(false);
+                if (!ressourceAndAmountUI.gameObject.activeSelf) break;
+                ressourceAndAmountUI.gameObject.SetActive(false);
             }
         }
     }

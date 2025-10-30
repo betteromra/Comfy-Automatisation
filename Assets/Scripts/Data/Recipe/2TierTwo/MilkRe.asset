@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: MilkRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: e2804a25ec6cad849a2deaa3187eb669, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: e2804a25ec6cad849a2deaa3187eb669, type: 2}
     _amount: 2
-  - _ressource: {fileID: 11400000, guid: 37c24df94aced694288e15fed2edf3b3, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 37c24df94aced694288e15fed2edf3b3, type: 2}
     _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: e5dac6b26b8119f4484075b6ca7c1016, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: e5dac6b26b8119f4484075b6ca7c1016, type: 2}
     _amount: 1

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CutStoneRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 7a92d23bfb328ba49a14cc9d196c8485, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 7a92d23bfb328ba49a14cc9d196c8485, type: 2}
     _amount: 2
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: 0ca35fa4955bad74d9e77c3c27a3eb6c, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 0ca35fa4955bad74d9e77c3c27a3eb6c, type: 2}
     _amount: 1

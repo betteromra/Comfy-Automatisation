@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6dae0df2b924045bff3f5b60377ad2, type: 3}
   m_Name: PicNic
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _icon: {fileID: 0}
+  _recipe: {fileID: 11400000, guid: d42b7ba2261933e4499282eac0075511, type: 2}

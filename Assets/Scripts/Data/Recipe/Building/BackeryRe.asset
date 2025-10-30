@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: BackeryRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 66368fcc0dcc50840b2bcc13c4e74ef4, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 66368fcc0dcc50840b2bcc13c4e74ef4, type: 2}
     _amount: 3
-  - _ressource: {fileID: 11400000, guid: 0ca35fa4955bad74d9e77c3c27a3eb6c, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 7a92d23bfb328ba49a14cc9d196c8485, type: 2}
     _amount: 3
-  - _ressource: {fileID: 11400000, guid: 027498f4b49e2a64f8156333b93bfd1d, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 027498f4b49e2a64f8156333b93bfd1d, type: 2}
     _amount: 1
-  - _ressource: {fileID: 11400000, guid: 4350ea091010c474d96dfb8c68caca0f, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 4350ea091010c474d96dfb8c68caca0f, type: 2}
     _amount: 4
-  - _ressource: {fileID: 11400000, guid: 37c24df94aced694288e15fed2edf3b3, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 37c24df94aced694288e15fed2edf3b3, type: 2}
     _amount: 1
   _ingredientsOutput: []

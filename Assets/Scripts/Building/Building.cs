@@ -7,20 +7,19 @@ public abstract class Building : MonoBehaviour
     [SerializeField] protected BoxCollider _collider;
     [SerializeField] protected InputNode[] _inputNode;
     [SerializeField] protected OutputNode[] _outputNode;
-    [SerializeField] protected Ingredient _ingredientToDisplay;
     [SerializeField] protected BuildingUI _buildingUI;
-    [SerializeField] protected IngredientToDisplayUI _ingredientToDisplayUI;
-    public IngredientToDisplayUI ingredientToDisplayUI { get => _ingredientToDisplayUI; }
+    [SerializeField] protected RessourceAndAmountToDisplayUI _ressourceAndAmountToDisplayUI;
+    public RessourceAndAmountToDisplayUI ressourceAndAmountToDisplayUI { get => _ressourceAndAmountToDisplayUI; }
     protected virtual void Awake()
     {
 
     }
 
-    protected void UpdateIngredientToDisplay()
+    protected void UpdateIngredientToDisplay(RessourceSO ressourceSO, int amount)
     {
-        if (_ingredientToDisplayUI != null)
+        if (_ressourceAndAmountToDisplayUI != null)
         {
-            _ingredientToDisplayUI.ingredientUI.DisplayIngredient(_ingredientToDisplay);
+            _ressourceAndAmountToDisplayUI.ingredientUI.DisplayRessourceAndAmount(ressourceSO, amount);
         }
     }
 }

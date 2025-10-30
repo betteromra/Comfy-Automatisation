@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class Inventory : MonoBehaviour
 {
@@ -29,6 +30,11 @@ public class Inventory : MonoBehaviour
         return 0;
     }
 
+    public List<KeyValuePair<RessourceSO, int>> GetAllContent()
+    {
+        return _ressourceStored.ToList();
+    }
+
     public bool ContainsAmount(RessourceSO objectToAdd, int amount)
     {
         if (objectToAdd == null || amount == 0) return false;
@@ -42,7 +48,7 @@ public class Inventory : MonoBehaviour
 
     public void Add(RessourceSO objectToAdd, int amount)
     {
-        if (objectToAdd == null || amount == 0)return;
+        if (objectToAdd == null || amount == 0) return;
         int weightToAdd = objectToAdd.weight * amount;
 
         // Verify if the inventory can carry those item

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PicnicRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 6b2922dc88c68b84d9c5256c7890d227, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 6b2922dc88c68b84d9c5256c7890d227, type: 2}
     _amount: 1
-  - _ressource: {fileID: 11400000, guid: 08535019cccc6644ead1e934584abc81, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 08535019cccc6644ead1e934584abc81, type: 2}
     _amount: 1
-  - _ressource: {fileID: 11400000, guid: 4d7b9a7440aa5534cbf9f70d5456bfce, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 4d7b9a7440aa5534cbf9f70d5456bfce, type: 2}
     _amount: 1
-  - _ressource: {fileID: 11400000, guid: f30f2cd2b51bad24c956b5d02ddc608a, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: f30f2cd2b51bad24c956b5d02ddc608a, type: 2}
     _amount: 1
   _ingredientsOutput: []

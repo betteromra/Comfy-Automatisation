@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ChocolateRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: f7d1e9eb686117947a9f64db633784eb, type: 2}
-    _amount: 1
-  - _ressource: {fileID: 11400000, guid: 3d45caf045dc79b4c81c4d2f73a3113b, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 3d45caf045dc79b4c81c4d2f73a3113b, type: 2}
     _amount: 2
+  - _ressourceSO: {fileID: 11400000, guid: f7d1e9eb686117947a9f64db633784eb, type: 2}
+    _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: d390e94d963bf9d428e24c997896ddde, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: d390e94d963bf9d428e24c997896ddde, type: 2}
     _amount: 1

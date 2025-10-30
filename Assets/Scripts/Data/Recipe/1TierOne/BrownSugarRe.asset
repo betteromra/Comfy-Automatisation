@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BrownSugarRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 68033ad709c61bb4d9a2d094f4fb40b5, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 68033ad709c61bb4d9a2d094f4fb40b5, type: 2}
     _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: f7d1e9eb686117947a9f64db633784eb, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: f7d1e9eb686117947a9f64db633784eb, type: 2}
     _amount: 1

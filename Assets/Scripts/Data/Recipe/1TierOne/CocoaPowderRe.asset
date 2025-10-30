@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CocoaPowderRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 20c850910726d254d80705e9239d5a1f, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 20c850910726d254d80705e9239d5a1f, type: 2}
     _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: 3d45caf045dc79b4c81c4d2f73a3113b, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 3d45caf045dc79b4c81c4d2f73a3113b, type: 2}
     _amount: 1

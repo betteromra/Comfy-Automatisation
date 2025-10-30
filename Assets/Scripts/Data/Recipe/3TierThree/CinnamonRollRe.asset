@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: CinnamonRollRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: fd32d744e4cd4234abcb117245365f7c, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: fd32d744e4cd4234abcb117245365f7c, type: 2}
     _amount: 1
-  - _ressource: {fileID: 11400000, guid: beae62e2a0ea0ee4cbecf6ec1ad905d6, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: beae62e2a0ea0ee4cbecf6ec1ad905d6, type: 2}
     _amount: 1
-  - _ressource: {fileID: 11400000, guid: 91040326e524b014197d25fa61ed79fb, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 91040326e524b014197d25fa61ed79fb, type: 2}
     _amount: 4
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: 7a80942de7f2fb847a61137c68cc0db5, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 7a80942de7f2fb847a61137c68cc0db5, type: 2}
     _amount: 1

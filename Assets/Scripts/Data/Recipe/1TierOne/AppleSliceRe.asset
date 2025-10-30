@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AppleSliceRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 4224cdef105eb1f40b8fd15ce42ed854, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 4224cdef105eb1f40b8fd15ce42ed854, type: 2}
     _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: 7f163886ea107184d8f9c867f9dd8f37, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 7f163886ea107184d8f9c867f9dd8f37, type: 2}
     _amount: 1

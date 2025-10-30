@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WaxRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 50185d6b9565c6c44a8bf5745933d964, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 50185d6b9565c6c44a8bf5745933d964, type: 2}
     _amount: 2
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: 631ffcb2ce062a0468a97d57159d28c4, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 631ffcb2ce062a0468a97d57159d28c4, type: 2}
     _amount: 1

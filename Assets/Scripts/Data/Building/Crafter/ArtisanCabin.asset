@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53f520e44261499b3ed1c61691e74, type: 3}
   m_Name: ArtisanCabin
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _icon: {fileID: 0}
   _recipe: {fileID: 11400000, guid: 9f079c8085c7c374fac7c52ff64ad3b5, type: 2}
-  _craftableRecipes: []
+  _craftableRecipes:
+  - {fileID: 11400000, guid: bddf62e203b1aa6468b8c58faa4b2a88, type: 2}
+  - {fileID: 11400000, guid: fb0c4a4ec13d69f49b496762d2ded0dd, type: 2}
+  - {fileID: 11400000, guid: c8f20465d39224e49b7d4e64853c3afb, type: 2}
+  - {fileID: 11400000, guid: da1961e13819f6748a32defc4509aaa3, type: 2}
+  - {fileID: 11400000, guid: cf70f13eb6621db43980ba60677dabe3, type: 2}
+  - {fileID: 11400000, guid: c6b92f189e9f3ed4dacc101633f0320f, type: 2}
+  - {fileID: 11400000, guid: 8874be211ec14304695fa5db2a0baaba, type: 2}
+  - {fileID: 11400000, guid: 174b51f7ce869454a86ea338d8557ce9, type: 2}

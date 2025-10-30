@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53f520e44261499b3ed1c61691e74, type: 3}
   m_Name: Bakery
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _icon: {fileID: 0}
   _recipe: {fileID: 11400000, guid: f3d54b76e3624b94999bcf21023940b5, type: 2}
-  _craftableRecipes: []
+  _craftableRecipes:
+  - {fileID: 11400000, guid: f93411b9760441541a3f8c2079ae7be7, type: 2}
+  - {fileID: 11400000, guid: 0c677c8e36ddcfe4a8fd3408eb195645, type: 2}
+  - {fileID: 11400000, guid: 58e7e4a3d79b393498c13fc5a70e7d78, type: 2}
+  - {fileID: 11400000, guid: bf70c79602a99444db0cc4d05661aa62, type: 2}
+  - {fileID: 11400000, guid: 4e1486354a1be1b41a7fe0f92931cd2e, type: 2}
+  - {fileID: 11400000, guid: 19e76d1a6154ef943988599a0644375c, type: 2}
+  - {fileID: 11400000, guid: 0bdd30a92a90d55479ba173d05d78b50, type: 2}

@@ -20,8 +20,7 @@ public class CraftBuilding : Building
     }
     void InventoryChange()
     {
-        _ingredientToDisplay.ressource = _outputInventory.MostRessourceInside();
-        _ingredientToDisplay.amount = _outputInventory.Contains(_ingredientToDisplay.ressource);
-        UpdateIngredientToDisplay();
+        RessourceSO ressourceSO = _outputInventory.MostRessourceInside();
+        UpdateIngredientToDisplay(ressourceSO,  _outputInventory.Contains(ressourceSO));
     }
 }

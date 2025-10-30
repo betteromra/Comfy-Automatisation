@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: JackOLanternRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: f4382213337ba7445b0c4381ea281a43, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: f4382213337ba7445b0c4381ea281a43, type: 2}
     _amount: 1
-  - _ressource: {fileID: 11400000, guid: c8b49fc0b633df340a414a0e0ec2ab23, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: c8b49fc0b633df340a414a0e0ec2ab23, type: 2}
     _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: 027498f4b49e2a64f8156333b93bfd1d, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 027498f4b49e2a64f8156333b93bfd1d, type: 2}
     _amount: 1

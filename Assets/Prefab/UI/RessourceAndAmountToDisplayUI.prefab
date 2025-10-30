@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2441736776416471394}
   - component: {fileID: 6330108835312396304}
   m_Layer: 5
-  m_Name: IngredientToDisplayUI
+  m_Name: RessourceAndAmountToDisplayUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

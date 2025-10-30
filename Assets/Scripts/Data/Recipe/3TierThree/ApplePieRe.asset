@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: ApplePieRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: f7d1e9eb686117947a9f64db633784eb, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 4350ea091010c474d96dfb8c68caca0f, type: 2}
     _amount: 1
-  - _ressource: {fileID: 11400000, guid: 91040326e524b014197d25fa61ed79fb, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: f7d1e9eb686117947a9f64db633784eb, type: 2}
+    _amount: 1
+  - _ressourceSO: {fileID: 11400000, guid: 91040326e524b014197d25fa61ed79fb, type: 2}
     _amount: 4
-  - _ressource: {fileID: 11400000, guid: beae62e2a0ea0ee4cbecf6ec1ad905d6, type: 2}
-    _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: a6086fb25d2503742b7c6ec3989e05cb, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: a6086fb25d2503742b7c6ec3989e05cb, type: 2}
     _amount: 1

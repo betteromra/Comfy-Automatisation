@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: ChocolateBitesRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: d390e94d963bf9d428e24c997896ddde, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: d390e94d963bf9d428e24c997896ddde, type: 2}
     _amount: 2
-  - _ressource: {fileID: 11400000, guid: f30f2cd2b51bad24c956b5d02ddc608a, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: f30f2cd2b51bad24c956b5d02ddc608a, type: 2}
     _amount: 1
-  - _ressource: {fileID: 11400000, guid: beae62e2a0ea0ee4cbecf6ec1ad905d6, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: beae62e2a0ea0ee4cbecf6ec1ad905d6, type: 2}
     _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: 4d7b9a7440aa5534cbf9f70d5456bfce, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 4d7b9a7440aa5534cbf9f70d5456bfce, type: 2}
     _amount: 1

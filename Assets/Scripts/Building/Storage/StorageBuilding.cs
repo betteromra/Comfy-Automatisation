@@ -19,8 +19,7 @@ public class StorageBuilding : Building
     }
     void InventoryChange()
     {
-        _ingredientToDisplay.ressource = _inventory.MostRessourceInside();
-        _ingredientToDisplay.amount = _inventory.Contains(_ingredientToDisplay.ressource);
-        UpdateIngredientToDisplay();
+        RessourceSO ressourceSO = _inventory.MostRessourceInside();
+        UpdateIngredientToDisplay(ressourceSO,  _inventory.Contains(ressourceSO));
     }
 }

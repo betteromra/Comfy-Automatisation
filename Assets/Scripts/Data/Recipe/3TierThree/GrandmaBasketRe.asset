@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GrandmaBasketRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 4e60ba6069bcd0b4f96134064db7db88, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 4e60ba6069bcd0b4f96134064db7db88, type: 2}
     _amount: 1
-  - _ressource: {fileID: 11400000, guid: a6086fb25d2503742b7c6ec3989e05cb, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: a6086fb25d2503742b7c6ec3989e05cb, type: 2}
     _amount: 1
-  - _ressource: {fileID: 11400000, guid: 7a80942de7f2fb847a61137c68cc0db5, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 7a80942de7f2fb847a61137c68cc0db5, type: 2}
     _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: 6b2922dc88c68b84d9c5256c7890d227, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 6b2922dc88c68b84d9c5256c7890d227, type: 2}
     _amount: 1

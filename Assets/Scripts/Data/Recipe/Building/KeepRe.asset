@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6bfd6f3950257d4e8655a34d55dea9c, type: 3}
   m_Name: KeepRe
   m_EditorClassIdentifier: 
-  _ingredientsInput: []
+  _ingredientsInput:
+  - _ressourceSO: {fileID: 11400000, guid: 66368fcc0dcc50840b2bcc13c4e74ef4, type: 2}
+    _amount: 2
   _ingredientsOutput: []

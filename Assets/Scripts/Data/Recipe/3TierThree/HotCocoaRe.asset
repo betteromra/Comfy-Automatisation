@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: HotCocoaRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: e5dac6b26b8119f4484075b6ca7c1016, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: d390e94d963bf9d428e24c997896ddde, type: 2}
     _amount: 2
-  - _ressource: {fileID: 11400000, guid: d390e94d963bf9d428e24c997896ddde, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: e5dac6b26b8119f4484075b6ca7c1016, type: 2}
     _amount: 2
-  - _ressource: {fileID: 11400000, guid: f7d1e9eb686117947a9f64db633784eb, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: beae62e2a0ea0ee4cbecf6ec1ad905d6, type: 2}
     _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: 08535019cccc6644ead1e934584abc81, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 08535019cccc6644ead1e934584abc81, type: 2}
     _amount: 1

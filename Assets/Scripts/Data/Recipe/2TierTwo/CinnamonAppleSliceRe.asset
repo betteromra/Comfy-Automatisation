@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CinnamonAppleSliceRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 7f163886ea107184d8f9c867f9dd8f37, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 7f163886ea107184d8f9c867f9dd8f37, type: 2}
     _amount: 4
-  - _ressource: {fileID: 11400000, guid: fd32d744e4cd4234abcb117245365f7c, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: fd32d744e4cd4234abcb117245365f7c, type: 2}
     _amount: 1
   _ingredientsOutput:
-  - _ressource: {fileID: 11400000, guid: 4350ea091010c474d96dfb8c68caca0f, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 4350ea091010c474d96dfb8c68caca0f, type: 2}
     _amount: 2

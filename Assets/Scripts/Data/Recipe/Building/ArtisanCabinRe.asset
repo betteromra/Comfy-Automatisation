@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: ArtisanCabinRe
   m_EditorClassIdentifier: 
   _ingredientsInput:
-  - _ressource: {fileID: 11400000, guid: 66368fcc0dcc50840b2bcc13c4e74ef4, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 66368fcc0dcc50840b2bcc13c4e74ef4, type: 2}
     _amount: 2
-  - _ressource: {fileID: 11400000, guid: 0ca35fa4955bad74d9e77c3c27a3eb6c, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 0ca35fa4955bad74d9e77c3c27a3eb6c, type: 2}
     _amount: 2
-  - _ressource: {fileID: 11400000, guid: 7f163886ea107184d8f9c867f9dd8f37, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: 7f163886ea107184d8f9c867f9dd8f37, type: 2}
     _amount: 6
-  - _ressource: {fileID: 11400000, guid: f4382213337ba7445b0c4381ea281a43, type: 2}
+  - _ressourceSO: {fileID: 11400000, guid: f4382213337ba7445b0c4381ea281a43, type: 2}
     _amount: 1
   _ingredientsOutput: []

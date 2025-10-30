@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2031340699846647331, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7848634996754370472, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       propertyPath: m_Name
       value: Crafter
@@ -169,6 +173,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7814059605138092553}
     m_Modifications:
+    - target: {fileID: 2035838048862485282, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035838048862485282, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035838048862485282, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035838048862485282, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035838048862485282, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2883253242828467097, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: _building
+      value: 
+      objectReference: {fileID: -3353546429546961748}
+    - target: {fileID: 4124867036910050861, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124867036910050861, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124867036910050861, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124867036910050861, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124867036910050861, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4551281311983574831, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -252,6 +300,26 @@ PrefabInstance:
     - target: {fileID: 5740260826298008560, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
       propertyPath: m_Name
       value: CrafterBuildingUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5987234988030260883, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5987234988030260883, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5987234988030260883, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5987234988030260883, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5987234988030260883, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

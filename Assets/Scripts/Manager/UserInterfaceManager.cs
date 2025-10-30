@@ -5,6 +5,8 @@ public class UserInterfaceManager : MonoBehaviour
     [SerializeField] ToolBarUI _toolbarUI;
     [SerializeField] DisplayRessourceUI _displayRessourceUI;
     [SerializeField] float ingredientOnBuildingSize = 1;
+    BuildingUI _currentBuildingUIOpen;
+    public BuildingUI currentBuildingUIOpen { get => _currentBuildingUIOpen; set => _currentBuildingUIOpen = value; }
     CameraManager _cameraManager;
 
     private void Awake()

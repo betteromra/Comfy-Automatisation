@@ -23,7 +23,7 @@ public class Selectable : MonoBehaviour
     private MaterialPropertyBlock propertyBlock;
     private SelectionManager selectionManager;
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
-    public event Action<bool> onSelectionChanged;
+    public event Action<bool> onSelfSelected;
 
     public bool IsSelected
     {
@@ -84,7 +84,6 @@ public class Selectable : MonoBehaviour
             ApplyHoverEffect(false);
         }
 
-
         selectionManager.OnSelectionChanged -= OnSelectionChanged;
     }
 
@@ -107,7 +106,7 @@ public class Selectable : MonoBehaviour
         if (wasSelected != isSelected)
         {
             UpdateVisualFeedback();
-            onSelectionChanged?.Invoke(isSelected);
+            onSelfSelected?.Invoke(isSelected);
         }
     }
 

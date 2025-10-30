@@ -1,9 +1,15 @@
 using UnityEngine;
+using System;
 
 public class CraftBuilding : Building
 {
     [SerializeField] Inventory _inputInventory;
+    public Inventory inputInventory { get => _inputInventory; }
     [SerializeField] Inventory _outputInventory;
+    public Inventory outputInventory { get => _outputInventory; }
+    Timer _craftingTimer;
+    public Timer craftingTimer { get => _craftingTimer; }
+    public event Action onCrafting;
     protected override void Awake()
     {
         base.Awake();
@@ -21,6 +27,6 @@ public class CraftBuilding : Building
     void InventoryChange()
     {
         RessourceSO ressourceSO = _outputInventory.MostRessourceInside();
-        UpdateIngredientToDisplay(ressourceSO,  _outputInventory.Contains(ressourceSO));
+        UpdateIngredientToDisplay(ressourceSO, _outputInventory.Contains(ressourceSO));
     }
 }

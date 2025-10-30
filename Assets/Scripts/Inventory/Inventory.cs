@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour
         int weightToAdd = objectToAdd.weight * amount;
 
         // Verify if the inventory can carry those item
-        if (WeightLeft() <= weightToAdd || DifferentRessourceSpaceLeft() <= 0)
+        if (WeightLeft() < weightToAdd)
         {
             // too heavy or not enough space
             Debug.LogWarning("Failed to add item : " + objectToAdd.actualName);
@@ -77,6 +77,12 @@ public class Inventory : MonoBehaviour
         }
         else
         {
+            // verify if we can add a new sort of item
+            if (DifferentRessourceSpaceLeft() <= 0)
+            {
+                Debug.LogWarning("Failed to add item : " + objectToAdd.actualName);
+                return false;
+            }
             if (_maxSameRessourceSpace >= amount * objectToAdd.spacePerUnit)
             {
                 _ressourceStored.Add(objectToAdd, amount);

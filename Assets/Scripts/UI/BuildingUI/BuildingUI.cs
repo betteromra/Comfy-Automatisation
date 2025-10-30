@@ -6,6 +6,7 @@ public class BuildingUI : MonoBehaviour
 {
   [SerializeField] protected Building _building;
   [SerializeField] protected TextMeshProUGUI _name;
+  [SerializeField] protected GameObject _container;
   protected Selectable _buildingSelectable;
   protected bool _open = false;
   protected virtual void Awake()
@@ -13,21 +14,25 @@ public class BuildingUI : MonoBehaviour
     _buildingSelectable = _building.GetComponent<Selectable>();
     _name.text = _building.buildingSO.actualName;
   }
-  void OnEnable()
+  protected virtual void OnEnable()
   {
-    _buildingSelectable.onSelectionChanged += BuildingSelectionChanged;
+    Debug.Log(_buildingSelectable);
+    _buildingSelectable.onSelfSelected += OnBuildingSelected;
   }
-  void OnDisable()
+  protected virtual void OnDisable()
   {
-    _buildingSelectable.onSelectionChanged -= BuildingSelectionChanged;
+    _buildingSelectable.onSelfSelected -= OnBuildingSelected;
   }
-  void BuildingSelectionChanged(bool selected)
+  void OnBuildingSelected(bool selected)
   {
     _open = selected;
+    UserInterfaceManager userInterfaceManager = GameManager.instance.userInterfaceManager;
+    if (_open) userInterfaceManager.currentBuildingUIOpen = this;
+    else if (userInterfaceManager.currentBuildingUIOpen == this) userInterfaceManager.currentBuildingUIOpen = null;
     Refresh();
   }
   protected virtual void Refresh()
   {
-    gameObject.SetActive(_open);
+    _container.SetActive(_open);
   }
 }

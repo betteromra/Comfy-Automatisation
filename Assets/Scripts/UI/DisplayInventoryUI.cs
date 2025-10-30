@@ -24,7 +24,7 @@ public class DisplayInventoryUI : MonoBehaviour
             _inventory.onInventoryChange -= Refresh;
         }
     }
-    void Refresh()
+    public void Refresh()
     {
         List<KeyValuePair<RessourceSO, int>> inventoryContent = _inventory.GetAllContent();
 

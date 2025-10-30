@@ -18,7 +18,7 @@ public class RessourceNode : Building
         _extractionTimer = new Timer(1 / _ressourceNodeSO.ressourcePerMinute * 60);
         InventoryChange();
     }
-    void FixedUpdate()
+    void Update()
     {
         if (_isFull) return;
 

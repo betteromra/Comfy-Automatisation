@@ -43,8 +43,12 @@ public class CameraManager : MonoBehaviour
 
     void Update()
     {
-        UpdateMovement();
-        UpdateZoom();
+        // if we didn't open a menu, then we can move the camera
+        if (GameManager.instance.userInterfaceManager.currentBuildingUIOpen == null)
+        {
+            UpdateMovement();
+            UpdateZoom();
+        }
     }
 
     #region Control

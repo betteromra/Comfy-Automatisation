@@ -15,7 +15,7 @@ public partial class PickUpAction : Action
     {
         NPC npc = NPC.Value;
 
-        npc.PickUp(Target);
+        npc.PickUp(Target.Value);
         return Status.Running;
     }
 

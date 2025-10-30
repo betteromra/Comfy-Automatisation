@@ -26,6 +26,7 @@ public class NPC : MonoBehaviour
     void Awake()
     {
         _behaviorAgent = GetComponent<BehaviorGraphAgent>();
+        _carrying = new(null, 0);
     }
 
     /// <summary>
@@ -88,12 +89,16 @@ public class NPC : MonoBehaviour
         }
 
         RessourceSO ressource = outputNode.ressourceSO;
+        if(ressource == null)
+        {
+            Debug.LogWarning("OutputNode resource set to null!");
+        }
 
         if (_carrying.CurrenltyCarrying == null)
         {
             _carrying.CurrenltyCarrying = ressource;
         }
-        
+
         if (_carrying.CurrenltyCarrying == ressource)
         {
             Inventory inventory = outputNode.inventory;
@@ -104,6 +109,8 @@ public class NPC : MonoBehaviour
                 _carrying.Amount++;
             }
         }
+
+        Debug.Log($"NPC currently carrying {_carrying.CurrenltyCarrying.actualName}, {_carrying.Amount}");
     }
 
     /// <summary>

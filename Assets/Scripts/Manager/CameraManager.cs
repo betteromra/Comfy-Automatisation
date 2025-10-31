@@ -1,6 +1,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
 using System;
+using System.Security.Cryptography;
 
 public class CameraManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] float _moveSmoothing;
     [SerializeField] float _keyboardMoveSpeedAdjustement;
     [SerializeField] float _maxCameraDistance;
+    [SerializeField] float _maxCameraDistanceDownMultiplier;
     [SerializeField] AnimationCurve _maxCameraDistanceZoomCurve = AnimationCurve.Linear(0, 0.2f, 1f, 1f);
     Vector3 _targetCameraTargetPosition = Vector2.zero;
     public event Action onMove;
@@ -65,6 +67,8 @@ public class CameraManager : MonoBehaviour
     void MoveCamera(Vector2 mouvement2dDelta)
     {
         Vector3 movement3d = new Vector3(mouvement2dDelta.x * _moveSpeed.x, 0, mouvement2dDelta.y * _moveSpeed.y);
+        // rotate the movment to be relative to the camera
+        movement3d = Quaternion.Euler(0, _mainCameraOrbit.HorizontalAxis.Value, 0) * movement3d;
         Vector3 motion = movement3d * Time.deltaTime;
 
         // The more zoomed you are the less move you will do
@@ -132,30 +136,21 @@ public class CameraManager : MonoBehaviour
         // Clamping the position so the camera can't go ouside of the game bound
         Vector3 clampedPos = _targetCameraTargetPosition;
 
-        Vector2 clampedPos2d = new Vector2(Mathf.Abs(clampedPos.x), Mathf.Abs(clampedPos.z));
-        float manhattanDistance = clampedPos2d.x + clampedPos2d.y;
-        float manhattanDifference = manhattanDistance - _maxCameraDistance * _maxCameraDistanceZoomCurve.Evaluate(_zoomLevel);
+        float maxCameraDistanceBasedZoom = _maxCameraDistance * _maxCameraDistanceZoomCurve.Evaluate(_zoomLevel);
 
-        // Add a little bit of room for the bottom and top
-        manhattanDifference -= _zoomLevel * clampedPos2d.y * .1f;
-
-        // we outside of the bound
-        if (manhattanDifference > 0f)
+        // give a little bit more room for camera to be looking down
+        if (_targetCameraTargetPosition.x - _targetCameraTargetPosition.z > 0)
         {
-            // remove overflow from the larger axis
-            if (clampedPos2d.x > clampedPos2d.y)
-            {
-                clampedPos2d.x -= manhattanDifference;
-            }
-            else
-            {
-                clampedPos2d.y -= manhattanDifference;
-            }
-
-            // put back the right sign
-            clampedPos.x = Mathf.Sign(clampedPos.x) * clampedPos2d.x;
-            clampedPos.z = Mathf.Sign(clampedPos.z) * clampedPos2d.y;
+            // make sure this addition is to zero when fully zoomed in
+            float fromZeroToMaxValue = _maxCameraDistanceZoomCurve.Evaluate(Mathf.Abs(1 - _zoomLevel)) - _maxCameraDistanceZoomCurve.keys[1].value;
+            fromZeroToMaxValue *= _maxCameraDistanceDownMultiplier;
+            // we give more room to the camera the lower it is to add a nice transition
+            Debug.Log((_targetCameraTargetPosition.x - _targetCameraTargetPosition.z) * fromZeroToMaxValue);
+            maxCameraDistanceBasedZoom += (_targetCameraTargetPosition.x - _targetCameraTargetPosition.z) * fromZeroToMaxValue;
         }
+
+        clampedPos.x = Mathf.Clamp(_targetCameraTargetPosition.x, -maxCameraDistanceBasedZoom, maxCameraDistanceBasedZoom);
+        clampedPos.z = Mathf.Clamp(_targetCameraTargetPosition.z, -maxCameraDistanceBasedZoom, maxCameraDistanceBasedZoom);
 
         _targetCameraTargetPosition = clampedPos;
     }

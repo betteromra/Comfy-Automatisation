@@ -74,7 +74,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   _moveSmoothing: 20
   _keyboardMoveSpeedAdjustement: 4
-  _maxCameraDistance: 140
+  _maxCameraDistance: 100
+  _maxCameraDistanceDownMultiplier: 0.2
   _maxCameraDistanceZoomCurve:
     serializedVersion: 2
     m_Curve:
@@ -99,7 +100,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _zoomSpeed: 40
+  _zoomSpeed: 20
   _zoomSmoothing: 20
   _zoomSpeedZoomCurve:
     serializedVersion: 2

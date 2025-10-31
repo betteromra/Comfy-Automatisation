@@ -7,10 +7,10 @@ public class BuildingManager : MonoBehaviour
     public Building[] buildings { get => _buildings; }
     [SerializeField] BuildingSO _buildingSOToolBarSelected;
     public BuildingSO buildingSOToolBarSelected { get => _buildingSOToolBarSelected; set => _buildingSOToolBarSelected = value; }
+    StorageBuilding _barn;
+    public StorageBuilding barn { get => _barn; set => _barn = value; }
 
     public LayerMask BlockingLayers;
-    public GameObject Keep;
-    public GameObject Refinery;
     public GameObject BuildingParent;
 
     private GameObject temp;
@@ -24,37 +24,37 @@ public class BuildingManager : MonoBehaviour
         temp = null;
     }
 
-    // These two functions just enable us to preview our buildings.
-    void OnPreviewKeep()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit RayHit;
-        if (Physics.Raycast(ray, out RayHit, 1000f, ~BlockingLayers))
-        {
-            GameObject targetHit = RayHit.transform.gameObject;
-            Vector3 hitPos = RayHit.point;
+    // // These two functions just enable us to preview our buildings.
+    // void OnPreviewKeep()
+    // {
+    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //     RaycastHit RayHit;
+    //     if (Physics.Raycast(ray, out RayHit, 1000f, ~BlockingLayers))
+    //     {
+    //         GameObject targetHit = RayHit.transform.gameObject;
+    //         Vector3 hitPos = RayHit.point;
 
-            if (temp != null)
-                Destroy(temp);
-            temp = Instantiate(Keep, hitPos, Quaternion.identity);
+    //         if (temp != null)
+    //             Destroy(temp);
+    //         temp = Instantiate(Keep, hitPos, Quaternion.identity);
 
-        }
-    }
+    //     }
+    // }
 
-    void OnPreviewRefinery()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit RayHit;
-        if (Physics.Raycast(ray, out RayHit, 1000f, ~BlockingLayers))
-        {
-            GameObject targetHit = RayHit.transform.gameObject;
-            Vector3 hitPos = RayHit.point;
+    // void OnPreviewRefinery()
+    // {
+    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //     RaycastHit RayHit;
+    //     if (Physics.Raycast(ray, out RayHit, 1000f, ~BlockingLayers))
+    //     {
+    //         GameObject targetHit = RayHit.transform.gameObject;
+    //         Vector3 hitPos = RayHit.point;
 
-            if (temp != null)
-                Destroy(temp);
-            temp = Instantiate(Refinery, hitPos, Quaternion.identity);
-        }
-    }
+    //         if (temp != null)
+    //             Destroy(temp);
+    //         temp = Instantiate(Refinery, hitPos, Quaternion.identity);
+    //     }
+    // }
 
 
     //This continues to show us our preview, so long as our temp variable contains something.

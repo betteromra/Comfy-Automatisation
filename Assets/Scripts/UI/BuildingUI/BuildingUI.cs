@@ -16,7 +16,6 @@ public class BuildingUI : MonoBehaviour
   }
   protected virtual void OnEnable()
   {
-    Debug.Log(_buildingSelectable);
     _buildingSelectable.onSelfSelected += OnBuildingSelected;
   }
   protected virtual void OnDisable()

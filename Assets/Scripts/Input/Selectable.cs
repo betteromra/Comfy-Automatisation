@@ -143,10 +143,11 @@ public class Selectable : MonoBehaviour
         {
             if (renderer != null && renderer.sharedMaterial != null)
             {
-                renderer.GetPropertyBlock(propertyBlock);
-
                 if (enable)
                 {
+                    // Get the current property block to preserve any existing properties
+                    renderer.GetPropertyBlock(propertyBlock);
+
                     // Get the original color
                     Color originalColor = Color.white;
                     if (originalColors.ContainsKey(renderer))
@@ -173,22 +174,9 @@ public class Selectable : MonoBehaviour
                 }
                 else
                 {
-                    // Clear hover effect - restore original colors
-                    if (originalColors.ContainsKey(renderer))
-                    {
-                        Color originalColor = originalColors[renderer];
-
-                        if (renderer.sharedMaterial.HasProperty("_BaseColor"))
-                        {
-                            propertyBlock.SetColor("_BaseColor", originalColor);
-                        }
-                        else if (renderer.sharedMaterial.HasProperty("_Color"))
-                        {
-                            propertyBlock.SetColor("_Color", originalColor);
-                        }
-                    }
-
-                    renderer.SetPropertyBlock(propertyBlock);
+                    // Clear hover effect - restore original material by clearing the property block
+                    // This will remove our color override and restore the original material properties
+                    renderer.SetPropertyBlock(null);
                 }
             }
         }

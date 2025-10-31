@@ -39,6 +39,9 @@ public class NonPlayableCharacterCManager : MonoBehaviour
     {
         if (isSelected)
         {
+            if (_currentSelectedNPCs.Contains(npc))
+                return;
+
             _currentSelectedNPCs.Add(npc);
             return;
         }

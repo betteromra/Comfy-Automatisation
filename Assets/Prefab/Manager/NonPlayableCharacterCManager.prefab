@@ -47,4 +47,4 @@ MonoBehaviour:
   clickableLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  _npcPrefab: {fileID: 7525527300149219721, guid: d25fb2e8becbeec43acffb6e30a6b5ea, type: 3}
+  _npcPrefab: {fileID: 3811500416533800962, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}

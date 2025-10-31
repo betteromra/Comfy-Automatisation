@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientsInput:
   - _ressourceSO: {fileID: 11400000, guid: 4350ea091010c474d96dfb8c68caca0f, type: 2}
-    _amount: 1
+    _amount: 2
   - _ressourceSO: {fileID: 11400000, guid: f7d1e9eb686117947a9f64db633784eb, type: 2}
     _amount: 1
   - _ressourceSO: {fileID: 11400000, guid: 91040326e524b014197d25fa61ed79fb, type: 2}

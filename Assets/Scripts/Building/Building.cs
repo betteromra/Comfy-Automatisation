@@ -16,11 +16,11 @@ public abstract class Building : MonoBehaviour
 
     }
 
-    protected void UpdateIngredientToDisplay(RessourceSO ressourceSO, int amount)
+    protected void UpdateIngredientToDisplay(RessourceAndAmount ressourceAndAmount)
     {
         if (_ressourceAndAmountToDisplayUI != null)
         {
-            _ressourceAndAmountToDisplayUI.ingredientUI.DisplayRessourceAndAmount(ressourceSO, amount);
+            _ressourceAndAmountToDisplayUI.ingredientUI.DisplayRessourceAndAmount(ressourceAndAmount);
         }
     }
 }

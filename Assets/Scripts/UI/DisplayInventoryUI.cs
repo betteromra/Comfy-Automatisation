@@ -39,7 +39,7 @@ public class DisplayInventoryUI : MonoBehaviour
                 KeyValuePair<RessourceSO, int> ressourcesAndAmountInvetory = inventoryContent[i];
                 // show all the ingredient for the ressource
                 ressourceAndAmountUI.gameObject.SetActive(true);
-                ressourceAndAmountUI.DisplayRessourceAndAmount(ressourcesAndAmountInvetory.Key, ressourcesAndAmountInvetory.Value);
+                ressourceAndAmountUI.DisplayRessourceAndAmount(new RessourceAndAmount(ressourcesAndAmountInvetory));
             }
             else
             {

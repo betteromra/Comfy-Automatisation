@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class RessourceNode : Building
 {
@@ -9,8 +10,8 @@ public class RessourceNode : Building
     RessourceNodeSO _ressourceNodeSO;
     Timer _extractionTimer;
     public Timer extractionTimer { get => _extractionTimer; }
-    bool _isFull;
     public event Action onExtraction;
+    Coroutine _extracting;
     protected override void Awake()
     {
         base.Awake();
@@ -18,18 +19,7 @@ public class RessourceNode : Building
         _extractionTimer = new Timer(1 / _ressourceNodeSO.ressourcePerMinute * 60);
         InventoryChange();
     }
-    void Update()
-    {
-        if (_isFull) return;
 
-        onExtraction?.Invoke();
-        
-        if (_extractionTimer.IsOver())
-        {
-            if (_inventory.Add(_ressourceNodeSO.ressource, 1)) _extractionTimer.Restart();
-            else _isFull = true;
-        }
-    }
     void OnEnable()
     {
         _inventory.onInventoryChange += InventoryChange;
@@ -41,8 +31,39 @@ public class RessourceNode : Building
     }
     void InventoryChange()
     {
-        _isFull = false;
+        if (_extracting == null && _inventory.CanAdd(_ressourceNodeSO.ressourceAndAmount))
+        {
+            _extracting = StartCoroutine(Extract());
+        }
         RessourceSO ressourceSO = _inventory.MostRessourceInside();
-        UpdateIngredientToDisplay(ressourceSO, _inventory.Contains(ressourceSO));
+        if (ressourceSO != null)
+        {
+            UpdateIngredientToDisplay(new RessourceAndAmount(ressourceSO, _inventory.Contains(ressourceSO)));
+        }
+        else
+        {
+            UpdateIngredientToDisplay(new RessourceAndAmount(_ressourceNodeSO.ressourceAndAmount.ressourceSO, -_ressourceNodeSO.ressourceAndAmount.amount));
+        }
+    }
+
+    IEnumerator Extract()
+    {
+        _extractionTimer.Restart();
+        yield return null;
+        while (true)
+        {
+            if (_extractionTimer.IsOver())
+            {
+                if (_inventory.Add(_ressourceNodeSO.ressourceAndAmount))
+                {
+                    if (_inventory.CanAdd(_ressourceNodeSO.ressourceAndAmount))
+                        _extractionTimer.Restart();
+                }
+                else break;
+            }
+            onExtraction?.Invoke();
+            yield return null;
+        }
+        _extracting = null;
     }
 }

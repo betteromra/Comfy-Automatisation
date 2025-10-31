@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actualName: Cinnamon apple slice
   _description: 
-  _icon: {fileID: 1822509660, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
+  _icon: {fileID: -1400554385, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
   _sprite: {fileID: 0}
   _recipe: {fileID: 11400000, guid: c8f20465d39224e49b7d4e64853c3afb, type: 2}
   _spacePerUnit: 1
   _weight: 4
-  _rawValue: 0
+  _rawValue: 25
+  _value: 25
   _quality: 1

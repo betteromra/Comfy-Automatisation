@@ -22,6 +22,14 @@ public class Inventory : MonoBehaviour
     public event Action onInventoryChange;
 
     #region Managing
+    public void ClearInventory()
+    {
+        _ressourceStored = new Dictionary<RessourceSO, int>();
+        _weight = 0;
+        _value = 0;
+        _differentRessourceAmount = 0;
+        onInventoryChange?.Invoke();
+    }
     public int Contains(RessourceSO objectToAdd)
     {
         if (objectToAdd == null) return 0;
@@ -38,93 +46,86 @@ public class Inventory : MonoBehaviour
         return _ressourceStored.ToList();
     }
 
-    public bool ContainsAmount(RessourceSO objectToAdd, int amount)
+    public bool ContainsAmount(RessourceAndAmount ressourceAndAmount)
     {
-        if (objectToAdd == null || amount == 0) return false;
-        if (_ressourceStored.ContainsKey(objectToAdd))
+        if (ressourceAndAmount.ressourceSO == null || ressourceAndAmount.amount == 0) return false;
+        if (_ressourceStored.ContainsKey(ressourceAndAmount.ressourceSO))
         {
-            return amount <= _ressourceStored[objectToAdd];
+            return ressourceAndAmount.amount <= _ressourceStored[ressourceAndAmount.ressourceSO];
         }
 
         return false;
     }
 
-    public bool Add(RessourceSO objectToAdd, int amount)
+    public bool Add(RessourceAndAmount ressourceAndAmount)
     {
-        if (objectToAdd == null || amount == 0) return false;
-        int weightToAdd = objectToAdd.weight * amount;
+        if (!CanAdd(ressourceAndAmount)) return false;
 
-        // Verify if the inventory can carry those item
-        if (WeightLeft() < weightToAdd)
+        if (_ressourceStored.ContainsKey(ressourceAndAmount.ressourceSO))
+        {
+            _ressourceStored[ressourceAndAmount.ressourceSO] += ressourceAndAmount.amount;
+        }
+        else _ressourceStored.Add(ressourceAndAmount.ressourceSO, ressourceAndAmount.amount);
+
+        onInventoryChange?.Invoke();
+
+        // Adjust weight and ressource space
+        _weight += ressourceAndAmount.weight;
+        _value += ressourceAndAmount.value;
+        _differentRessourceAmount++;
+        return true;
+    }
+
+    public bool CanAdd(RessourceAndAmount ressourceAndAmount)
+    {
+        if (ressourceAndAmount.ressourceSO == null || ressourceAndAmount.amount <= 0) return false;
+
+        if (WeightLeft() < ressourceAndAmount.weight)
         {
             // too heavy or not enough space
-            Debug.LogWarning("Failed to add item : " + objectToAdd.actualName);
+            Debug.LogWarning("Failed to add item : " + ressourceAndAmount.ressourceSO.actualName);
             return false;
         }
 
-        if (_ressourceStored.ContainsKey(objectToAdd))
+        if (_ressourceStored.ContainsKey(ressourceAndAmount.ressourceSO))
         {
-            if (_maxSameRessourceSpace >= (_ressourceStored[objectToAdd] + amount) * objectToAdd.spacePerUnit)
-            {
-                _ressourceStored[objectToAdd] += amount;
-                onInventoryChange?.Invoke();
-            }
-            else
-            {
-                Debug.LogWarning("Failed to add item : " + objectToAdd.actualName);
-                return false;
-            }
+            return _maxSameRessourceSpace >= (_ressourceStored[ressourceAndAmount.ressourceSO] + ressourceAndAmount.amount) * ressourceAndAmount.spaceTotal;
         }
         else
         {
             // verify if we can add a new sort of item
             if (DifferentRessourceSpaceLeft() <= 0)
             {
-                Debug.LogWarning("Failed to add item : " + objectToAdd.actualName);
+                Debug.LogWarning("Failed to add item : " + ressourceAndAmount.ressourceSO.actualName);
                 return false;
             }
-            if (_maxSameRessourceSpace >= amount * objectToAdd.spacePerUnit)
-            {
-                _ressourceStored.Add(objectToAdd, amount);
-                onInventoryChange?.Invoke();
-            }
-            else
-            {
-                Debug.LogWarning("Failed to add item : " + objectToAdd.actualName);
-                return false;
-            }
+            return _maxSameRessourceSpace >= ressourceAndAmount.spaceTotal;
         }
-
-        // Adjust weight and ressource space
-        _weight += weightToAdd;
-        _value += objectToAdd.value * amount;
-        _differentRessourceAmount++;
-        return true;
     }
 
-    public void Remove(RessourceSO objectToAdd, int amount)
+    public void Remove(RessourceAndAmount ressourceAndAmount)
     {
-        if (objectToAdd == null || amount == 0) return;
-        if (_ressourceStored.ContainsKey(objectToAdd))
+        if (ressourceAndAmount.ressourceSO == null || ressourceAndAmount.amount <= 0) return;
+        if (_ressourceStored.ContainsKey(ressourceAndAmount.ressourceSO))
         {
-            _ressourceStored[objectToAdd] -= amount;
+            _ressourceStored[ressourceAndAmount.ressourceSO] -= ressourceAndAmount.amount;
             onInventoryChange?.Invoke();
 
             // keep track of the actual number of ressource removed
-            int amountRemoved = amount;
-            if (_ressourceStored[objectToAdd] < 0) amountRemoved += _ressourceStored[objectToAdd];
+            int amountRemoved = ressourceAndAmount.amount;
+            if (_ressourceStored[ressourceAndAmount.ressourceSO] < 0) amountRemoved += _ressourceStored[ressourceAndAmount.ressourceSO];
 
             // Make sure not negative object are stored
-            _ressourceStored[objectToAdd] = Mathf.Clamp(_ressourceStored[objectToAdd], 0, int.MaxValue);
+            _ressourceStored[ressourceAndAmount.ressourceSO] = Mathf.Clamp(_ressourceStored[ressourceAndAmount.ressourceSO], 0, int.MaxValue);
 
             // Adjust weight and ressource space
-            _weight -= objectToAdd.weight * amountRemoved;
-            _value -= objectToAdd.value * amount;
+            _weight -= ressourceAndAmount.weight;
+            _value -= ressourceAndAmount.value;
             _differentRessourceAmount--;
         }
         else
         {
-            Debug.LogWarning("Could not remove item : " + objectToAdd.actualName + " since not present");
+            Debug.LogWarning("Could not remove item : " + ressourceAndAmount.ressourceSO.actualName + " since not present");
         }
     }
 

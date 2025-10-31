@@ -1,17 +1,25 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UserInterfaceManager : MonoBehaviour
 {
     [SerializeField] ToolBarUI _toolbarUI;
     [SerializeField] DisplayRessourceUI _displayRessourceUI;
+    public DisplayRessourceUI displayRessourceUI { get => _displayRessourceUI; }
     [SerializeField] float ingredientOnBuildingSize = 1;
+    [SerializeField] Canvas _mainCanvas;
+    public Canvas mainCanvas { get => _mainCanvas; }
     BuildingUI _currentBuildingUIOpen;
     public BuildingUI currentBuildingUIOpen { get => _currentBuildingUIOpen; set => _currentBuildingUIOpen = value; }
     CameraManager _cameraManager;
+    Vector2 _screenOffSetNeed = Vector2.zero;
+    public Vector2 screenOffSetNeeded { get => _screenOffSetNeed; }
 
     private void Awake()
     {
         _cameraManager = GameManager.instance.cameraManager;
+        _screenOffSetNeed.x = _mainCanvas.GetComponent<CanvasScaler>().referenceResolution.x * .5f;
+        _screenOffSetNeed.y = -_mainCanvas.GetComponent<CanvasScaler>().referenceResolution.y * .5f;
         UpdateSize();
     }
     private void OnEnable()

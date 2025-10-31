@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _toolbarUI: {fileID: 0}
   _displayRessourceUI: {fileID: 0}
-  ingredientOnBuildingSize: 2
+  ingredientOnBuildingSize: 1

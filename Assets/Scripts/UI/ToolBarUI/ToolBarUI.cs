@@ -17,28 +17,26 @@ public class ToolBarUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
   void Awake()
   {
-    _rectTransform = GetComponent<RectTransform>();
+    _rectTransform = transform as RectTransform;
     _animationTimer = new Timer(_timeAnimation);
     _awakePosition = _rectTransform.anchoredPosition;
   }
   public void OnPointerEnter(PointerEventData eventData)
   {
-    _open = true;
-
     if (_refreshAnimation != null) StopCoroutine(_refreshAnimation);
-    _refreshAnimation = StartCoroutine(Refresh());
+    _refreshAnimation = StartCoroutine(Display(true));
   }
 
   public void OnPointerExit(PointerEventData eventData)
   {
-    _open = false;
-
     if (_refreshAnimation != null) StopCoroutine(_refreshAnimation);
-    _refreshAnimation = StartCoroutine(Refresh());
+    _refreshAnimation = StartCoroutine(Display(false));
   }
 
-  IEnumerator Refresh()
+  IEnumerator Display(bool open)
   {
+    _open = open;
+
     _animationTimer.Restart();
     Vector2 startPosition = _rectTransform.anchoredPosition;
     Vector2 targetPosition = _awakePosition;

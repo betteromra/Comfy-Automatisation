@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
-  m_Name: AppleSlice
+  m_Name: BlackCatRessource
   m_EditorClassIdentifier: 
-  _actualName: Apple slice
+  _actualName: Black Cat
   _description: 
-  _icon: {fileID: -414046493, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
+  _icon: {fileID: 895463672, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
   _sprite: {fileID: 0}
-  _recipe: {fileID: 11400000, guid: dcf4267d68031b34b84859c61c0b9570, type: 2}
+  _recipe: {fileID: 11400000, guid: bb6545779ee2545449d209fad9fd9d7c, type: 2}
   _spacePerUnit: 1
-  _weight: 3
-  _rawValue: 5
-  _value: 5
-  _quality: 0
+  _weight: 10
+  _rawValue: 0
+  _value: 0
+  _quality: 2

@@ -120,6 +120,7 @@ MonoBehaviour:
   _ressourceAndAmountToDisplayUI: {fileID: 2980174402685641261}
   _inputInventory: {fileID: 1492919531225720300}
   _outputInventory: {fileID: 8326669604599271376}
+  _selectedRecipeSO: {fileID: 0}
 --- !u!1 &7158212723048469118 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5877887536573833333, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
@@ -321,6 +322,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6628114082567398201, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: _recipesButton.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628114082567398201, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+      propertyPath: '_recipesButton.Array.data[8]'
+      value: 
+      objectReference: {fileID: 8593824811227830627}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -340,5 +349,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36de6d8ea4827084a8ddf275378b531b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8593824811227830627 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1151101722522492060, guid: 1e6563d3b1fd38e48abf64db5b1cb7fd, type: 3}
+  m_PrefabInstance: {fileID: 8699528176342615551}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

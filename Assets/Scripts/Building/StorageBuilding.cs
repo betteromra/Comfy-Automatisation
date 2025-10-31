@@ -21,6 +21,6 @@ public class StorageBuilding : Building
     void InventoryChange()
     {
         RessourceSO ressourceSO = _inventory.MostRessourceInside();
-        UpdateIngredientToDisplay(ressourceSO, _inventory.Contains(ressourceSO));
+        UpdateIngredientToDisplay(new RessourceAndAmount(ressourceSO, _inventory.Contains(ressourceSO)));
     }
 }

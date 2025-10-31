@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53f520e44261499b3ed1c61691e74, type: 3}
   m_Name: Bakery
   m_EditorClassIdentifier: 
+  _actualName: 
   _icon: {fileID: 0}
   _recipe: {fileID: 11400000, guid: f3d54b76e3624b94999bcf21023940b5, type: 2}
   _craftableRecipes:
@@ -22,3 +23,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4e1486354a1be1b41a7fe0f92931cd2e, type: 2}
   - {fileID: 11400000, guid: 19e76d1a6154ef943988599a0644375c, type: 2}
   - {fileID: 11400000, guid: 0bdd30a92a90d55479ba173d05d78b50, type: 2}
+  - {fileID: 11400000, guid: 6539e7ab082f27e4fa9b5ea5e586348f, type: 2}

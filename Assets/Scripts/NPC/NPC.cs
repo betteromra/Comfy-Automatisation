@@ -133,11 +133,12 @@ public class NPC : MonoBehaviour
             _carrying.CurrenltyCarrying = ressource;
         }
 
-        if (inventory.ContainsAmount(_carrying.CurrenltyCarrying, 1))
+        RessourceAndAmount ressourceAndAmount = new RessourceAndAmount(_carrying.CurrenltyCarrying, 1);
+        if (inventory.ContainsAmount(ressourceAndAmount))
         {
             while (_carrying.Amount < _maxCarryingCapacity && 0 < inventory.Contains(_carrying.CurrenltyCarrying))
             {
-                inventory.Remove(_carrying.CurrenltyCarrying, 1);
+                inventory.Remove(ressourceAndAmount);
                 _carrying.Amount++;
             }
         }
@@ -166,10 +167,10 @@ public class NPC : MonoBehaviour
             Debug.LogError("InputNode inventory is set to null!");
         }
 
-        if (inventory.ContainsAmount(_carrying.CurrenltyCarrying, 0))
+        if (inventory.ContainsAmount(new RessourceAndAmount(_carrying.CurrenltyCarrying, 0)))
             return;
 
-        inventory.Add(_carrying.CurrenltyCarrying, _carrying.Amount);
+        inventory.Add(new RessourceAndAmount(_carrying.CurrenltyCarrying, _carrying.Amount));
 
         _carrying.Amount = 0;
         _carrying.CurrenltyCarrying = null;

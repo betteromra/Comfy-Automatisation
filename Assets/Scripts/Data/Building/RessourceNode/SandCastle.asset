@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06ca130fe450f6140a8265c54998c503, type: 3}
-  m_Name: CatTree
+  m_Name: SandCastle
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
-  _ressource: {fileID: 11400000, guid: f0244ac956038db4ea2505cdd1c53cd1, type: 2}
-  _ressourcePerMinute: 0.5
+  _actualName: Sand castle
+  _icon: {fileID: 0}
+  _recipe: {fileID: 0}
+  _ressourceSO: {fileID: 11400000, guid: 872037e782aa4d44aa7054b55f65767c, type: 2}
+  _ressourcePerMinute: 20

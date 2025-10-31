@@ -20,4 +20,5 @@ MonoBehaviour:
   _spacePerUnit: 4
   _weight: 10
   _rawValue: 30
+  _value: 0
   _quality: 1

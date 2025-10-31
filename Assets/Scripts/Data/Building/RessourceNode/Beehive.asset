@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06ca130fe450f6140a8265c54998c503, type: 3}
-  m_Name: MilkPond
+  m_Name: Beehive
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
-  _ressource: {fileID: 11400000, guid: e2804a25ec6cad849a2deaa3187eb669, type: 2}
+  _actualName: 
+  _icon: {fileID: 0}
+  _recipe: {fileID: 0}
+  _ressourceSO: {fileID: 11400000, guid: 50185d6b9565c6c44a8bf5745933d964, type: 2}
   _ressourcePerMinute: 10

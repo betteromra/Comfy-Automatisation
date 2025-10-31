@@ -13,10 +13,13 @@ public class Player : MonoBehaviour
     public bool cameraMouseMove { get => _cameraMouseMove; }
     float _zoomInput = 0;
     public float zoomInput { get => _zoomInput; }
+    bool _showRawRecipeInput = false;
+    public bool showRawRecipeInput { get => _showRawRecipeInput; }
     public event Action onPressedSelect;
     public event Action onPressedDeselect;
     public event Action onPressedBuild;
     public event Action onPressedCancelBuild;
+    public event Action onShowRawRecipe;
 
     #region Input
     void OnMouseMove(InputValue value)
@@ -77,24 +80,37 @@ public class Player : MonoBehaviour
             onPressedCancelBuild?.Invoke();
         }
     }
+    void OnShowRawRecipePressed(InputAction.CallbackContext value)
+    {
+        _showRawRecipeInput = 0 < value.ReadValue<float>();
+        onShowRawRecipe?.Invoke();
+    }
 
     #endregion
 
     void OnEnable()
     {
         PlayerInput playerInput = GetComponent<PlayerInput>();
-        InputAction enableMoveAction = playerInput.actions["MouseEnableMove"];
-        enableMoveAction.started += OnMouseEnableMovePressed;
-        enableMoveAction.canceled += OnMouseEnableMovePressed;
-        enableMoveAction.Enable();
+
+        playerInput.actions["MouseEnableMove"].started += OnMouseEnableMovePressed;
+        playerInput.actions["MouseEnableMove"].canceled += OnMouseEnableMovePressed;
+        playerInput.actions["MouseEnableMove"].Enable();
+
+        playerInput.actions["OnShowRawRecipe"].started += OnShowRawRecipePressed;
+        playerInput.actions["OnShowRawRecipe"].canceled += OnShowRawRecipePressed;
+        playerInput.actions["OnShowRawRecipe"].Enable();
     }
     void OnDisable()
     {
         PlayerInput playerInput = GetComponent<PlayerInput>();
-        InputAction enableMoveAction = playerInput.actions["MouseEnableMove"];
-        enableMoveAction.started -= OnMouseEnableMovePressed;
-        enableMoveAction.canceled -= OnMouseEnableMovePressed;
-        enableMoveAction.Disable();
+
+        playerInput.actions["MouseEnableMove"].started -= OnMouseEnableMovePressed;
+        playerInput.actions["MouseEnableMove"].canceled -= OnMouseEnableMovePressed;
+        playerInput.actions["MouseEnableMove"].Disable();
+
+        playerInput.actions["OnShowRawRecipe"].started -= OnShowRawRecipePressed;
+        playerInput.actions["OnShowRawRecipe"].canceled -= OnShowRawRecipePressed;
+        playerInput.actions["OnShowRawRecipe"].Disable();
     }
 
     // Selection is in the selection manager now

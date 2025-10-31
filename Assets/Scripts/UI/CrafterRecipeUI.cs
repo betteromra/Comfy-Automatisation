@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class CrafterRecipeUI : MonoBehaviour
 {
     [SerializeField] Button[] _recipesButton;
-    [SerializeField] Image[] _recipesImages;
+    [SerializeField] RessourceAndAmountUI[] _recipes;
     [SerializeField] CrafterUI _crafterUI;
 
     public void Refresh(RecipeSO[] recipesSO)
@@ -22,12 +22,13 @@ public class CrafterRecipeUI : MonoBehaviour
             if (i < recipesSOLenght)
             {
                 RecipeSO recipeSO = recipesSO[i];
-                Image recipeImage = _recipesImages[i];
+                RessourceAndAmountUI recipe = _recipes[i];
 
                 // show all the ingredient for the ressource
                 recipeButton.gameObject.SetActive(true);
+                recipeButton.onClick.RemoveAllListeners();
                 recipeButton.onClick.AddListener(() => _crafterUI.SelectRecipe(recipeSO));
-                recipeImage.sprite = recipeSO.ingredientsOutput[0].ressourceSO.icon;
+                recipe.DisplayRessourceAndAmount(recipeSO.ingredientsOutput[0]);
             }
             else
             {

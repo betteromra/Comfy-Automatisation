@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BuildingManager : MonoBehaviour
 {
@@ -10,19 +11,8 @@ public class BuildingManager : MonoBehaviour
     StorageBuilding _barn;
     public StorageBuilding barn { get => _barn; set => _barn = value; }
 
-    public LayerMask BlockingLayers;
-    public GameObject BuildingParent;
-
-    private GameObject temp;
-
-
-    public event Action onPlaceKeep;
-
-
-    private void Start()
-    {
-        temp = null;
-    }
+    [SerializeField] public LayerMask BlockingLayers;
+    [SerializeField] GameObject BuildingsParent;
 
     // // These two functions just enable us to preview our buildings.
     // void OnPreviewKeep()
@@ -60,28 +50,28 @@ public class BuildingManager : MonoBehaviour
     //This continues to show us our preview, so long as our temp variable contains something.
     private void Update()
     {
-        if (temp != null)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit RayHit;
-            if (Physics.Raycast(ray, out RayHit, 1000f, ~BlockingLayers))
-            {
-                GameObject targetHit = RayHit.transform.gameObject;
-                Vector3 hitPos = RayHit.point;
-                temp.transform.position = hitPos;
-            }
-        }
+        // if (temp != null)
+        // {
+        //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //     RaycastHit RayHit;
+        //     if (Physics.Raycast(ray, out RayHit, 1000f, ~BlockingLayers))
+        //     {
+        //         GameObject targetHit = RayHit.transform.gameObject;
+        //         Vector3 hitPos = RayHit.point;
+        //         temp.transform.position = hitPos;
+        //     }
+        // }
     }
 
 
     //This places our building, but first has to check if temp exists. It reparents temp, then sets it to null, essentially detatching our prefab to the scene.
     private void OnSelect()
     {
-        if (temp != null && CheckPlacementCollision(temp.GetComponentInChildren<BoxCollider>()))
-        {
-            temp.transform.SetParent(BuildingParent.transform);
-            temp = null;
-        }
+        //     if (temp != null && CheckPlacementCollision(temp.GetComponentInChildren<BoxCollider>()))
+        //     {
+        //         temp.transform.SetParent(BuildingParent.transform);
+        //         temp = null;
+        //     }
     }
 
     //This is a kinda shitty way to do this. It's just +2 in each direction at this point. May change to boxcast. 2 Collisions are expected, itself and the floor.

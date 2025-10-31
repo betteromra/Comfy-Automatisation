@@ -19,5 +19,6 @@ MonoBehaviour:
   _recipe: {fileID: 11400000, guid: c51cb5459250cd1488c4da713f020d35, type: 2}
   _spacePerUnit: 1
   _weight: 2
-  _rawValue: 0
+  _rawValue: 7
+  _value: 7
   _quality: 1

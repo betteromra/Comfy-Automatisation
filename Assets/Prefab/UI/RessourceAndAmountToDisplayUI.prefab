@@ -102,6 +102,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IngredientUI
       objectReference: {fileID: 0}
+    - target: {fileID: 2245413708825820374, guid: 3d70379685f960240ad8c98a9ab0ad86, type: 3}
+      propertyPath: _doesDisplayRessourceUI
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3610975271700380671, guid: 3d70379685f960240ad8c98a9ab0ad86, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

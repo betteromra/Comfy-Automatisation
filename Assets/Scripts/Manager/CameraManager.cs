@@ -145,7 +145,6 @@ public class CameraManager : MonoBehaviour
             float fromZeroToMaxValue = _maxCameraDistanceZoomCurve.Evaluate(Mathf.Abs(1 - _zoomLevel)) - _maxCameraDistanceZoomCurve.keys[1].value;
             fromZeroToMaxValue *= _maxCameraDistanceDownMultiplier;
             // we give more room to the camera the lower it is to add a nice transition
-            Debug.Log((_targetCameraTargetPosition.x - _targetCameraTargetPosition.z) * fromZeroToMaxValue);
             maxCameraDistanceBasedZoom += (_targetCameraTargetPosition.x - _targetCameraTargetPosition.z) * fromZeroToMaxValue;
         }
 

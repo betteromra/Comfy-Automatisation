@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Building", menuName = "Scriptable Objects/Building")]
-public class BuildingSO : ScriptableObject, Makeable
+public class BuildingSO : ScriptableObject
 {
   // Name to be fetched when needing the name used to display
   // in game, else use name

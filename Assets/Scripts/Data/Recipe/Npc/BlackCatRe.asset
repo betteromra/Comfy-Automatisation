@@ -17,4 +17,6 @@ MonoBehaviour:
     _amount: 2
   - _ressourceSO: {fileID: 11400000, guid: dadc22ed52b647345a2f9f0826554230, type: 2}
     _amount: 2
-  _ingredientsOutput: []
+  _ingredientsOutput:
+  - _ressourceSO: {fileID: 11400000, guid: 91548422a47817a4faf9d16948a4a3d1, type: 2}
+    _amount: 0

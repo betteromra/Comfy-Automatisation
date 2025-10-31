@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "Ressource", menuName = "Scriptable Objects/Ressource")]
-public class RessourceSO : ScriptableObject, Makeable
+public class RessourceSO : ScriptableObject
 {
   // Name to be fetched when needing the name used to display
   // in game, else use name
@@ -65,15 +66,15 @@ public class RessourceSO : ScriptableObject, Makeable
   [SerializeField] Quality _quality;
   public Quality quality { get => _quality; }
   // the raw ressource it to take to make this ressource
-  Dictionary<RessourceSO, int> _rawRessourceToMakeSelf;
-  public Dictionary<RessourceSO, int> rawRessourceToMakeSelf
+  RessourceAndAmount[] _rawRessourceToMakeSelf;
+  public RessourceAndAmount[] rawRessourceToMakeSelf
   {
     get
     {
       // if there is a recipe and it wasn't calculated yet, 
       // calculate the number of raw ingredient needed to make this
       // ressource
-      if (_recipe != null && _rawRessourceToMakeSelf.Count == 0)
+      if (_recipe != null && _rawRessourceToMakeSelf.Length == 0)
       {
         CalculateRawIngredientToMake();
       }
@@ -85,47 +86,46 @@ public class RessourceSO : ScriptableObject, Makeable
   void CalculateValue()
   {
     // go in each children calculate their value and retrieve the correct rawValue
-    foreach (Ingredient ingredient in _recipe.ingredientsInput)
+    foreach (RessourceAndAmount ingredient in _recipe.ingredientsInput)
     {
       _rawValue += ingredient.ressourceSO.rawValue;
       _value += ingredient.ressourceSO.value + 2;
     }
   }
-  Dictionary<RessourceSO, int> CalculateRawIngredientToMake()
+  void CalculateRawIngredientToMake()
   {
     Dictionary<RessourceSO, int> rawRessourceToMakeSelf = new Dictionary<RessourceSO, int>();
 
-    foreach (Ingredient ingredient in _recipe.ingredientsInput)
+    foreach (RessourceAndAmount ingredient in _recipe.ingredientsInput)
     {
       // if the ingredient have no recipe we hit the bottom of the chain, 
       // we can add this ingredient and the ammount
       if (ingredient.ressourceSO.recipe == null)
       {
-        AddToRawRessourceWithNoDouble(ingredient.ressourceSO, ingredient.amount);
+        AddToRawRessourceWithNoDouble(ingredient, rawRessourceToMakeSelf);
       }
       // else we calculate the children before and then add his dictonary
       // to ours
       else
       {
-        foreach (KeyValuePair<RessourceSO, int> rawRessourceAndAmount in ingredient.ressourceSO.rawRessourceToMakeSelf)
+        foreach (RessourceAndAmount rawRessourceAndAmount in ingredient.ressourceSO.rawRessourceToMakeSelf)
         {
-          AddToRawRessourceWithNoDouble(rawRessourceAndAmount.Key, rawRessourceAndAmount.Value);
+          AddToRawRessourceWithNoDouble(rawRessourceAndAmount, rawRessourceToMakeSelf);
         }
       }
     }
+    RessourceAndAmount[] rawRessourceToMakeSelfArray = rawRessourceToMakeSelf.Select(kvp => new RessourceAndAmount(kvp)).ToArray();
 
-    _rawRessourceToMakeSelf = rawRessourceToMakeSelf;
-
-    return _rawRessourceToMakeSelf;
+    _rawRessourceToMakeSelf = rawRessourceToMakeSelfArray;
   }
 
-  void AddToRawRessourceWithNoDouble(RessourceSO ressource, int amount)
+  void AddToRawRessourceWithNoDouble(RessourceAndAmount rawRessourceAndAmount, Dictionary<RessourceSO, int> rawRessourceToMakeSelf)
   {
-    if (_rawRessourceToMakeSelf.ContainsKey(ressource))
+    if (rawRessourceToMakeSelf.ContainsKey(rawRessourceAndAmount.ressourceSO))
     {
-      _rawRessourceToMakeSelf[ressource] += amount;
+      rawRessourceToMakeSelf[rawRessourceAndAmount.ressourceSO] += rawRessourceAndAmount.amount;
     }
-    else _rawRessourceToMakeSelf.Add(ressource, amount);
+    else rawRessourceToMakeSelf.Add(rawRessourceAndAmount.ressourceSO, rawRessourceAndAmount.amount);
   }
   #endregion
 }

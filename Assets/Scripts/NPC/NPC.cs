@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.AI;
 
 public struct Carrying
 {

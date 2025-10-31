@@ -13,6 +13,7 @@ public class NonPlayableCharacterCManager : MonoBehaviour
     {
         _tempTarget = new("ClickTarget");
         InstansiateNewNPC(new(-55.9f, 6, 1.5f)); //TEMP
+        InstansiateNewNPC(new(-52.9f, 6, 1.5f));
     }
 
     void OnEnable()
@@ -48,6 +49,12 @@ public class NonPlayableCharacterCManager : MonoBehaviour
     private void HandleClick()
     {
         if (_currentSelectedNPCs.Count <= 0)
+            return;
+
+        bool isMultiSelect = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
+                    Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+
+        if (isMultiSelect) //Solving the problem where multiselecting NPCs would make one of them walk torwards the other.
             return;
 
         Camera playerCamera = GameManager.instance.cameraManager.mainCamera;

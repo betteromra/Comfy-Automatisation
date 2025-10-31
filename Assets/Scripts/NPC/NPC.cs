@@ -143,7 +143,7 @@ public class NPC : MonoBehaviour
             }
         }
 
-        Debug.Log($"NPC currently carrying {_carrying.CurrenltyCarrying.actualName}, {_carrying.Amount}");
+        //Debug.Log($"NPC currently carrying {_carrying.CurrenltyCarrying.actualName}, {_carrying.Amount}");
     }
 
     /// <summary>

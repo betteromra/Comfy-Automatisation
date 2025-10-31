@@ -12,8 +12,14 @@ public class NonPlayableCharacterCManager : MonoBehaviour
     void Start()
     {
         _tempTarget = new("ClickTarget");
-        InstansiateNewNPC(new(-55.9f, 6, 1.5f)); //TEMP
-        InstansiateNewNPC(new(-52.9f, 6, 1.5f));
+        InstantiateNewNPC(new(-55.9f, 6, 1.5f)); //TEMP
+        InstantiateNewNPC(new(-52.9f, 6, 1.5f));
+    }
+
+    void OnDestroy()
+    {
+        if (_tempTarget != null)
+            Destroy(_tempTarget);
     }
 
     void OnEnable()
@@ -26,9 +32,9 @@ public class NonPlayableCharacterCManager : MonoBehaviour
         GameManager.instance.player.onPressedSelect -= HandleClick;
     }
 
-    public void InstansiateNewNPC(Vector3 position)
+    public void InstantiateNewNPC(Vector3 position)
     {
-        GameObject newNPC = Instantiate(_npcPrefab, position, new());
+        GameObject newNPC = Instantiate(_npcPrefab, position, Quaternion.identity);
 
         _npcs.Add(newNPC);
 
@@ -39,14 +45,11 @@ public class NonPlayableCharacterCManager : MonoBehaviour
     {
         if (isSelected)
         {
-            if (_currentSelectedNPCs.Contains(npc))
-                return;
-
-            _currentSelectedNPCs.Add(npc);
-            return;
+            if (!_currentSelectedNPCs.Contains(npc))
+                _currentSelectedNPCs.Add(npc);
         }
-
-        _currentSelectedNPCs.Remove(npc);
+        else
+            _currentSelectedNPCs.Remove(npc);
     }
 
     private void HandleClick()
@@ -67,6 +70,9 @@ public class NonPlayableCharacterCManager : MonoBehaviour
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, clickableLayers))
         {
+            if (hit.collider.TryGetComponent<NPC>(out _)) //Needed so that it doesn't instaselect the ground behind the NPC
+                return;
+
             GameObject target;
 
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -82,6 +88,7 @@ public class NonPlayableCharacterCManager : MonoBehaviour
             foreach(NPC npc in _currentSelectedNPCs)
             {
                 npc.Link(target);
+                Debug.Log($"Linked {target.name} ({target.transform.position}) to {npc.name}");
             }
         }
     }

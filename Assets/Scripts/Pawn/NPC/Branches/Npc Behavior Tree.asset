@@ -1290,7 +1290,7 @@ MonoBehaviour:
   - rid: 9020314883258056839
   - rid: 9020314919892156504
   - rid: 5350424814120075403
-  m_VersionTimestamp: 638975485968258081
+  m_VersionTimestamp: 638975934377531760
   m_CommandBuffer:
     m_Commands: []
   m_RuntimeBlackboardAsset: {fileID: 3911482126815755426}
@@ -1324,7 +1324,7 @@ MonoBehaviour:
           m_Value0: 16342996598589782466
           m_Value1: 12901557796349128677
         Name: WalkingPoints
-        IsExposed: 1
+        IsExposed: 0
         m_IsShared: 0
         m_Value: []
     - rid: 9020314879701287277
@@ -1344,7 +1344,7 @@ MonoBehaviour:
           m_Value0: 10213664774666326608
           m_Value1: 13192044061417481303
         Name: Target
-        IsExposed: 1
+        IsExposed: 0
         m_IsShared: 0
         m_Value: {fileID: 0}
     - rid: 9020314883258056839

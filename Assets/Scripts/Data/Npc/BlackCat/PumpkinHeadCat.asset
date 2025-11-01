@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: PumpkinHeadCat
   m_EditorClassIdentifier: 
   _prefab: {fileID: 6928152175513800417, guid: 473384ea31f85084b967e16a16df926f, type: 3}
+  _speed: 3
+  _maxCarryingCapacity: 1
+  _waitDuration: 1

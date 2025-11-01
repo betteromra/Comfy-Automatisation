@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3811500416533800962, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
       propertyPath: m_Name
-      value: Npc Variant
+      value: BlackCat
       objectReference: {fileID: 0}
     - target: {fileID: 6731402756440447333, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8738041327263256666, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: _nonPlayableCharacterSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 9892c133fca798d4f8fdb58d10c1fea4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: BlackCat
   m_EditorClassIdentifier: 
   _prefab: {fileID: 6928152175513800417, guid: 2285e898b3bf50a43841927845ad0d95, type: 3}
+  _speed: 3
+  _maxCarryingCapacity: 1
+  _waitDuration: 1

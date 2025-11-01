@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class NonPlayableCharacterManager : MonoBehaviour
 {
+    [Tooltip("It's weird but NPC needs to be clickable layer, else the ray travels through NPC and hits ground")]
     [SerializeField] private LayerMask clickableLayers = -1;
     [SerializeField] private NpcSO _basicNpcSO;
     private List<Npc> _npcs = new();

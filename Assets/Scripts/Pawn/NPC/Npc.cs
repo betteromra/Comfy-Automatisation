@@ -9,8 +9,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NpcPathRenderer))]
 public class Npc : Pawn
 {
+    [SerializeField] private NpcSO _nonPlayableCharacterSO;
     public event Action<Npc, bool> OnSelfSelected;
-    [SerializeField] private int _maxCarryingCapacity = 1;
     private RessourceAndAmount _carrying;
     private BehaviorGraphAgent _behaviorAgent;
     private NpcPathRenderer _npcPathRenderer;
@@ -21,6 +21,8 @@ public class Npc : Pawn
         _npcPathRenderer = GetComponent<NpcPathRenderer>();
 
         _behaviorAgent.BlackboardReference.SetVariableValue("Npc", this);
+        _behaviorAgent.BlackboardReference.SetVariableValue("NPCSpeed", _nonPlayableCharacterSO.Speed);
+        _behaviorAgent.BlackboardReference.SetVariableValue("NPCWaitDuration", _nonPlayableCharacterSO.WaitDuration);
         
         _carrying = new(null, 0);
 
@@ -101,7 +103,7 @@ public class Npc : Pawn
     /// <param name="target">The target</param>
     public void PickUp(GameObject target)
     {
-        if (_carrying.amount >= _maxCarryingCapacity)
+        if (_carrying.amount >= _nonPlayableCharacterSO.MaxCarryingCapacity)
             return;
 
         if (!target.TryGetComponent<OutputNode>(out var outputNode))
@@ -126,7 +128,7 @@ public class Npc : Pawn
         RessourceAndAmount ressourceAndAmount = new RessourceAndAmount(_carrying.ressourceSO);
         if (inventory.ContainsAmount(ressourceAndAmount))
         {
-            while (_carrying.amount < _maxCarryingCapacity && 0 < inventory.Contains(_carrying.ressourceSO))
+            while (_carrying.amount < _nonPlayableCharacterSO.MaxCarryingCapacity && 0 < inventory.Contains(_carrying.ressourceSO))
             {
                 inventory.Remove(ressourceAndAmount);
                 _carrying.amount++;

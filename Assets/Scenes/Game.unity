@@ -2227,6 +2227,10 @@ PrefabInstance:
       propertyPath: _basicNpcSO
       value: 
       objectReference: {fileID: 11400000, guid: 9892c133fca798d4f8fdb58d10c1fea4, type: 2}
+    - target: {fileID: 3799328801981626515, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: clickableLayers.m_Bits
+      value: 1792
+      objectReference: {fileID: 0}
     - target: {fileID: 6606712884057377677, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
       propertyPath: m_Name
       value: NonPlayableCharacterManager

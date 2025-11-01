@@ -7,16 +7,15 @@ public abstract class Building : MonoBehaviour
     [SerializeField] protected bool _destructable = true;
     public bool destructable { get => _destructable; }
     [SerializeField] protected MeshRenderer _meshRenderer;
-    [SerializeField] protected BoxCollider _collider;
+    [SerializeField] protected BoxCollider _boxCollider;
+    public BoxCollider boxCollider { get => _boxCollider; }
     [SerializeField] protected InputNode[] _inputNode;
     [SerializeField] protected OutputNode[] _outputNode;
     [SerializeField] protected BuildingUI _buildingUI;
     [SerializeField] protected RessourceAndAmountToDisplayUI _ressourceAndAmountToDisplayUI;
     public RessourceAndAmountToDisplayUI ressourceAndAmountToDisplayUI { get => _ressourceAndAmountToDisplayUI; }
-    Selectable _selectable;
     protected virtual void Awake()
     {
-        _selectable = GetComponent<Selectable>();
     }
 
     protected void UpdateIngredientToDisplay(RessourceAndAmount ressourceAndAmount)
@@ -35,5 +34,6 @@ public abstract class Building : MonoBehaviour
     {
         _buildingUI.gameObject.SetActive(false);
         _ressourceAndAmountToDisplayUI.gameObject.SetActive(false);
+        _boxCollider.gameObject.SetActive(false);
     }
 }

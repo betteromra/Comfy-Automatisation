@@ -7,10 +7,22 @@ public class DisplayBuildingToolBarUI : MonoBehaviour
     [SerializeField] BuildingSO[] _buildingsSO;
     [SerializeField] BuildingToolBarUI[] _buildingsToolBarUI;
     BuildingSO[] _canCraftBuildingSO;
+    BuildingManager _buildingManager;
     void Awake()
     {
+        _buildingManager = GameManager.instance.buildingManager;
         _canCraftBuildingSO = _buildingsSO; // to change for actual craftable building
         Refresh();
+    }
+
+    void OnEnable()
+    {
+        _buildingManager.barn.inventory.onContentChange += Refresh;
+    }
+
+    void OnDisable()
+    {
+        _buildingManager.barn.inventory.onContentChange -= Refresh;
     }
 
     void Refresh()
@@ -20,7 +32,7 @@ public class DisplayBuildingToolBarUI : MonoBehaviour
             BuildingToolBarUI buildingToolBarUI = _buildingsToolBarUI[i];
             BuildingSO buildingSO = _buildingsSO[i];
 
-            buildingToolBarUI.DisplayBuilding(buildingSO, _canCraftBuildingSO.Contains(buildingSO), _toolBarUI);
+            buildingToolBarUI.DisplayBuilding(buildingSO, _buildingManager.CanBuild(buildingSO), _toolBarUI);
         }
     }
 }

@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865a19ba33ccb594b91dd1f6fb739421, type: 3}
   m_Name: Keep
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _actualName: 
+  _icon: {fileID: 0}
   _recipe: {fileID: 11400000, guid: 666e5b58cb2cce34eba9a3107504a37a, type: 2}
+  _npcSpace: 0
+  _prefab: {fileID: 4809781718655069639, guid: 0d8333a8a5974824685c4a82f1443a9d, type: 3}

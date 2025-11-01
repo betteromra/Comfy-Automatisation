@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
+using Unity.VisualScripting;
 
 public class BuildingManager : MonoBehaviour
 {
@@ -31,6 +33,8 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] Transform _buildingsParent;
     Dictionary<BuildingSO, Building> _ghosts = new Dictionary<BuildingSO, Building>();
     Building _ghost;
+    Coroutine _showingGhost;
+    public event Action onBuildingCreated;
 
     void Awake()
     {
@@ -41,47 +45,12 @@ public class BuildingManager : MonoBehaviour
         _buildings.Add(_barn);
     }
 
-    // These two functions just enable us to preview our buildings.
-    void PreviewBuilding()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit RayHit;
-        if (Physics.Raycast(ray, out RayHit, 1000f, ~_blockingBuildingLayers))
-        {
-            GameObject targetHit = RayHit.transform.gameObject;
-            Vector3 hitPos = RayHit.point;
-
-            // if (temp != null)
-            //     Destroy(temp);
-            // temp = Instantiate(Keep, hitPos, Quaternion.identity);
-
-        }
-    }
-
-
-    //This continues to show us our preview, so long as our temp variable contains something.
-    private void Update()
-    {
-        // if (temp != null)
-        // {
-        //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //     RaycastHit RayHit;
-        //     if (Physics.Raycast(ray, out RayHit, 1000f, ~BlockingLayers))
-        //     {
-        //         GameObject targetHit = RayHit.transform.gameObject;
-        //         Vector3 hitPos = RayHit.point;
-        //         temp.transform.position = hitPos;
-        //     }
-        // }
-    }
-
-
-    //This places our building, but first has to check if temp exists. It reparents temp, then sets it to null, essentially detatching our prefab to the scene.
     private void OnBuildingSelected()
     {
         if (_ghosts.ContainsKey(_buildingSOToolBarSelected))
         {
-
+            _ghost = _ghosts[_buildingSOToolBarSelected];
+            _ghost.gameObject.SetActive(true);
         }
         else
         {
@@ -89,35 +58,92 @@ public class BuildingManager : MonoBehaviour
             _ghosts.Add(_buildingSOToolBarSelected, _ghost);
             _ghost.enabled = false;
         }
+
+        if (_showingGhost == null)
+        {
+            _barn.inventory.onContentChange += CancelIfCanNotBuild;
+            _showingGhost = StartCoroutine(ShowGhostBuilding());
+        }
     }
 
-    //This is a kinda shitty way to do this. It's just +2 in each direction at this point. May change to boxcast. 2 Collisions are expected, itself and the floor.
-    private bool CheckPlacementCollision(BoxCollider col)
+    System.Collections.IEnumerator ShowGhostBuilding()
     {
-        Collider[] collisions = Physics.OverlapBox(col.transform.position, new Vector3((col.size.x / 2) + 2, col.size.y / 2, (col.size.z / 2) + 2), Quaternion.identity);
+        while (true)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (collisions.Length > 2)
-            return false;
-        return true;
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _placingBuildingLayers))
+            {
+                Vector3 hitPosition = hit.point;
 
+                hitPosition.x = Mathf.Round(hitPosition.x);
+                hitPosition.z = Mathf.Round(hitPosition.z);
+
+                _ghost.transform.position = hitPosition;
+                if (CheckPlacementCollision())
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            yield return null;
+        }
+    }
+
+    private bool CheckPlacementCollision()
+    {
+        Collider[] collisions = Physics.OverlapBox(transform.position, _ghost.boxCollider.size, Quaternion.identity, _blockingBuildingLayers);
+
+        return collisions.Length == 0;
+    }
+
+    void CancelIfCanNotBuild()
+    {
+        if (!CanBuild(_buildingSOToolBarSelected)) CancelBuild();
+    }
+
+    public bool CanBuild(BuildingSO buildingSO)
+    {
+        return _barn.inventory.ContainsAmount(buildingSO.recipe.ingredientsInput);
     }
 
     void CancelBuild()
     {
+        if (!isBuilding) return;
         _isBuilding = false;
-        //_ghost.deactive
+        StopCoroutine(_showingGhost);
+        _showingGhost = null;
+        _ghost.gameObject.SetActive(false);
         _ghost = null;
+        _buildingSOToolBarSelected = null;
+        _barn.inventory.onContentChange -= CancelIfCanNotBuild;
+    }
+
+    void CreateBuilding()
+    {
+        if (!isBuilding) return;
+
+        if (CheckPlacementCollision())
+        {
+            _buildings.Add(Instantiate(_buildingSOToolBarSelected.prefab, _ghost.transform.position, _ghost.transform.rotation, _buildingsParent).GetComponent<Building>());
+            onBuildingCreated?.Invoke();
+            CancelBuild();
+        }
     }
 
     void OnEnable()
     {
-        // GameManager.instance.player.onPressedBuild += function here;
+        GameManager.instance.player.onPressedBuild += CreateBuilding;
         GameManager.instance.player.onPressedCancelBuild += CancelBuild;
     }
 
     void OnDisable()
     {
-        // GameManager.instance.player.onPressedBuild -= function here;
+        GameManager.instance.player.onPressedBuild -= CreateBuilding;
         GameManager.instance.player.onPressedCancelBuild -= CancelBuild;
+        _barn.inventory.onContentChange -= CancelIfCanNotBuild;
     }
 }

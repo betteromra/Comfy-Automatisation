@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5987234988030260883}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CraftingContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7759452923126748239}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ArrowContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6996171249067709512}
   - component: {fileID: 6628114082567398201}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Recipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 7915271780565130645}
   - component: {fileID: 7029031038925704388}
   - component: {fileID: 1241414473373318353}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 1875775430040825778}
   - component: {fileID: 7701721585393926534}
   - component: {fileID: 2463820609891665025}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +351,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4124867036910050861}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Inventories
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 521098595512630436}
   - component: {fileID: 8175245566916006852}
   - component: {fileID: 177954060818103729}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 896774756828831100}
   - component: {fileID: 565809764971467454}
   - component: {fileID: 651229326348085236}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +627,7 @@ GameObject:
   - component: {fileID: 2809348566941132280}
   - component: {fileID: 7950320602459712889}
   - component: {fileID: 6977763638862986824}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -700,7 +700,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5412630602003813799}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WorkerContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -873,7 +873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6621242164859987114}
   - component: {fileID: 4944236855398849264}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Crafting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -961,7 +961,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8997635965275278370}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -997,7 +997,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3281449278226075457}
   - component: {fileID: 387669616966543137}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1505,6 +1505,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 2413139435682428881, guid: 0c6351e759fdd324082b45c38e7d832a, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5775135157830379281, guid: 0c6351e759fdd324082b45c38e7d832a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1589,6 +1593,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryInputUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6372553050877026726, guid: 0c6351e759fdd324082b45c38e7d832a, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1625,6 +1633,10 @@ PrefabInstance:
     - target: {fileID: 1817458833613312740, guid: 0c6351e759fdd324082b45c38e7d832a, type: 3}
       propertyPath: m_SizeDelta.y
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2413139435682428881, guid: 0c6351e759fdd324082b45c38e7d832a, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5775135157830379281, guid: 0c6351e759fdd324082b45c38e7d832a, type: 3}
       propertyPath: m_Pivot.x
@@ -1709,6 +1721,10 @@ PrefabInstance:
     - target: {fileID: 6372553050877026726, guid: 0c6351e759fdd324082b45c38e7d832a, type: 3}
       propertyPath: m_Name
       value: InventoryOutputUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372553050877026726, guid: 0c6351e759fdd324082b45c38e7d832a, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

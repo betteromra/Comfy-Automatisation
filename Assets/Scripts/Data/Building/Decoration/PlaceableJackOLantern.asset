@@ -15,3 +15,5 @@ MonoBehaviour:
   _actualName: Jack-o'-lantern
   _icon: {fileID: 0}
   _recipe: {fileID: 11400000, guid: 1b36675bdf871fa45a925a42b66fffca, type: 2}
+  _npcSpace: 0
+  _prefab: {fileID: 3459423434279612615, guid: 5d45a2c9b445d694eaf24d088a2aa8b3, type: 3}

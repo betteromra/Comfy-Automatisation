@@ -21,12 +21,14 @@ public class UserInterfaceManager : MonoBehaviour
     bool _isBuildingUIOpen = false;
     public bool isBuildingUIOpen { get => _isBuildingUIOpen; }
     CameraManager _cameraManager;
+    BuildingManager _buildingManager;
     Vector2 _screenOffSetNeed = Vector2.zero;
     public Vector2 screenOffSetNeeded { get => _screenOffSetNeed; }
 
     private void Awake()
     {
         _cameraManager = GameManager.instance.cameraManager;
+        _buildingManager = GameManager.instance.buildingManager;
         _screenOffSetNeed.x = _mainCanvas.GetComponent<CanvasScaler>().referenceResolution.x * .5f;
         _screenOffSetNeed.y = -_mainCanvas.GetComponent<CanvasScaler>().referenceResolution.y * .5f;
         UpdateSize();
@@ -34,6 +36,12 @@ public class UserInterfaceManager : MonoBehaviour
     private void OnEnable()
     {
         _cameraManager.onZoom += UpdateSize;
+        _buildingManager.onBuildingCreated += UpdateSize;
+    }
+    private void OnDisable()
+    {
+        _cameraManager.onZoom -= UpdateSize;
+        _buildingManager.onBuildingCreated -= UpdateSize;
     }
 
     void UpdateSize()

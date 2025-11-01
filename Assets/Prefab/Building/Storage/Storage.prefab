@@ -324,14 +324,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae2e368f6e65678488a4e5ba8532aa85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingSO: {fileID: 0}
+  _destructable: 1
   _meshRenderer: {fileID: 6492651727908333271}
-  _collider: {fileID: 1612647541494327123}
+  _boxCollider: {fileID: 1612647541494327123}
   _inputNode: []
   _outputNode: []
   _buildingUI: {fileID: 7209806430048936203}
   _ressourceAndAmountToDisplayUI: {fileID: 9083579466671985966}
   _inventory: {fileID: 6586964368282816490}
+  _storageBuildingSO: {fileID: 0}
 --- !u!114 &6586964368282816490
 MonoBehaviour:
   m_ObjectHideFlags: 0

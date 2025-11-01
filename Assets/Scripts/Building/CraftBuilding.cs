@@ -102,7 +102,6 @@ public class CraftBuilding : Building
     IEnumerator Craft()
     {
         _craftingTimer.Restart();
-        yield return null;
         while (true)
         {
             // wait until we can craft
@@ -110,8 +109,9 @@ public class CraftBuilding : Building
             {
                 if (_selectedRecipeSO.Make(_inputInventory, _outputInventory))
                 {
-                    if (CanCraft()) _craftingTimer.Restart();
-                    else break;
+                    _craftingTimer.Restart();
+                    onCrafting?.Invoke();
+                    if (!CanCraft()) break;
                 }
                 else break;
             }

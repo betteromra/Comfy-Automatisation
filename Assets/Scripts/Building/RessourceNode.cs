@@ -62,15 +62,16 @@ public class RessourceNode : Building
     IEnumerator Extract()
     {
         _extractionTimer.Restart();
-        yield return null;
         while (true)
         {
             if (_extractionTimer.IsOver())
             {
                 if (_inventory.Add(_ressourceNodeSO.ressourceAndAmount))
                 {
-                    if (_inventory.CanAdd(_ressourceNodeSO.ressourceAndAmount))
-                        _extractionTimer.Restart();
+                    _extractionTimer.Restart();
+                    onExtraction?.Invoke();
+                    if (!_inventory.CanAdd(_ressourceNodeSO.ressourceAndAmount))
+                        break;
                 }
                 else break;
             }

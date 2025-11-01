@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _destructable: 0
   _meshRenderer: {fileID: 3306921047813897061}
-  _collider: {fileID: 7034417085880335073}
+  _boxCollider: {fileID: 7034417085880335073}
   _inputNode: []
   _outputNode:
   - {fileID: 2753486776845906547}

@@ -106,12 +106,14 @@ public class Inventory : MonoBehaviour
         }
         else _ressourcesStored.Add(add.ressourceSO, add.amount);
 
-        if (sendEvent) onContentChange?.Invoke();
 
         // Adjust weight and ressource space
         _weight += add.weight;
         _value += add.value;
         _differentRessourceAmount++;
+
+        if (sendEvent) onContentChange?.Invoke();
+
         return true;
     }
     public bool Add(RessourceAndAmount[] ressourcesAndAmount)
@@ -173,7 +175,6 @@ public class Inventory : MonoBehaviour
         if (_ressourcesStored.ContainsKey(removed.ressourceSO))
         {
             _ressourcesStored[removed.ressourceSO] -= removed.amount;
-            if (sendEvent) onContentChange?.Invoke();
 
             // keep track of the actual number of ressource removed
             if (_ressourcesStored[removed.ressourceSO] <= 0)
@@ -186,6 +187,8 @@ public class Inventory : MonoBehaviour
             _weight -= removed.weight;
             _value -= removed.value;
             _differentRessourceAmount--;
+            
+            if (sendEvent) onContentChange?.Invoke();
         }
         else
         {

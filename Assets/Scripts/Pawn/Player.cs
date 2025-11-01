@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
         playerInput.actions["ShowRawRecipe"].started -= OnShowRawRecipePressed;
         playerInput.actions["ShowRawRecipe"].canceled -= OnShowRawRecipePressed;
         playerInput.actions["ShowRawRecipe"].Disable();
-        
+
         playerInput.actions["RotateBuilding"].started -= OnRotateBuildingPressed;
         playerInput.actions["RotateBuilding"].canceled -= OnRotateBuildingPressed;
         playerInput.actions["RotateBuilding"].Disable();

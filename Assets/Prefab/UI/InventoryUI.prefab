@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8415958537469056121}
   - component: {fileID: 8048845547855685725}
   - component: {fileID: 6245527265411013548}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5775135157830379281}
   - component: {fileID: 8956717564071326956}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InventoryUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,6 +248,8 @@ MonoBehaviour:
   - {fileID: 975787206516268177}
   - {fileID: 1497759430424654826}
   - {fileID: 3700354760072330964}
+  _weight: {fileID: 0}
+  _value: {fileID: 0}
 --- !u!1001 &175876266426094462
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -33,7 +33,6 @@ public class DisplayInventoryUI : MonoBehaviour
     {
         List<RessourceSO> whiteListed = _inventory.ressourcesWhiteListed;
         RessourceAndAmount[] inventoryContent = _inventory.ressourcesStored.Select(kvp => new RessourceAndAmount(kvp)).ToArray();
-        Debug.Log("refesh : " + inventoryContent);
 
         int whiteListedLength = whiteListed.Count;
         int inventoryContentLength = inventoryContent.Length;
@@ -46,10 +45,19 @@ public class DisplayInventoryUI : MonoBehaviour
             {
                 RessourceAndAmount ressourceAndAmountInvetory = inventoryContent[i];
 
-                if (whiteListed.Contains(ressourceAndAmountInvetory.ressourceSO))
+                // Is the inventory white listed
+                if (whiteListedLength == 0)
                 {
                     ressourceAndAmountUI.DisplayRessourceAndAmount(ressourceAndAmountInvetory);
-                    whiteListed.Remove(ressourceAndAmountInvetory.ressourceSO);
+                }
+                else
+                {
+                    // if it is then we show the element only if it is white listed
+                    if (whiteListed.Contains(ressourceAndAmountInvetory.ressourceSO))
+                    {
+                        ressourceAndAmountUI.DisplayRessourceAndAmount(ressourceAndAmountInvetory);
+                        whiteListed.Remove(ressourceAndAmountInvetory.ressourceSO);
+                    }
                 }
 
                 // show all the ingredient for the ressource
@@ -58,7 +66,7 @@ public class DisplayInventoryUI : MonoBehaviour
             else if (i < whiteListedLength)
             {
                 RessourceSO whiteListedRessource = whiteListed[i - inventoryContentLength];
-                // if it is not contain, the we ghost it
+                // if the white listed is not contain, the we ghost it
                 ressourceAndAmountUI.DisplayRessourceAndAmount(new RessourceAndAmount(whiteListedRessource, -1));
                 ressourceAndAmountUI.gameObject.SetActive(true);
             }

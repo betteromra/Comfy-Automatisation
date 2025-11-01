@@ -10,7 +10,16 @@ public class UserInterfaceManager : MonoBehaviour
     [SerializeField] Canvas _mainCanvas;
     public Canvas mainCanvas { get => _mainCanvas; }
     BuildingUI _currentBuildingUIOpen;
-    public BuildingUI currentBuildingUIOpen { get => _currentBuildingUIOpen; set => _currentBuildingUIOpen = value; }
+    public BuildingUI currentBuildingUIOpen
+    {
+        get => _currentBuildingUIOpen; set
+        {
+            _currentBuildingUIOpen = value;
+            _isBuildingUIOpen = _currentBuildingUIOpen != null;
+        }
+    }
+    bool _isBuildingUIOpen = false;
+    public bool isBuildingUIOpen { get => _isBuildingUIOpen; }
     CameraManager _cameraManager;
     Vector2 _screenOffSetNeed = Vector2.zero;
     public Vector2 screenOffSetNeeded { get => _screenOffSetNeed; }

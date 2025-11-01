@@ -19,16 +19,7 @@ public class CraftBuilding : Building
             if (_selectedRecipeSO == value) return;
 
             _selectedRecipeSO = value;
-            _craftingTimer = new Timer(_selectedRecipeSO.craftingTime * _craftBuildingSO.craftingSpeed);
-            _inputInventory.ClearInventory(_selectedRecipeSO.ingredientsInput);
-
-            _inputInventory.ClearWhiteList();
-            _outputInventory.ClearWhiteList();
-
-            _inputInventory.WhiteList(_selectedRecipeSO.ingredientsInput);
-            _outputInventory.WhiteList(_selectedRecipeSO.ingredientsOutput);
-
-            UpdateIngredientToDisplay(new RessourceAndAmount(_selectedRecipeSO.ingredientsOutput[0].ressourceSO, -1));
+            OnRecipeChange();
         }
     }
     Timer _craftingTimer;
@@ -43,17 +34,20 @@ public class CraftBuilding : Building
         _buildingSO = _craftBuildingSO;
         _inputInventory.maxSameRessourceSpace = _craftBuildingSO.inputSpace;
     }
-    void OnEnable()
+    protected override  void OnEnable()
     {
+        base.OnEnable();
         _inputInventory.onContentChange += InputContentChange;
         _outputInventory.onContentChange += OutputContentChange;
     }
 
-    void OnDisable()
+    protected override  void OnDisable()
     {
+        base.OnDisable();
         _inputInventory.onContentChange -= InputContentChange;
         _outputInventory.onContentChange -= OutputContentChange;
     }
+    #region Crafting Logic
     void OutputContentChange()
     {
         RessourceSO ressourceSO = _outputInventory.MostRessourceInside();
@@ -65,6 +59,20 @@ public class CraftBuilding : Building
         {
             UpdateIngredientToDisplay(new RessourceAndAmount(_selectedRecipeSO.ingredientsOutput[0].ressourceSO, -1));
         }
+    }
+    void OnRecipeChange()
+    {
+        // Change the variable based on the new recipe
+        _craftingTimer = new Timer(_selectedRecipeSO.craftingTime * _craftBuildingSO.craftingSpeed);
+        _inputInventory.ClearInventory(_selectedRecipeSO.ingredientsInput);
+
+        _inputInventory.ClearWhiteList();
+        _outputInventory.ClearWhiteList();
+
+        _inputInventory.WhiteList(_selectedRecipeSO.ingredientsInput);
+        _outputInventory.WhiteList(_selectedRecipeSO.ingredientsOutput);
+
+        UpdateIngredientToDisplay(new RessourceAndAmount(_selectedRecipeSO.ingredientsOutput[0].ressourceSO, -1));
     }
 
     void InputContentChange()
@@ -83,8 +91,11 @@ public class CraftBuilding : Building
     bool CanCraft()
     {
         if (_selectedRecipeSO == null) return false;
+
+        // make sure we can add to the output
         if (!_outputInventory.CanAdd(_selectedRecipeSO.ingredientsOutput)) return false;
 
+        // make sur we have the right amount
         return _inputInventory.ContainsAmount(_selectedRecipeSO.ingredientsInput);
     }
 
@@ -94,6 +105,7 @@ public class CraftBuilding : Building
         yield return null;
         while (true)
         {
+            // wait until we can craft
             if (_craftingTimer.IsOver())
             {
                 if (_selectedRecipeSO.Make(_inputInventory, _outputInventory))
@@ -108,4 +120,5 @@ public class CraftBuilding : Building
         }
         _crafting = null;
     }
+    #endregion
 }

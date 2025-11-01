@@ -25,15 +25,19 @@ public class RessourceNode : Building
         InventoryChange();
     }
 
-    void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         _inventory.onInventoryChange += InventoryChange;
     }
 
-    void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         _inventory.onInventoryChange -= InventoryChange;
     }
+
+    #region Extraction Logic
     void InventoryChange()
     {
         StartExtracting();
@@ -75,4 +79,5 @@ public class RessourceNode : Building
         }
         _extracting = null;
     }
+    #endregion
 }

@@ -13,15 +13,24 @@ public class BuildingManager : MonoBehaviour
     BuildingSO _buildingSOToolBarSelected;
     public BuildingSO buildingSOToolBarSelected
     {
-        get => _buildingSOToolBarSelected; 
-        set {
+        get => _buildingSOToolBarSelected;
+        set
+        {
+            if (_buildingSOToolBarSelected == value) return;
+            _isBuilding = true;
             _buildingSOToolBarSelected = value;
             OnBuildingSelected();
         }
     }
 
-    [SerializeField] public LayerMask BlockingLayers;
-    [SerializeField] GameObject BuildingsParent;
+    bool _isBuilding = false;
+    public bool isBuilding { get => _isBuilding; }
+
+    [SerializeField] LayerMask _blockingBuildingLayers;
+    [SerializeField] LayerMask _placingBuildingLayers;
+    [SerializeField] Transform _buildingsParent;
+    Dictionary<BuildingSO, Building> _ghosts = new Dictionary<BuildingSO, Building>();
+    Building _ghost;
 
     void Awake()
     {
@@ -32,37 +41,22 @@ public class BuildingManager : MonoBehaviour
         _buildings.Add(_barn);
     }
 
-    // // These two functions just enable us to preview our buildings.
-    // void OnPreviewKeep()
-    // {
-    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //     RaycastHit RayHit;
-    //     if (Physics.Raycast(ray, out RayHit, 1000f, ~BlockingLayers))
-    //     {
-    //         GameObject targetHit = RayHit.transform.gameObject;
-    //         Vector3 hitPos = RayHit.point;
+    // These two functions just enable us to preview our buildings.
+    void PreviewBuilding()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit RayHit;
+        if (Physics.Raycast(ray, out RayHit, 1000f, ~_blockingBuildingLayers))
+        {
+            GameObject targetHit = RayHit.transform.gameObject;
+            Vector3 hitPos = RayHit.point;
 
-    //         if (temp != null)
-    //             Destroy(temp);
-    //         temp = Instantiate(Keep, hitPos, Quaternion.identity);
+            // if (temp != null)
+            //     Destroy(temp);
+            // temp = Instantiate(Keep, hitPos, Quaternion.identity);
 
-    //     }
-    // }
-
-    // void OnPreviewRefinery()
-    // {
-    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //     RaycastHit RayHit;
-    //     if (Physics.Raycast(ray, out RayHit, 1000f, ~BlockingLayers))
-    //     {
-    //         GameObject targetHit = RayHit.transform.gameObject;
-    //         Vector3 hitPos = RayHit.point;
-
-    //         if (temp != null)
-    //             Destroy(temp);
-    //         temp = Instantiate(Refinery, hitPos, Quaternion.identity);
-    //     }
-    // }
+        }
+    }
 
 
     //This continues to show us our preview, so long as our temp variable contains something.
@@ -85,11 +79,16 @@ public class BuildingManager : MonoBehaviour
     //This places our building, but first has to check if temp exists. It reparents temp, then sets it to null, essentially detatching our prefab to the scene.
     private void OnBuildingSelected()
     {
-        //     if (temp != null && CheckPlacementCollision(temp.GetComponentInChildren<BoxCollider>()))
-        //     {
-        //         temp.transform.SetParent(BuildingParent.transform);
-        //         temp = null;
-        //     }
+        if (_ghosts.ContainsKey(_buildingSOToolBarSelected))
+        {
+
+        }
+        else
+        {
+            _ghost = Instantiate(_buildingSOToolBarSelected.prefab, Vector3.zero, Quaternion.identity, _buildingsParent).GetComponent<Building>();
+            _ghosts.Add(_buildingSOToolBarSelected, _ghost);
+            _ghost.enabled = false;
+        }
     }
 
     //This is a kinda shitty way to do this. It's just +2 in each direction at this point. May change to boxcast. 2 Collisions are expected, itself and the floor.
@@ -103,15 +102,22 @@ public class BuildingManager : MonoBehaviour
 
     }
 
+    void CancelBuild()
+    {
+        _isBuilding = false;
+        //_ghost.deactive
+        _ghost = null;
+    }
+
     void OnEnable()
     {
         // GameManager.instance.player.onPressedBuild += function here;
-        // GameManager.instance.player.onPressedCancelBuild += function here;
+        GameManager.instance.player.onPressedCancelBuild += CancelBuild;
     }
 
     void OnDisable()
     {
         // GameManager.instance.player.onPressedBuild -= function here;
-        // GameManager.instance.player.onPressedCancelBuild -= function here;
+        GameManager.instance.player.onPressedCancelBuild -= CancelBuild;
     }
 }

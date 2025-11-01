@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.AI;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -10,11 +11,17 @@ public class SelectionManager : MonoBehaviour
     private HashSet<Renderer> selectedRenderers = new HashSet<Renderer>();
     private Selectable currentHoveredObject = null;
     public event Action<HashSet<Renderer>> OnSelectionChanged;
+    BuildingManager buildingManager;
+    UserInterfaceManager userInterfaceManager;
 
     #region Selection Logic
 
     private void HandleSelection()
     {
+        // if we are building don t select
+        // if we are in a building UI don t select
+        if (buildingManager.isBuilding || userInterfaceManager.isBuildingUIOpen) return;
+
         Camera playerCamera = GameManager.instance.cameraManager.mainCamera;
         if (playerCamera == null)
             playerCamera = Camera.main;
@@ -112,6 +119,11 @@ public class SelectionManager : MonoBehaviour
     #endregion
 
     #region Unity
+    void Awake()
+    {
+        buildingManager = GameManager.instance.buildingManager;
+        userInterfaceManager = GameManager.instance.userInterfaceManager;
+    }
 
     void Update()
     {
@@ -135,6 +147,10 @@ public class SelectionManager : MonoBehaviour
     #region Hover
     private void HandleHover()
     {
+        // if we are building don t hover
+        // if we are in a building UI don t hover
+        if (buildingManager.isBuilding || userInterfaceManager.isBuildingUIOpen) return;
+
         // Don't do hover detection if camera is being moved
         if (GameManager.instance.player.cameraMouseMove) return;
 

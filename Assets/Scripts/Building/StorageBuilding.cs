@@ -12,12 +12,13 @@ public class StorageBuilding : Building
         _buildingSO = _storageBuildingSO;
         ContentChange();
     }
-    void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         _inventory.onContentChange += ContentChange;
     }
 
-    void OnDisable()
+    protected override void OnDisable()
     {
         _inventory.onContentChange -= ContentChange;
     }

@@ -13,9 +13,10 @@ public abstract class Building : MonoBehaviour
     [SerializeField] protected BuildingUI _buildingUI;
     [SerializeField] protected RessourceAndAmountToDisplayUI _ressourceAndAmountToDisplayUI;
     public RessourceAndAmountToDisplayUI ressourceAndAmountToDisplayUI { get => _ressourceAndAmountToDisplayUI; }
+    Selectable _selectable;
     protected virtual void Awake()
     {
-
+        _selectable = GetComponent<Selectable>();
     }
 
     protected void UpdateIngredientToDisplay(RessourceAndAmount ressourceAndAmount)
@@ -24,5 +25,15 @@ public abstract class Building : MonoBehaviour
         {
             _ressourceAndAmountToDisplayUI.ingredientUI.DisplayRessourceAndAmount(ressourceAndAmount);
         }
+    }
+
+    protected virtual void OnEnable()
+    {
+    }
+
+    protected virtual void OnDisable()
+    {
+        _buildingUI.gameObject.SetActive(false);
+        _ressourceAndAmountToDisplayUI.gameObject.SetActive(false);
     }
 }

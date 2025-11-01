@@ -4,15 +4,33 @@ using System.Collections.Generic;
 
 public class BuildingManager : MonoBehaviour
 {
-    [SerializeField] Building[] _buildings;
-    public Building[] buildings { get => _buildings; }
-    [SerializeField] BuildingSO _buildingSOToolBarSelected;
-    public BuildingSO buildingSOToolBarSelected { get => _buildingSOToolBarSelected; set => _buildingSOToolBarSelected = value; }
-    StorageBuilding _barn;
+    [SerializeField] RessourceNode[] _ressourcesNode;
+    public RessourceNode[] ressourcesNode { get => _ressourcesNode; set => _ressourcesNode = value; }
+    [SerializeField] StorageBuilding _barn;
     public StorageBuilding barn { get => _barn; set => _barn = value; }
+    List<Building> _buildings = new List<Building>();
+    public List<Building> buildings { get => _buildings; }
+    BuildingSO _buildingSOToolBarSelected;
+    public BuildingSO buildingSOToolBarSelected
+    {
+        get => _buildingSOToolBarSelected; 
+        set {
+            _buildingSOToolBarSelected = value;
+            OnBuildingSelected();
+        }
+    }
 
     [SerializeField] public LayerMask BlockingLayers;
     [SerializeField] GameObject BuildingsParent;
+
+    void Awake()
+    {
+        foreach (RessourceNode ressourceNode in _ressourcesNode)
+        {
+            _buildings.Add(ressourceNode);
+        }
+        _buildings.Add(_barn);
+    }
 
     // // These two functions just enable us to preview our buildings.
     // void OnPreviewKeep()
@@ -65,7 +83,7 @@ public class BuildingManager : MonoBehaviour
 
 
     //This places our building, but first has to check if temp exists. It reparents temp, then sets it to null, essentially detatching our prefab to the scene.
-    private void OnSelect()
+    private void OnBuildingSelected()
     {
         //     if (temp != null && CheckPlacementCollision(temp.GetComponentInChildren<BoxCollider>()))
         //     {

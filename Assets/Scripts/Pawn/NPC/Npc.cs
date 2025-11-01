@@ -19,6 +19,8 @@ public class Npc : Pawn
     {
         _behaviorAgent = GetComponent<BehaviorGraphAgent>();
         _npcPathRenderer = GetComponent<NpcPathRenderer>();
+
+        _behaviorAgent.BlackboardReference.SetVariableValue("Npc", this);
         
         _carrying = new(null, 0);
 

@@ -8,12 +8,12 @@ using Unity.Properties;
 [NodeDescription(name: "DropOf", story: "[Npc] drops of item to [Target]", category: "Action", id: "c4d3a837c214a1d6813070cdfcb68ebc")]
 public partial class DropOfAction : Action
 {
-    [SerializeReference] public BlackboardVariable<Npc> NPC;
+    [SerializeReference] public BlackboardVariable<Npc> Npc;
     [SerializeReference] public BlackboardVariable<GameObject> Target;
 
     protected override Status OnStart()
     {
-        Npc npc = NPC.Value;
+        Npc npc = Npc.Value;
 
         npc.DropOff(Target.Value);
         return Status.Running;

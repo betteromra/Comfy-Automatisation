@@ -19,4 +19,5 @@ MonoBehaviour:
     _amount: 2
   _ingredientsOutput:
   - _ressourceSO: {fileID: 11400000, guid: 91548422a47817a4faf9d16948a4a3d1, type: 2}
-    _amount: 0
+    _amount: 1
+  _craftingTime: 1

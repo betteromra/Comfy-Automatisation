@@ -12,11 +12,10 @@ public class NonPlayableCharacterManager : MonoBehaviour
     void Start()
     {
         _tempTarget = new("ClickTarget");
-        InstantiateNewNPC(_basicNpcSO, new(-55.9f, 6, 1.5f)); //TEMP
-        InstantiateNewNPC(_basicNpcSO, new(-52.9f, 6, 1.5f));
-        InstantiateNewNPC(_basicNpcSO, new(-49.9f, 6, 1.5f));
-        InstantiateNewNPC(_basicNpcSO, new(-47.9f, 6, 1.5f));
-        InstantiateNewNPC(_basicNpcSO, new(-45.9f, 6, 1.5f));
+        for (int i = 0; i < 15; i++) //TEMP
+        {
+            InstantiateNewNPC(_basicNpcSO, new(-60 + 2 * i, 6, 1.5f));
+        }
     }
 
     void OnDestroy()
@@ -88,7 +87,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
                 target = hit.collider.gameObject;
             }
 
-            foreach(Npc npc in _currentSelectedNPCs)
+            foreach (Npc npc in _currentSelectedNPCs)
             {
                 npc.Link(target);
                 Debug.Log($"Linked {target.name} ({target.transform.position}) to {npc.name}");

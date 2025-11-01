@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickableLayers:
     serializedVersion: 2
-    m_Bits: 768
-  _npcPrefab: {fileID: 3811500416533800962, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+    m_Bits: 1792
+  _basicNpcSO: {fileID: 0}

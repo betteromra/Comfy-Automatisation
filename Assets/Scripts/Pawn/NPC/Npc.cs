@@ -4,33 +4,21 @@ using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
 
-public struct Carrying
-{
-    public RessourceSO CurrenltyCarrying;
-    public int Amount;
-
-    public Carrying(RessourceSO carrying, int amount)
-    {
-        CurrenltyCarrying = carrying;
-        Amount = amount;
-    }
-}
-
 [RequireComponent(typeof(BehaviorGraphAgent))]
 [RequireComponent(typeof(Selectable))]
-[RequireComponent(typeof(NPCPathRenderer))]
-public class NPC : MonoBehaviour
+[RequireComponent(typeof(NpcPathRenderer))]
+public class Npc : Pawn
 {
-    public event Action<NPC, bool> OnSelfSelected;
+    public event Action<Npc, bool> OnSelfSelected;
     [SerializeField] private int _maxCarryingCapacity = 1;
-    private Carrying _carrying;
+    private RessourceAndAmount _carrying;
     private BehaviorGraphAgent _behaviorAgent;
-    private NPCPathRenderer _npcPathRenderer;
+    private NpcPathRenderer _npcPathRenderer;
 
     void Awake()
     {
         _behaviorAgent = GetComponent<BehaviorGraphAgent>();
-        _npcPathRenderer = GetComponent<NPCPathRenderer>();
+        _npcPathRenderer = GetComponent<NpcPathRenderer>();
         
         _carrying = new(null, 0);
 
@@ -111,7 +99,7 @@ public class NPC : MonoBehaviour
     /// <param name="target">The target</param>
     public void PickUp(GameObject target)
     {
-        if (_carrying.Amount >= _maxCarryingCapacity)
+        if (_carrying.amount >= _maxCarryingCapacity)
             return;
 
         if (!target.TryGetComponent<OutputNode>(out var outputNode))
@@ -126,20 +114,20 @@ public class NPC : MonoBehaviour
             Debug.LogError("OutputNode inventory is set to null!");
         }
 
-        if (_carrying.CurrenltyCarrying == null)
+        if (_carrying.ressourceSO == null)
         {
             //Currently the NPC chooses the resource based on amount.
             RessourceSO ressource = inventory.MostRessourceInside();
-            _carrying.CurrenltyCarrying = ressource;
+            _carrying.ressourceSO = ressource;
         }
 
-        RessourceAndAmount ressourceAndAmount = new RessourceAndAmount(_carrying.CurrenltyCarrying, 1);
+        RessourceAndAmount ressourceAndAmount = new RessourceAndAmount(_carrying.ressourceSO);
         if (inventory.ContainsAmount(ressourceAndAmount))
         {
-            while (_carrying.Amount < _maxCarryingCapacity && 0 < inventory.Contains(_carrying.CurrenltyCarrying))
+            while (_carrying.amount < _maxCarryingCapacity && 0 < inventory.Contains(_carrying.ressourceSO))
             {
                 inventory.Remove(ressourceAndAmount);
-                _carrying.Amount++;
+                _carrying.amount++;
             }
         }
 
@@ -152,7 +140,7 @@ public class NPC : MonoBehaviour
     /// <returns>Returns information about the dropped of resource.</returns>
     public void DropOff(GameObject target)
     {
-        if (_carrying.Amount <= 0)
+        if (_carrying == null)
             return;
 
         if (!target.TryGetComponent<InputNode>(out var inputNode))
@@ -167,13 +155,12 @@ public class NPC : MonoBehaviour
             Debug.LogError("InputNode inventory is set to null!");
         }
 
-        if (inventory.ContainsAmount(new RessourceAndAmount(_carrying.CurrenltyCarrying, 0)))
+        if (inventory.ContainsAmount(_carrying))
             return;
 
-        inventory.Add(new RessourceAndAmount(_carrying.CurrenltyCarrying, _carrying.Amount));
+        inventory.Add(_carrying);
 
-        _carrying.Amount = 0;
-        _carrying.CurrenltyCarrying = null;
+        _carrying = null;
     }
 
     private void HandleSelection(bool isSelected)

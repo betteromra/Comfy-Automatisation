@@ -15,5 +15,9 @@ MonoBehaviour:
   _actualName: Milk pond
   _icon: {fileID: 0}
   _recipe: {fileID: 0}
-  _ressourceSO: {fileID: 11400000, guid: e2804a25ec6cad849a2deaa3187eb669, type: 2}
-  _ressourcePerMinute: 10
+  _npcSpace: 0
+  _prefab: {fileID: 5287830922716742107, guid: 4cf178f87cde7584eb0ac51d56f34246, type: 3}
+  _ressourceAndAmount:
+    _ressourceSO: {fileID: 11400000, guid: e2804a25ec6cad849a2deaa3187eb669, type: 2}
+    _amount: 5
+  _extractionPerMinute: 3

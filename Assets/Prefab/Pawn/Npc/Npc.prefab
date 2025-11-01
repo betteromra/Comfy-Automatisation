@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 5795954809219067196}
   - component: {fileID: 1849018206702391787}
   m_Layer: 10
-  m_Name: NPC
+  m_Name: Npc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 3811500416533800962}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -55.9, y: 6.007, z: 1.5}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -128,13 +128,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Graph: {fileID: 4073694356603450214, guid: ac68d82d1d18b0aad9db883c4beb2a3b, type: 2}
+  m_Graph: {fileID: 4073694356603450214, guid: 4bbb916810ad6d94eb924ead3e91e609, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 9020314879701286989
   - rid: 9020314879701287900
   - rid: 9020314879701287917
   - rid: 9020314883258056745
-  - rid: 9020314903212196393
   m_OriginalGraph: {fileID: 4073694356603450214, guid: ac68d82d1d18b0aad9db883c4beb2a3b, type: 2}
   m_IsInitialised: 0
   m_IsStarted: 0
@@ -173,14 +172,6 @@ MonoBehaviour:
           m_Value1: 12901557796349128677
         Name: WalkingPoints
         m_Value: []
-    - rid: 9020314903212196393
-      type: {class: 'BlackboardVariable`1[[NPC, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 10808119563441052313
-          m_Value1: 6194269915995674853
-        Name: NPC
-        m_Value: {fileID: 8738041327263256666}
 --- !u!195 &7990612822399325167
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -7,7 +7,8 @@ public class RessourceNode : Building
 {
     [SerializeField] Inventory _inventory;
     public Inventory inventory { get => _inventory; }
-    RessourceNodeSO _ressourceNodeSO;
+    [SerializeField] protected RessourceNodeSO _ressourceNodeSO;
+    public RessourceNodeSO ressourceNodeSO { get => _ressourceNodeSO; }
     Timer _extractionTimer;
     public Timer extractionTimer { get => _extractionTimer; }
     public event Action onExtraction;
@@ -15,8 +16,12 @@ public class RessourceNode : Building
     protected override void Awake()
     {
         base.Awake();
-        _ressourceNodeSO = _buildingSO as RessourceNodeSO;
-        _extractionTimer = new Timer(1 / _ressourceNodeSO.ressourcePerMinute * 60);
+        _buildingSO = _ressourceNodeSO;
+        _extractionTimer = new Timer(1 / _ressourceNodeSO.extractionPerMinute * 60);
+
+        _inventory.WhiteList(_ressourceNodeSO.ressourceAndAmount.ressourceSO);
+
+        StartExtracting();
         InventoryChange();
     }
 
@@ -31,10 +36,7 @@ public class RessourceNode : Building
     }
     void InventoryChange()
     {
-        if (_extracting == null && _inventory.CanAdd(_ressourceNodeSO.ressourceAndAmount))
-        {
-            _extracting = StartCoroutine(Extract());
-        }
+        StartExtracting();
         RessourceSO ressourceSO = _inventory.MostRessourceInside();
         if (ressourceSO != null)
         {
@@ -42,7 +44,14 @@ public class RessourceNode : Building
         }
         else
         {
-            UpdateIngredientToDisplay(new RessourceAndAmount(_ressourceNodeSO.ressourceAndAmount.ressourceSO, -_ressourceNodeSO.ressourceAndAmount.amount));
+            UpdateIngredientToDisplay(new RessourceAndAmount(_ressourceNodeSO.ressourceAndAmount.ressourceSO, -1));
+        }
+    }
+    void StartExtracting()
+    {
+        if (_extracting == null && _inventory.CanAdd(_ressourceNodeSO.ressourceAndAmount))
+        {
+            _extracting = StartCoroutine(Extract());
         }
     }
 

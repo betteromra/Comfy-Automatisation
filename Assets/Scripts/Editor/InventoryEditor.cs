@@ -19,11 +19,18 @@ public class InventoryEditor : Editor
         selectedRessource = (RessourceSO)EditorGUILayout.ObjectField("Ressource", selectedRessource, typeof(RessourceSO), false);
         amountToAdd = EditorGUILayout.IntField("Amount", amountToAdd);
 
-        if (GUILayout.Button("Add To Inventory"))
+        if (GUILayout.Button("Add"))
         {
             if (selectedRessource != null)
             {
                 inventory.Add(new RessourceAndAmount(selectedRessource, amountToAdd));
+            }
+        }
+        if (GUILayout.Button("Remove"))
+        {
+            if (selectedRessource != null)
+            {
+                inventory.Remove(new RessourceAndAmount(selectedRessource, amountToAdd));
             }
         }
     }

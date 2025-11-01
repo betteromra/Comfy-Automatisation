@@ -53,7 +53,7 @@ public class DisplayRessourceUI : MonoBehaviour
 
     void ShowRecipe(RessourceAndAmount[] recipe)
     {
-        _recipeContainer.SetActive(_ressourceAndAmount.ressourceSO.recipe != null);
+        _recipeContainer.SetActive(recipe.Length > 0);
         if (!_recipeContainer.activeSelf) return;
 
         int recipeLength = recipe.Length;
@@ -84,19 +84,17 @@ public class DisplayRessourceUI : MonoBehaviour
     void ShowRecipe()
     {
         if (_player.showRawRecipeInput) ShowRecipe(_ressourceAndAmount.ressourceSO.rawRessourceToMakeSelf);
-        else ShowRecipe(_ressourceAndAmount.ressourceSO.recipe.ingredientsInput);
+        else if (_ressourceAndAmount.ressourceSO.recipe != null) ShowRecipe(_ressourceAndAmount.ressourceSO.recipe.ingredientsInput);
     }
 
-    public void Display(bool open, RessourceAndAmount ressourceAndAmount)
+    public void Display(bool open, RessourceAndAmount ressourceAndAmount = null)
     {
-        if (!open && _ressourceAndAmount.ressourceSO != ressourceAndAmount.ressourceSO) return;
-
         _open = open;
-
         gameObject.SetActive(_open);
-        _ressourceAndAmount = ressourceAndAmount;
+
         if (_open)
         {
+            _ressourceAndAmount = ressourceAndAmount;
             Refresh();
             RefreshPosition();
         }

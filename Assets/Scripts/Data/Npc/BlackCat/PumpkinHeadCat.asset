@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cc7b56daf1be046a839ad4257642c3, type: 3}
   m_Name: PumpkinHeadCat
   m_EditorClassIdentifier: 
-  _recipe: {fileID: 11400000, guid: 6539e7ab082f27e4fa9b5ea5e586348f, type: 2}
+  _prefab: {fileID: 6928152175513800417, guid: 473384ea31f85084b967e16a16df926f, type: 3}

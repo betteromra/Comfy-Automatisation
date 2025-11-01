@@ -7,7 +7,7 @@
             "id": "5a3ef838-b08d-4708-9553-97b064311040",
             "actions": [
                 {
-                    "name": "MouseMove",
+                    "name": "MouseMoveCamera",
                     "type": "Value",
                     "id": "fe9a15c5-ebbc-434b-aa1c-9313d78622fe",
                     "expectedControlType": "Vector2",
@@ -16,7 +16,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "MouseEnableMove",
+                    "name": "MouseEnableMoveCamera",
                     "type": "Button",
                     "id": "62d3aa1a-bea1-4f97-8e9c-5bf8dea518a7",
                     "expectedControlType": "",
@@ -25,7 +25,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "KeyboardMove",
+                    "name": "KeyboardMoveCamera",
                     "type": "PassThrough",
                     "id": "caa1a4ce-190a-46bd-ab84-559ab39e304d",
                     "expectedControlType": "Vector2",
@@ -34,7 +34,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Zoom",
+                    "name": "ZoomCamera",
                     "type": "Value",
                     "id": "9f09c948-dc77-4b59-b50c-e3f2dcd17da8",
                     "expectedControlType": "Axis",
@@ -79,9 +79,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OnShowRawRecipe",
+                    "name": "ShowRawRecipe",
                     "type": "Button",
                     "id": "c61c2136-43a7-4af9-895f-2f62830792fd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateBuilding",
+                    "type": "Button",
+                    "id": "7b81b299-8d69-4a63-a982-b9ea6baa8f75",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DeleteBuilding",
+                    "type": "Button",
+                    "id": "cb458226-1ca7-40a9-b86d-4f8162ab99b0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NpcAction",
+                    "type": "Button",
+                    "id": "e32c8460-a342-4853-ae48-8795b5367ab7",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -96,7 +123,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MouseMove",
+                    "action": "MouseMoveCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -107,7 +134,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Zoom",
+                    "action": "ZoomCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -118,7 +145,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MouseEnableMove",
+                    "action": "MouseEnableMoveCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -129,7 +156,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MouseEnableMove",
+                    "action": "MouseEnableMoveCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -140,7 +167,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "KeyboardMove",
+                    "action": "KeyboardMoveCamera",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -151,7 +178,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "KeyboardMove",
+                    "action": "KeyboardMoveCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -162,7 +189,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "KeyboardMove",
+                    "action": "KeyboardMoveCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -173,7 +200,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "KeyboardMove",
+                    "action": "KeyboardMoveCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -184,7 +211,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "KeyboardMove",
+                    "action": "KeyboardMoveCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -234,12 +261,67 @@
                 },
                 {
                     "name": "",
+                    "id": "0669ae9e-56cc-49cc-9441-8b2fbe5da1d6",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CancelBuild",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "63f0979e-7c19-494d-b5e9-60ba63b3162a",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "OnShowRawRecipe",
+                    "action": "ShowRawRecipe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "604ac26c-9f25-4c35-8227-a7a440f8fecc",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateBuilding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2cca056a-ff6c-4c70-85cb-225be5390a61",
+                    "path": "<Keyboard>/delete",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DeleteBuilding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3ae0bc7-e734-4fb2-bdae-3b4b48852c55",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DeleteBuilding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d2a36d7d-ac10-4471-ba40-882a20c43d5d",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NpcAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

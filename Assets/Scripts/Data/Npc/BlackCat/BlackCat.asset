@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cc7b56daf1be046a839ad4257642c3, type: 3}
   m_Name: BlackCat
   m_EditorClassIdentifier: 
-  _recipe: {fileID: 11400000, guid: bb6545779ee2545449d209fad9fd9d7c, type: 2}
+  _prefab: {fileID: 6928152175513800417, guid: 2285e898b3bf50a43841927845ad0d95, type: 3}

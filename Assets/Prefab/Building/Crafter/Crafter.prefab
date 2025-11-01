@@ -111,13 +111,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc31ff745241f4a47bd8315a44ec4258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingSO: {fileID: 0}
   _meshRenderer: {fileID: 958818022653645268}
   _collider: {fileID: 4698848516819325008}
   _inputNode: []
   _outputNode: []
   _buildingUI: {fileID: 5816875301760659046}
   _ressourceAndAmountToDisplayUI: {fileID: 2980174402685641261}
+  _craftBuildingSO: {fileID: 0}
   _inputInventory: {fileID: 1492919531225720300}
   _outputInventory: {fileID: 8326669604599271376}
   _selectedRecipeSO: {fileID: 0}

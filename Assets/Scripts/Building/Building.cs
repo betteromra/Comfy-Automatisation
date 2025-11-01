@@ -2,8 +2,10 @@ using UnityEngine;
 
 public abstract class Building : MonoBehaviour
 {
-    [SerializeField] protected BuildingSO _buildingSO;
-    public BuildingSO buildingSO { get => _buildingSO; set => _buildingSO = value; }
+    protected BuildingSO _buildingSO;
+    public BuildingSO buildingSO { get => _buildingSO; }
+    [SerializeField] protected bool _destructable = true;
+    public bool destructable { get => _destructable; }
     [SerializeField] protected MeshRenderer _meshRenderer;
     [SerializeField] protected BoxCollider _collider;
     [SerializeField] protected InputNode[] _inputNode;

@@ -12,7 +12,7 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(LineRenderer))]
 [RequireComponent(typeof(NavMeshAgent))]
-public class NPCPathRenderer : MonoBehaviour
+public class NpcPathRenderer : MonoBehaviour
 {
     private LineRenderer _line;
     private NavMeshAgent _agent;

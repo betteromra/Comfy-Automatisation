@@ -15,5 +15,9 @@ MonoBehaviour:
   _actualName: Cat tree
   _icon: {fileID: 0}
   _recipe: {fileID: 0}
-  _ressourceSO: {fileID: 11400000, guid: f0244ac956038db4ea2505cdd1c53cd1, type: 2}
-  _ressourcePerMinute: 0.5
+  _npcSpace: 0
+  _prefab: {fileID: 5287830922716742107, guid: 63ce543a8a478094cb4800c4a4fbba92, type: 3}
+  _ressourceAndAmount:
+    _ressourceSO: {fileID: 11400000, guid: f0244ac956038db4ea2505cdd1c53cd1, type: 2}
+    _amount: 1
+  _extractionPerMinute: 0.5

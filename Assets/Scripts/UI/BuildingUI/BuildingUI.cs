@@ -27,7 +27,11 @@ public class BuildingUI : MonoBehaviour
     _open = selected;
     UserInterfaceManager userInterfaceManager = GameManager.instance.userInterfaceManager;
     if (_open) userInterfaceManager.currentBuildingUIOpen = this;
-    else if (userInterfaceManager.currentBuildingUIOpen == this) userInterfaceManager.currentBuildingUIOpen = null;
+    else
+    {
+      GameManager.instance.userInterfaceManager.displayRessourceUI.Display(false);
+      userInterfaceManager.currentBuildingUIOpen = null;
+    }
     Refresh();
   }
   protected virtual void Refresh()

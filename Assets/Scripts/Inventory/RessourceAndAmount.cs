@@ -26,10 +26,16 @@ public class RessourceAndAmount
         get => _ressourceSO.spacePerUnit * _amount;
     }
 
-    public RessourceAndAmount(RessourceSO ressourceSO, int amount)
+    public RessourceAndAmount(RessourceSO ressourceSO, int amount = 1)
     {
         _ressourceSO = ressourceSO;
         _amount = amount;
     }
     public RessourceAndAmount(KeyValuePair<RessourceSO, int> ressourceAndAmount) : this(ressourceAndAmount.Key, ressourceAndAmount.Value) { }
+    public RessourceAndAmount(RessourceAndAmount ressourceAndAmount) : this(ressourceAndAmount.ressourceSO, ressourceAndAmount.amount) { }
+    public void Reset()
+    {
+        _ressourceSO = null;
+        _amount = 1;
+    }
 }

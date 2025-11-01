@@ -26,14 +26,14 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.19866665, g: 0.22647998, b: 0.29799998, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 0f34688082d21ff4fb90d6ca72b2b905, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 0
-  m_DefaultReflectionResolution: 128
+  m_DefaultReflectionResolution: 512
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
@@ -2697,9 +2697,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2073501780}
     m_Modifications:
+    - target: {fileID: 3799328801981626515, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: _basicNpcSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 9892c133fca798d4f8fdb58d10c1fea4, type: 2}
     - target: {fileID: 6606712884057377677, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
       propertyPath: m_Name
-      value: NonPlayableCharacterCManager
+      value: NonPlayableCharacterManager
       objectReference: {fileID: 0}
     - target: {fileID: 7715032666564814905, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2994,6 +2998,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2073501780}
     m_Modifications:
+    - target: {fileID: 543739028388699325, guid: 9e226e5431a30a44191aab6691f37266, type: 3}
+      propertyPath: selectableLayers.m_Bits
+      value: 1527
+      objectReference: {fileID: 0}
     - target: {fileID: 1932580019053039849, guid: 9e226e5431a30a44191aab6691f37266, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3236,6 +3244,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6316811494231119726, guid: faf6dadefb708f2418c5c2c734c81c86, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 6e951a9485f45914fb2dc27baf6a7754, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

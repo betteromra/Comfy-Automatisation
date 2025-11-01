@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb58b7211a48da4f91b051fc4f23f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingSO: {fileID: 0}
+  _destructable: 0
   _meshRenderer: {fileID: 3306921047813897061}
   _collider: {fileID: 7034417085880335073}
   _inputNode: []
@@ -234,6 +234,7 @@ MonoBehaviour:
   _buildingUI: {fileID: 6211376129289541191}
   _ressourceAndAmountToDisplayUI: {fileID: 716450646563014812}
   _inventory: {fileID: 2414426385218615678}
+  _ressourceNodeSO: {fileID: 0}
 --- !u!114 &2414426385218615678
 MonoBehaviour:
   m_ObjectHideFlags: 0

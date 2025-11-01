@@ -15,14 +15,19 @@ public class Player : MonoBehaviour
     public float zoomInput { get => _zoomInput; }
     bool _showRawRecipeInput = false;
     public bool showRawRecipeInput { get => _showRawRecipeInput; }
+    bool _rotateBuild = false;
+    public bool rotateBuild { get => _rotateBuild; }
     public event Action onPressedSelect;
     public event Action onPressedDeselect;
     public event Action onPressedBuild;
     public event Action onPressedCancelBuild;
     public event Action onShowRawRecipe;
+    public event Action onDeleteBuild;
+    public event Action onRotateBuild;
+    public event Action onNpcAction;
 
     #region Input
-    void OnMouseMove(InputValue value)
+    void OnMouseMoveCamera(InputValue value)
     {
         // the pan need to be inverted so it look like you grab the terrain and move
         if (_cameraMouseMove)
@@ -32,12 +37,12 @@ public class Player : MonoBehaviour
         // we need to make sure that we want to pan
         else _mouseMoveInput = Vector3.zero;
     }
-    void OnMouseEnableMovePressed(InputAction.CallbackContext value)
+    void OnMouseEnableMoveCameraPressed(InputAction.CallbackContext value)
     {
         // if the button is pressed the value will be over 0
         _cameraMouseMove = 0 < value.ReadValue<float>();
     }
-    void OnKeyboardMove(InputValue value)
+    void OnKeyboardMoveCamera(InputValue value)
     {
         // we need to make sure that we aren't already moving with the mouse
         if (!_cameraMouseMove)
@@ -46,7 +51,7 @@ public class Player : MonoBehaviour
         }
         else _keyboardMoveInput = Vector3.zero;
     }
-    void OnZoom(InputValue value)
+    void OnZoomCamera(InputValue value)
     {
         // inverted the zoom since if we scrolldown the y is higher
         _zoomInput = value.Get<float>() * -1;
@@ -80,10 +85,26 @@ public class Player : MonoBehaviour
             onPressedCancelBuild?.Invoke();
         }
     }
+    void OnDeleteBuild(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            onDeleteBuild?.Invoke();
+        }
+    }
     void OnShowRawRecipePressed(InputAction.CallbackContext value)
     {
         _showRawRecipeInput = 0 < value.ReadValue<float>();
         onShowRawRecipe?.Invoke();
+    }
+    void OnRotateBuildingPressed(InputAction.CallbackContext value)
+    {
+        _showRawRecipeInput = 0 < value.ReadValue<float>();
+        onRotateBuild?.Invoke();
+    }
+    void OnNpcAction(InputValue value)
+    {
+        onNpcAction?.Invoke();
     }
 
     #endregion
@@ -92,25 +113,33 @@ public class Player : MonoBehaviour
     {
         PlayerInput playerInput = GetComponent<PlayerInput>();
 
-        playerInput.actions["MouseEnableMove"].started += OnMouseEnableMovePressed;
-        playerInput.actions["MouseEnableMove"].canceled += OnMouseEnableMovePressed;
-        playerInput.actions["MouseEnableMove"].Enable();
+        playerInput.actions["MouseEnableMoveCamera"].started += OnMouseEnableMoveCameraPressed;
+        playerInput.actions["MouseEnableMoveCamera"].canceled += OnMouseEnableMoveCameraPressed;
+        playerInput.actions["MouseEnableMoveCamera"].Enable();
 
-        playerInput.actions["OnShowRawRecipe"].started += OnShowRawRecipePressed;
-        playerInput.actions["OnShowRawRecipe"].canceled += OnShowRawRecipePressed;
-        playerInput.actions["OnShowRawRecipe"].Enable();
+        playerInput.actions["ShowRawRecipe"].started += OnShowRawRecipePressed;
+        playerInput.actions["ShowRawRecipe"].canceled += OnShowRawRecipePressed;
+        playerInput.actions["ShowRawRecipe"].Enable();
+
+        playerInput.actions["RotateBuilding"].started += OnRotateBuildingPressed;
+        playerInput.actions["RotateBuilding"].canceled += OnRotateBuildingPressed;
+        playerInput.actions["RotateBuilding"].Enable();
     }
     void OnDisable()
     {
         PlayerInput playerInput = GetComponent<PlayerInput>();
 
-        playerInput.actions["MouseEnableMove"].started -= OnMouseEnableMovePressed;
-        playerInput.actions["MouseEnableMove"].canceled -= OnMouseEnableMovePressed;
-        playerInput.actions["MouseEnableMove"].Disable();
+        playerInput.actions["MouseEnableMoveCamera"].started -= OnMouseEnableMoveCameraPressed;
+        playerInput.actions["MouseEnableMoveCamera"].canceled -= OnMouseEnableMoveCameraPressed;
+        playerInput.actions["MouseEnableMoveCamera"].Disable();
 
-        playerInput.actions["OnShowRawRecipe"].started -= OnShowRawRecipePressed;
-        playerInput.actions["OnShowRawRecipe"].canceled -= OnShowRawRecipePressed;
-        playerInput.actions["OnShowRawRecipe"].Disable();
+        playerInput.actions["ShowRawRecipe"].started -= OnShowRawRecipePressed;
+        playerInput.actions["ShowRawRecipe"].canceled -= OnShowRawRecipePressed;
+        playerInput.actions["ShowRawRecipe"].Disable();
+        
+        playerInput.actions["RotateBuilding"].started -= OnRotateBuildingPressed;
+        playerInput.actions["RotateBuilding"].canceled -= OnRotateBuildingPressed;
+        playerInput.actions["RotateBuilding"].Disable();
     }
 
     // Selection is in the selection manager now

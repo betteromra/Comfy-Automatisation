@@ -15,6 +15,8 @@ MonoBehaviour:
   _actualName: Artisan cabin
   _icon: {fileID: 0}
   _recipe: {fileID: 11400000, guid: 9f079c8085c7c374fac7c52ff64ad3b5, type: 2}
+  _npcSpace: 0
+  _prefab: {fileID: 6922024547151954682, guid: d66a4fa566ea1864b94c589bab8b1be2, type: 3}
   _craftableRecipes:
   - {fileID: 11400000, guid: bddf62e203b1aa6468b8c58faa4b2a88, type: 2}
   - {fileID: 11400000, guid: fb0c4a4ec13d69f49b496762d2ded0dd, type: 2}
@@ -25,3 +27,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8874be211ec14304695fa5db2a0baaba, type: 2}
   - {fileID: 11400000, guid: 174b51f7ce869454a86ea338d8557ce9, type: 2}
   - {fileID: 11400000, guid: bb6545779ee2545449d209fad9fd9d7c, type: 2}
+  _inputSpace: 0
+  _craftingSpeed: 0

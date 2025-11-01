@@ -75,7 +75,7 @@ MonoBehaviour:
   _moveSmoothing: 20
   _keyboardMoveSpeedAdjustement: 4
   _maxCameraDistance: 100
-  _maxCameraDistanceDownMultiplier: 0.2
+  _maxCameraDistanceDownMultiplier: 0.4
   _maxCameraDistanceZoomCurve:
     serializedVersion: 2
     m_Curve:

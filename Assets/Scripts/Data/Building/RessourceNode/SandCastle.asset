@@ -15,5 +15,9 @@ MonoBehaviour:
   _actualName: Sand castle
   _icon: {fileID: 0}
   _recipe: {fileID: 0}
-  _ressourceSO: {fileID: 11400000, guid: 872037e782aa4d44aa7054b55f65767c, type: 2}
-  _ressourcePerMinute: 20
+  _npcSpace: 0
+  _prefab: {fileID: 5287830922716742107, guid: c2cdf8ccf95738b4ea8b28246b5cf6a5, type: 3}
+  _ressourceAndAmount:
+    _ressourceSO: {fileID: 11400000, guid: 872037e782aa4d44aa7054b55f65767c, type: 2}
+    _amount: 5
+  _extractionPerMinute: 4

@@ -5,15 +5,15 @@ using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "PickUp", story: "[NPC] pick up item from [Target]", category: "Action", id: "b109b7ea51840a03659dadce8130fa81")]
+[NodeDescription(name: "PickUp", story: "[Npc] pick up item from [Target]", category: "Action", id: "b109b7ea51840a03659dadce8130fa81")]
 public partial class PickUpAction : Action
 {
-    [SerializeReference] public BlackboardVariable<NPC> NPC;
+    [SerializeReference] public BlackboardVariable<Npc> NPC;
     [SerializeReference] public BlackboardVariable<GameObject> Target;
 
     protected override Status OnStart()
     {
-        NPC npc = NPC.Value;
+        Npc npc = NPC.Value;
 
         npc.PickUp(Target.Value);
         return Status.Running;

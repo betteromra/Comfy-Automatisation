@@ -15,7 +15,7 @@ public class CrafterUI : BuildingUI
     base.Awake();
 
     _craftingBuilding = _building as CraftBuilding;
-    _craftingBuildingSO = _building.buildingSO as CraftBuildingSO;
+    _craftingBuildingSO = _craftingBuilding.craftBuildingSO;
     _displayInventoryInputUI.inventory = _craftingBuilding.inputInventory;
     _displayInventoryOutputUI.inventory = _craftingBuilding.outputInventory;
   }

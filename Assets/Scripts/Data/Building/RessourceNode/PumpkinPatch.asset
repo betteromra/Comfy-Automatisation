@@ -15,5 +15,9 @@ MonoBehaviour:
   _actualName: Pumpkin patch
   _icon: {fileID: 0}
   _recipe: {fileID: 0}
-  _ressourceSO: {fileID: 11400000, guid: 7e319bcbb9c0530479265b363cf6cdc3, type: 2}
-  _ressourcePerMinute: 3
+  _npcSpace: 0
+  _prefab: {fileID: 5287830922716742107, guid: 5d0ad4e9e6618164ab44b5579d16fb3a, type: 3}
+  _ressourceAndAmount:
+    _ressourceSO: {fileID: 11400000, guid: 7e319bcbb9c0530479265b363cf6cdc3, type: 2}
+    _amount: 1
+  _extractionPerMinute: 4

@@ -15,6 +15,8 @@ MonoBehaviour:
   _actualName: 
   _icon: {fileID: 0}
   _recipe: {fileID: 11400000, guid: f3d54b76e3624b94999bcf21023940b5, type: 2}
+  _npcSpace: 0
+  _prefab: {fileID: 6922024547151954682, guid: 2649957f5289e6b49b006084ab0825d2, type: 3}
   _craftableRecipes:
   - {fileID: 11400000, guid: f93411b9760441541a3f8c2079ae7be7, type: 2}
   - {fileID: 11400000, guid: 0c677c8e36ddcfe4a8fd3408eb195645, type: 2}
@@ -24,3 +26,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 19e76d1a6154ef943988599a0644375c, type: 2}
   - {fileID: 11400000, guid: 0bdd30a92a90d55479ba173d05d78b50, type: 2}
   - {fileID: 11400000, guid: 6539e7ab082f27e4fa9b5ea5e586348f, type: 2}
+  _inputSpace: 0
+  _craftingSpeed: 0

@@ -15,5 +15,9 @@ MonoBehaviour:
   _actualName: 
   _icon: {fileID: 0}
   _recipe: {fileID: 0}
-  _ressourceSO: {fileID: 11400000, guid: 50185d6b9565c6c44a8bf5745933d964, type: 2}
-  _ressourcePerMinute: 10
+  _npcSpace: 0
+  _prefab: {fileID: 5287830922716742107, guid: 30eac35ac1b0ddf41abac268c82f570a, type: 3}
+  _ressourceAndAmount:
+    _ressourceSO: {fileID: 11400000, guid: 50185d6b9565c6c44a8bf5745933d964, type: 2}
+    _amount: 4
+  _extractionPerMinute: 8

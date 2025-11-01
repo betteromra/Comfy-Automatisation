@@ -1,19 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NonPlayableCharacterCManager : MonoBehaviour
+public class NonPlayableCharacterManager : MonoBehaviour
 {
     [SerializeField] private LayerMask clickableLayers = -1;
-    [SerializeField] private GameObject _npcPrefab;
-    private List<GameObject> _npcs = new();
-    private List<NPC> _currentSelectedNPCs = new();
+    [SerializeField] private NpcSO _basicNpcSO;
+    private List<Npc> _npcs = new();
+    private List<Npc> _currentSelectedNPCs = new();
     private GameObject _tempTarget; //Needed because NPC only takes GameObject, not transform.
 
     void Start()
     {
         _tempTarget = new("ClickTarget");
-        InstantiateNewNPC(new(-55.9f, 6, 1.5f)); //TEMP
-        InstantiateNewNPC(new(-52.9f, 6, 1.5f));
+        InstantiateNewNPC(_basicNpcSO, new(-55.9f, 6, 1.5f)); //TEMP
+        InstantiateNewNPC(_basicNpcSO, new(-52.9f, 6, 1.5f));
+        InstantiateNewNPC(_basicNpcSO, new(-49.9f, 6, 1.5f));
+        InstantiateNewNPC(_basicNpcSO, new(-47.9f, 6, 1.5f));
+        InstantiateNewNPC(_basicNpcSO, new(-45.9f, 6, 1.5f));
     }
 
     void OnDestroy()
@@ -32,16 +35,16 @@ public class NonPlayableCharacterCManager : MonoBehaviour
         GameManager.instance.player.onPressedSelect -= HandleClick;
     }
 
-    public void InstantiateNewNPC(Vector3 position)
+    public void InstantiateNewNPC(NpcSO npcSO, Vector3 position)
     {
-        GameObject newNPC = Instantiate(_npcPrefab, position, Quaternion.identity);
+        Npc newNPC = Instantiate(npcSO.prefab, position, Quaternion.identity).GetComponent<Npc>();
 
         _npcs.Add(newNPC);
 
-        newNPC.GetComponent<NPC>().OnSelfSelected += HandleNPCSelected;
+        newNPC.OnSelfSelected += HandleNPCSelected;
     }
 
-    private void HandleNPCSelected(NPC npc, bool isSelected)
+    private void HandleNPCSelected(Npc npc, bool isSelected)
     {
         if (isSelected)
         {
@@ -70,7 +73,7 @@ public class NonPlayableCharacterCManager : MonoBehaviour
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, clickableLayers))
         {
-            if (hit.collider.TryGetComponent<NPC>(out _)) //Needed so that it doesn't instaselect the ground behind the NPC
+            if (hit.collider.TryGetComponent<Npc>(out _)) //Needed so that it doesn't instaselect the ground behind the NPC
                 return;
 
             GameObject target;
@@ -85,7 +88,7 @@ public class NonPlayableCharacterCManager : MonoBehaviour
                 target = hit.collider.gameObject;
             }
 
-            foreach(NPC npc in _currentSelectedNPCs)
+            foreach(Npc npc in _currentSelectedNPCs)
             {
                 npc.Link(target);
                 Debug.Log($"Linked {target.name} ({target.transform.position}) to {npc.name}");

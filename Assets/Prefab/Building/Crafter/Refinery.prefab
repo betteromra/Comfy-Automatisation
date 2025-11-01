@@ -183,6 +183,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 946b23ea8bbc2364f838189fa699ae8a, type: 2}
     - target: {fileID: -3353546429546961748, guid: 4bece2822762d904496fce689c28da85, type: 3}
+      propertyPath: _craftBuildingSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 946b23ea8bbc2364f838189fa699ae8a, type: 2}
+    - target: {fileID: -3353546429546961748, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: _inputNode.Array.size
       value: 1
       objectReference: {fileID: 0}

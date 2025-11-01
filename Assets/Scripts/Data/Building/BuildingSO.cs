@@ -18,5 +18,10 @@ public class BuildingSO : ScriptableObject
   public Sprite icon { get => _icon; }
   [SerializeField] RecipeSO _recipe; // what it take to make itself
   public RecipeSO recipe { get => _recipe; }
+  [SerializeField] int _npcSpace;
+  public int npcSpace { get => _npcSpace; }
+
+  [SerializeField] GameObject _prefab;
+  public GameObject prefab { get => _prefab; }
 }
 

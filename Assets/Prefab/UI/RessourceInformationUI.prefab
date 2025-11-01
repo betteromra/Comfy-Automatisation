@@ -626,7 +626,7 @@ MonoBehaviour:
   - {r: 0, g: 0.54226303, b: 1, a: 1}
   - {r: 0.71055603, g: 0, b: 1, a: 1}
   - {r: 1, g: 0.71290123, b: 0, a: 1}
-  _offSet: {x: 5, y: 5}
+  _offSet: {x: 5, y: -5}
 --- !u!1 &4711819968976508840
 GameObject:
   m_ObjectHideFlags: 0

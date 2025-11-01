@@ -15,5 +15,9 @@ MonoBehaviour:
   _actualName: Apple Tree
   _icon: {fileID: 0}
   _recipe: {fileID: 0}
-  _ressourceSO: {fileID: 11400000, guid: 4224cdef105eb1f40b8fd15ce42ed854, type: 2}
-  _ressourcePerMinute: 10
+  _npcSpace: 0
+  _prefab: {fileID: 5287830922716742107, guid: dd88ec34c13995f49a4be32813fffe44, type: 3}
+  _ressourceAndAmount:
+    _ressourceSO: {fileID: 11400000, guid: 4224cdef105eb1f40b8fd15ce42ed854, type: 2}
+    _amount: 4
+  _extractionPerMinute: 6

@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: _buildingSO
       value: 
       objectReference: {fileID: 11400000, guid: e8f10d250a962bf4a8dad0a6a63fd2d2, type: 2}
+    - target: {fileID: 4904889566687348917, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: _ressourceNodeSO
+      value: 
+      objectReference: {fileID: 11400000, guid: e8f10d250a962bf4a8dad0a6a63fd2d2, type: 2}
     - target: {fileID: 9116543687190976274, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
       propertyPath: m_Name
       value: RessourceTree

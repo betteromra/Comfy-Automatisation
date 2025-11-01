@@ -15,5 +15,9 @@ MonoBehaviour:
   _actualName: Chicken pen
   _icon: {fileID: 0}
   _recipe: {fileID: 0}
-  _ressourceSO: {fileID: 11400000, guid: 91040326e524b014197d25fa61ed79fb, type: 2}
-  _ressourcePerMinute: 20
+  _npcSpace: 0
+  _prefab: {fileID: 5287830922716742107, guid: d32adb7f02072dc46bdd58b359e8910f, type: 3}
+  _ressourceAndAmount:
+    _ressourceSO: {fileID: 11400000, guid: 91040326e524b014197d25fa61ed79fb, type: 2}
+    _amount: 1
+  _extractionPerMinute: 12

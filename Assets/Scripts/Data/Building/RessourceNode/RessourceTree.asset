@@ -15,5 +15,9 @@ MonoBehaviour:
   _actualName: Tree
   _icon: {fileID: 0}
   _recipe: {fileID: 0}
-  _ressourceSO: {fileID: 11400000, guid: 2781197fbd37abc428ab7db154c2afa5, type: 2}
-  _ressourcePerMinute: 10
+  _npcSpace: 0
+  _prefab: {fileID: 5287830922716742107, guid: 7a640dfac8150f641a50dbd622208a75, type: 3}
+  _ressourceAndAmount:
+    _ressourceSO: {fileID: 11400000, guid: 2781197fbd37abc428ab7db154c2afa5, type: 2}
+    _amount: 3
+  _extractionPerMinute: 6

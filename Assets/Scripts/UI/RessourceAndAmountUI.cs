@@ -23,7 +23,7 @@ public class RessourceAndAmountUI : MonoBehaviour, IPointerEnterHandler, IPointe
             if (_isGhost)
             {
                 _image.color = new Color(.5f, .5f, .5f, .5f);
-                ressourceAndAmount.amount = Mathf.Abs(ressourceAndAmount.amount);
+                ressourceAndAmount.amount = 1;
             }
             else
             {
@@ -33,7 +33,7 @@ public class RessourceAndAmountUI : MonoBehaviour, IPointerEnterHandler, IPointe
             // display the ressource with the correct ammount
             _image.sprite = _ressourceAndAmount.ressourceSO.icon;
 
-            _containerAmount.SetActive(!(_ressourceAndAmount.amount == 1 || _ressourceAndAmount.amount == 0));
+            _containerAmount.SetActive(_ressourceAndAmount.amount != 1);
             _amount.text = _ressourceAndAmount.amount + "";
         }
         else
@@ -45,11 +45,11 @@ public class RessourceAndAmountUI : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (_doesDisplayRessourceUI) GameManager.instance.userInterfaceManager.displayRessourceUI.Display(true, _ressourceAndAmount);
+        if (_doesDisplayRessourceUI && !_isGhost) GameManager.instance.userInterfaceManager.displayRessourceUI.Display(true, _ressourceAndAmount);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (_doesDisplayRessourceUI) GameManager.instance.userInterfaceManager.displayRessourceUI.Display(false, _ressourceAndAmount);
+        if (_doesDisplayRessourceUI && !_isGhost) GameManager.instance.userInterfaceManager.displayRessourceUI.Display(false, _ressourceAndAmount);
     }
 }

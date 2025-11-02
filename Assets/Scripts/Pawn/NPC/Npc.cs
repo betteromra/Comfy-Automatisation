@@ -12,6 +12,7 @@ public class Npc : Pawn
     [SerializeField] private NpcSO _nonPlayableCharacterSO;
     [SerializeField] private NpcPathRenderer _npcPathRenderer;
     public event Action<Npc, bool> OnSelfSelected;
+    private GameObject _tempClickTarget;
     private RessourceAndAmount _carrying;
     private BehaviorGraphAgent _behaviorAgent;
     private bool _isSelected = false;
@@ -46,11 +47,9 @@ public class Npc : Pawn
             walkingPoints.Value.Add(gameObject);
             _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints.Value);
 
-            Debug.Log(gameObject.name);
-
-            if(_behaviorAgent.BlackboardReference.GetVariable("Target", out BlackboardVariable<GameObject> target))
+            if (_behaviorAgent.BlackboardReference.GetVariable("Target", out BlackboardVariable<GameObject> target))
             {
-                if(target.Value == null)
+                if (target.Value == null)
                 {
                     _behaviorAgent.BlackboardReference.SetVariableValue("Target", gameObject);
                 }
@@ -60,9 +59,25 @@ public class Npc : Pawn
         {
             // If the variable doesn't exist, create a new one
             var newList = new List<GameObject> { gameObject };
-            Debug.Log("Doesnt'");
             _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", newList);
         }
+    }
+    
+    /// <summary>
+    /// To be used when no GameObject is present.
+    /// </summary>
+    /// <param name="position"></param>
+    public void Link(Vector3 position)
+    {
+        if (_tempClickTarget == null)
+        {
+            //Please forgive me for this crime of a code.
+            _tempClickTarget = new("ClickTarget");
+            _tempClickTarget.transform.SetParent(GameManager.instance.nonPlayableCharacter.transform, worldPositionStays: true);
+        }
+
+        _tempClickTarget.transform.position = position;
+        Link(_tempClickTarget);
     }
 
     /// <summary>

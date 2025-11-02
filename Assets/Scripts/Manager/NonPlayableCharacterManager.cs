@@ -8,31 +8,25 @@ public class NonPlayableCharacterManager : MonoBehaviour
     [SerializeField] private NpcSO _basicNpcSO;
     private List<Npc> _npcs = new();
     private List<Npc> _currentSelectedNPCs = new();
-    private GameObject _tempTarget; //Needed because NPC only takes GameObject, not transform.
 
     void Start()
     {
-        _tempTarget = new("ClickTarget");
         for (int i = 0; i < 15; i++) //TEMP
         {
             InstantiateNewNPC(_basicNpcSO, new(-60 + 2 * i, 6, 1.5f));
         }
     }
-
-    void OnDestroy()
-    {
-        if (_tempTarget != null)
-            Destroy(_tempTarget);
-    }
-
+    
     void OnEnable()
     {
         GameManager.instance.player.onPressedSelect += HandleClick;
+        GameManager.instance.player.onPressedDeselect += HandleDeselect;
     }
 
     void OnDisable()
     {
         GameManager.instance.player.onPressedSelect -= HandleClick;
+        GameManager.instance.player.onPressedDeselect -= HandleDeselect;
     }
 
     public void InstantiateNewNPC(NpcSO npcSO, Vector3 position)
@@ -55,6 +49,12 @@ public class NonPlayableCharacterManager : MonoBehaviour
             _currentSelectedNPCs.Remove(npc);
     }
 
+    private void HandleDeselect()
+    {
+        _currentSelectedNPCs.Clear();
+        Debug.LogWarning("NPC deselected");
+    }
+
     private void HandleClick()
     {
         if (_currentSelectedNPCs.Count <= 0)
@@ -67,25 +67,23 @@ public class NonPlayableCharacterManager : MonoBehaviour
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, clickableLayers))
         {
-            if (hit.collider.GetComponentInParent<Npc>() != null) //Needed so that it doesn't instaselect the ground behind the NPC
+            //Needed so that it doesn't instaselect the ground behind the NPC
+            if (hit.collider.GetComponentInParent<Npc>() != null)
                 return;
-
-            GameObject target;
 
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                _tempTarget.transform.position = hit.point;
-                target = _tempTarget;
+                foreach (Npc npc in _currentSelectedNPCs)
+                {
+                    npc.Link(hit.point);
+                }
             }
             else
             {
-                target = hit.collider.gameObject;
-            }
-
-            foreach (Npc npc in _currentSelectedNPCs)
-            {
-                npc.Link(target);
-                Debug.Log($"Linked {target.name} ({target.transform.position}) to {npc.name}");
+                foreach (Npc npc in _currentSelectedNPCs)
+                {
+                    npc.Link(hit.collider.gameObject);
+                }
             }
         }
     }

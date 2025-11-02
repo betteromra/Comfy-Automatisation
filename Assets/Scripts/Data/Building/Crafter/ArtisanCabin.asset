@@ -27,5 +27,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8874be211ec14304695fa5db2a0baaba, type: 2}
   - {fileID: 11400000, guid: 174b51f7ce869454a86ea338d8557ce9, type: 2}
   - {fileID: 11400000, guid: bb6545779ee2545449d209fad9fd9d7c, type: 2}
-  _inputSpace: 0
-  _craftingSpeed: 0
+  _inputSpace: 20
+  _craftingSpeed: 1

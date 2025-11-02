@@ -15,9 +15,10 @@ MonoBehaviour:
   _actualName: Chocolate bites
   _description: 
   _icon: {fileID: -697606196, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
-  _sprite: {fileID: 0}
+  _sprite: {fileID: -697606196, guid: 77278957d3e68184483be741375e88b7, type: 3}
   _recipe: {fileID: 11400000, guid: 0c677c8e36ddcfe4a8fd3408eb195645, type: 2}
   _spacePerUnit: 1
   _weight: 18
   _rawValue: 0
+  _value: 0
   _quality: 3

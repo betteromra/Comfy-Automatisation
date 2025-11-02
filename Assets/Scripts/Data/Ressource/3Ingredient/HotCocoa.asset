@@ -15,9 +15,10 @@ MonoBehaviour:
   _actualName: Hot cocoa
   _description: 
   _icon: {fileID: 1762089586, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 1762089586, guid: 77278957d3e68184483be741375e88b7, type: 3}
   _recipe: {fileID: 11400000, guid: 4e1486354a1be1b41a7fe0f92931cd2e, type: 2}
   _spacePerUnit: 1
   _weight: 15
   _rawValue: 0
+  _value: 0
   _quality: 3

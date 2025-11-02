@@ -15,7 +15,7 @@ MonoBehaviour:
   _actualName: Cut stone
   _description: 
   _icon: {fileID: 733592871, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 733592871, guid: 77278957d3e68184483be741375e88b7, type: 3}
   _recipe: {fileID: 11400000, guid: 4cb8d066f93338645b1eddee5790ccbb, type: 2}
   _spacePerUnit: 2
   _weight: 4

@@ -15,7 +15,7 @@ MonoBehaviour:
   _actualName: Jack-o'-lantern
   _description: 
   _icon: {fileID: 686086275, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 686086275, guid: 77278957d3e68184483be741375e88b7, type: 3}
   _recipe: {fileID: 11400000, guid: c6b92f189e9f3ed4dacc101633f0320f, type: 2}
   _spacePerUnit: 4
   _weight: 13

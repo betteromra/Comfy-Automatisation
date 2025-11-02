@@ -15,9 +15,10 @@ MonoBehaviour:
   _actualName: Gramdma basket
   _description: 
   _icon: {fileID: -743861268, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
-  _sprite: {fileID: 0}
+  _sprite: {fileID: -743861268, guid: 77278957d3e68184483be741375e88b7, type: 3}
   _recipe: {fileID: 11400000, guid: bf70c79602a99444db0cc4d05661aa62, type: 2}
   _spacePerUnit: 8
   _weight: 16
   _rawValue: 0
+  _value: 0
   _quality: 3

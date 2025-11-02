@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1290706461081651122, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2301161193830327377, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719311139119377669, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3811500416533800962, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
       propertyPath: m_Name
       value: PumpkinHeadCat

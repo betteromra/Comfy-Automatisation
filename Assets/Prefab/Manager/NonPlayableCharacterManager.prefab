@@ -47,4 +47,4 @@ MonoBehaviour:
   clickableLayers:
     serializedVersion: 2
     m_Bits: 1792
-  _basicNpcSO: {fileID: 0}
+  _basicNpcSO: {fileID: 11400000, guid: 9892c133fca798d4f8fdb58d10c1fea4, type: 2}

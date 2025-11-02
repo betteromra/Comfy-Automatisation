@@ -15,9 +15,10 @@ MonoBehaviour:
   _actualName: Milk bucket
   _description: 
   _icon: {fileID: -328260005, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
-  _sprite: {fileID: 0}
+  _sprite: {fileID: -328260005, guid: 77278957d3e68184483be741375e88b7, type: 3}
   _recipe: {fileID: 0}
   _spacePerUnit: 2
   _weight: 5
   _rawValue: 5
+  _value: 5
   _quality: 0

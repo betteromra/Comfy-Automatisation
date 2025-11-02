@@ -24,7 +24,7 @@ public class Npc : Pawn
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCSpeed", _nonPlayableCharacterSO.Speed);
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCWaitDuration", _nonPlayableCharacterSO.WaitDuration);
         
-        _carrying = new(null, 0);
+        _carrying = null;
 
         GetComponent<Selectable>().onSelfSelected += HandleSelection;
     }

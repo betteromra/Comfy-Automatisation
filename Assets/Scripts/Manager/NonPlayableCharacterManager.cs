@@ -60,12 +60,6 @@ public class NonPlayableCharacterManager : MonoBehaviour
         if (_currentSelectedNPCs.Count <= 0)
             return;
 
-        bool isMultiSelect = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
-                    Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-
-        if (isMultiSelect) //Solving the problem where multiselecting NPCs would make one of them walk torwards the other.
-            return;
-
         Camera playerCamera = GameManager.instance.cameraManager.mainCamera;
         if (playerCamera == null)
             playerCamera = Camera.main;
@@ -73,7 +67,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, clickableLayers))
         {
-            if (hit.collider.TryGetComponent<Npc>(out _)) //Needed so that it doesn't instaselect the ground behind the NPC
+            if (hit.collider.GetComponentInParent<Npc>() != null) //Needed so that it doesn't instaselect the ground behind the NPC
                 return;
 
             GameObject target;

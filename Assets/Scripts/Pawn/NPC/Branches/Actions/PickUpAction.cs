@@ -14,6 +14,7 @@ public partial class PickUpAction : Action
     protected override Status OnStart()
     {
         Npc npc = Npc.Value;
+        Debug.Log(npc);
 
         npc.PickUp(Target.Value);
         return Status.Running;

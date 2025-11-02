@@ -15,7 +15,7 @@ public class NpcPathRenderer : MonoBehaviour
     void Start()
     {
         _line = GetComponent<LineRenderer>();
-        _agent = GetComponent<NavMeshAgent>();
+        _agent = GetComponentInParent<NavMeshAgent>();
     }
 
     public void SetVisibilityOfLineRenderer(bool visible) => _line.enabled = visible;

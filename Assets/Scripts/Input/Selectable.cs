@@ -116,7 +116,7 @@ public class Selectable : MonoBehaviour
         if (isHovered != hovered)
         {
             isHovered = hovered;
-            Debug.Log($"Hover state changed for {gameObject.name}: {isHovered}");
+            //Debug.Log($"Hover state changed for {gameObject.name}: {isHovered}");
             UpdateVisualFeedback();
         }
     }

@@ -20,7 +20,6 @@ public class Npc : Pawn
     {
         _behaviorAgent = GetComponent<BehaviorGraphAgent>();
 
-        _behaviorAgent.BlackboardReference.SetVariableValue("Npc", this);
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCSpeed", _nonPlayableCharacterSO.Speed);
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCWaitDuration", _nonPlayableCharacterSO.WaitDuration);
         

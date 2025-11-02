@@ -20,6 +20,7 @@ public class StorageBuilding : Building
 
     protected override void OnDisable()
     {
+        base.OnDisable();
         _inventory.onContentChange -= ContentChange;
     }
     void ContentChange()

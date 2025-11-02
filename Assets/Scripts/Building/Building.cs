@@ -33,7 +33,7 @@ public abstract class Building : MonoBehaviour
     protected virtual void OnDisable()
     {
         _buildingUI.gameObject.SetActive(false);
-        _ressourceAndAmountToDisplayUI.gameObject.SetActive(false);
+        if(_ressourceAndAmountToDisplayUI != null) _ressourceAndAmountToDisplayUI.gameObject.SetActive(false);
         _boxCollider.gameObject.SetActive(false);
     }
 }

@@ -9,7 +9,7 @@ Shader "Custom/StylizedWater"
         
         [Header(Wave Settings)]
         _WaveSpeed ("Wave Speed", Range(0, 3)) = 1.0
-        _WaveHeight ("Wave Height", Range(0, 2)) = 0.4
+        _WaveHeight ("Wave Height", Range(0, 10)) = 0.4
         _WaveLength ("Wave Length", Range(0.1, 10)) = 2.0
         _Steepness ("Wave Steepness", Range(0, 1)) = 0.5
         

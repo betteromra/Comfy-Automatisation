@@ -7,20 +7,18 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(BehaviorGraphAgent))]
 [RequireComponent(typeof(Selectable))]
-[RequireComponent(typeof(NpcPathRenderer))]
 public class Npc : Pawn
 {
     [SerializeField] private NpcSO _nonPlayableCharacterSO;
+    [SerializeField] private NpcPathRenderer _npcPathRenderer;
     public event Action<Npc, bool> OnSelfSelected;
     private RessourceAndAmount _carrying;
     private BehaviorGraphAgent _behaviorAgent;
-    private NpcPathRenderer _npcPathRenderer;
     private bool _isSelected = false;
 
     void Awake()
     {
         _behaviorAgent = GetComponent<BehaviorGraphAgent>();
-        _npcPathRenderer = GetComponent<NpcPathRenderer>();
 
         _behaviorAgent.BlackboardReference.SetVariableValue("Npc", this);
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCSpeed", _nonPlayableCharacterSO.Speed);

@@ -25,20 +25,20 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _CardboardIntensity: 0.2
-    - _CardboardScale: 1.94
+    - _CardboardIntensity: 0.122
+    - _CardboardScale: 0.2
     - _ColorBands: 4.79
     - _FoamAmount: 0.41
     - _FoamCutoff: 0.6
-    - _FoamSpeed: 0.5
-    - _Steepness: 0.32
+    - _FoamSpeed: 2
+    - _Steepness: 1
     - _Transparency: 1
-    - _WaveHeight: 1
-    - _WaveLength: 2.44
-    - _WaveSpeed: 1
+    - _WaveHeight: 1.89
+    - _WaveLength: 1
+    - _WaveSpeed: 0.25
     m_Colors:
-    - _DeepColor: {r: 0.08599999, g: 0.40699998, b: 1, a: 0.749}
-    - _FoamColor: {r: 1, g: 1, b: 1, a: 0.64705884}
+    - _DeepColor: {r: 0.14329477, g: 0.3291909, b: 0.67, a: 0.5372549}
+    - _FoamColor: {r: 0.85411763, g: 0.9252941, b: 0.9490196, a: 0.64705884}
     - _ShallowColor: {r: 0.32499996, g: 0.807, b: 0.971, a: 0.725}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

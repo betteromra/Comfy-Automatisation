@@ -1,8 +1,3 @@
-/*
-Code is based upon this https://gamedev.stackexchange.com/questions/67839/is-there-a-way-to-display-navmesh-agent-path-in-unity/86255#86255
-answer by Al-Zahir Rahemtulla.
-*/
-
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -55,9 +50,7 @@ public class NpcPathRenderer : MonoBehaviour
         if (NavMesh.CalculatePath(_agent.transform.position, end, NavMesh.AllAreas, pathFromNPC))
         {
             if (pathFromNPC.corners.Length > 1)
-            {
                 combinedCorners.AddRange(pathFromNPC.corners.Skip(1));
-            }
         }
 
         if (combinedCorners.Count >= 2)

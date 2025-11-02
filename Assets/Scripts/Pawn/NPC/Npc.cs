@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Behavior;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class Npc : Pawn
     private RessourceAndAmount _carrying;
     private BehaviorGraphAgent _behaviorAgent;
     private NpcPathRenderer _npcPathRenderer;
+    private bool _isSelected = false;
 
     void Awake()
     {
@@ -169,14 +171,27 @@ public class Npc : Pawn
 
     private void HandleSelection(bool isSelected)
     {
+        _isSelected = isSelected;
         _npcPathRenderer.SetVisibilityOfLineRenderer(isSelected);
 
         if (isSelected)
         {
-            CalculatePath();
+            //CalculatePath();
+            //Trying this out, but if it becomes to computationally expensive, just uncomment the line above.
+            StartCoroutine(DrawNPCPath());
         }
 
         OnSelfSelected.Invoke(this, isSelected);
+    }
+    
+    private IEnumerator DrawNPCPath()
+    {
+        WaitForSeconds wait = new(0.5f);
+        while(_isSelected)
+        {
+            CalculatePath();
+            yield return wait;
+        }
     }
     
     private void CalculatePath()

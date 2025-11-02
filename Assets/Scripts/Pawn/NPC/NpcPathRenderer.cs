@@ -6,16 +6,15 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(LineRenderer))]
-[RequireComponent(typeof(NavMeshAgent))]
 public class NpcPathRenderer : MonoBehaviour
 {
     private LineRenderer _line;
-    private NavMeshAgent _agent;
+    private Transform _npcTransform;
 
     void Start()
     {
         _line = GetComponent<LineRenderer>();
-        _agent = GetComponentInParent<NavMeshAgent>();
+        _npcTransform = transform.parent;
     }
 
     public void SetVisibilityOfLineRenderer(bool visible) => _line.enabled = visible;
@@ -41,13 +40,13 @@ public class NpcPathRenderer : MonoBehaviour
         NavMeshPath pathToNPC = new();
         NavMeshPath pathFromNPC = new();
 
-        if (NavMesh.CalculatePath(start, _agent.transform.position, NavMesh.AllAreas, pathToNPC))
+        if (NavMesh.CalculatePath(start, _npcTransform.position, NavMesh.AllAreas, pathToNPC))
         {
             if (pathToNPC.corners.Length > 1)
                 combinedCorners.AddRange(pathToNPC.corners);
         }
         
-        if (NavMesh.CalculatePath(_agent.transform.position, end, NavMesh.AllAreas, pathFromNPC))
+        if (NavMesh.CalculatePath(_npcTransform.position, end, NavMesh.AllAreas, pathFromNPC))
         {
             if (pathFromNPC.corners.Length > 1)
                 combinedCorners.AddRange(pathFromNPC.corners.Skip(1));

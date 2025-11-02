@@ -373,12 +373,21 @@ MonoBehaviour:
   - rid: 9020314879701287900
   - rid: 9020314879701287917
   - rid: 9020314883258056745
+  - rid: 3119659799827185739
   m_OriginalGraph: {fileID: 4073694356603450214, guid: ac68d82d1d18b0aad9db883c4beb2a3b, type: 2}
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
     version: 2
     RefIds:
+    - rid: 3119659799827185739
+      type: {class: 'BlackboardVariable`1[[Npc, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 10549565517530283742
+          m_Value1: 12755182891647486390
+        Name: Npc
+        m_Value: {fileID: 8738041327263256666}
     - rid: 9020314879701286989
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:

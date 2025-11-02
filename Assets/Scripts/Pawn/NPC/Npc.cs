@@ -103,6 +103,9 @@ public class Npc : Pawn
     /// <param name="target">The target</param>
     public void PickUp(GameObject target)
     {
+        if (_carrying == null)
+            return;
+
         if (_carrying.amount >= _nonPlayableCharacterSO.MaxCarryingCapacity)
             return;
 

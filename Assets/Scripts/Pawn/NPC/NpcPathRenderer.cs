@@ -22,18 +22,58 @@ public class NpcPathRenderer : MonoBehaviour
     public void DrawPathBetween(List<NodeLink> nodeLinks)
     {
         List<Vector3> fullPath = new();
-        NavMeshPath path = new();
+        Vector3? lastPoint = null;
 
         foreach (NodeLink link in nodeLinks)
         {
-            if (NavMesh.CalculatePath(link.NodeA.transform.position, link.NodeB.transform.position, NavMesh.AllAreas, path))
+            var path = new NavMeshPath();
+            Vector3 start = link.NodeA.transform.position;
+            Vector3 end = link.NodeB.transform.position;
+
+            if (lastPoint != null)
             {
-                // Avoid duplicating points
-                if (fullPath.Count > 0)
+                if (NavMesh.CalculatePath(lastPoint.Value, start, NavMesh.AllAreas, path))
                 {
-                    fullPath.RemoveAt(fullPath.Count - 1);
+                    if (fullPath.Count > 0)
+                        fullPath.RemoveAt(fullPath.Count - 1);
+
+                    fullPath.AddRange(path.corners);
                 }
-                
+            }
+
+            if (NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path))
+            {
+                if (fullPath.Count > 0)
+                    fullPath.RemoveAt(fullPath.Count - 1); // avoid duplicate junction point
+
+                fullPath.AddRange(path.corners);
+            }
+
+            lastPoint = end;
+        }
+        
+        if(nodeLinks[^1].NodeB != nodeLinks[0].NodeA)
+        {
+            var path = new NavMeshPath();
+            Vector3 start = nodeLinks[^1].NodeB.transform.position;
+            Vector3 end = nodeLinks[0].NodeA.transform.position;
+
+            if (lastPoint != null)
+            {
+                if (NavMesh.CalculatePath(lastPoint.Value, start, NavMesh.AllAreas, path))
+                {
+                    if (fullPath.Count > 0)
+                        fullPath.RemoveAt(fullPath.Count - 1);
+
+                    fullPath.AddRange(path.corners);
+                }
+            }
+
+            if (NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path))
+            {
+                if (fullPath.Count > 0)
+                    fullPath.RemoveAt(fullPath.Count - 1); // avoid duplicate junction point
+
                 fullPath.AddRange(path.corners);
             }
         }

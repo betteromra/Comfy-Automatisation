@@ -56,7 +56,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
     private void HandleDeselect()
     {
         _currentSelectedNPCs.Clear();
-        Debug.LogWarning("NPC deselected");
+        _lastSelected = null;
     }
 
     private void HandleClick()
@@ -97,7 +97,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
                 if (_lastSelected.TryGetComponent<OutputNode>(out _) == clicked.TryGetComponent<OutputNode>(out _))
                 {
                     _lastSelected = null;
-                    return; //throw error
+                    return; //TODO alert user to error
                 }
 
                 NodeLink nodeLink = new(_lastSelected, clicked);
@@ -117,7 +117,6 @@ public class NonPlayableCharacterManager : MonoBehaviour
                 {
                     //NodeA and NodeB should already be correctly assigned here
                     NodeLink existing = _linkedNodeList.Find(l => l.GetHashCode() == nodeLink.GetHashCode());
-                    Debug.Log(existing);
                     OutputNode outputNode = existing.NodeA.GetComponent<OutputNode>();
                     InputNode inputNode = existing.NodeB.GetComponent<InputNode>();
 

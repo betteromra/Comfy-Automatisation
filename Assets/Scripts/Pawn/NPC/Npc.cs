@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Behavior;
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(BehaviorGraphAgent))]
 [RequireComponent(typeof(Selectable))]
@@ -253,7 +250,7 @@ public class Npc : Pawn
         _isSelected = isSelected;
         _npcPathRenderer.SetVisibilityOfLineRenderer(isSelected);
 
-        if (isSelected)
+        if (isSelected && _linkedNodeList.Count > 0)
         {
             _npcPathRenderer.DrawPathBetween(_linkedNodeList);
         }

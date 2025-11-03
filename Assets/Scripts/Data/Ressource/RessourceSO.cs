@@ -121,11 +121,7 @@ public class RessourceSO : ScriptableObject
 
   void AddToRawRessourceWithNoDouble(RessourceAndAmount rawRessourceAndAmount, Dictionary<RessourceSO, int> rawRessourceToMakeSelf)
   {
-    if (rawRessourceToMakeSelf.ContainsKey(rawRessourceAndAmount.ressourceSO))
-    {
-      rawRessourceToMakeSelf[rawRessourceAndAmount.ressourceSO] += rawRessourceAndAmount.amount;
-    }
-    else rawRessourceToMakeSelf.Add(rawRessourceAndAmount.ressourceSO, rawRessourceAndAmount.amount);
+    rawRessourceToMakeSelf[rawRessourceAndAmount.ressourceSO] = rawRessourceToMakeSelf.GetValueOrDefault(rawRessourceAndAmount.ressourceSO) + rawRessourceAndAmount.amount;
   }
   #endregion
 }

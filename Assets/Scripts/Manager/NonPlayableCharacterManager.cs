@@ -6,7 +6,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
     [Tooltip("It's weird but NPC needs to be clickable layer, else the ray travels through NPC and hits ground")]
     [SerializeField] private LayerMask clickableLayers = -1;
     [SerializeField] private NpcSO _basicNpcSO;
-
+    [SerializeField] Transform _npcsParent;
     private List<Npc> _npcs = new();
     private List<Npc> _currentSelectedNPCs = new();
     private List<NodeLink> _linkedNodeList = new();
@@ -35,7 +35,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
 
     public void InstantiateNewNPC(NpcSO npcSO, Vector3 position)
     {
-        Npc newNPC = Instantiate(npcSO.prefab, position, Quaternion.identity).GetComponent<Npc>();
+        Npc newNPC = Instantiate(npcSO.prefab, position, Quaternion.identity, _npcsParent).GetComponent<Npc>();
 
         _npcs.Add(newNPC);
 

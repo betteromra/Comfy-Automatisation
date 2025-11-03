@@ -63,12 +63,12 @@ public class Inventory : MonoBehaviour
         Add(execeptionRessourcesStored.Select(kvp => new RessourceAndAmount(kvp)).ToArray());
     }
 
-    public int Contains(RessourceSO objectToAdd)
+    public int ContainsHowMany(RessourceSO ressourceSO)
     {
-        if (objectToAdd == null) return 0;
-        if (_ressourcesStored.ContainsKey(objectToAdd))
+        if (ressourceSO == null) return 0;
+        if (_ressourcesStored.ContainsKey(ressourceSO))
         {
-            return _ressourcesStored[objectToAdd];
+            return _ressourcesStored[ressourceSO];
         }
 
         return 0;
@@ -100,12 +100,7 @@ public class Inventory : MonoBehaviour
 
         RessourceAndAmount add = new(ressourceAndAmount);
 
-        if (_ressourcesStored.ContainsKey(add.ressourceSO))
-        {
-            _ressourcesStored[add.ressourceSO] += add.amount;
-        }
-        else _ressourcesStored.Add(add.ressourceSO, add.amount);
-
+        _ressourcesStored[add.ressourceSO] = _ressourcesStored.GetValueOrDefault(add.ressourceSO) + add.amount;
 
         // Adjust weight and ressource space
         _weight += add.weight;
@@ -132,8 +127,7 @@ public class Inventory : MonoBehaviour
         if (ressourceAndAmount.ressourceSO == null || ressourceAndAmount.amount <= 0) return false;
         RessourceAndAmount canAdd = new(ressourceAndAmount);
 
-        // verify if it is whiteListed
-        if (_ressourcesWhiteListed.Count > 0 && !_ressourcesWhiteListed.Contains(ressourceAndAmount.ressourceSO)) return false;
+        if (!IsWhiteListed(ressourceAndAmount.ressourceSO)) return false;
 
         if (WeightLeft() < canAdd.weight)
         {
@@ -167,6 +161,16 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
+    public int CanAddHowMany(RessourceSO ressourceSO)
+    {
+        if (!IsWhiteListed(ressourceSO)) return 0;
+        if (DifferentRessourceSpaceLeft() <= 0) return 0;
+        int amountAddableBySpace = SameRessourceSpaceLeft(ressourceSO);
+        int amountAddableByWeight = Mathf.FloorToInt(WeightLeft() / ressourceSO.weight);
+
+        return Mathf.Min(amountAddableBySpace, amountAddableByWeight);
+    }
+
     public void Remove(RessourceAndAmount ressourceAndAmount, bool sendEvent = true)
     {
         if (ressourceAndAmount.ressourceSO == null || ressourceAndAmount.amount <= 0) return;
@@ -187,7 +191,7 @@ public class Inventory : MonoBehaviour
             _weight -= removed.weight;
             _value -= removed.value;
             _differentRessourceAmount--;
-            
+
             if (sendEvent) onContentChange?.Invoke();
         }
         else
@@ -203,6 +207,11 @@ public class Inventory : MonoBehaviour
             Remove(ressourceAndAmount, false);
         }
         onContentChange?.Invoke();
+    }
+
+    public bool IsWhiteListed(RessourceSO ressourceSO)
+    {
+        return _ressourcesWhiteListed.Count == 0 || _ressourcesWhiteListed.Contains(ressourceSO);
     }
 
     public void WhiteList(RessourceSO ressourceSO, bool whiteList = true)
@@ -276,6 +285,12 @@ public class Inventory : MonoBehaviour
     int DifferentRessourceSpaceLeft()
     {
         return _maxDifferentRessourceAmount - _differentRessourceAmount;
+    }
+
+    int SameRessourceSpaceLeft(RessourceSO ressourceSO)
+    {
+        if (!_ressourcesStored.ContainsKey(ressourceSO)) return _maxSameRessourceSpace;
+        return _maxSameRessourceSpace - _ressourcesStored[ressourceSO];
     }
 
     void InventoryChanged()

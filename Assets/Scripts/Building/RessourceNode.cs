@@ -44,7 +44,7 @@ public class RessourceNode : Building
         RessourceSO ressourceSO = _inventory.MostRessourceInside();
         if (ressourceSO != null)
         {
-            UpdateIngredientToDisplay(new RessourceAndAmount(ressourceSO, _inventory.Contains(ressourceSO)));
+            UpdateIngredientToDisplay(new RessourceAndAmount(ressourceSO, _inventory.ContainsHowMany(ressourceSO)));
         }
         else
         {

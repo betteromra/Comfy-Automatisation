@@ -26,6 +26,7 @@ public class CraftBuilding : Building
     public Timer craftingTimer { get => _craftingTimer; }
     Coroutine _crafting;
     public event Action onCrafting;
+    [SerializeField] protected InputNode _inputNode;
 
     protected override void Awake()
     {
@@ -34,14 +35,14 @@ public class CraftBuilding : Building
         _buildingSO = _craftBuildingSO;
         _inputInventory.maxSameRessourceSpace = _craftBuildingSO.inputSpace;
     }
-    protected override  void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
         _inputInventory.onContentChange += InputContentChange;
         _outputInventory.onContentChange += OutputContentChange;
     }
 
-    protected override  void OnDisable()
+    protected override void OnDisable()
     {
         base.OnDisable();
         _inputInventory.onContentChange -= InputContentChange;
@@ -53,7 +54,7 @@ public class CraftBuilding : Building
         RessourceSO ressourceSO = _outputInventory.MostRessourceInside();
         if (ressourceSO != null)
         {
-            UpdateIngredientToDisplay(new RessourceAndAmount(ressourceSO, _outputInventory.Contains(ressourceSO)));
+            UpdateIngredientToDisplay(new RessourceAndAmount(ressourceSO, _outputInventory.ContainsHowMany(ressourceSO)));
         }
         else if (_selectedRecipeSO != null)
         {
@@ -71,6 +72,8 @@ public class CraftBuilding : Building
 
         _inputInventory.WhiteList(_selectedRecipeSO.ingredientsInput);
         _outputInventory.WhiteList(_selectedRecipeSO.ingredientsOutput);
+
+        _inputNode.recipeSO = _selectedRecipeSO;
 
         UpdateIngredientToDisplay(new RessourceAndAmount(_selectedRecipeSO.ingredientsOutput[0].ressourceSO, -1));
     }

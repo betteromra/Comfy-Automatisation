@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Behavior;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +13,7 @@ public class Npc : Pawn
     [SerializeField] private NpcSO _nonPlayableCharacterSO;
     [SerializeField] private NpcPathRenderer _npcPathRenderer;
     public event Action<Npc, bool> OnSelfSelected;
+    private List<NodeLink> _linkedNodeList = new();
     private GameObject _tempClickTarget;
     private RessourceAndAmount _carrying;
     private BehaviorGraphAgent _behaviorAgent;
@@ -29,38 +31,29 @@ public class Npc : Pawn
         GetComponent<Selectable>().onSelfSelected += HandleSelection;
     }
 
-    /// <summary>
-    /// Links the GameObject to the NPC
-    /// </summary>
-    /// <param name="gameObject">Position to walk to</param>
-    public void Link(GameObject gameObject)
+    public void LinkNode(NodeLink nodeLink)
     {
-        if (_behaviorAgent.BlackboardReference.GetVariable("WalkingPoints", out BlackboardVariable<List<GameObject>> walkingPoints))
-        {
-            if (walkingPoints.Value.Count == 2)
-            {
-                Unlink(gameObject);
-                CalculatePath();
-                return;
-            }
+        _linkedNodeList.Add(nodeLink);
+        Link(nodeLink.NodeA);
+        Link(nodeLink.NodeB);
 
-            walkingPoints.Value.Add(gameObject);
-            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints.Value);
+        if(_isSelected)
+            _npcPathRenderer.DrawPathBetween(_linkedNodeList);
+    }
 
-            if (_behaviorAgent.BlackboardReference.GetVariable("Target", out BlackboardVariable<GameObject> target))
-            {
-                if (target.Value == null)
-                {
-                    _behaviorAgent.BlackboardReference.SetVariableValue("Target", gameObject);
-                }
-            }
-        }
-        else
-        {
-            // If the variable doesn't exist, create a new one
-            var newList = new List<GameObject> { gameObject };
-            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", newList);
-        }
+    public void UnlinkNode(NodeLink nodeLink)
+    {
+        bool exists = _linkedNodeList.Exists(l => l == nodeLink);
+
+        if (!exists)
+            return;
+
+        _linkedNodeList.Remove(nodeLink);
+        Unlink(nodeLink.NodeA); //Add check so the node isn't used elsewhere
+        Unlink(nodeLink.NodeB); //Add check so the node isn't used elsewhere
+
+        if(_isSelected)
+            _npcPathRenderer.DrawPathBetween(_linkedNodeList);
     }
     
     /// <summary>
@@ -76,6 +69,11 @@ public class Npc : Pawn
             _tempClickTarget.transform.SetParent(GameManager.instance.nonPlayableCharacter.transform, worldPositionStays: true);
         }
 
+        for (int i = _linkedNodeList.Count - 1; i >= 0; i--)
+        {
+            UnlinkNode(_linkedNodeList[i]);
+        }
+        
         _tempClickTarget.transform.position = position;
         Link(_tempClickTarget);
     }
@@ -91,23 +89,30 @@ public class Npc : Pawn
             _behaviorAgent.BlackboardReference.GetVariable("WalkingPointsIndex", out BlackboardVariable<int> index);
             _behaviorAgent.BlackboardReference.GetVariable("Target", out BlackboardVariable<GameObject> target);
 
-            foreach (var item in walkingPoints.Value)
-            {
-                Debug.LogWarning(item);
-            }
+            int currentIndex = index.Value;
+            int removeIndex = walkingPoints.Value.IndexOf(gameObject);
 
-            Debug.LogWarning(index);
-            Debug.LogWarning(target.Value);
+            if (removeIndex == currentIndex)
+                currentIndex++;
 
-            walkingPoints.Value[index] = gameObject;
-            target.Value = gameObject;
+            walkingPoints.Value.RemoveAt(removeIndex);
 
-            foreach (var item in walkingPoints.Value)
-            {
-                Debug.LogWarning(item);
-            }
-            
+            currentIndex = Mathf.Clamp(currentIndex, 0, walkingPoints.Value.Count - 1);
+
             _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints.Value);
+
+            if (walkingPoints.Value.Count > 0)
+            {
+                GameObject nextTarget = walkingPoints.Value[currentIndex];
+                _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPointsIndex", currentIndex);
+                _behaviorAgent.BlackboardReference.SetVariableValue("Target", nextTarget);
+            }
+            else
+            {
+                _behaviorAgent.BlackboardReference.SetVariableValue<GameObject>("Target", null);
+                _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPointsIndex", 0);
+            }
+
         }
     }
 
@@ -184,6 +189,37 @@ public class Npc : Pawn
         _carrying = null;
     }
 
+    /// <summary>
+    /// Links the GameObject to the NPC
+    /// </summary>
+    /// <param name="gameObject">Position to walk to</param>
+    private void Link(GameObject gameObject)
+    {
+        if (_behaviorAgent.BlackboardReference.GetVariable("WalkingPoints", out BlackboardVariable<List<GameObject>> walkingPoints))
+        {   
+            //Stops the duplicate linking of same gameobject resulting in multidropof/pickup
+            if (walkingPoints.Value.Count > 0 && walkingPoints.Value[^1] == gameObject)
+                return;
+
+            walkingPoints.Value.Add(gameObject);
+            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints.Value);
+
+            if (_behaviorAgent.BlackboardReference.GetVariable("Target", out BlackboardVariable<GameObject> target))
+            {
+                if (target.Value == null)
+                {
+                    _behaviorAgent.BlackboardReference.SetVariableValue("Target", gameObject);
+                }
+            }
+        }
+        else
+        {
+            // If the variable doesn't exist, create a new one
+            var newList = new List<GameObject> { gameObject };
+            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", newList);
+        }
+    }
+
     private void HandleSelection(bool isSelected)
     {
         _isSelected = isSelected;
@@ -191,33 +227,9 @@ public class Npc : Pawn
 
         if (isSelected)
         {
-            //CalculatePath();
-            //Trying this out, but if it becomes to computationally expensive, just uncomment the line above.
-            StartCoroutine(DrawNPCPath());
+            _npcPathRenderer.DrawPathBetween(_linkedNodeList);
         }
 
         OnSelfSelected.Invoke(this, isSelected);
-    }
-    
-    private IEnumerator DrawNPCPath()
-    {
-        WaitForSeconds wait = new(0.5f);
-        while(_isSelected)
-        {
-            CalculatePath();
-            yield return wait;
-        }
-    }
-    
-    private void CalculatePath()
-    {
-        if (_behaviorAgent.BlackboardReference.GetVariable("WalkingPoints", out BlackboardVariable<List<GameObject>> walkingPoints))
-        {
-            List<GameObject> walkingPointsList = walkingPoints.Value;
-            if (walkingPointsList.Count == 2)
-            {
-                _npcPathRenderer.DrawPathThroughNPC(walkingPointsList[0].transform.position, walkingPointsList[1].transform.position);
-            }
-        }
     }
 }

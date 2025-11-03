@@ -19,17 +19,34 @@ public class NpcPathRenderer : MonoBehaviour
 
     public void SetVisibilityOfLineRenderer(bool visible) => _line.enabled = visible;
 
-    public void DrawPathBetween(Vector3 start, Vector3 end)
+    public void DrawPathBetween(List<NodeLink> nodeLinks)
     {
+        List<Vector3> fullPath = new();
         NavMeshPath path = new();
-        if (NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path))
+
+        foreach (NodeLink link in nodeLinks)
         {
-            if (path.corners.Length >= 2)
+            if (NavMesh.CalculatePath(link.NodeA.transform.position, link.NodeB.transform.position, NavMesh.AllAreas, path))
             {
-                _line.positionCount = path.corners.Length;
-                _line.SetPositions(path.corners);
-                _line.enabled = true;
+                // Avoid duplicating points
+                if (fullPath.Count > 0)
+                {
+                    fullPath.RemoveAt(fullPath.Count - 1);
+                }
+                
+                fullPath.AddRange(path.corners);
             }
+        }
+
+        if (fullPath.Count >= 2)
+        {
+            _line.positionCount = fullPath.Count;
+            _line.SetPositions(fullPath.ToArray());
+            _line.enabled = true;
+        }
+        else
+        {
+            _line.enabled = false;
         }
     }
 

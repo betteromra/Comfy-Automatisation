@@ -6,8 +6,12 @@ public class NonPlayableCharacterManager : MonoBehaviour
     [Tooltip("It's weird but NPC needs to be clickable layer, else the ray travels through NPC and hits ground")]
     [SerializeField] private LayerMask clickableLayers = -1;
     [SerializeField] private NpcSO _basicNpcSO;
+
     private List<Npc> _npcs = new();
     private List<Npc> _currentSelectedNPCs = new();
+    private List<NodeLink> _linkedNodeList = new();
+
+    private GameObject _lastSelected;
 
     void Start()
     {
@@ -16,7 +20,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
             InstantiateNewNPC(_basicNpcSO, new(-60 + 2 * i, 6, 1.5f));
         }
     }
-    
+
     void OnEnable()
     {
         GameManager.instance.player.onPressedSelect += HandleClick;
@@ -73,6 +77,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
 
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
+                _lastSelected = null;
                 foreach (Npc npc in _currentSelectedNPCs)
                 {
                     npc.Link(hit.point);
@@ -80,10 +85,27 @@ public class NonPlayableCharacterManager : MonoBehaviour
             }
             else
             {
+                GameObject clicked = hit.collider.gameObject;
+
+                if (_lastSelected == null)
+                {
+                    _lastSelected = hit.collider.gameObject;
+                    return;
+                }
+
+                NodeLink nodeLink = new(_lastSelected, clicked);
+                bool exists = _linkedNodeList.Exists(l => l == nodeLink);
+                if (!exists)
+                {
+                    _linkedNodeList.Add(new NodeLink(_lastSelected, clicked));
+                }
+
                 foreach (Npc npc in _currentSelectedNPCs)
                 {
-                    npc.Link(hit.collider.gameObject);
+                    npc.LinkNode(nodeLink);
                 }
+
+                _lastSelected = null;
             }
         }
     }

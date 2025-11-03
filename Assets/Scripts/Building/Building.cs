@@ -7,8 +7,10 @@ public abstract class Building : MonoBehaviour
     [SerializeField] protected bool _destructable = true;
     public bool destructable { get => _destructable; }
     [SerializeField] protected MeshRenderer _meshRenderer;
+    public MeshRenderer meshRenderer { get => _meshRenderer; }
     [SerializeField] protected BoxCollider _boxCollider;
     public BoxCollider boxCollider { get => _boxCollider; }
+    [SerializeField] protected Light[] _lights;
     [SerializeField] protected BuildingUI _buildingUI;
     [SerializeField] protected RessourceAndAmountToDisplayUI _ressourceAndAmountToDisplayUI;
     public RessourceAndAmountToDisplayUI ressourceAndAmountToDisplayUI { get => _ressourceAndAmountToDisplayUI; }
@@ -30,8 +32,12 @@ public abstract class Building : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        _buildingUI.gameObject.SetActive(false);
-        if(_ressourceAndAmountToDisplayUI != null) _ressourceAndAmountToDisplayUI.gameObject.SetActive(false);
+        if(_buildingUI != null) _buildingUI.gameObject.SetActive(false);
+        if (_ressourceAndAmountToDisplayUI != null) _ressourceAndAmountToDisplayUI.gameObject.SetActive(false);
         _boxCollider.gameObject.SetActive(false);
+        foreach (Light light in _lights)
+        {
+            light.gameObject.SetActive(false);
+        }
     }
 }

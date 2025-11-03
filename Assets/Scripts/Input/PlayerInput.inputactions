@@ -89,6 +89,15 @@
                 },
                 {
                     "name": "RotateBuilding",
+                    "type": "Value",
+                    "id": "d74f7b8d-c43a-41e4-95c4-0163a1246d0b",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "EnableRotateBuilding",
                     "type": "Button",
                     "id": "7b81b299-8d69-4a63-a982-b9ea6baa8f75",
                     "expectedControlType": "",
@@ -288,7 +297,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RotateBuilding",
+                    "action": "EnableRotateBuilding",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -322,6 +331,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "NpcAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9301e0fe-0a4d-4ebc-8561-ac7eedf339ec",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateBuilding",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

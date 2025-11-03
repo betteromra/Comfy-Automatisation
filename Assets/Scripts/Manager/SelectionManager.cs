@@ -152,7 +152,7 @@ public class SelectionManager : MonoBehaviour
         if (buildingManager.isBuilding || userInterfaceManager.isBuildingUIOpen) return;
 
         // Don't do hover detection if camera is being moved
-        if (GameManager.instance.player.cameraMouseMove) return;
+        if (GameManager.instance.player.enableCameraMouseMove) return;
 
         Camera playerCamera = GameManager.instance.cameraManager.mainCamera;
         if (playerCamera == null)

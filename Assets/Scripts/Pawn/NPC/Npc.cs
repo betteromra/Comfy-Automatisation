@@ -17,11 +17,13 @@ public class Npc : Pawn
     private GameObject _tempClickTarget;
     private RessourceAndAmount _carrying;
     private BehaviorGraphAgent _behaviorAgent;
+    Selectable _selectable;
     private bool _isSelected = false;
 
     void Awake()
     {
         _behaviorAgent = GetComponent<BehaviorGraphAgent>();
+        _selectable = GetComponent<Selectable>();
 
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCSpeed", _nonPlayableCharacterSO.Speed);
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCWaitDuration", _nonPlayableCharacterSO.WaitDuration);
@@ -31,12 +33,12 @@ public class Npc : Pawn
 
     void OnEnable()
     {
-        GetComponent<Selectable>().onSelfSelected += HandleSelection;
+        _selectable.onSelfSelected += HandleSelection;
     }
 
     void OnDisable()
     {
-        GetComponent<Selectable>().onSelfSelected -= HandleSelection;
+        _selectable.onSelfSelected -= HandleSelection;
     }
 
     public void LinkNode(NodeLink nodeLink)

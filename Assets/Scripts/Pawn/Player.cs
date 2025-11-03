@@ -9,28 +9,30 @@ public class Player : MonoBehaviour
     public Vector2 mouseMoveInput { get => _mouseMoveInput; }
     Vector2 _keyboardMoveInput = Vector2.zero;
     public Vector2 keyboardMoveInput { get => _keyboardMoveInput; }
-    bool _cameraMouseMove = false;
-    public bool cameraMouseMove { get => _cameraMouseMove; }
+    bool _enableCameraMouseMove = false;
+    public bool enableCameraMouseMove { get => _enableCameraMouseMove; }
     float _zoomInput = 0;
     public float zoomInput { get => _zoomInput; }
     bool _showRawRecipeInput = false;
     public bool showRawRecipeInput { get => _showRawRecipeInput; }
-    bool _rotateBuild = false;
-    public bool rotateBuild { get => _rotateBuild; }
+    float _rotateBuildInput = 0;
+    public float rotateBuildInput { get => _rotateBuildInput; }
+    bool _enableRotateBuild = false;
+    public bool enableRotateBuild { get => _enableRotateBuild; }
     public event Action onPressedSelect;
     public event Action onPressedDeselect;
     public event Action onPressedBuild;
     public event Action onPressedCancelBuild;
     public event Action onShowRawRecipe;
     public event Action onDeleteBuild;
-    public event Action onRotateBuild;
+    public event Action onEnableRotateBuild;
     public event Action onNpcAction;
 
     #region Input
     void OnMouseMoveCamera(InputValue value)
     {
         // the pan need to be inverted so it look like you grab the terrain and move
-        if (_cameraMouseMove)
+        if (_enableCameraMouseMove)
         {
             _mouseMoveInput = value.Get<Vector2>() * -1;
         }
@@ -40,12 +42,12 @@ public class Player : MonoBehaviour
     void OnMouseEnableMoveCameraPressed(InputAction.CallbackContext value)
     {
         // if the button is pressed the value will be over 0
-        _cameraMouseMove = 0 < value.ReadValue<float>();
+        _enableCameraMouseMove = 0 < value.ReadValue<float>();
     }
     void OnKeyboardMoveCamera(InputValue value)
     {
         // we need to make sure that we aren't already moving with the mouse
-        if (!_cameraMouseMove)
+        if (!_enableCameraMouseMove)
         {
             _keyboardMoveInput = value.Get<Vector2>();
         }
@@ -53,6 +55,8 @@ public class Player : MonoBehaviour
     }
     void OnZoomCamera(InputValue value)
     {
+        Debug.Log(value.Get<float>());
+        if (_enableRotateBuild) return;
         // inverted the zoom since if we scrolldown the y is higher
         _zoomInput = value.Get<float>() * -1;
     }
@@ -97,10 +101,21 @@ public class Player : MonoBehaviour
         _showRawRecipeInput = 0 < value.ReadValue<float>();
         onShowRawRecipe?.Invoke();
     }
-    void OnRotateBuildingPressed(InputAction.CallbackContext value)
+    void OnRotateBuilding(InputValue value)
     {
-        _showRawRecipeInput = 0 < value.ReadValue<float>();
-        onRotateBuild?.Invoke();
+        if (!GameManager.instance.buildingManager.isBuilding) return;
+        if (!_enableRotateBuild) return;
+
+        _rotateBuildInput = value.Get<float>();
+    }
+    void OnEnableRotateBuildingPressed(InputAction.CallbackContext value)
+    {
+        if (!GameManager.instance.buildingManager.isBuilding) return;
+
+        _enableRotateBuild = 0 < value.ReadValue<float>();
+
+        if (_enableRotateBuild) _zoomInput = 0;
+        else _rotateBuildInput = 0;
     }
     void OnNpcAction(InputValue value)
     {
@@ -121,9 +136,9 @@ public class Player : MonoBehaviour
         playerInput.actions["ShowRawRecipe"].canceled += OnShowRawRecipePressed;
         playerInput.actions["ShowRawRecipe"].Enable();
 
-        playerInput.actions["RotateBuilding"].started += OnRotateBuildingPressed;
-        playerInput.actions["RotateBuilding"].canceled += OnRotateBuildingPressed;
-        playerInput.actions["RotateBuilding"].Enable();
+        playerInput.actions["EnableRotateBuilding"].started += OnEnableRotateBuildingPressed;
+        playerInput.actions["EnableRotateBuilding"].canceled += OnEnableRotateBuildingPressed;
+        playerInput.actions["EnableRotateBuilding"].Enable();
     }
     void OnDisable()
     {
@@ -137,9 +152,9 @@ public class Player : MonoBehaviour
         playerInput.actions["ShowRawRecipe"].canceled -= OnShowRawRecipePressed;
         playerInput.actions["ShowRawRecipe"].Disable();
 
-        playerInput.actions["RotateBuilding"].started -= OnRotateBuildingPressed;
-        playerInput.actions["RotateBuilding"].canceled -= OnRotateBuildingPressed;
-        playerInput.actions["RotateBuilding"].Disable();
+        playerInput.actions["EnableRotateBuilding"].started -= OnEnableRotateBuildingPressed;
+        playerInput.actions["EnableRotateBuilding"].canceled -= OnEnableRotateBuildingPressed;
+        playerInput.actions["EnableRotateBuilding"].Disable();
     }
 
     // Selection is in the selection manager now

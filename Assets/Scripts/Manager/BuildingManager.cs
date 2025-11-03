@@ -10,6 +10,8 @@ public class BuildingManager : MonoBehaviour
     public RessourceNode[] ressourcesNode { get => _ressourcesNode; set => _ressourcesNode = value; }
     [SerializeField] StorageBuilding _barn;
     public StorageBuilding barn { get => _barn; set => _barn = value; }
+    [SerializeField] Material _buildPreviewMaterial;
+    Material _ghostBuildMaterial;
     List<Building> _buildings = new List<Building>();
     public List<Building> buildings { get => _buildings; }
     BuildingSO _buildingSOToolBarSelected;
@@ -31,18 +33,25 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] LayerMask _blockingBuildingLayers;
     [SerializeField] LayerMask _placingBuildingLayers;
     [SerializeField] Transform _buildingsParent;
+    [SerializeField] float _ghostMoveSmoothing;
+    [SerializeField] float _ghostRotationSmoothing;
+    Vector3 _targetGhostPosition = Vector3.zero;
+    Quaternion _targetGhostRotation = Quaternion.identity;
     Dictionary<BuildingSO, Building> _ghosts = new Dictionary<BuildingSO, Building>();
     Building _ghost;
     Coroutine _showingGhost;
+    Player _player;
     public event Action onBuildingCreated;
 
     void Awake()
     {
+        _player = GameManager.instance.player;
         foreach (RessourceNode ressourceNode in _ressourcesNode)
         {
             _buildings.Add(ressourceNode);
         }
         _buildings.Add(_barn);
+        _ghostBuildMaterial = new Material(_buildPreviewMaterial);
     }
 
     private void OnBuildingSelected()
@@ -57,6 +66,21 @@ public class BuildingManager : MonoBehaviour
             _ghost = Instantiate(_buildingSOToolBarSelected.prefab, Vector3.zero, Quaternion.identity, _buildingsParent).GetComponent<Building>();
             _ghosts.Add(_buildingSOToolBarSelected, _ghost);
             _ghost.enabled = false;
+
+            MeshRenderer[] meshRenderers = _ghost.meshRenderer.GetComponentsInChildren<MeshRenderer>();
+
+            for (int i = 0; i < meshRenderers.Length; i++)
+            {
+                MeshRenderer meshRenderer = meshRenderers[i];
+                Material[] materials = new Material[meshRenderer.materials.Length];
+
+                for (int j = 0; j < meshRenderer.materials.Length; j++)
+                {
+                    materials[j] = _ghostBuildMaterial;
+                }
+
+                meshRenderer.materials = materials;
+            }
         }
 
         if (_showingGhost == null)
@@ -74,28 +98,42 @@ public class BuildingManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _placingBuildingLayers))
             {
-                Vector3 hitPosition = hit.point;
+                MoveBuilding(hit.point);
 
-                hitPosition.x = Mathf.Round(hitPosition.x);
-                hitPosition.z = Mathf.Round(hitPosition.z);
+                // rotation
 
-                _ghost.transform.position = hitPosition;
-                if (CheckPlacementCollision())
-                {
+                RotateBuilding(_player.rotateBuildInput);
 
-                }
-                else
-                {
-
-                }
+                _ghostBuildMaterial.SetFloat("_IsValidPlacement", CheckPlacementCollision() ? 1f : 0f);
             }
             yield return null;
         }
     }
+    void MoveBuilding(Vector3 position)
+    {
+        _targetGhostPosition = position;
+
+        _targetGhostPosition.x = Mathf.Round(_targetGhostPosition.x);
+        _targetGhostPosition.z = Mathf.Round(_targetGhostPosition.z);
+
+        Vector3 smoothPosition = _targetGhostPosition;
+        smoothPosition.x = Mathf.Lerp(_ghost.transform.position.x, _targetGhostPosition.x, Time.deltaTime * _ghostMoveSmoothing);
+        smoothPosition.z = Mathf.Lerp(_ghost.transform.position.z, _targetGhostPosition.z, Time.deltaTime * _ghostMoveSmoothing);
+
+        _ghost.transform.position = smoothPosition;
+    }
+    void RotateBuilding(float rotationMotion)
+    {
+        _targetGhostRotation *= Quaternion.Euler(0, rotationMotion * 90, 0);
+
+        Quaternion smoothRotation = Quaternion.RotateTowards(_ghost.transform.rotation, _targetGhostRotation, Time.deltaTime * _ghostRotationSmoothing);
+
+        _ghost.transform.rotation = smoothRotation;
+    }
 
     private bool CheckPlacementCollision()
     {
-        Collider[] collisions = Physics.OverlapBox(transform.position, _ghost.boxCollider.size, Quaternion.identity, _blockingBuildingLayers);
+        Collider[] collisions = Physics.OverlapBox(_ghost.transform.position, _ghost.boxCollider.size, _ghost.transform.rotation, _blockingBuildingLayers);
 
         return collisions.Length == 0;
     }
@@ -136,14 +174,14 @@ public class BuildingManager : MonoBehaviour
 
     void OnEnable()
     {
-        GameManager.instance.player.onPressedBuild += CreateBuilding;
-        GameManager.instance.player.onPressedCancelBuild += CancelBuild;
+        _player.onPressedBuild += CreateBuilding;
+        _player.onPressedCancelBuild += CancelBuild;
     }
 
     void OnDisable()
     {
-        GameManager.instance.player.onPressedBuild -= CreateBuilding;
-        GameManager.instance.player.onPressedCancelBuild -= CancelBuild;
+        _player.onPressedBuild -= CreateBuilding;
+        _player.onPressedCancelBuild -= CancelBuild;
         _barn.inventory.onContentChange -= CancelIfCanNotBuild;
     }
 }

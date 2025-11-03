@@ -1,14 +1,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class InputNode : BuildingNode
 {
+  protected List<OutputNode> _linkedPath = new List<OutputNode>();
   RecipeSO _recipeSO;
   public RecipeSO recipeSO { get => _recipeSO; set => _recipeSO = value; }
-  bool CanInput(RessourceAndAmount ressourceAndAmountOutput)
+  int HowMuchCanInput(RessourceSO ressourceSO)
   {
-    return _inventory.CanAdd(ressourceAndAmountOutput);
+    return _inventory.CanAddHowMany(ressourceSO);
+  }
+
+  bool CanLink(OutputNode outputNode)
+  {
+    return _linkedPath.Count < _maxPath;
+  }
+
+  public bool Link(OutputNode outputNode)
+  {
+    if (!CanLink(outputNode)) return false;
+    _linkedPath.Add(outputNode);
+
+    return true;
+  }
+
+  public void Unlink(OutputNode outputNode)
+  {
+    _linkedPath.Remove(outputNode);
+  }
+
+  bool CanInput(RessourceSO ressourceSO)
+  {
+    return _inventory.CanAdd(new RessourceAndAmount(ressourceSO, 1));
   }
 
   // highest priority is going to be at the top of this list
@@ -19,20 +44,24 @@ public class InputNode : BuildingNode
     RessourceAndAmount[] ressourcesNeeded = _recipeSO.ingredientsInput;
     Dictionary<RessourceSO, float> _percentageRessourceComplete = new Dictionary<RessourceSO, float>();
 
+    // Check percentage of ressource needed to craft
     foreach (RessourceAndAmount ressourceNeeded in ressourcesNeeded)
     {
-      int amountContained = _inventory.Contains(ressourceNeeded.ressourceSO);
+      int amountContained = _inventory.ContainsHowMany(ressourceNeeded.ressourceSO);
       float clampedPercentage = Mathf.Clamp(amountContained / ressourceNeeded.amount, 0, 1);
       _percentageRessourceComplete.Add(ressourceNeeded.ressourceSO, clampedPercentage);
     }
 
+    // order list by highest to lowest priority
     return ressourcesNeeded.OrderBy(ra => _percentageRessourceComplete[ra.ressourceSO]).ToArray();
   }
 
-  public bool Input(RessourceAndAmount ressourceAndAmountOutput, bool verify = true)
+  public int Input(RessourceAndAmount ressourceAndAmountOutput, bool verify = true)
   {
-    if (verify && !CanInput(ressourceAndAmountOutput)) return false;
+    if (verify && !CanInput(ressourceAndAmountOutput.ressourceSO)) return 0;
+    int howManyAdded = Mathf.Min(HowMuchCanInput(ressourceAndAmountOutput.ressourceSO), ressourceAndAmountOutput.amount);
+    _inventory.Add(new RessourceAndAmount(ressourceAndAmountOutput.ressourceSO, howManyAdded));
 
-    return _inventory.Add(ressourceAndAmountOutput);
+    return howManyAdded;
   }
 }

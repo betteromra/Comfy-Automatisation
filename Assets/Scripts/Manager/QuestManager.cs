@@ -260,7 +260,7 @@ public class QuestManager : MonoBehaviour
                 RessourceSO resourceSO = FindResourceByName(goal.targetID);
                 if (resourceSO != null)
                 {
-                    int count = inventory.Contains(resourceSO);
+                    int count = inventory.ContainsHowMany(resourceSO);
                     goal.currentAmount = count;
                     
                     if (goal.currentAmount >= goal.requiredAmount)

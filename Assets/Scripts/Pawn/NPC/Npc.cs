@@ -23,10 +23,18 @@ public class Npc : Pawn
 
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCSpeed", _nonPlayableCharacterSO.Speed);
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCWaitDuration", _nonPlayableCharacterSO.WaitDuration);
-        
-        _carrying = null;
 
+        _carrying = null;
+    }
+
+    void OnEnable()
+    {
         GetComponent<Selectable>().onSelfSelected += HandleSelection;
+    }
+
+    void OnDisable()
+    {
+        GetComponent<Selectable>().onSelfSelected -= HandleSelection;
     }
 
     /// <summary>
@@ -62,7 +70,7 @@ public class Npc : Pawn
             _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", newList);
         }
     }
-    
+
     /// <summary>
     /// To be used when no GameObject is present.
     /// </summary>
@@ -106,7 +114,7 @@ public class Npc : Pawn
             {
                 Debug.LogWarning(item);
             }
-            
+
             _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints.Value);
         }
     }
@@ -117,40 +125,44 @@ public class Npc : Pawn
     /// <param name="target">The target</param>
     public void PickUp(GameObject target)
     {
-        if (_carrying == null)
-            return;
-
-        if (_carrying.amount >= _nonPlayableCharacterSO.MaxCarryingCapacity)
-            return;
-
         if (!target.TryGetComponent<OutputNode>(out var outputNode))
         {
             Debug.LogWarning("NPC tried to pickup at non output node!");
             return;
         }
 
-        Inventory inventory = outputNode.inventory;
-        if (inventory == null)
+        // need to give outputNode.RessourceAccesibleFromList(); the previous input node
+        // and then delete the tempory code after it
+        RessourceAndAmount[] ressourcesAndAmountToTake = /* outputNode.RessourceAccesibleFromList(); */ new RessourceAndAmount[] { new RessourceAndAmount(outputNode.inventory.MostRessourceInside()) };
+
+        int carryAmount = 0;
+        // the npc carry something
+        if (_carrying != null)
         {
-            Debug.LogError("OutputNode inventory is set to null!");
+            // update carry amount
+            carryAmount = _carrying.amount;
+
+            // !!!
+            // Check if the _carrying.ressourceSO is inside the ressourcesAndAmountToTake.
+            // if it is inside then change the ressourceAndAmountToTake to be the same as the carrying one. Else { it is the player fault
+            // because if all securities are added, this should only happen by moving an npc with an item that shouldn't go there.
+            // We need remove all link and make npc idol, the player tried to unput ressource that wasn't approriate }
         }
 
-        if (_carrying.ressourceSO == null)
+        // need to change all the line under this function where we pick every ressourcesAndAmountToTake we can take in our inventory
+
+        // make sure we can t take more than the limit
+        ressourcesAndAmountToTake[0].amount = _nonPlayableCharacterSO.MaxCarryingCapacity - carryAmount;
+
+        int ressourceOutput = outputNode.Output(ressourcesAndAmountToTake[0]);
+        if (ressourceOutput == 0)
         {
-            //Currently the NPC chooses the resource based on amount.
-            RessourceSO ressource = inventory.MostRessourceInside();
-            _carrying.ressourceSO = ressource;
+            // make npc idle
+            // Wait for content to refresh using : outputNode.inventory.onContentChange += Function that check if we can output item again
+            return;
         }
 
-        RessourceAndAmount ressourceAndAmount = new RessourceAndAmount(_carrying.ressourceSO);
-        if (inventory.ContainsAmount(ressourceAndAmount))
-        {
-            while (_carrying.amount < _nonPlayableCharacterSO.MaxCarryingCapacity && 0 < inventory.Contains(_carrying.ressourceSO))
-            {
-                inventory.Remove(ressourceAndAmount);
-                _carrying.amount++;
-            }
-        }
+        _carrying = new RessourceAndAmount(ressourcesAndAmountToTake[0].ressourceSO, ressourceOutput);
 
         //Debug.Log($"NPC currently carrying {_carrying.CurrenltyCarrying.actualName}, {_carrying.Amount}");
     }
@@ -170,16 +182,15 @@ public class Npc : Pawn
             return;
         }
 
-        Inventory inventory = inputNode.inventory;
-        if (inventory == null)
+        // need to change where we drop everything in our inventory and if the inventory still have item inside wait until there is none
+        int ressourceInput = inputNode.Input(_carrying);
+        if (ressourceInput != _carrying.amount)
         {
-            Debug.LogError("InputNode inventory is set to null!");
-        }
-
-        if (inventory.ContainsAmount(_carrying))
+            _carrying.amount -= ressourceInput;
+            // make npc idle
+            // Wait for content to refresh using : inputNode.inventory.onContentChange += Function that check if we can input item again
             return;
-
-        inventory.Add(_carrying);
+        }
 
         _carrying = null;
     }
@@ -198,17 +209,17 @@ public class Npc : Pawn
 
         OnSelfSelected.Invoke(this, isSelected);
     }
-    
+
     private IEnumerator DrawNPCPath()
     {
         WaitForSeconds wait = new(0.5f);
-        while(_isSelected)
+        while (_isSelected)
         {
             CalculatePath();
             yield return wait;
         }
     }
-    
+
     private void CalculatePath()
     {
         if (_behaviorAgent.BlackboardReference.GetVariable("WalkingPoints", out BlackboardVariable<List<GameObject>> walkingPoints))

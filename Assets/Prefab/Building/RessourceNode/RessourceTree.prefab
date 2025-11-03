@@ -56,12 +56,17 @@ PrefabInstance:
       propertyPath: _ressourceNodeSO
       value: 
       objectReference: {fileID: 11400000, guid: e8f10d250a962bf4a8dad0a6a63fd2d2, type: 2}
+    - target: {fileID: 7639297839257129868, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9116543687190976274, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
       propertyPath: m_Name
       value: RessourceTree
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5048691443302257031, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}

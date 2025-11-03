@@ -1,34 +1,72 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class OutputNode : BuildingNode
 {
-
-  bool CanOutput(RessourceAndAmount ressourceAndAmountOutput)
+  protected Dictionary<InputNode, int> _linkedPath = new Dictionary<InputNode, int>();
+  public int HowMuchCanOutput(RessourceSO ressourceSO)
   {
-    return _inventory.ContainsAmount(ressourceAndAmountOutput);
+    return _inventory.ContainsHowMany(ressourceSO);
   }
-  
-  public RessourceAndAmount RessourceAccesibleFromList(RessourceAndAmount[] priorityArray)
-  {
-    if (priorityArray == null) return null;
 
+  bool CanLink(InputNode inputNode)
+  {
+    return _linkedPath.Count < _maxPath;
+  }
+
+  public bool Link(InputNode inputNode)
+  {
+    if (!CanLink(inputNode)) return false;
+    _linkedPath[inputNode] = _linkedPath.GetValueOrDefault(inputNode) + 1;
+
+    return true;
+  }
+  public void Unlink(InputNode inputNode)
+  {
+    if (_linkedPath.ContainsKey(inputNode))
+    {
+      _linkedPath[inputNode]--;
+      if (_linkedPath[inputNode] == 0) _linkedPath.Remove(inputNode);
+    }
+  }
+  public int PeopleOnPath(InputNode inputNode)
+  {
+    if (_linkedPath.ContainsKey(inputNode))
+    {
+      return _linkedPath[inputNode];
+    }
+
+    return 0;
+  }
+
+  public RessourceAndAmount[] RessourceAccesibleFromList(InputNode previousNode)
+  {
+    RessourceAndAmount[] priorityArray = previousNode.PriorityNeeds();
+
+    if (priorityArray.Length == 0)
+    {
+      RessourceSO mostRessource = _inventory.MostRessourceInside();
+      return new RessourceAndAmount[] { new RessourceAndAmount(mostRessource, _inventory.ContainsHowMany(mostRessource)) };
+    }
+
+    List<RessourceAndAmount> priorityArrayWithWhatAvailable = new List<RessourceAndAmount>();
     foreach (RessourceAndAmount ressourceAndAmount in priorityArray)
     {
       if (_inventory.ContainsAmount(ressourceAndAmount))
       {
-        return ressourceAndAmount;
+        priorityArrayWithWhatAvailable.Add(ressourceAndAmount);
       }
     }
 
-    return null;
+    return priorityArrayWithWhatAvailable.ToArray();
   }
 
-  public bool Output(RessourceAndAmount ressourceAndAmountOutput, bool verify = true)
+  public int Output(RessourceAndAmount ressourceAndAmountOutput)
   {
-    if (verify && !CanOutput(ressourceAndAmountOutput)) return false;
+    int howManyRemoved = Mathf.Min(HowMuchCanOutput(ressourceAndAmountOutput.ressourceSO), ressourceAndAmountOutput.amount);
 
     _inventory.Remove(ressourceAndAmountOutput);
 
-    return true;
+    return howManyRemoved;
   }
 }

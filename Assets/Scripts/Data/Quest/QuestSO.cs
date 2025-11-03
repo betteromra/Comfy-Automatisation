@@ -40,7 +40,6 @@ public class QuestGoal
     [Header("Trigger Conditions")]
     public string targetID; // ID of building, resource, object, etc.
     public int requiredAmount = 1;
-    public float requiredTime = 0f; // For TimeElapsed type
     public Vector3 targetLocation; // For ReachLocation type
     public float locationRadius = 5f;
     

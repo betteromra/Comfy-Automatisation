@@ -40,10 +40,10 @@ public class QuestManager : MonoBehaviour
 
     private void Update()
     {
-        if (currentQuest != null)
-        {
-            CheckTimeBasedGoals();
-        }
+        // if (currentQuest != null)
+        // {
+        //     CheckTimeBasedGoals();
+        // }
     }
 
     public void StartQuest(QuestSO quest)
@@ -212,12 +212,9 @@ public class QuestManager : MonoBehaviour
             if (goal.isCompleted) continue;
             if (goal.triggerType != QuestTriggerType.TimeElapsed) continue;
 
-            float elapsedTime = Time.time - questStartTime;
-            if (elapsedTime >= goal.requiredTime)
-            {
-                goal.currentAmount = 1;
-                CompleteGoal(goal);
-            }
+            // TimeElapsed trigger is not implemented - remove this trigger type if not needed
+            goal.currentAmount = 1;
+            CompleteGoal(goal);
         }
     }
 
@@ -228,7 +225,7 @@ public class QuestManager : MonoBehaviour
     private void CheckBuildingProgress(QuestGoal goal)
     {
         // Check if building already exists in the world
-        BuildingManager buildingManager = FindAnyObjectByType<BuildingManager>();
+        BuildingManager buildingManager = GameManager.instance.buildingManager;
         if (buildingManager != null)
         {
             int count = 0;
@@ -256,7 +253,7 @@ public class QuestManager : MonoBehaviour
         // This would integrate with your Inventory system
         if (GameManager.instance != null && GameManager.instance.player != null)
         {
-            var inventory = GameManager.instance.player.GetComponent<Inventory>();
+            var inventory = GameManager.instance.buildingManager.barn.inventory;
             if (inventory != null)
             {
                 // Find RessourceSO by name
@@ -397,9 +394,9 @@ public class QuestManager : MonoBehaviour
 
     private void GiveResourceReward(string resourceID, int amount)
     {
-        if (GameManager.instance != null && GameManager.instance.player != null)
+        if (GameManager.instance != null && GameManager.instance.buildingManager != null)
         {
-            var inventory = GameManager.instance.player.GetComponent<Inventory>();
+            var inventory = GameManager.instance.buildingManager.barn.inventory;
             if (inventory != null)
             {
                 RessourceSO resourceSO = FindResourceByName(resourceID);

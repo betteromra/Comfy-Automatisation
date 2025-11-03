@@ -357,6 +357,52 @@ Transform:
   - {fileID: 1851220952}
   m_Father: {fileID: 1458855175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &337505532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 337505534}
+  - component: {fileID: 337505533}
+  m_Layer: 0
+  m_Name: QuestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &337505533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337505532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57fdd436cb8808248a098b318553d322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allQuests: []
+  currentQuestIndex: 0
+--- !u!4 &337505534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337505532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2073501780}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &369389228
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,6 +2673,7 @@ Transform:
   - {fileID: 1388111071}
   - {fileID: 4989582093776985175}
   - {fileID: 4421870742323167981}
+  - {fileID: 337505534}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &358921125296618777
@@ -3110,6 +3157,10 @@ PrefabInstance:
       propertyPath: _levelManager
       value: 
       objectReference: {fileID: 4597134287421471062}
+    - target: {fileID: 4241987553807541675, guid: 5651d3a9ca119694292a769529f5a221, type: 3}
+      propertyPath: _questManager
+      value: 
+      objectReference: {fileID: 337505533}
     - target: {fileID: 4241987553807541675, guid: 5651d3a9ca119694292a769529f5a221, type: 3}
       propertyPath: _soundManager
       value: 

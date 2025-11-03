@@ -18,13 +18,15 @@ public class GameManager : MonoBehaviour
   public UserInterfaceManager userInterfaceManager { get => _userInterfaceManager; }
   [SerializeField] SelectionManager _selectionManager;
   public SelectionManager selectionManager { get => _selectionManager; }
+  [SerializeField] QuestManager _questManager;
+  public QuestManager questManager { get => _questManager; }
   [SerializeField] Player _player;
   public Player player { get => _player; }
   void Awake()
   {
     if (_instance != null && _instance != this)
     {
-      _instance.OnSceneLoaded(_levelManager, _cameraManager, _soundManager, _buildingManager, _userInterfaceManager,  _selectionManager, _player);
+      _instance.OnSceneLoaded(_levelManager, _cameraManager, _soundManager, _buildingManager, _userInterfaceManager,  _selectionManager, _questManager, _player);
       Destroy(gameObject);
       return;
     }
@@ -32,11 +34,11 @@ public class GameManager : MonoBehaviour
     {
       DontDestroyOnLoad(this);
       _instance = this;
-      OnSceneLoaded(_levelManager, _cameraManager, _soundManager, _buildingManager, _userInterfaceManager, _selectionManager, _player);
+      OnSceneLoaded(_levelManager, _cameraManager, _soundManager, _buildingManager, _userInterfaceManager, _selectionManager, _questManager, _player);
     }
   }
 
-  public void OnSceneLoaded(LevelManager levelManager, CameraManager cameraManager, SoundManager soundManager, BuildingManager buildingManager, UserInterfaceManager userInterfaceManager, SelectionManager selectionManager, Player player)
+  public void OnSceneLoaded(LevelManager levelManager, CameraManager cameraManager, SoundManager soundManager, BuildingManager buildingManager, UserInterfaceManager userInterfaceManager, SelectionManager selectionManager, QuestManager questManager, Player player)
   {
     _levelManager = levelManager;
     _cameraManager = cameraManager;
@@ -45,5 +47,6 @@ public class GameManager : MonoBehaviour
     _buildingManager = buildingManager;
     _userInterfaceManager = userInterfaceManager;
     _selectionManager = selectionManager;
+    _questManager = questManager;
   }
 }

@@ -60,6 +60,19 @@ public class Npc : Pawn
         Unlink(nodeLink.NodeA); //Add check so the node isn't used elsewhere
         Unlink(nodeLink.NodeB); //Add check so the node isn't used elsewhere
 
+
+        bool isOutputNode = nodeLink.NodeA.TryGetComponent<OutputNode>(out _);
+
+        //This is needed so that we in NonPlayableCharacterManager store the node link in only one direction
+        GameObject nodeA = isOutputNode ? nodeLink.NodeA : nodeLink.NodeB;
+        GameObject nodeB = isOutputNode ? nodeLink.NodeB : nodeLink.NodeA;
+
+        OutputNode outputNode = nodeA.GetComponent<OutputNode>();
+        InputNode inputNode = nodeB.GetComponent<InputNode>();
+
+        outputNode.Unlink(inputNode);
+        inputNode.Unlink(outputNode);
+
         if(_isSelected)
             _npcPathRenderer.DrawPathBetween(_linkedNodeList);
     }
@@ -100,6 +113,9 @@ public class Npc : Pawn
             int currentIndex = index.Value;
             int removeIndex = walkingPoints.Value.IndexOf(gameObject);
 
+            if (removeIndex < 0)
+                return;
+
             if (removeIndex == currentIndex)
                 currentIndex++;
 
@@ -120,7 +136,6 @@ public class Npc : Pawn
                 _behaviorAgent.BlackboardReference.SetVariableValue<GameObject>("Target", null);
                 _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPointsIndex", 0);
             }
-
         }
     }
 

@@ -89,19 +89,40 @@ public class NonPlayableCharacterManager : MonoBehaviour
 
                 if (_lastSelected == null)
                 {
-                    _lastSelected = hit.collider.gameObject;
+                    _lastSelected = clicked;
                     return;
                 }
 
-                NodeLink nodeLink = new(_lastSelected, clicked);
-                bool exists = _linkedNodeList.Exists(l => l == nodeLink);
-                if (!exists)
+                //Stops binding output node to outputnode/input to input
+                if (_lastSelected.TryGetComponent<OutputNode>(out _) == clicked.TryGetComponent<OutputNode>(out _))
                 {
-                    _linkedNodeList.Add(new NodeLink(_lastSelected, clicked));
+                    _lastSelected = null;
+                    return; //throw error
+                }
+
+                NodeLink nodeLink = new(_lastSelected, clicked);
+                //This check is/should be order independent.
+                if (!_linkedNodeList.Exists(l => l == nodeLink))
+                {
+                    bool isOutputNode = _lastSelected.TryGetComponent<OutputNode>(out _);
+
+                    //This is needed so that we in NonPlayableCharacterManager store the node link in only one direction
+                    GameObject nodeA = isOutputNode ? _lastSelected : clicked;
+                    GameObject nodeB = isOutputNode ? clicked : _lastSelected;
+
+                    _linkedNodeList.Add(new NodeLink(nodeA, nodeB));
                 }
 
                 foreach (Npc npc in _currentSelectedNPCs)
                 {
+                    //NodeA and NodeB should already be correctly assigned here
+                    NodeLink existing = _linkedNodeList.Find(l => l.GetHashCode() == nodeLink.GetHashCode());
+                    Debug.Log(existing);
+                    OutputNode outputNode = existing.NodeA.GetComponent<OutputNode>();
+                    InputNode inputNode = existing.NodeB.GetComponent<InputNode>();
+
+                    outputNode.Link(inputNode);
+                    inputNode.Link(outputNode);
                     npc.LinkNode(nodeLink);
                 }
 

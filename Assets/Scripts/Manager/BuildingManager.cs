@@ -124,6 +124,7 @@ public class BuildingManager : MonoBehaviour
     }
     void RotateBuilding(float rotationMotion)
     {
+        if (Quaternion.Angle(_ghost.transform.rotation, _targetGhostRotation) > .1f) rotationMotion = 0;
         _targetGhostRotation *= Quaternion.Euler(0, rotationMotion * 90, 0);
 
         Quaternion smoothRotation = Quaternion.RotateTowards(_ghost.transform.rotation, _targetGhostRotation, Time.deltaTime * _ghostRotationSmoothing);
@@ -133,7 +134,7 @@ public class BuildingManager : MonoBehaviour
 
     private bool CheckPlacementCollision()
     {
-        Collider[] collisions = Physics.OverlapBox(_ghost.transform.position, _ghost.boxCollider.size, _ghost.transform.rotation, _blockingBuildingLayers);
+        Collider[] collisions = Physics.OverlapBox(_targetGhostPosition, _ghost.boxCollider.size * .5f, _targetGhostRotation, _blockingBuildingLayers);
 
         return collisions.Length == 0;
     }
@@ -166,7 +167,7 @@ public class BuildingManager : MonoBehaviour
 
         if (CheckPlacementCollision())
         {
-            _buildings.Add(Instantiate(_buildingSOToolBarSelected.prefab, _ghost.transform.position, _ghost.transform.rotation, _buildingsParent).GetComponent<Building>());
+            _buildings.Add(Instantiate(_buildingSOToolBarSelected.prefab, _targetGhostPosition, _targetGhostRotation, _buildingsParent).GetComponent<Building>());
             onBuildingCreated?.Invoke();
             CancelBuild();
         }

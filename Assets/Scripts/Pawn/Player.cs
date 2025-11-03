@@ -55,7 +55,6 @@ public class Player : MonoBehaviour
     }
     void OnZoomCamera(InputValue value)
     {
-        Debug.Log(value.Get<float>());
         if (_enableRotateBuild) return;
         // inverted the zoom since if we scrolldown the y is higher
         _zoomInput = value.Get<float>() * -1;

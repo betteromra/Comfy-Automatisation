@@ -43,8 +43,16 @@ public class DisplayRessourceUI : MonoBehaviour
     {
         _name.text = _ressourceAndAmount.ressourceSO.actualName;
         _name.color = _quality[(int)_ressourceAndAmount.ressourceSO.quality];
-        _weight.text = _ressourceAndAmount.weight + "";
-        _value.text = _ressourceAndAmount.value + "";
+
+        if (_ressourceAndAmount.weight == 0 || _ressourceAndAmount.value == 0)
+        {
+            _weight.transform.parent.gameObject.SetActive(false);
+        }
+        else
+        {
+            _weight.text = _ressourceAndAmount.weight + "";
+            _value.text = _ressourceAndAmount.value + "";
+        }
 
         _description.text = _ressourceAndAmount.ressourceSO.description;
 

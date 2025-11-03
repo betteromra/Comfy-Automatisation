@@ -100,12 +100,7 @@ public class Inventory : MonoBehaviour
 
         RessourceAndAmount add = new(ressourceAndAmount);
 
-        if (_ressourcesStored.ContainsKey(add.ressourceSO))
-        {
-            _ressourcesStored[add.ressourceSO] += add.amount;
-        }
-        else _ressourcesStored.Add(add.ressourceSO, add.amount);
-
+        _ressourcesStored[add.ressourceSO] = _ressourcesStored.GetValueOrDefault(add.ressourceSO) + add.amount;
 
         // Adjust weight and ressource space
         _weight += add.weight;
@@ -187,7 +182,7 @@ public class Inventory : MonoBehaviour
             _weight -= removed.weight;
             _value -= removed.value;
             _differentRessourceAmount--;
-            
+
             if (sendEvent) onContentChange?.Invoke();
         }
         else

@@ -4,6 +4,4 @@ public class BuildingNode : MonoBehaviour
 {
   [SerializeField] protected Inventory _inventory;
   public Inventory inventory { get => _inventory; }
-  RessourceSO _ressourceSO;
-  public RessourceSO ressourceSO { get => _ressourceSO; set => _ressourceSO = value; }
 }

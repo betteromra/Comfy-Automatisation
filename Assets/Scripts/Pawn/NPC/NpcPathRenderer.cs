@@ -24,7 +24,14 @@ public class NpcPathRenderer : MonoBehaviour
         List<Vector3> fullPath = new();
         Vector3? lastPoint = null;
 
-        foreach (NodeLink link in nodeLinks)
+        IEnumerable<NodeLink> allLinks = nodeLinks;
+        if (nodeLinks[^1].NodeB != nodeLinks[0].NodeA)
+        {
+            NodeLink nodeLink = new(nodeLinks[^1].NodeB, nodeLinks[0].NodeA);
+            allLinks = nodeLinks.Append(nodeLink);
+        }
+
+        foreach (NodeLink link in allLinks)
         {
             var path = new NavMeshPath();
             Vector3 start = link.NodeA.transform.position;
@@ -51,32 +58,6 @@ public class NpcPathRenderer : MonoBehaviour
 
             lastPoint = end;
         }
-        
-        if(nodeLinks[^1].NodeB != nodeLinks[0].NodeA)
-        {
-            var path = new NavMeshPath();
-            Vector3 start = nodeLinks[^1].NodeB.transform.position;
-            Vector3 end = nodeLinks[0].NodeA.transform.position;
-
-            if (lastPoint != null)
-            {
-                if (NavMesh.CalculatePath(lastPoint.Value, start, NavMesh.AllAreas, path))
-                {
-                    if (fullPath.Count > 0)
-                        fullPath.RemoveAt(fullPath.Count - 1);
-
-                    fullPath.AddRange(path.corners);
-                }
-            }
-
-            if (NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path))
-            {
-                if (fullPath.Count > 0)
-                    fullPath.RemoveAt(fullPath.Count - 1); // avoid duplicate junction point
-
-                fullPath.AddRange(path.corners);
-            }
-        }
 
         if (fullPath.Count >= 2)
         {
@@ -86,7 +67,7 @@ public class NpcPathRenderer : MonoBehaviour
         }
         else
         {
-            _line.enabled = false;
+            _line.enabled = false; 
         }
     }
 

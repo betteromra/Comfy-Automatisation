@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
   m_Name: CocoaBeanMerchantRessource
   m_EditorClassIdentifier: 
-  _actualName: Cocoa bean merchant
+  _actualName: Cocoa merchant
   _description: 
   _icon: {fileID: 0}
   _sprite: {fileID: 0}

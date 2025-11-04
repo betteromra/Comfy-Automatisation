@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d8b805c91b1954db12cd9cdbb05b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  percentageValueSell: 0.7
+  _percentageValueSell: 0.9

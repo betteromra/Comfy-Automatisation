@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ca130fe450f6140a8265c54998c503, type: 3}
   m_Name: SandCastle
   m_EditorClassIdentifier: 
-  _actualName: Sand castle
-  _icon: {fileID: 0}
-  _recipe: {fileID: 0}
   _npcSpace: 0
   _prefab: {fileID: 5287830922716742107, guid: c2cdf8ccf95738b4ea8b28246b5cf6a5, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: a1086c7b79ae61f4cbd9b43fbc6d1eaf, type: 2}
   _ressourceAndAmount:
     _ressourceSO: {fileID: 11400000, guid: 872037e782aa4d44aa7054b55f65767c, type: 2}
     _amount: 5

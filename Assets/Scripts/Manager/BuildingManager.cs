@@ -146,7 +146,7 @@ public class BuildingManager : MonoBehaviour
 
     public bool CanBuild(BuildingSO buildingSO)
     {
-        return _barn.inventory.ContainsAmount(buildingSO.recipe.ingredientsInput);
+        return _barn.inventory.ContainsAmount(buildingSO.ressourceSO.recipe.ingredientsInput);
     }
 
     void CancelBuild()

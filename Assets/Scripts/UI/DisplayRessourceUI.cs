@@ -6,17 +6,20 @@ public class DisplayRessourceUI : MonoBehaviour
 {
     RessourceAndAmount _ressourceAndAmount;
     [SerializeField] TextMeshProUGUI _name;
+    [SerializeField] GameObject _weightAndValueContainer;
     [SerializeField] TextMeshProUGUI _weight;
     [SerializeField] TextMeshProUGUI _value;
     [SerializeField] GameObject _recipeContainer;
+    [SerializeField] RectTransform _contentRectTransform;
     [SerializeField] RessourceAndAmountUI[] _ressourcesAndAmountUI;
     [SerializeField] TextMeshProUGUI _description;
-    [SerializeField] Color[] _quality;
     [SerializeField] Vector2 _offSet = new Vector2(5, 5);
     bool _open = false;
     RectTransform _rectTransform;
     UserInterfaceManager _userInterfaceManager;
     Player _player;
+    Vector2 _directionOffSet;
+    Vector2 _wholeOffSet;
 
     void Awake()
     {
@@ -42,11 +45,11 @@ public class DisplayRessourceUI : MonoBehaviour
     public void Refresh()
     {
         _name.text = _ressourceAndAmount.ressourceSO.actualName;
-        _name.color = _quality[(int)_ressourceAndAmount.ressourceSO.quality];
+        _name.color = GameManager.instance.userInterfaceManager.quality[(int)_ressourceAndAmount.ressourceSO.quality];
 
         if (_ressourceAndAmount.weight == 0 || _ressourceAndAmount.value == 0)
         {
-            _weight.transform.parent.gameObject.SetActive(false);
+            _weightAndValueContainer.SetActive(false);
         }
         else
         {
@@ -93,9 +96,10 @@ public class DisplayRessourceUI : MonoBehaviour
     {
         if (_player.showRawRecipeInput) ShowRecipe(_ressourceAndAmount.ressourceSO.rawRessourceToMakeSelf);
         else if (_ressourceAndAmount.ressourceSO.recipe != null) ShowRecipe(_ressourceAndAmount.ressourceSO.recipe.ingredientsInput);
+        else ShowRecipe(new RessourceAndAmount[0]);
     }
 
-    public void Display(bool open, RessourceAndAmount ressourceAndAmount = null)
+    public void Display(bool open, RessourceAndAmount ressourceAndAmount = null, Vector2 direction = default)
     {
         _open = open;
         gameObject.SetActive(_open);
@@ -103,6 +107,11 @@ public class DisplayRessourceUI : MonoBehaviour
         if (_open)
         {
             _ressourceAndAmount = ressourceAndAmount;
+            _directionOffSet = direction;
+
+            _wholeOffSet = new Vector2(Mathf.Abs(direction.x - 1) * .5f, (direction.y + 1) * .5f);
+            Debug.Log(_directionOffSet + " " + _wholeOffSet);
+
             Refresh();
             RefreshPosition();
         }
@@ -113,7 +122,9 @@ public class DisplayRessourceUI : MonoBehaviour
         // Convert screen position to local position within the Canvas's RectTransform
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_userInterfaceManager.mainCanvas.transform as RectTransform, Input.mousePosition, null, out Vector2 localPoint))
         {
-            _rectTransform.anchoredPosition = localPoint + _offSet + _userInterfaceManager.screenOffSetNeeded;
+            Vector2 wholeOffset = _wholeOffSet * new Vector2(_contentRectTransform.rect.width, _contentRectTransform.rect.height);
+            Vector2 offset = _directionOffSet * _offSet;
+            _rectTransform.anchoredPosition = localPoint + offset + wholeOffset + _userInterfaceManager.screenOffSetNeeded;
         }
     }
 }

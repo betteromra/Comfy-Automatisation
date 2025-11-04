@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
   m_Name: KeepRessource
   m_EditorClassIdentifier: 
-  _actualName: 
+  _actualName: Keep
   _description: 
-  _icon: {fileID: 0}
+  _icon: {fileID: -1489352255, guid: 9ce2c0f5232207d4b9dcff5ba3a15230, type: 3}
   _sprite: {fileID: 0}
-  _recipe: {fileID: 0}
+  _recipe: {fileID: 11400000, guid: 666e5b58cb2cce34eba9a3107504a37a, type: 2}
   _spacePerUnit: 1
   _weight: 0
   _rawValue: 0

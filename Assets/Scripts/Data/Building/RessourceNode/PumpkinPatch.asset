@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ca130fe450f6140a8265c54998c503, type: 3}
   m_Name: PumpkinPatch
   m_EditorClassIdentifier: 
-  _actualName: Pumpkin patch
-  _icon: {fileID: 0}
-  _recipe: {fileID: 0}
   _npcSpace: 0
   _prefab: {fileID: 5287830922716742107, guid: 5d0ad4e9e6618164ab44b5579d16fb3a, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: a43726f31812b724a903880c7a0cdc7e, type: 2}
   _ressourceAndAmount:
     _ressourceSO: {fileID: 11400000, guid: 7e319bcbb9c0530479265b363cf6cdc3, type: 2}
     _amount: 1

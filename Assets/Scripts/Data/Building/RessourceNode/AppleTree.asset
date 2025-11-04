@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ca130fe450f6140a8265c54998c503, type: 3}
   m_Name: AppleTree
   m_EditorClassIdentifier: 
-  _actualName: Apple Tree
-  _icon: {fileID: 0}
-  _recipe: {fileID: 0}
   _npcSpace: 0
   _prefab: {fileID: 5287830922716742107, guid: dd88ec34c13995f49a4be32813fffe44, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: 4fccdae0e68c00743b928542b496b755, type: 2}
   _ressourceAndAmount:
     _ressourceSO: {fileID: 11400000, guid: 4224cdef105eb1f40b8fd15ce42ed854, type: 2}
     _amount: 4

@@ -45,11 +45,11 @@ public class RessourceAndAmountUI : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (_doesDisplayRessourceUI && !_isGhost) GameManager.instance.userInterfaceManager.displayRessourceUI.Display(true, _ressourceAndAmount);
+        if (_doesDisplayRessourceUI && !_isGhost) GameManager.instance.userInterfaceManager.displayRessourceUI.Display(true, _ressourceAndAmount, new Vector2(1,-1));
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (_doesDisplayRessourceUI && !_isGhost) GameManager.instance.userInterfaceManager.displayRessourceUI.Display(false, _ressourceAndAmount);
+        if (_doesDisplayRessourceUI && !_isGhost) GameManager.instance.userInterfaceManager.displayRessourceUI.Display(false);
     }
 }

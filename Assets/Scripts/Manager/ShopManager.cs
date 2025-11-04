@@ -6,11 +6,11 @@ public class ShopManager : MonoBehaviour
     int goldStored = 0;
     public void Sell(RessourceAndAmount ressourceAndAmount)
     {
-
+        goldStored += Mathf.FloorToInt(ressourceAndAmount.value * percentageValueSell);
     }
     public int CanBuyHowMany(RessourceSO ressourceSO)
     {
-        return Mathf.FloorToInt(goldStored / (ressourceSO.value * percentageValueSell));
+        return Mathf.FloorToInt(goldStored / ressourceSO.value);
     }
     public bool Buy(RessourceAndAmount ressourceAndAmount)
     {

@@ -10,6 +10,8 @@ public class BuildingManager : MonoBehaviour
     public RessourceNode[] ressourcesNode { get => _ressourcesNode; set => _ressourcesNode = value; }
     [SerializeField] StorageBuilding _barn;
     public StorageBuilding barn { get => _barn; set => _barn = value; }
+    [SerializeField] Transform _npcSpawnPoint;
+    [SerializeField] StorageBuilding _merchantCaptain;
     [SerializeField] Material _buildPreviewMaterial;
     Material _ghostBuildMaterial;
     List<Building> _buildings = new List<Building>();
@@ -51,6 +53,7 @@ public class BuildingManager : MonoBehaviour
             _buildings.Add(ressourceNode);
         }
         _buildings.Add(_barn);
+        _buildings.Add(_merchantCaptain);
         _ghostBuildMaterial = new Material(_buildPreviewMaterial);
     }
 
@@ -173,16 +176,29 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+    void SpawnNpcIfPossible()
+    {
+        foreach (NpcSO npc in GameManager.instance.nonPlayableCharacter.npcsSO)
+        {
+            for (int i = 0; i < _barn.inventory.Remove(new RessourceAndAmount(npc.ressourceSO, int.MaxValue)); i++)
+            {
+                GameManager.instance.nonPlayableCharacter.InstantiateNewNPC(npc, _npcSpawnPoint.position);
+            }
+        }
+    }
+
     void OnEnable()
     {
         _player.onPressedBuild += CreateBuilding;
         _player.onPressedCancelBuild += CancelBuild;
+        _barn.inventory.onContentChange -= CancelIfCanNotBuild;
     }
 
     void OnDisable()
     {
         _player.onPressedBuild -= CreateBuilding;
         _player.onPressedCancelBuild -= CancelBuild;
+        _barn.inventory.onContentChange -= CancelIfCanNotBuild;
         _barn.inventory.onContentChange -= CancelIfCanNotBuild;
     }
 }

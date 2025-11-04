@@ -5,7 +5,8 @@ public class NonPlayableCharacterManager : MonoBehaviour
 {
     [Tooltip("It's weird but NPC needs to be clickable layer, else the ray travels through NPC and hits ground")]
     [SerializeField] private LayerMask clickableLayers = -1;
-    [SerializeField] private NpcSO _basicNpcSO;
+    [SerializeField] private NpcSO[] _npcsSO;
+    public NpcSO[] npcsSO { get => _npcsSO; }
     [SerializeField] Transform _npcsParent;
     private List<Npc> _npcs = new();
     private List<Npc> _currentSelectedNPCs = new();
@@ -17,7 +18,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
     {
         for (int i = 0; i < 15; i++) //TEMP
         {
-            InstantiateNewNPC(_basicNpcSO, new(-60 + 2 * i, 6, 1.5f));
+            InstantiateNewNPC(_npcsSO[0], new(-60 + 2 * i, 6, 1.5f));
         }
     }
 

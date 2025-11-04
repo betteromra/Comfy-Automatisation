@@ -171,9 +171,9 @@ public class Inventory : MonoBehaviour
         return Mathf.Min(amountAddableBySpace, amountAddableByWeight);
     }
 
-    public void Remove(RessourceAndAmount ressourceAndAmount, bool sendEvent = true)
+    public int Remove(RessourceAndAmount ressourceAndAmount, bool sendEvent = true)
     {
-        if (ressourceAndAmount.ressourceSO == null || ressourceAndAmount.amount <= 0) return;
+        if (ressourceAndAmount.ressourceSO == null || ressourceAndAmount.amount <= 0) return 0;
         RessourceAndAmount removed = new(ressourceAndAmount);
 
         if (_ressourcesStored.ContainsKey(removed.ressourceSO))
@@ -193,11 +193,14 @@ public class Inventory : MonoBehaviour
             _differentRessourceAmount--;
 
             if (sendEvent) onContentChange?.Invoke();
+
+            return removed.amount;
         }
         else
         {
             Debug.LogWarning("Could not remove item : " + removed.ressourceSO.actualName + " since not present");
         }
+        return 0;
     }
 
     public void Remove(RessourceAndAmount[] ressourcesAndAmount)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Behavior;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(BehaviorGraphAgent))]
 [RequireComponent(typeof(Selectable))]
@@ -19,16 +20,20 @@ public class Npc : Pawn
     private BehaviorGraphAgent _behaviorAgent;
     private Selectable _selectable;
     private bool _isSelected = false;
+    NavMeshAgent _agent;
 
     void Awake()
     {
         _behaviorAgent = GetComponent<BehaviorGraphAgent>();
         _selectable = GetComponent<Selectable>();
-        
+
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCSpeed", _nonPlayableCharacterSO.Speed);
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCWaitDuration", _nonPlayableCharacterSO.WaitDuration);
 
         _carrying = null;
+        _agent = GetComponent<NavMeshAgent>();
+        _agent.updateRotation = false;
+        _agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     void OnEnable()
@@ -47,7 +52,7 @@ public class Npc : Pawn
         Link(nodeLink.NodeA);
         Link(nodeLink.NodeB);
 
-        if(_isSelected)
+        if (_isSelected)
             _npcPathRenderer.DrawPathBetween(_linkedNodeList);
     }
 
@@ -75,7 +80,7 @@ public class Npc : Pawn
         outputNode.Unlink(inputNode);
         inputNode.Unlink(outputNode);
 
-        if(_isSelected)
+        if (_isSelected)
             _npcPathRenderer.DrawPathBetween(_linkedNodeList);
     }
 
@@ -96,7 +101,7 @@ public class Npc : Pawn
         {
             UnlinkNode(_linkedNodeList[i]);
         }
-        
+
         _tempClickTarget.transform.position = position;
         Link(_tempClickTarget);
     }
@@ -185,7 +190,7 @@ public class Npc : Pawn
         }
 
         _carrying = new RessourceAndAmount(ressourcesAndAmountToTake[0].ressourceSO, ressourceOutput);
-        _itemSpriteRenderer.sprite = _carrying.ressourceSO.icon;
+        _itemSpriteRenderer.sprite = _carrying.ressourceSO.sprite;
 
         //Debug.Log($"NPC currently carrying {_carrying.CurrenltyCarrying.actualName}, {_carrying.Amount}");
     }
@@ -226,7 +231,7 @@ public class Npc : Pawn
     private void Link(GameObject gameObject)
     {
         if (_behaviorAgent.BlackboardReference.GetVariable("WalkingPoints", out BlackboardVariable<List<GameObject>> walkingPoints))
-        {   
+        {
             //Stops the duplicate linking of same gameobject resulting in multidropof/pickup
             if (walkingPoints.Value.Count > 0 && walkingPoints.Value[^1] == gameObject)
                 return;

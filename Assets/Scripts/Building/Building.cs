@@ -28,11 +28,12 @@ public abstract class Building : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        if (_ressourceAndAmountToDisplayUI != null) _ressourceAndAmountToDisplayUI.transform.parent.rotation = Quaternion.Euler(60, 315, 0);
     }
 
     protected virtual void OnDisable()
     {
-        if(_buildingUI != null) _buildingUI.gameObject.SetActive(false);
+        if (_buildingUI != null) _buildingUI.gameObject.SetActive(false);
         if (_ressourceAndAmountToDisplayUI != null) _ressourceAndAmountToDisplayUI.gameObject.SetActive(false);
         _boxCollider.gameObject.SetActive(false);
         foreach (Light light in _lights)

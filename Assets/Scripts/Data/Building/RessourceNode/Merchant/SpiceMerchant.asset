@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ca130fe450f6140a8265c54998c503, type: 3}
+  m_Name: SpiceMerchant
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 8682174289952987224, guid: 326b81e4da2672c4b9d5cfb66caa24b3, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: 939f7e26f1074db4e97da701526c53cc, type: 2}
+  _ressourceAndAmount:
+    _ressourceSO: {fileID: 11400000, guid: fd32d744e4cd4234abcb117245365f7c, type: 2}
+    _amount: 20
+  _extractionPerMinute: 0.1

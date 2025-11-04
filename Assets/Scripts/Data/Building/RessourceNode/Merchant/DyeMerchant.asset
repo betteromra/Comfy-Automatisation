@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ca130fe450f6140a8265c54998c503, type: 3}
+  m_Name: DyeMerchant
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 8682174289952987224, guid: de98e0792d4bec7478989a95790bd90e, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: 449acd98b5b9da942a93746230d6d449, type: 2}
+  _ressourceAndAmount:
+    _ressourceSO: {fileID: 11400000, guid: dadc22ed52b647345a2f9f0826554230, type: 2}
+    _amount: 4
+  _extractionPerMinute: 0.1

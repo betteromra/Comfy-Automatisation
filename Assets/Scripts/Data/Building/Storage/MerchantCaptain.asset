@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865a19ba33ccb594b91dd1f6fb739421, type: 3}
+  m_Name: MerchantCaptain
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 8670715866690887967, guid: 9c4362da5ab298f4c9de19699a999656, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: fedb3d2124faac24790e0b066284e65e, type: 2}

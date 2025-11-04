@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ca130fe450f6140a8265c54998c503, type: 3}
+  m_Name: CoffeeBeanMerchant
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 8682174289952987224, guid: 025e6d36129c3434882d06b2c4370516, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: 484b924f2c524ab4eb5e817e96d118bc, type: 2}
+  _ressourceAndAmount:
+    _ressourceSO: {fileID: 11400000, guid: d43f76cedc6162c48ae109803a28b22f, type: 2}
+    _amount: 20
+  _extractionPerMinute: 0.1

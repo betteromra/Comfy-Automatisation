@@ -7,6 +7,8 @@ public class NpcSO : ScriptableObject
   public GameObject prefab { get => _prefab; }
   [SerializeField] float _speed;
   public float Speed { get => _speed; }
+  [SerializeField] RessourceSO _ressourceSO;
+  public RessourceSO ressourceSO { get => _ressourceSO; }
   [SerializeField] int _maxCarryingCapacity;
   public int MaxCarryingCapacity { get => _maxCarryingCapacity; }
   [Tooltip("Time NPC waits after dropping reaching target.")]

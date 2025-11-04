@@ -221,7 +221,7 @@ public class Npc : Pawn
     public bool DropOff(GameObject target)
     {
         if (_carrying == null)
-            return false;
+            return true; //Returns success here because this function will never succeed in such a senario, so better to move the NPC along.
 
         if (!target.TryGetComponent<InputNode>(out var inputNode))
         {

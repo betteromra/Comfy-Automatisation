@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.Behavior;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(BehaviorGraphAgent))]
@@ -9,19 +10,21 @@ public class Npc : Pawn
 {
     [SerializeField] private NpcSO _nonPlayableCharacterSO;
     [SerializeField] private NpcPathRenderer _npcPathRenderer;
+    [SerializeField] private SpriteRenderer _itemSpriteRenderer;
     public event Action<Npc, bool> OnSelfSelected;
     private List<NodeLink> _linkedNodeList = new();
+
     private GameObject _tempClickTarget;
     private RessourceAndAmount _carrying;
     private BehaviorGraphAgent _behaviorAgent;
-    Selectable _selectable;
+    private Selectable _selectable;
     private bool _isSelected = false;
 
     void Awake()
     {
         _behaviorAgent = GetComponent<BehaviorGraphAgent>();
         _selectable = GetComponent<Selectable>();
-
+        
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCSpeed", _nonPlayableCharacterSO.Speed);
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCWaitDuration", _nonPlayableCharacterSO.WaitDuration);
 
@@ -182,6 +185,7 @@ public class Npc : Pawn
         }
 
         _carrying = new RessourceAndAmount(ressourcesAndAmountToTake[0].ressourceSO, ressourceOutput);
+        _itemSpriteRenderer.sprite = _carrying.ressourceSO.icon;
 
         //Debug.Log($"NPC currently carrying {_carrying.CurrenltyCarrying.actualName}, {_carrying.Amount}");
     }
@@ -212,6 +216,7 @@ public class Npc : Pawn
         }
 
         _carrying = null;
+        _itemSpriteRenderer.sprite = null;
     }
 
     /// <summary>

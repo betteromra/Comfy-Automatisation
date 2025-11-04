@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Behavior;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -150,24 +151,38 @@ public class Npc : Pawn
     /// Tells the NPC to pick up a resource. Picks up max at a time.
     /// </summary>
     /// <param name="target">The target</param>
-    public void PickUp(GameObject target)
+    public bool PickUp(GameObject target)
     {
         if (!target.TryGetComponent<OutputNode>(out var outputNode))
         {
             Debug.LogWarning("NPC tried to pickup at non output node!");
-            return;
+            return false;
         }
 
         // need to give outputNode.RessourceAccesibleFromList(); the previous input node
         // and then delete the tempory code after it
-        RessourceAndAmount[] ressourcesAndAmountToTake = /* outputNode.RessourceAccesibleFromList(); */ new RessourceAndAmount[] { new RessourceAndAmount(outputNode.inventory.MostRessourceInside()) };
+        _behaviorAgent.GetVariable("PreviousTarget", out BlackboardVariable<GameObject> previousTarget);
+        RessourceAndAmount[] ressourcesAndAmountToTake;
+
+        if (previousTarget.Value.TryGetComponent(out InputNode previousInputNode))
+        {
+            ressourcesAndAmountToTake = outputNode.RessourceAccesibleFromList(previousInputNode);
+        }
+        else
+        {
+            Debug.LogWarning("Walked from output node -> output node");
+            return true; //Returns success here because this function will never succeed in such a senario, so better to move the NPC along.
+        }
 
         int carryAmount = 0;
         // the npc carry something
         if (_carrying != null)
         {
             // update carry amount
-            carryAmount = _carrying.amount;
+            if (ressourcesAndAmountToTake.Any(r => r.ressourceSO == _carrying.ressourceSO))
+                carryAmount = _carrying.amount;
+            else
+                return false;
 
             // !!!
             // Check if the _carrying.ressourceSO is inside the ressourcesAndAmountToTake.
@@ -175,24 +190,23 @@ public class Npc : Pawn
             // because if all securities are added, this should only happen by moving an npc with an item that shouldn't go there.
             // We need remove all link and make npc idol, the player tried to unput ressource that wasn't approriate }
         }
-
-        // need to change all the line under this function where we pick every ressourcesAndAmountToTake we can take in our inventory
+        else
+        {
+            _carrying = new RessourceAndAmount(ressourcesAndAmountToTake[0].ressourceSO, 0);
+        }
 
         // make sure we can t take more than the limit
-        ressourcesAndAmountToTake[0].amount = _nonPlayableCharacterSO.MaxCarryingCapacity - carryAmount;
+        _carrying.amount = _nonPlayableCharacterSO.MaxCarryingCapacity - carryAmount;
 
         int ressourceOutput = outputNode.Output(ressourcesAndAmountToTake[0]);
         if (ressourceOutput == 0)
         {
-            // make npc idle
-            // Wait for content to refresh using : outputNode.inventory.onContentChange += Function that check if we can output item again
-            return;
+            // NPC Idle handled in the Behaviour tree.
+            return false;
         }
 
-        _carrying = new RessourceAndAmount(ressourcesAndAmountToTake[0].ressourceSO, ressourceOutput);
         _itemSpriteRenderer.sprite = _carrying.ressourceSO.sprite;
-
-        //Debug.Log($"NPC currently carrying {_carrying.CurrenltyCarrying.actualName}, {_carrying.Amount}");
+        return true;
     }
 
     /// <summary>

@@ -10,23 +10,53 @@ public partial class PickUpAction : Action
 {
     [SerializeReference] public BlackboardVariable<Npc> Npc;
     [SerializeReference] public BlackboardVariable<GameObject> Target;
+    private OutputNode _outputNode;
+    private bool _pickupSucceeded;
 
     protected override Status OnStart()
     {
+        _pickupSucceeded = false;
         Npc npc = Npc.Value;
+        bool success = npc.PickUp(Target.Value);
 
-        npc.PickUp(Target.Value);
-        return Status.Running;
+        if (Target.Value.TryGetComponent(out OutputNode outputNode) && !success)
+        {
+            _outputNode = outputNode;
+            _outputNode.inventory.onContentChange += NPCPickup;
+            return Status.Running;
+        }
+
+        return success ? Status.Success : Status.Failure;
+    }
+
+    private void NPCPickup()
+    {
+        Npc npc = Npc.Value;
+        bool success = npc.PickUp(Target.Value);
+
+        if (success && _outputNode != null)
+        {
+            _outputNode.inventory.onContentChange -= NPCPickup;
+            _pickupSucceeded = true;
+        }   
     }
 
     protected override Status OnUpdate()
     {
-        //TODO Place queueing code here!
-        return Status.Success;
+        if (_pickupSucceeded)
+            return Status.Success;
+
+        return Status.Running;
     }
 
     protected override void OnEnd()
     {
+        _pickupSucceeded = false;
+        if (_outputNode != null)
+        {
+            _outputNode.inventory.onContentChange -= NPCPickup;
+            _outputNode = null;
+        }
     }
 }
 

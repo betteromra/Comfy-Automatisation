@@ -22,6 +22,7 @@ public class BuildingManager : MonoBehaviour
         get => _buildingSOToolBarSelected;
         set
         {
+            if (GameManager.instance.userInterfaceManager.isBuildingUIOpen) return;
             if (_buildingSOToolBarSelected == value) return;
             _isBuilding = true;
             _buildingSOToolBarSelected = value;
@@ -162,6 +163,7 @@ public class BuildingManager : MonoBehaviour
         _ghost = null;
         _buildingSOToolBarSelected = null;
         _barn.inventory.onContentChange -= CancelIfCanNotBuild;
+        _player.enableRotateBuild = false;
     }
 
     void CreateBuilding()
@@ -178,20 +180,24 @@ public class BuildingManager : MonoBehaviour
 
     void SpawnNpcIfPossible()
     {
+        int npcCreated = 0;
         foreach (NpcSO npc in GameManager.instance.nonPlayableCharacter.npcsSO)
         {
-            for (int i = 0; i < _barn.inventory.Remove(new RessourceAndAmount(npc.ressourceSO, int.MaxValue)); i++)
+            int npcRemoved = _barn.inventory.Remove(new RessourceAndAmount(npc.ressourceSO, int.MaxValue), false);
+            npcCreated += npcRemoved;
+            for (int i = 0; i < npcRemoved; i++)
             {
                 GameManager.instance.nonPlayableCharacter.InstantiateNewNPC(npc, _npcSpawnPoint.position);
             }
         }
+        if (npcCreated != 0) _barn.inventory.ConetentChanged();
     }
 
     void OnEnable()
     {
         _player.onPressedBuild += CreateBuilding;
         _player.onPressedCancelBuild += CancelBuild;
-        _barn.inventory.onContentChange -= CancelIfCanNotBuild;
+        _barn.inventory.onContentChange += SpawnNpcIfPossible;
     }
 
     void OnDisable()
@@ -199,6 +205,6 @@ public class BuildingManager : MonoBehaviour
         _player.onPressedBuild -= CreateBuilding;
         _player.onPressedCancelBuild -= CancelBuild;
         _barn.inventory.onContentChange -= CancelIfCanNotBuild;
-        _barn.inventory.onContentChange -= CancelIfCanNotBuild;
+        _barn.inventory.onContentChange -= SpawnNpcIfPossible;
     }
 }

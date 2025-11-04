@@ -110,7 +110,6 @@ public class DisplayRessourceUI : MonoBehaviour
             _directionOffSet = direction;
 
             _wholeOffSet = new Vector2(Mathf.Abs(direction.x - 1) * .5f, (direction.y + 1) * .5f);
-            Debug.Log(_directionOffSet + " " + _wholeOffSet);
 
             Refresh();
             RefreshPosition();

@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     float _rotateBuildInput = 0;
     public float rotateBuildInput { get => _rotateBuildInput; }
     bool _enableRotateBuild = false;
-    public bool enableRotateBuild { get => _enableRotateBuild; }
+    public bool enableRotateBuild { get => _enableRotateBuild; set => _enableRotateBuild = value; }
     public event Action onPressedSelect;
     public event Action onPressedDeselect;
     public event Action onPressedBuild;

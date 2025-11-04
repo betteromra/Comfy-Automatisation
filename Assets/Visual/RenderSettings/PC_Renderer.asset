@@ -21,8 +21,8 @@ MonoBehaviour:
     blurMaterialHorizontal: {fileID: 2100000, guid: 79a3aa1e9218f834fbd18b35047b3120, type: 2}
     blurMaterialVertical: {fileID: 2100000, guid: 11fbdca779e21b64b8fed647ec44d397, type: 2}
     compositeMaterial: {fileID: 2100000, guid: 9eaa03e84b8353545bf33a1dcdf4e914, type: 2}
-    outlineColor: {r: 0.023529433, g: 0.99215686, b: 1, a: 1}
-    blurSize: 0.5
+    outlineColor: {r: 0.39215687, g: 0.61960787, b: 0.5137255, a: 1}
+    blurSize: 2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

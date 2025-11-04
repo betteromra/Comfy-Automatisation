@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,13 +12,21 @@ public class NonPlayableCharacterManager : MonoBehaviour
     public NpcSO[] npcsSO { get => _npcsSO; }
     [SerializeField] Transform _npcsParent;
     private List<Npc> _npcs = new();
+    public List<Npc> npcs { get => _npcs; }
     private List<Npc> _currentSelectedNPCs = new();
     private List<NodeLink> _linkedNodeList = new();
+    public event Action onNpcCreated;
+    public event Action onNpcDeleted;
 
     private GameObject _lastSelected;
+    Player _player;
 
     private Color _lastColour;
 
+    void Awake()
+    {
+        _player = GameManager.instance.player;
+    }
     void Start()
     {
         for (int i = 0; i < 15; i++) //TEMP
@@ -28,14 +37,18 @@ public class NonPlayableCharacterManager : MonoBehaviour
 
     void OnEnable()
     {
-        GameManager.instance.player.onPressedSelect += HandleClick;
-        GameManager.instance.player.onPressedDeselect += HandleDeselect;
+        _player.onPressedSelect += HandleClick;
+        _player.onPressedDeselect += HandleDeselect;
     }
 
     void OnDisable()
     {
-        GameManager.instance.player.onPressedSelect -= HandleClick;
-        GameManager.instance.player.onPressedDeselect -= HandleDeselect;
+        _player.onPressedSelect -= HandleClick;
+        _player.onPressedDeselect -= HandleDeselect;
+        foreach (Npc npc in _npcs)
+        {
+            npc.OnSelfSelected -= HandleNPCSelected;
+        }
     }
 
     public void InstantiateNewNPC(NpcSO npcSO, Vector3 position)
@@ -45,6 +58,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
         _npcs.Add(newNPC);
 
         newNPC.OnSelfSelected += HandleNPCSelected;
+        onNpcCreated?.Invoke();
     }
 
     private void HandleNPCSelected(Npc npc, bool isSelected)

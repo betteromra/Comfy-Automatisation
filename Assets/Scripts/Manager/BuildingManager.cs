@@ -16,6 +16,8 @@ public class BuildingManager : MonoBehaviour
     Material _ghostBuildMaterial;
     List<Building> _buildings = new List<Building>();
     public List<Building> buildings { get => _buildings; }
+    List<Building> _buildingsCreated = new List<Building>();
+    public List<Building> buildingsCreated { get => _buildingsCreated; }
     BuildingSO _buildingSOToolBarSelected;
     public BuildingSO buildingSOToolBarSelected
     {
@@ -45,6 +47,7 @@ public class BuildingManager : MonoBehaviour
     Coroutine _showingGhost;
     Player _player;
     public event Action onBuildingCreated;
+    public event Action onBuildingDeleted;
 
     void Awake()
     {
@@ -172,7 +175,9 @@ public class BuildingManager : MonoBehaviour
 
         if (CheckPlacementCollision())
         {
-            _buildings.Add(Instantiate(_buildingSOToolBarSelected.prefab, _targetGhostPosition, _targetGhostRotation, _buildingsParent).GetComponent<Building>());
+            Building building = Instantiate(_buildingSOToolBarSelected.prefab, _targetGhostPosition, _targetGhostRotation, _buildingsParent).GetComponent<Building>();
+            _buildings.Add(building);
+            _buildingsCreated.Add(building);
             onBuildingCreated?.Invoke();
             CancelBuild();
         }

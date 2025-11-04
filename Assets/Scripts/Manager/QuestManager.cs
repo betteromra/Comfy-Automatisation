@@ -200,7 +200,7 @@ public class QuestManager : MonoBehaviour
             int count = 0;
             foreach (var building in buildingManager.buildings)
             {
-                if (building != null && (building.name.Contains(goal.targetID) || building.buildingSO.actualName == goal.targetID))
+                if (building != null && (building.name.Contains(goal.targetID) || building.buildingSO.name == goal.targetID))
                 {
                     count++;
                 }

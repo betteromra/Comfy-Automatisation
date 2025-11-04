@@ -15,10 +15,10 @@ MonoBehaviour:
   _ingredientsInput:
   - _ressourceSO: {fileID: 11400000, guid: 91548422a47817a4faf9d16948a4a3d1, type: 2}
     _amount: 2
-  - _ressourceSO: {fileID: 11400000, guid: e5dac6b26b8119f4484075b6ca7c1016, type: 2}
-    _amount: 2
   - _ressourceSO: {fileID: 11400000, guid: 027498f4b49e2a64f8156333b93bfd1d, type: 2}
     _amount: 1
+  - _ressourceSO: {fileID: 11400000, guid: e5dac6b26b8119f4484075b6ca7c1016, type: 2}
+    _amount: 3
   _ingredientsOutput:
   - _ressourceSO: {fileID: 11400000, guid: 96a8df7fa1403a547b185365ad91dbae, type: 2}
     _amount: 1

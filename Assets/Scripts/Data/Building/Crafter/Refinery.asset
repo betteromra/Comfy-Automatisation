@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53f520e44261499b3ed1c61691e74, type: 3}
   m_Name: Refinery
   m_EditorClassIdentifier: 
-  _npcSpace: 2
   _prefab: {fileID: 6922024547151954682, guid: 3c5102114d8f8dc4ead1197af21a1a60, type: 3}
   _ressourceSO: {fileID: 11400000, guid: c5606a43472dcfd47b4f2cd9468f281b, type: 2}
   _craftableRecipes:
@@ -23,5 +22,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4cb8d066f93338645b1eddee5790ccbb, type: 2}
   - {fileID: 11400000, guid: 7fb511417725dc94e811a2ec34f7ba17, type: 2}
   - {fileID: 11400000, guid: 06f90a5e21709b248a8d563436a15bae, type: 2}
-  _inputSpace: 60
+  _inputSpace: 100
   _craftingSpeed: 0.5
+  _npcSpace: 2

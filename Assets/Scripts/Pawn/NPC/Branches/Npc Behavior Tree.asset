@@ -468,6 +468,16 @@ MonoBehaviour:
         IsExposed: 1
         m_IsShared: 0
         m_Value: {fileID: 0}
+    - rid: 5350424884924383408
+      type: {class: 'TypedVariableModel`1[[System.Single, mscorlib]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        ID:
+          m_Value0: 6994268740941413625
+          m_Value1: 6854775424990251999
+        Name: NPCWaitDuration
+        IsExposed: 1
+        m_IsShared: 0
+        m_Value: 1
     - rid: 9020314877899571450
       type: {class: StartNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
@@ -1434,7 +1444,7 @@ MonoBehaviour:
         LocalValue:
           rid: 9020314919892156420
         LinkedVariable:
-          rid: 9020314919892156594
+          rid: 5350424884924383408
     - rid: 9020314919892156420
       type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -1443,16 +1453,6 @@ MonoBehaviour:
           m_Value1: 0
         Name: 
         m_Value: 0
-    - rid: 9020314919892156594
-      type: {class: 'TypedVariableModel`1[[System.Int32, mscorlib]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
-      data:
-        ID:
-          m_Value0: 15019061955188623799
-          m_Value1: 16643790858557488421
-        Name: NPCWaitDuration
-        IsExposed: 1
-        m_IsShared: 0
-        m_Value: 1
 --- !u!114 &288566451588191466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1474,7 +1474,6 @@ MonoBehaviour:
   - rid: 9020314879701287277
   - rid: 9020314879701287323
   - rid: 9020314883258056839
-  - rid: 9020314919892156504
   - rid: 5350424814120075403
   - rid: 3119659835150827595
   m_VersionTimestamp: 638978527114647110
@@ -1504,6 +1503,16 @@ MonoBehaviour:
         IsExposed: 1
         m_IsShared: 0
         m_Value: {fileID: 0}
+    - rid: 5350424884924383307
+      type: {class: 'TypedVariableModel`1[[System.Single, mscorlib]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        ID:
+          m_Value0: 6994268740941413625
+          m_Value1: 6854775424990251999
+        Name: NPCWaitDuration
+        IsExposed: 1
+        m_IsShared: 0
+        m_Value: 1
     - rid: 9020314877899571452
       type: {class: 'TypedVariableModel`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
       data:
@@ -1554,16 +1563,6 @@ MonoBehaviour:
         IsExposed: 0
         m_IsShared: 0
         m_Value: 0
-    - rid: 9020314919892156504
-      type: {class: 'TypedVariableModel`1[[System.Int32, mscorlib]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
-      data:
-        ID:
-          m_Value0: 15019061955188623799
-          m_Value1: 16643790858557488421
-        Name: NPCWaitDuration
-        IsExposed: 1
-        m_IsShared: 0
-        m_Value: 1
 --- !u!114 &3911482126815755426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1587,7 +1586,6 @@ MonoBehaviour:
     - rid: 9020314879701287280
     - rid: 9020314879701287326
     - rid: 9020314883258056840
-    - rid: 9020314919892156505
     - rid: 5350424814120075404
     - rid: 3119659835150827596
   m_SharedBlackboardVariableGuids: []
@@ -1610,6 +1608,14 @@ MonoBehaviour:
           m_Value1: 12755182891647486390
         Name: Npc
         m_Value: {fileID: 0}
+    - rid: 5350424884924383308
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 6994268740941413625
+          m_Value1: 6854775424990251999
+        Name: NPCWaitDuration
+        m_Value: 1
     - rid: 9020314877899571453
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -1650,14 +1656,6 @@ MonoBehaviour:
           m_Value1: 7233820263511775669
         Name: WalkingPointsIndex
         m_Value: 0
-    - rid: 9020314919892156505
-      type: {class: 'BlackboardVariable`1[[System.Int32, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 15019061955188623799
-          m_Value1: 16643790858557488421
-        Name: NPCWaitDuration
-        m_Value: 1
 --- !u!114 &4073694356603450214
 MonoBehaviour:
   m_ObjectHideFlags: 0

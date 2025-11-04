@@ -64,7 +64,7 @@ public class InputNode : BuildingNode
   {
     if (verify && !CanInput(ressourceAndAmountOutput.ressourceSO)) return 0;
     int howManyAdded = Mathf.Min(HowMuchCanInput(ressourceAndAmountOutput.ressourceSO), ressourceAndAmountOutput.amount);
-    Debug.Log(HowMuchCanInput(ressourceAndAmountOutput.ressourceSO) + "   " + ressourceAndAmountOutput.amount);
+
     _inventory.Add(new RessourceAndAmount(ressourceAndAmountOutput.ressourceSO, howManyAdded));
 
     return howManyAdded;

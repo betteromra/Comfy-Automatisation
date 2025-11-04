@@ -53,6 +53,7 @@ public class DisplayRessourceUI : MonoBehaviour
         }
         else
         {
+            _weightAndValueContainer.SetActive(true);
             _weight.text = _ressourceAndAmount.weight + "";
             _value.text = _ressourceAndAmount.value + "";
         }

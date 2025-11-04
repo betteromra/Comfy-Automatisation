@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53f520e44261499b3ed1c61691e74, type: 3}
   m_Name: ArtisanCabin
   m_EditorClassIdentifier: 
-  _npcSpace: 3
   _prefab: {fileID: 6922024547151954682, guid: d66a4fa566ea1864b94c589bab8b1be2, type: 3}
   _ressourceSO: {fileID: 11400000, guid: 53c3285cfa61b9d4582f8f254d9b1921, type: 2}
   _craftableRecipes:
@@ -25,5 +24,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8874be211ec14304695fa5db2a0baaba, type: 2}
   - {fileID: 11400000, guid: 174b51f7ce869454a86ea338d8557ce9, type: 2}
   - {fileID: 11400000, guid: bb6545779ee2545449d209fad9fd9d7c, type: 2}
-  _inputSpace: 30
+  _inputSpace: 200
   _craftingSpeed: 1
+  _npcSpace: 3

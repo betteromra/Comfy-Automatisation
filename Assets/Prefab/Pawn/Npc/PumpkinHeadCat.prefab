@@ -12,6 +12,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1946601315333210504, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: m_Size.x
+      value: 8.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946601315333210504, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: m_Size.y
+      value: 12.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946601315333210504, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1452776863, guid: ac10c11ac366d8e4697231971f9956ad, type: 3}
+    - target: {fileID: 1946601315333210504, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2301161193830327377, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -23,6 +39,22 @@ PrefabInstance:
     - target: {fileID: 3811500416533800962, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
       propertyPath: m_Name
       value: PumpkinHeadCat
+      objectReference: {fileID: 0}
+    - target: {fileID: 5626702872315114670, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: m_Size.x
+      value: 8.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5626702872315114670, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: m_Size.y
+      value: 12.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 5626702872315114670, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1452776863, guid: ac10c11ac366d8e4697231971f9956ad, type: 3}
+    - target: {fileID: 5626702872315114670, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6731402756440447333, guid: 6147a9d94815f315c9d71ba97840cd59, type: 3}
       propertyPath: m_LocalPosition.x

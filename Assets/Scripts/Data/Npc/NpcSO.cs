@@ -12,6 +12,6 @@ public class NpcSO : ScriptableObject
   [SerializeField] int _maxCarryingCapacity;
   public int MaxCarryingCapacity { get => _maxCarryingCapacity; }
   [Tooltip("Time NPC waits after dropping reaching target.")]
-  [SerializeField] int _waitDuration;
-  public int WaitDuration { get => _waitDuration; }
+  [SerializeField] float _waitDuration;
+  public float WaitDuration { get => _waitDuration; }
 }

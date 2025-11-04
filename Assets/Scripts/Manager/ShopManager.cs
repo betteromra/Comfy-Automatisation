@@ -10,6 +10,7 @@ public class ShopManager : MonoBehaviour
     }
     public int CanBuyHowMany(RessourceSO ressourceSO)
     {
+        if (ressourceSO == null) return 0;
         return Mathf.FloorToInt(goldStored / ressourceSO.value);
     }
     public bool Buy(RessourceAndAmount ressourceAndAmount)

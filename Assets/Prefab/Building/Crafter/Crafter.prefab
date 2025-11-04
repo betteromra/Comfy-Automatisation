@@ -74,17 +74,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3334622054103286165, guid: ae7c8ccdf9ce0294c8e1d9cba7544d4a, type: 3}
   m_PrefabInstance: {fileID: 1289702152677318104}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8327543954955828658 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7094454043245060202, guid: ae7c8ccdf9ce0294c8e1d9cba7544d4a, type: 3}
-  m_PrefabInstance: {fileID: 1289702152677318104}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f219019bcbab49940844dd17fc1620ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3658443632615207435
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -218,14 +207,14 @@ MonoBehaviour:
   _destructable: 1
   _meshRenderer: {fileID: 958818022653645268}
   _boxCollider: {fileID: 4698848516819325008}
-  _inputNode: {fileID: 6331238722608838134}
-  _outputNode: {fileID: 8327543954955828658}
+  _lights: []
   _buildingUI: {fileID: 5816875301760659046}
   _ressourceAndAmountToDisplayUI: {fileID: 2980174402685641261}
   _craftBuildingSO: {fileID: 0}
   _inputInventory: {fileID: 1492919531225720300}
   _outputInventory: {fileID: 8326669604599271376}
   _selectedRecipeSO: {fileID: 0}
+  _inputNode: {fileID: 6331238722608838134}
 --- !u!1 &7158212723048469118 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5877887536573833333, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
@@ -270,7 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxWeight: 2147483647
   _maxDifferentRessourceAmount: 1
-  _maxSameRessourceSpace: 20
+  _maxSameRessourceSpace: 100
 --- !u!4 &8932012769297293743 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5274143234248299428, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}

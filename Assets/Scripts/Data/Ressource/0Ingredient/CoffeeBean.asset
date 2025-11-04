@@ -18,7 +18,7 @@ MonoBehaviour:
   _sprite: {fileID: -1180332769, guid: 77278957d3e68184483be741375e88b7, type: 3}
   _recipe: {fileID: 0}
   _spacePerUnit: 1
-  _weight: 3
+  _weight: 2
   _rawValue: 20
   _value: 20
   _quality: 1

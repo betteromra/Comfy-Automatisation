@@ -31,18 +31,18 @@ Material:
     m_Ints: []
     m_Floats:
     - _FresnelIntensity: 1
-    - _FresnelPower: 1.86
+    - _FresnelPower: 1.53
     - _GridScale: 10
-    - _GridThickness: 0.1
+    - _GridThickness: 0.5
     - _IsValidPlacement: 1
-    - _PulseIntensity: 0.3
-    - _PulseSpeed: 1
-    - _Transparency: 0.4
+    - _PulseIntensity: 1
+    - _PulseSpeed: 2.5
+    - _Transparency: 0.5
     - _UseGridPattern: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _InvalidColor: {r: 0.9372549, g: 0.39999998, b: 0.26666665, a: 0.8}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ValidColor: {r: 0.40392154, g: 0.47843128, b: 0.36470586, a: 0.8}
+    - _ValidColor: {r: 0.4039215, g: 0.47843128, b: 0.36470583, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

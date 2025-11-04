@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53f520e44261499b3ed1c61691e74, type: 3}
   m_Name: Bakery
   m_EditorClassIdentifier: 
-  _npcSpace: 4
   _prefab: {fileID: 6922024547151954682, guid: 2649957f5289e6b49b006084ab0825d2, type: 3}
   _ressourceSO: {fileID: 11400000, guid: e7f26ef19dd50154ebd22bb843e05b3b, type: 2}
   _craftableRecipes:
@@ -24,5 +23,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 19e76d1a6154ef943988599a0644375c, type: 2}
   - {fileID: 11400000, guid: 0bdd30a92a90d55479ba173d05d78b50, type: 2}
   - {fileID: 11400000, guid: 6539e7ab082f27e4fa9b5ea5e586348f, type: 2}
-  _inputSpace: 20
+  - {fileID: 11400000, guid: 3698aeec9fb21d04b83dc3e31dd1fb6c, type: 2}
+  _inputSpace: 150
   _craftingSpeed: 0.25
+  _npcSpace: 4

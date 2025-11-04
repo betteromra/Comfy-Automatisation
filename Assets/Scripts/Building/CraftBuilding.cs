@@ -60,6 +60,7 @@ public class CraftBuilding : Building
         {
             UpdateIngredientToDisplay(new RessourceAndAmount(_selectedRecipeSO.ingredientsOutput[0].ressourceSO, -1));
         }
+        StartCrafting();
     }
     void OnRecipeChange()
     {

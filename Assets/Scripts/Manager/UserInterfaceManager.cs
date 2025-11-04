@@ -9,6 +9,8 @@ public class UserInterfaceManager : MonoBehaviour
     [SerializeField] float ingredientOnBuildingSize = 1;
     [SerializeField] Canvas _mainCanvas;
     public Canvas mainCanvas { get => _mainCanvas; }
+    [SerializeField] Color[] _quality;
+    public Color[] quality { get => _quality; }
     BuildingUI _currentBuildingUIOpen;
     public BuildingUI currentBuildingUIOpen
     {

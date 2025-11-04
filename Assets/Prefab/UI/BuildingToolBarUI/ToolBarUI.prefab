@@ -432,6 +432,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildingToolBarUI 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5763273678701842663, guid: aef22c110086ef54ba0aa569ade2d3ba, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763273678701842663, guid: aef22c110086ef54ba0aa569ade2d3ba, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

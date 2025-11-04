@@ -167,9 +167,6 @@ public class Inventory : MonoBehaviour
         if (DifferentRessourceSpaceLeft() <= 0) return 0;
         int amountAddableBySpace = SameRessourceSpaceLeft(ressourceSO);
         int amountAddableByWeight = WeightLeft() / ressourceSO.weight;
-        // int weightLeft = WeightLeft();
-
-        // amountAddableByWeight = Mathf.FloorToInt(WeightLeft() / ressourceSO.weight);
 
         return Mathf.Min(amountAddableBySpace, amountAddableByWeight);
     }

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865a19ba33ccb594b91dd1f6fb739421, type: 3}
   m_Name: Barn
   m_EditorClassIdentifier: 
-  _recipe: {fileID: 0}
+  _prefab: {fileID: 0}
+  _ressourceSO: {fileID: 11400000, guid: 951a4301899775e49812683dc41bae2a, type: 2}

@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ca130fe450f6140a8265c54998c503, type: 3}
   m_Name: Beehive
   m_EditorClassIdentifier: 
-  _actualName: 
-  _icon: {fileID: 0}
-  _recipe: {fileID: 0}
   _npcSpace: 0
   _prefab: {fileID: 5287830922716742107, guid: 30eac35ac1b0ddf41abac268c82f570a, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: 550f6596e3eb065449ee11ca1783e6bb, type: 2}
   _ressourceAndAmount:
     _ressourceSO: {fileID: 11400000, guid: 50185d6b9565c6c44a8bf5745933d964, type: 2}
     _amount: 4

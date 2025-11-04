@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53f520e44261499b3ed1c61691e74, type: 3}
   m_Name: ArtisanCabin
   m_EditorClassIdentifier: 
-  _actualName: Artisan cabin
-  _icon: {fileID: 0}
-  _recipe: {fileID: 11400000, guid: 9f079c8085c7c374fac7c52ff64ad3b5, type: 2}
-  _npcSpace: 0
+  _npcSpace: 3
   _prefab: {fileID: 6922024547151954682, guid: d66a4fa566ea1864b94c589bab8b1be2, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: 53c3285cfa61b9d4582f8f254d9b1921, type: 2}
   _craftableRecipes:
   - {fileID: 11400000, guid: bddf62e203b1aa6468b8c58faa4b2a88, type: 2}
   - {fileID: 11400000, guid: fb0c4a4ec13d69f49b496762d2ded0dd, type: 2}

@@ -47,3 +47,9 @@ MonoBehaviour:
   _toolbarUI: {fileID: 0}
   _displayRessourceUI: {fileID: 0}
   ingredientOnBuildingSize: 1
+  _mainCanvas: {fileID: 0}
+  _quality:
+  - {r: 0, g: 1, b: 0.05725074, a: 1}
+  - {r: 0, g: 0.54226303, b: 1, a: 1}
+  - {r: 0.71055603, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0.71290123, b: 0, a: 1}

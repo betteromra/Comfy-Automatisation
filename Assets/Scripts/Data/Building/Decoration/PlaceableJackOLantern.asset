@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6dae0df2b924045bff3f5b60377ad2, type: 3}
   m_Name: PlaceableJackOLantern
   m_EditorClassIdentifier: 
-  _actualName: Jack-o'-lantern
-  _icon: {fileID: 0}
-  _recipe: {fileID: 11400000, guid: 1b36675bdf871fa45a925a42b66fffca, type: 2}
   _npcSpace: 0
   _prefab: {fileID: 3459423434279612615, guid: 5d45a2c9b445d694eaf24d088a2aa8b3, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: b77c85164764a634db1bb173ac8bcb6d, type: 2}

@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ca130fe450f6140a8265c54998c503, type: 3}
   m_Name: HenHouse
   m_EditorClassIdentifier: 
-  _actualName: Hen house
-  _icon: {fileID: 0}
-  _recipe: {fileID: 0}
   _npcSpace: 0
   _prefab: {fileID: 5287830922716742107, guid: d32adb7f02072dc46bdd58b359e8910f, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: c3aa7ddf299beb543857581ce2a4854c, type: 2}
   _ressourceAndAmount:
     _ressourceSO: {fileID: 11400000, guid: 91040326e524b014197d25fa61ed79fb, type: 2}
     _amount: 1

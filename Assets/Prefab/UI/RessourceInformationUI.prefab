@@ -604,9 +604,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: {fileID: 9126196625514208790}
+  _weightAndValueContainer: {fileID: 583587383394019973}
   _weight: {fileID: 5310038099623417841}
   _value: {fileID: 6961413010195821110}
   _recipeContainer: {fileID: 7851957964430638338}
+  _contentRectTransform: {fileID: 2375455432958656487}
   _ressourcesAndAmountUI:
   - {fileID: 7927349710422031321}
   - {fileID: 4938868139996210921}
@@ -621,12 +623,7 @@ MonoBehaviour:
   - {fileID: 6082695454313442330}
   - {fileID: 2090434206520036412}
   _description: {fileID: 1518130237736825291}
-  _quality:
-  - {r: 0, g: 1, b: 0.05725074, a: 1}
-  - {r: 0, g: 0.54226303, b: 1, a: 1}
-  - {r: 0.71055603, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0.71290123, b: 0, a: 1}
-  _offSet: {x: 5, y: -5}
+  _offSet: {x: 10, y: 10}
 --- !u!1 &4711819968976508840
 GameObject:
   m_ObjectHideFlags: 0

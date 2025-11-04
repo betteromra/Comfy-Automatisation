@@ -224,6 +224,7 @@ MonoBehaviour:
   _destructable: 0
   _meshRenderer: {fileID: 3306921047813897061}
   _boxCollider: {fileID: 7034417085880335073}
+  _lights: []
   _buildingUI: {fileID: 6211376129289541191}
   _ressourceAndAmountToDisplayUI: {fileID: 716450646563014812}
   _inventory: {fileID: 2414426385218615678}
@@ -599,10 +600,6 @@ PrefabInstance:
     - target: {fileID: 4074108562522448547, guid: ae7c8ccdf9ce0294c8e1d9cba7544d4a, type: 3}
       propertyPath: m_Layer
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7094454043245060202, guid: ae7c8ccdf9ce0294c8e1d9cba7544d4a, type: 3}
-      propertyPath: _maxPath
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7094454043245060202, guid: ae7c8ccdf9ce0294c8e1d9cba7544d4a, type: 3}
       propertyPath: _inventory

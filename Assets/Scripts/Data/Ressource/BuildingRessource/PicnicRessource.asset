@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
   m_Name: PicnicRessource
   m_EditorClassIdentifier: 
-  _actualName: 
+  _actualName: Picnic
   _description: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 2110227029, guid: 9ce2c0f5232207d4b9dcff5ba3a15230, type: 3}
   _sprite: {fileID: 0}
-  _recipe: {fileID: 0}
+  _recipe: {fileID: 11400000, guid: d42b7ba2261933e4499282eac0075511, type: 2}
   _spacePerUnit: 1
   _weight: 0
   _rawValue: 0
   _value: 0
-  _quality: 0
+  _quality: 3

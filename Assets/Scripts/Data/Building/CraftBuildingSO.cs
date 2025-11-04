@@ -9,4 +9,6 @@ public class CraftBuildingSO : BuildingSO
   public int inputSpace { get => _inputSpace; }
   [SerializeField] float _craftingSpeed;
   public float craftingSpeed { get => _craftingSpeed; }
+  [SerializeField] int _npcSpace;
+  public int npcSpace { get => _npcSpace; }
 }

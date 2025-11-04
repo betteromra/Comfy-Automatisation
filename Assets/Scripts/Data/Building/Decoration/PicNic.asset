@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6dae0df2b924045bff3f5b60377ad2, type: 3}
   m_Name: Picnic
   m_EditorClassIdentifier: 
-  _actualName: 
-  _icon: {fileID: 0}
-  _recipe: {fileID: 11400000, guid: d42b7ba2261933e4499282eac0075511, type: 2}
   _npcSpace: 0
   _prefab: {fileID: 3459423434279612615, guid: 81b156feef45ad24aafa1cad5f1a69d0, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: 1e9c694e614cb7e459d6c02c4b47b0a6, type: 2}

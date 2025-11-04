@@ -12,7 +12,9 @@ public class BuildingUI : MonoBehaviour
   protected virtual void Awake()
   {
     _buildingSelectable = _building.GetComponent<Selectable>();
-    _name.text = _building.buildingSO.actualName;
+
+    _name.text = _building.buildingSO.ressourceSO.actualName;
+    _name.color = GameManager.instance.userInterfaceManager.quality[(int)_building.buildingSO.ressourceSO.quality];
   }
   protected virtual void OnEnable()
   {

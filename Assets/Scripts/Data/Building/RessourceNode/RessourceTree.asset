@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ca130fe450f6140a8265c54998c503, type: 3}
   m_Name: RessourceTree
   m_EditorClassIdentifier: 
-  _actualName: Tree
-  _icon: {fileID: 0}
-  _recipe: {fileID: 0}
   _npcSpace: 0
   _prefab: {fileID: 5287830922716742107, guid: 7a640dfac8150f641a50dbd622208a75, type: 3}
+  _ressourceSO: {fileID: 11400000, guid: b448866512bc9a24497fb9bd9d944f93, type: 2}
   _ressourceAndAmount:
     _ressourceSO: {fileID: 11400000, guid: 2781197fbd37abc428ab7db154c2afa5, type: 2}
     _amount: 3

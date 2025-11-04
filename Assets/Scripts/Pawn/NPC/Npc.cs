@@ -55,6 +55,11 @@ public class Npc : Pawn
 
         if (_isSelected)
             _npcPathRenderer.DrawPathBetween(_linkedNodeList);
+
+        if(_linkedNodeList.Count == 1)
+        {
+            _behaviorAgent.BlackboardReference.SetVariableValue("PreviousTarget", nodeLink.NodeB);
+        }
     }
 
     public void UnlinkNode(NodeLink nodeLink)
@@ -156,7 +161,7 @@ public class Npc : Pawn
         if (!target.TryGetComponent<OutputNode>(out var outputNode))
         {
             Debug.LogWarning("NPC tried to pickup at non output node!");
-            return false;
+            return true; //Returns success here because this function will never succeed in such a senario, so better to move the NPC along.
         }
 
         // need to give outputNode.RessourceAccesibleFromList(); the previous input node
@@ -213,15 +218,15 @@ public class Npc : Pawn
     /// Calls the NPC to drop of resource. Drops of all the resource at a time.
     /// </summary>
     /// <returns>Returns information about the dropped of resource.</returns>
-    public void DropOff(GameObject target)
+    public bool DropOff(GameObject target)
     {
         if (_carrying == null)
-            return;
+            return false;
 
         if (!target.TryGetComponent<InputNode>(out var inputNode))
         {
             Debug.LogWarning("NPC tried to drop of at non input node!");
-            return;
+            return true;  //Returns success here because this function will never succeed in such a senario, so better to move the NPC along.
         }
 
         // need to change where we drop everything in our inventory and if the inventory still have item inside wait until there is none
@@ -231,11 +236,12 @@ public class Npc : Pawn
             _carrying.amount -= ressourceInput;
             // make npc idle
             // Wait for content to refresh using : inputNode.inventory.onContentChange += Function that check if we can input item again
-            return;
+            return false;
         }
 
         _carrying = null;
         _itemSpriteRenderer.sprite = null;
+        return true;
     }
 
     /// <summary>

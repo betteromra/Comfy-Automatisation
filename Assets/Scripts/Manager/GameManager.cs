@@ -22,13 +22,15 @@ public class GameManager : MonoBehaviour
   public QuestManager questManager { get => _questManager; }
   [SerializeField] DayNightCycleManager _dayNightCycleManager;
   public DayNightCycleManager dayNightCycleManager { get => _dayNightCycleManager; }
+  [SerializeField] ShopManager _shopManager;
+  public ShopManager shopManager { get => _shopManager; }
   [SerializeField] Player _player;
   public Player player { get => _player; }
   void Awake()
   {
     if (_instance != null && _instance != this)
     {
-      _instance.OnSceneLoaded(_levelManager, _cameraManager, _soundManager, _buildingManager, _userInterfaceManager,  _selectionManager, _questManager, _dayNightCycleManager, _player);
+      _instance.OnSceneLoaded(_levelManager, _cameraManager, _soundManager, _buildingManager, _userInterfaceManager, _selectionManager, _questManager, _dayNightCycleManager, _shopManager, _player);
       Destroy(gameObject);
       return;
     }
@@ -36,11 +38,11 @@ public class GameManager : MonoBehaviour
     {
       DontDestroyOnLoad(this);
       _instance = this;
-      OnSceneLoaded(_levelManager, _cameraManager, _soundManager, _buildingManager, _userInterfaceManager, _selectionManager, _questManager, _dayNightCycleManager, _player);
+      OnSceneLoaded(_levelManager, _cameraManager, _soundManager, _buildingManager, _userInterfaceManager, _selectionManager, _questManager, _dayNightCycleManager, _shopManager, _player);
     }
   }
 
-  public void OnSceneLoaded(LevelManager levelManager, CameraManager cameraManager, SoundManager soundManager, BuildingManager buildingManager, UserInterfaceManager userInterfaceManager, SelectionManager selectionManager, QuestManager questManager, DayNightCycleManager dayNightCycleManager, Player player)
+  public void OnSceneLoaded(LevelManager levelManager, CameraManager cameraManager, SoundManager soundManager, BuildingManager buildingManager, UserInterfaceManager userInterfaceManager, SelectionManager selectionManager, QuestManager questManager, DayNightCycleManager dayNightCycleManager, ShopManager shopManager, Player player)
   {
     _levelManager = levelManager;
     _cameraManager = cameraManager;
@@ -51,5 +53,6 @@ public class GameManager : MonoBehaviour
     _selectionManager = selectionManager;
     _questManager = questManager;
     _dayNightCycleManager = dayNightCycleManager;
+    _shopManager = shopManager;
   }
 }

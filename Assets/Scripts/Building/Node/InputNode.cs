@@ -5,7 +5,7 @@ using System;
 
 public class InputNode : BuildingNode
 {
-  protected List<OutputNode> _linkedPath = new List<OutputNode>();
+  protected Dictionary<OutputNode, int> _linkedPath = new Dictionary<OutputNode, int>();
   RecipeSO _recipeSO;
   public RecipeSO recipeSO { get => _recipeSO; set => _recipeSO = value; }
   int HowMuchCanInput(RessourceSO ressourceSO)
@@ -21,14 +21,18 @@ public class InputNode : BuildingNode
   public bool Link(OutputNode outputNode)
   {
     if (!CanLink(outputNode)) return false;
-    _linkedPath.Add(outputNode);
+    _linkedPath[outputNode] = _linkedPath.GetValueOrDefault(outputNode) + 1;
 
     return true;
   }
 
   public void Unlink(OutputNode outputNode)
   {
-    _linkedPath.Remove(outputNode);
+    if (_linkedPath.ContainsKey(outputNode))
+    {
+      _linkedPath[outputNode]--;
+      if (_linkedPath[outputNode] == 0) _linkedPath.Remove(outputNode);
+    }
   }
 
   bool CanInput(RessourceSO ressourceSO)
@@ -56,7 +60,7 @@ public class InputNode : BuildingNode
     return ressourcesNeeded.OrderBy(ra => _percentageRessourceComplete[ra.ressourceSO]).ToArray();
   }
 
-  public int Input(RessourceAndAmount ressourceAndAmountOutput, bool verify = true)
+  public virtual int Input(RessourceAndAmount ressourceAndAmountOutput, bool verify = true)
   {
     if (verify && !CanInput(ressourceAndAmountOutput.ressourceSO)) return 0;
     int howManyAdded = Mathf.Min(HowMuchCanInput(ressourceAndAmountOutput.ressourceSO), ressourceAndAmountOutput.amount);

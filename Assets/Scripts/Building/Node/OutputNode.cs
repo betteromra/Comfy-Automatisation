@@ -4,7 +4,7 @@ using UnityEngine;
 public class OutputNode : BuildingNode
 {
   protected Dictionary<InputNode, int> _linkedPath = new Dictionary<InputNode, int>();
-  public int HowMuchCanOutput(RessourceSO ressourceSO)
+  int HowMuchCanOutput(RessourceSO ressourceSO)
   {
     return _inventory.ContainsHowMany(ressourceSO);
   }
@@ -39,9 +39,9 @@ public class OutputNode : BuildingNode
     return 0;
   }
 
-  public RessourceAndAmount[] RessourceAccesibleFromList(InputNode previousNode)
+  public RessourceAndAmount[] RessourceAccesibleFromList(InputNode nodeThatWeWantToDrop)
   {
-    RessourceAndAmount[] priorityArray = previousNode.PriorityNeeds();
+    RessourceAndAmount[] priorityArray = nodeThatWeWantToDrop.PriorityNeeds();
 
     if (priorityArray.Length == 0)
     {
@@ -61,7 +61,7 @@ public class OutputNode : BuildingNode
     return priorityArrayWithWhatAvailable.ToArray();
   }
 
-  public int Output(RessourceAndAmount ressourceAndAmountOutput)
+  public virtual int Output(RessourceAndAmount ressourceAndAmountOutput)
   {
     int howManyRemoved = Mathf.Min(HowMuchCanOutput(ressourceAndAmountOutput.ressourceSO), ressourceAndAmountOutput.amount);
 

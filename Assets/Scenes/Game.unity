@@ -1237,7 +1237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62f2d5040505e74c83540a472cf73c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayDuration: 360
+  dayDuration: 600
   sunsetDuration: 120
   nightDuration: 360
   sunriseDuration: 120
@@ -1254,7 +1254,6 @@ MonoBehaviour:
   dayRotationEnd: 210
   dayAmbientColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   nightAmbientColor: {r: 0.2, g: 0.2, b: 0.3, a: 1}
-  showDebugInfo: 1
 --- !u!4 &1070514501
 Transform:
   m_ObjectHideFlags: 0
@@ -1863,8 +1862,8 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 3700
-  m_UseColorTemperature: 1
+  m_ColorTemperature: 7000
+  m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1

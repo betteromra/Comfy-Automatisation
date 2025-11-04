@@ -21,7 +21,7 @@ public class NpcPathRenderer : MonoBehaviour
 
     public void DrawPathBetween(List<NodeLink> nodeLinks)
     {
-        if(nodeLinks.Count < 0)
+        if(nodeLinks.Count <= 0)
         {
             SetVisibilityOfLineRenderer(false);
             return;

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Behavior;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +12,10 @@ public class Npc : Pawn
     [SerializeField] private NpcSO _nonPlayableCharacterSO;
     [SerializeField] private NpcPathRenderer _npcPathRenderer;
     [SerializeField] private SpriteRenderer _itemSpriteRenderer;
+    
     public event Action<Npc, bool> OnSelfSelected;
+    public event System.Action OnTargetUnlinked;
+
     private List<NodeLink> _linkedNodeList = new();
 
     private GameObject _tempClickTarget;
@@ -134,6 +136,9 @@ public class Npc : Pawn
 
             walkingPoints.Value.RemoveAt(removeIndex);
 
+            if (target.Value == gameObject)
+                OnTargetUnlinked?.Invoke();
+
             currentIndex = Mathf.Clamp(currentIndex, 0, walkingPoints.Value.Count - 1);
 
             _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints.Value);
@@ -168,7 +173,7 @@ public class Npc : Pawn
         // and then delete the tempory code after it
         _behaviorAgent.GetVariable("PreviousTarget", out BlackboardVariable<GameObject> previousTarget);
         RessourceAndAmount[] ressourcesAndAmountToTake;
-
+            
         if (previousTarget.Value.TryGetComponent(out InputNode previousInputNode))
         {
             ressourcesAndAmountToTake = outputNode.RessourceAccesibleFromList(previousInputNode);

@@ -10,14 +10,18 @@ public partial class PickUpAction : Action
 {
     [SerializeReference] public BlackboardVariable<Npc> Npc;
     [SerializeReference] public BlackboardVariable<GameObject> Target;
+    private Npc _npc;
     private OutputNode _outputNode;
     private bool _pickupSucceeded;
 
     protected override Status OnStart()
     {
         _pickupSucceeded = false;
-        Npc npc = Npc.Value;
-        bool success = npc.PickUp(Target.Value);
+
+        _npc = Npc.Value;
+        _npc.OnTargetUnlinked += TargetUnlik;
+
+        bool success = _npc.PickUp(Target.Value);
 
         if (Target.Value.TryGetComponent(out OutputNode outputNode) && !success)
         {
@@ -29,16 +33,17 @@ public partial class PickUpAction : Action
         return success ? Status.Success : Status.Failure;
     }
 
+    private void TargetUnlik() => _pickupSucceeded = true;
+
     private void NPCPickup()
     {
-        Npc npc = Npc.Value;
-        bool success = npc.PickUp(Target.Value);
+        bool success = _npc.PickUp(Target.Value);
 
         if (success && _outputNode != null)
         {
             _outputNode.inventory.onContentChange -= NPCPickup;
             _pickupSucceeded = true;
-        }   
+        }
     }
 
     protected override Status OnUpdate()
@@ -52,6 +57,8 @@ public partial class PickUpAction : Action
     protected override void OnEnd()
     {
         _pickupSucceeded = false;
+        _npc.OnTargetUnlinked -= TargetUnlik;
+        
         if (_outputNode != null)
         {
             _outputNode.inventory.onContentChange -= NPCPickup;

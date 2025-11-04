@@ -6,6 +6,8 @@ public class NonPlayableCharacterManager : MonoBehaviour
     [Tooltip("It's weird but NPC needs to be clickable layer, else the ray travels through NPC and hits ground")]
     [SerializeField] private LayerMask clickableLayers = -1;
     [SerializeField] private NpcSO[] _npcsSO;
+    [SerializeField] private Color _inputSelectedColor;
+    [SerializeField] private Color _outputSelectedColor;
     public NpcSO[] npcsSO { get => _npcsSO; }
     [SerializeField] Transform _npcsParent;
     private List<Npc> _npcs = new();
@@ -13,6 +15,8 @@ public class NonPlayableCharacterManager : MonoBehaviour
     private List<NodeLink> _linkedNodeList = new();
 
     private GameObject _lastSelected;
+
+    private Color _lastColour;
 
     void Start()
     {
@@ -78,7 +82,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
 
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                _lastSelected = null;
+                ResetLastSelected();
                 foreach (Npc npc in _currentSelectedNPCs)
                 {
                     npc.Link(hit.point);
@@ -91,13 +95,21 @@ public class NonPlayableCharacterManager : MonoBehaviour
                 if (_lastSelected == null)
                 {
                     _lastSelected = clicked;
+
+                    SpriteRenderer sr = clicked.GetComponentInChildren<SpriteRenderer>();
+                    _lastColour = sr.color;
+                    if (_lastSelected.TryGetComponent<OutputNode>(out _))
+                        sr.color = _outputSelectedColor;
+                    else
+                        sr.color = _inputSelectedColor;
+
                     return;
                 }
 
                 //Stops binding output node to outputnode/input to input
                 if (_lastSelected.TryGetComponent<OutputNode>(out _) == clicked.TryGetComponent<OutputNode>(out _))
                 {
-                    _lastSelected = null;
+                    ResetLastSelected();
                     return; //TODO alert user to error
                 }
 
@@ -121,13 +133,31 @@ public class NonPlayableCharacterManager : MonoBehaviour
                     OutputNode outputNode = existing.NodeA.GetComponent<OutputNode>();
                     InputNode inputNode = existing.NodeB.GetComponent<InputNode>();
 
-                    outputNode.Link(inputNode);
-                    inputNode.Link(outputNode);
-                    npc.LinkNode(nodeLink);
+                    bool isAllowedToLinkOutput = outputNode.Link(inputNode);
+                    bool isAllowedToLinkInput = inputNode.Link(outputNode);
+
+                    if (isAllowedToLinkInput && isAllowedToLinkOutput)
+                        npc.LinkNode(nodeLink);
+                    else
+                    {
+                        outputNode.Unlink(inputNode);
+                        inputNode.Unlink(outputNode);
+                    }
                 }
 
-                _lastSelected = null;
+                ResetLastSelected();
             }
         }
+    }
+
+    private void ResetLastSelected()
+    {
+        if (_lastSelected != null)
+        {
+            var renderer = _lastSelected.GetComponentInChildren<SpriteRenderer>();
+            if (renderer != null)
+                renderer.color = _lastColour;
+        }
+        _lastSelected = null;
     }
 }

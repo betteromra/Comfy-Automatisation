@@ -21,7 +21,9 @@ public partial class SwitchTargetAction : Action
         if (Index.Value >= WalkingPoints.Value.Count)
             Index.Value = 0;
 
-        PreviousTarget.Value = Target.Value;
+        if (PreviousTarget != null)
+            PreviousTarget.Value = Target.Value;
+            
         Target.Value = WalkingPoints.Value[Index];
 
         return Status.Success;

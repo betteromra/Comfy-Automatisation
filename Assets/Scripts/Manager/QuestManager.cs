@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
@@ -7,14 +6,13 @@ public class QuestManager : MonoBehaviour
     public static QuestManager Instance { get; private set; }
 
     [Header("Quest Setup")]
-    [SerializeField] private QuestSO[] allQuests; // All quests in order
+    [SerializeField] private QuestSO[] allQuests;
     [SerializeField] private int currentQuestIndex = 0;
     
     private QuestSO currentQuest;
-    private Dictionary<string, int> progressTracker = new Dictionary<string, int>();
-    private float questStartTime;
+    private Inventory inventory;
+    private BuildingManager buildingManager;
 
-    // Events
     public event Action<QuestSO> OnQuestStarted;
     public event Action<QuestSO> OnQuestCompleted;
     public event Action<QuestGoal> OnGoalProgressUpdated;
@@ -32,18 +30,42 @@ public class QuestManager : MonoBehaviour
 
     private void Start()
     {
+        if (GameManager.instance != null)
+        {
+            buildingManager = GameManager.instance.buildingManager;
+            if (buildingManager != null && buildingManager.barn != null)
+            {
+                inventory = buildingManager.barn.inventory;
+            }
+        }
+
+        if (inventory != null)
+        {
+            inventory.onContentChange += OnInventoryChanged;
+        }
+
+        if (buildingManager != null)
+        {
+            buildingManager.onBuildingCreated += OnBuildingCreated;
+        }
+
         if (allQuests != null && allQuests.Length > 0)
         {
             StartQuest(allQuests[currentQuestIndex]);
         }
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        // if (currentQuest != null)
-        // {
-        //     CheckTimeBasedGoals();
-        // }
+        if (inventory != null)
+        {
+            inventory.onContentChange -= OnInventoryChanged;
+        }
+
+        if (buildingManager != null)
+        {
+            buildingManager.onBuildingCreated -= OnBuildingCreated;
+        }
     }
 
     public void StartQuest(QuestSO quest)
@@ -51,16 +73,13 @@ public class QuestManager : MonoBehaviour
         if (quest == null) return;
 
         currentQuest = quest;
-        questStartTime = Time.time;
 
-        // Reset all goal progress
         foreach (var goal in currentQuest.goals)
         {
             goal.isCompleted = false;
             goal.currentAmount = 0;
         }
 
-        // Check if any goals are already completed
         CheckForAutoCompletion();
 
         OnQuestStarted?.Invoke(currentQuest);
@@ -68,7 +87,6 @@ public class QuestManager : MonoBehaviour
         Debug.Log($"<color=cyan>Quest Started: {currentQuest.questName}</color>");
     }
 
-    // Check if quest goals were already accomplished before quest started
     private void CheckForAutoCompletion()
     {
         bool anyProgress = false;
@@ -77,7 +95,6 @@ public class QuestManager : MonoBehaviour
         {
             if (goal.isCompleted) continue;
 
-            // Check based on trigger type
             switch (goal.triggerType)
             {
                 case QuestTriggerType.BuildStructure:
@@ -85,9 +102,6 @@ public class QuestManager : MonoBehaviour
                     break;
                 case QuestTriggerType.CollectResource:
                     CheckResourceProgress(goal);
-                    break;
-                case QuestTriggerType.Custom:
-                    CheckCustomProgress(goal);
                     break;
             }
 
@@ -105,29 +119,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    #region Trigger Methods
-
-    public void TriggerBuildStructure(string buildingID)
-    {
-        if (currentQuest == null) return;
-
-        foreach (var goal in currentQuest.goals)
-        {
-            if (goal.isCompleted) continue;
-            if (goal.triggerType != QuestTriggerType.BuildStructure) continue;
-            if (goal.targetID != buildingID) continue;
-
-            goal.currentAmount++;
-            OnGoalProgressUpdated?.Invoke(goal);
-
-            if (goal.currentAmount >= goal.requiredAmount)
-            {
-                CompleteGoal(goal);
-            }
-        }
-    }
-
-    public void TriggerCollectResource(string resourceID, int amount)
+    private void OnInventoryChanged()
     {
         if (currentQuest == null) return;
 
@@ -135,12 +127,28 @@ public class QuestManager : MonoBehaviour
         {
             if (goal.isCompleted) continue;
             if (goal.triggerType != QuestTriggerType.CollectResource) continue;
-            if (goal.targetID != resourceID) continue;
 
-            goal.currentAmount += amount;
-            OnGoalProgressUpdated?.Invoke(goal);
+            CheckResourceProgress(goal);
 
-            if (goal.currentAmount >= goal.requiredAmount)
+            if (goal.isCompleted)
+            {
+                CompleteGoal(goal);
+            }
+        }
+    }
+
+    private void OnBuildingCreated()
+    {
+        if (currentQuest == null) return;
+
+        foreach (var goal in currentQuest.goals)
+        {
+            if (goal.isCompleted) continue;
+            if (goal.triggerType != QuestTriggerType.BuildStructure) continue;
+            
+            CheckBuildingProgress(goal);
+
+            if (goal.isCompleted)
             {
                 CompleteGoal(goal);
             }
@@ -185,54 +193,14 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public void TriggerCustom(string customKey, int value = 1)
-    {
-        if (currentQuest == null) return;
-
-        foreach (var goal in currentQuest.goals)
-        {
-            if (goal.isCompleted) continue;
-            if (goal.triggerType != QuestTriggerType.Custom) continue;
-            if (goal.customTriggerKey != customKey) continue;
-
-            goal.currentAmount += value;
-            OnGoalProgressUpdated?.Invoke(goal);
-
-            if (goal.currentAmount >= goal.requiredAmount)
-            {
-                CompleteGoal(goal);
-            }
-        }
-    }
-
-    private void CheckTimeBasedGoals()
-    {
-        foreach (var goal in currentQuest.goals)
-        {
-            if (goal.isCompleted) continue;
-            if (goal.triggerType != QuestTriggerType.TimeElapsed) continue;
-
-            // TimeElapsed trigger is not implemented - remove this trigger type if not needed
-            goal.currentAmount = 1;
-            CompleteGoal(goal);
-        }
-    }
-
-    #endregion
-
-    #region Progress Checking (for auto-completion)
-
     private void CheckBuildingProgress(QuestGoal goal)
     {
-        // Check if building already exists in the world
-        BuildingManager buildingManager = GameManager.instance.buildingManager;
         if (buildingManager != null)
         {
             int count = 0;
             foreach (var building in buildingManager.buildings)
             {
-                // Match by building SO name or type
-                if (building != null && building.name.Contains(goal.targetID))
+                if (building != null && (building.name.Contains(goal.targetID) || building.buildingSO.actualName == goal.targetID))
                 {
                     count++;
                 }
@@ -249,24 +217,17 @@ public class QuestManager : MonoBehaviour
 
     private void CheckResourceProgress(QuestGoal goal)
     {
-        // Check if player already has the resource
-        // This would integrate with your Inventory system
-        if (GameManager.instance != null && GameManager.instance.player != null)
+        if (inventory != null)
         {
-            var inventory = GameManager.instance.buildingManager.barn.inventory;
-            if (inventory != null)
+            RessourceSO resourceSO = FindResourceByName(goal.targetID);
+            if (resourceSO != null)
             {
-                // Find RessourceSO by name
-                RessourceSO resourceSO = FindResourceByName(goal.targetID);
-                if (resourceSO != null)
+                int count = inventory.ContainsHowMany(resourceSO);
+                goal.currentAmount = count;
+                
+                if (goal.currentAmount >= goal.requiredAmount)
                 {
-                    int count = inventory.ContainsHowMany(resourceSO);
-                    goal.currentAmount = count;
-                    
-                    if (goal.currentAmount >= goal.requiredAmount)
-                    {
-                        goal.isCompleted = true;
-                    }
+                    goal.isCompleted = true;
                 }
             }
         }
@@ -274,8 +235,6 @@ public class QuestManager : MonoBehaviour
     
     private RessourceSO FindResourceByName(string resourceName)
     {
-        // Load all RessourceSO from Resources or use a registry
-        // This is a simple implementation that loads all resources
         RessourceSO[] allResources = Resources.LoadAll<RessourceSO>("ScriptableObjects");
         foreach (var resource in allResources)
         {
@@ -286,22 +245,6 @@ public class QuestManager : MonoBehaviour
         }
         return null;
     }
-
-    private void CheckCustomProgress(QuestGoal goal)
-    {
-        // Check custom progress from saved data
-        if (progressTracker.ContainsKey(goal.customTriggerKey))
-        {
-            goal.currentAmount = progressTracker[goal.customTriggerKey];
-            
-            if (goal.currentAmount >= goal.requiredAmount)
-            {
-                goal.isCompleted = true;
-            }
-        }
-    }
-
-    #endregion
 
     private void CompleteGoal(QuestGoal goal)
     {
@@ -317,7 +260,6 @@ public class QuestManager : MonoBehaviour
     {
         if (currentQuest == null) return;
 
-        // Check if all goals are completed
         bool allGoalsComplete = true;
         foreach (var goal in currentQuest.goals)
         {
@@ -338,23 +280,19 @@ public class QuestManager : MonoBehaviour
     {
         Debug.Log($"<color=lime>Quest Completed: {currentQuest.questName}</color>");
         
-        // Give rewards
         GiveRewards();
 
         OnQuestCompleted?.Invoke(currentQuest);
 
-        // Move to next quest
         QuestSO completedQuest = currentQuest;
         currentQuest = null;
 
-        // Start next quest if available
         if (completedQuest.nextQuest != null)
         {
             StartQuest(completedQuest.nextQuest);
         }
         else
         {
-            // Check if there's a next quest in the array
             currentQuestIndex++;
             if (currentQuestIndex < allQuests.Length)
             {
@@ -379,14 +317,10 @@ public class QuestManager : MonoBehaviour
                     GiveResourceReward(reward.rewardID, reward.amount);
                     break;
                 case QuestReward.RewardType.UnlockBuilding:
-                    UnlockBuilding(reward.rewardID);
+                    Debug.Log($"Unlocked building: {reward.rewardID}");
                     break;
                 case QuestReward.RewardType.UnlockRecipe:
-                    UnlockRecipe(reward.rewardID);
-                    break;
-                case QuestReward.RewardType.Custom:
-                    // Handle custom rewards
-                    Debug.Log($"Custom reward: {reward.rewardID}");
+                    Debug.Log($"Unlocked recipe: {reward.rewardID}");
                     break;
             }
         }
@@ -394,75 +328,22 @@ public class QuestManager : MonoBehaviour
 
     private void GiveResourceReward(string resourceID, int amount)
     {
-        if (GameManager.instance != null && GameManager.instance.buildingManager != null)
+        if (inventory != null)
         {
-            var inventory = GameManager.instance.buildingManager.barn.inventory;
-            if (inventory != null)
+            RessourceSO resourceSO = FindResourceByName(resourceID);
+            if (resourceSO != null)
             {
-                RessourceSO resourceSO = FindResourceByName(resourceID);
-                if (resourceSO != null)
-                {
-                    RessourceAndAmount reward = new RessourceAndAmount(resourceSO, amount);
-                    inventory.Add(reward);
-                    Debug.Log($"Reward: {amount}x {resourceSO.actualName}");
-                }
-                else
-                {
-                    Debug.LogWarning($"Could not find resource: {resourceID}");
-                }
+                RessourceAndAmount reward = new RessourceAndAmount(resourceSO, amount);
+                inventory.Add(reward);
+                Debug.Log($"Reward: {amount}x {resourceSO.actualName}");
+            }
+            else
+            {
+                Debug.LogWarning($"Could not find resource: {resourceID}");
             }
         }
     }
 
-    private void UnlockBuilding(string buildingID)
-    {
-        // Integrate with your building unlock system
-        Debug.Log($"Unlocked building: {buildingID}");
-    }
-
-    private void UnlockRecipe(string recipeID)
-    {
-        // Integrate with your recipe unlock system
-        Debug.Log($"Unlocked recipe: {recipeID}");
-    }
-
-    #region Public Getters
-
     public QuestSO GetCurrentQuest() => currentQuest;
-
-    public QuestGoal[] GetCurrentGoals()
-    {
-        return currentQuest?.goals;
-    }
-
-    public bool IsQuestActive() => currentQuest != null;
-
-    public float GetQuestProgress()
-    {
-        if (currentQuest == null || currentQuest.goals.Length == 0) return 0f;
-
-        int completedGoals = 0;
-        foreach (var goal in currentQuest.goals)
-        {
-            if (goal.isCompleted) completedGoals++;
-        }
-
-        return (float)completedGoals / currentQuest.goals.Length;
-    }
-
-    #endregion
-
-    #region Save/Load Support
-
-    public void SaveProgress(string key, int value)
-    {
-        progressTracker[key] = value;
-    }
-
-    public int GetSavedProgress(string key)
-    {
-        return progressTracker.ContainsKey(key) ? progressTracker[key] : 0;
-    }
-
-    #endregion
+    public bool HasActiveQuest() => currentQuest != null;
 }

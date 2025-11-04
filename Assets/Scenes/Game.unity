@@ -1379,6 +1379,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb58b7211a48da4f91b051fc4f23f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1070514499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1070514501}
+  - component: {fileID: 1070514500}
+  m_Layer: 0
+  m_Name: DayNightManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1070514500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070514499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62f2d5040505e74c83540a472cf73c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayDuration: 360
+  sunsetDuration: 120
+  nightDuration: 360
+  sunriseDuration: 120
+  directionalLight: {fileID: 1664112162}
+  dayLightColor: {r: 1, g: 0.96, b: 0.84, a: 1}
+  sunsetLightColor: {r: 1, g: 0.6, b: 0.4, a: 1}
+  nightLightColor: {r: 0.4, g: 0.5, b: 0.7, a: 1}
+  sunriseLightColor: {r: 1, g: 0.7, b: 0.5, a: 1}
+  dayLightIntensity: 1.2
+  sunsetLightIntensity: 0.8
+  nightLightIntensity: 0.3
+  sunriseLightIntensity: 0.7
+  dayRotationStart: -30
+  dayRotationEnd: 210
+  dayAmbientColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  nightAmbientColor: {r: 0.2, g: 0.2, b: 0.3, a: 1}
+  showDebugInfo: 1
+--- !u!4 &1070514501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070514499}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2073501780}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1111578416
 GameObject:
   m_ObjectHideFlags: 0
@@ -2580,6 +2642,7 @@ Transform:
   - {fileID: 4989582093776985175}
   - {fileID: 4421870742323167981}
   - {fileID: 337505534}
+  - {fileID: 1070514501}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &358921125296618777
@@ -3087,6 +3150,10 @@ PrefabInstance:
       propertyPath: _selectionManager
       value: 
       objectReference: {fileID: 4989582093776985176}
+    - target: {fileID: 4241987553807541675, guid: 5651d3a9ca119694292a769529f5a221, type: 3}
+      propertyPath: _dayNightCycleManager
+      value: 
+      objectReference: {fileID: 1070514500}
     - target: {fileID: 4241987553807541675, guid: 5651d3a9ca119694292a769529f5a221, type: 3}
       propertyPath: _nonPlayableCharacter
       value: 

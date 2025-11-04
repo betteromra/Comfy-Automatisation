@@ -7,9 +7,7 @@ public enum QuestTriggerType
     BuildStructure,
     CollectResource,
     ReachLocation,
-    InteractWithObject,
-    TimeElapsed,
-    Custom
+    InteractWithObject
 }
 
 [CreateAssetMenu(fileName = "New Quest", menuName = "Quest System/Quest")]
@@ -43,9 +41,6 @@ public class QuestGoal
     public Vector3 targetLocation; // For ReachLocation type
     public float locationRadius = 5f;
     
-    [Header("Custom Trigger")]
-    public string customTriggerKey; // For custom triggers
-    
     [HideInInspector]
     public int currentAmount = 0;
     [HideInInspector]
@@ -59,8 +54,7 @@ public class QuestReward
     {
         Resource,
         UnlockBuilding,
-        UnlockRecipe,
-        Custom
+        UnlockRecipe
     }
     
     public RewardType type;

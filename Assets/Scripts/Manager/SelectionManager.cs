@@ -79,7 +79,16 @@ public class SelectionManager : MonoBehaviour
 
         selectedObjects.Add(selected);
 
-        Renderer[] renderers = selected.GetComponentsInChildren<Renderer>();
+        // Use specific renderers if available, otherwise get all child renderers
+        Renderer[] renderers;
+        if (selected.IsParent && selected.SpecificRenderers != null && selected.SpecificRenderers.Length > 0)
+        {
+            renderers = selected.SpecificRenderers;
+        }
+        else
+        {
+            renderers = selected.GetComponentsInChildren<Renderer>();
+        }
 
         foreach (Renderer renderer in renderers)
         {
@@ -95,7 +104,17 @@ public class SelectionManager : MonoBehaviour
 
         selectedObjects.Remove(selected);
 
-        Renderer[] renderers = selected.GetComponentsInChildren<Renderer>();
+        // Use specific renderers if available, otherwise get all child renderers
+        Renderer[] renderers;
+        if (selected.IsParent && selected.SpecificRenderers != null && selected.SpecificRenderers.Length > 0)
+        {
+            renderers = selected.SpecificRenderers;
+        }
+        else
+        {
+            renderers = selected.GetComponentsInChildren<Renderer>();
+        }
+        
         foreach (Renderer renderer in renderers)
         {
             selectedRenderers.Remove(renderer);

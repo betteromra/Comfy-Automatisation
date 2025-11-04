@@ -17,6 +17,10 @@ public class Selectable : MonoBehaviour
     [Tooltip("If empty and isParent is true, all child renderers will be used. Otherwise, only specified renderers.")]
     [SerializeField] private Renderer[] specificRenderers;
 
+    // Public accessors for SelectionManager
+    public bool IsParent => isParent;
+    public Renderer[] SpecificRenderers => specificRenderers;
+
     private bool isSelected = false;
     private bool isHovered = false;
     private Renderer[] renderers;

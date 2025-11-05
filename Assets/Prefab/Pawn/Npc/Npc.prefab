@@ -534,6 +534,8 @@ MonoBehaviour:
   _nonPlayableCharacterSO: {fileID: 0}
   _npcPathRenderer: {fileID: 550562749293674135}
   _itemSpriteRenderer: {fileID: 3953108461485991209}
+  _animator: {fileID: 0}
+  _spritesGameObject: {fileID: 5213794567920188634}
 --- !u!114 &5547845637641461293
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,11 +7,14 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(BehaviorGraphAgent))]
 [RequireComponent(typeof(Selectable))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class Npc : Pawn
 {
     [SerializeField] private NpcSO _nonPlayableCharacterSO;
     [SerializeField] private NpcPathRenderer _npcPathRenderer;
     [SerializeField] private SpriteRenderer _itemSpriteRenderer;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private GameObject _spritesGameObject;
     
     public event Action<Npc, bool> OnSelfSelected;
     public event System.Action OnTargetUnlinked;
@@ -19,11 +22,18 @@ public class Npc : Pawn
     private List<NodeLink> _linkedNodeList = new();
 
     private GameObject _tempClickTarget;
+
     private RessourceAndAmount _carrying;
     private BehaviorGraphAgent _behaviorAgent;
     private Selectable _selectable;
+    private NavMeshAgent _agent;
+
+    private Vector3 _defaultRotation;
+
     private bool _isSelected = false;
-    NavMeshAgent _agent;
+    private bool _movingRight = false;
+
+    private readonly float _flipThreshold = 0.1f;
 
     void Awake()
     {
@@ -37,6 +47,8 @@ public class Npc : Pawn
         _agent = GetComponent<NavMeshAgent>();
         _agent.updateRotation = false;
         _agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+
+        _defaultRotation = _spritesGameObject.transform.rotation.eulerAngles;
     }
 
     void OnEnable()
@@ -49,6 +61,27 @@ public class Npc : Pawn
         _selectable.onSelfSelected -= HandleSelection;
     }
 
+    private void Update()
+    {
+        Vector3 worldVelocity = _agent.velocity;
+
+        Vector3 localVelocity = transform.InverseTransformDirection(worldVelocity);
+
+        // Optionally normalize for consistent blending
+        float velocityX = localVelocity.x / _agent.speed;
+        float velocityZ = localVelocity.z / _agent.speed;
+
+        if (velocityX > _flipThreshold)
+            _movingRight = true;
+        else if (velocityX < -_flipThreshold)
+            _movingRight = false;
+
+        // Send to animator
+        _animator.SetFloat("XInput", velocityX);
+        _animator.SetFloat("YInput", velocityZ);
+        TurnSprite();
+    }
+
     public void LinkNode(NodeLink nodeLink)
     {
         _linkedNodeList.Add(nodeLink);
@@ -58,7 +91,7 @@ public class Npc : Pawn
         if (_isSelected)
             _npcPathRenderer.DrawPathBetween(_linkedNodeList);
 
-        if(_linkedNodeList.Count == 1)
+        if (_linkedNodeList.Count == 1)
         {
             _behaviorAgent.BlackboardReference.SetVariableValue("PreviousTarget", nodeLink.NodeB);
         }
@@ -216,6 +249,7 @@ public class Npc : Pawn
         }
 
         _itemSpriteRenderer.sprite = _carrying.ressourceSO.sprite;
+        _animator.SetBool("IsCarrying", true);
         return true;
     }
 
@@ -246,6 +280,7 @@ public class Npc : Pawn
 
         _carrying = null;
         _itemSpriteRenderer.sprite = null;
+        _animator.SetBool("IsCarrying", false);
         return true;
     }
 
@@ -291,5 +326,18 @@ public class Npc : Pawn
         }
 
         OnSelfSelected.Invoke(this, isSelected);
+    }
+
+    private void TurnSprite()
+    {
+        if (_movingRight)
+        {
+            _spritesGameObject.transform.rotation = Quaternion.Euler(_defaultRotation);
+        }
+        else
+        {
+            Quaternion flipped = Quaternion.Euler(new Vector3(-_defaultRotation.x, _defaultRotation.y - 180f, _defaultRotation.z));
+            _spritesGameObject.transform.rotation = flipped;
+        }
     }
 }

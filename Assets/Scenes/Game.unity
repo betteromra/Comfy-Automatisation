@@ -3651,6 +3651,34 @@ PrefabInstance:
     m_TransformParent: {fileID: 2073501780}
     m_Modifications:
     - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
+      propertyPath: sunLight
+      value: 
+      objectReference: {fileID: 1664112162}
+    - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
+      propertyPath: noonAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
+      propertyPath: dayDuration
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
+      propertyPath: sunsetAngle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
+      propertyPath: nightDuration
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
+      propertyPath: sunsetDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
+      propertyPath: sunriseDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
       propertyPath: directionalLight
       value: 
       objectReference: {fileID: 1664112162}

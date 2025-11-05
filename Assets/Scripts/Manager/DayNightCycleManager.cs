@@ -4,27 +4,53 @@ using System;
 public class DayNightCycleManager : MonoBehaviour
 {
     [Header("Cycle Timing (in seconds)")]
-    [SerializeField] private float dayDuration = 360f; // 6 minutes
-    [SerializeField] private float sunsetDuration = 120f; // 2 minutes
-    [SerializeField] private float nightDuration = 360f; // 6 minutes
-    [SerializeField] private float sunriseDuration = 120f; // 2 minutes
+    [SerializeField] private float dayDuration = 20f; // DEBUG: 20 seconds
+    [SerializeField] private float sunsetDuration = 5f; // DEBUG: 5 seconds
+    [SerializeField] private float nightDuration = 20f; // DEBUG: 20 seconds
+    [SerializeField] private float sunriseDuration = 5f; // DEBUG: 5 seconds
+
+    [ContextMenu("Set Debug Speed (Fast)")]
+    private void SetDebugSpeed()
+    {
+        dayDuration = 20f;
+        sunsetDuration = 5f;
+        nightDuration = 20f;
+        sunriseDuration = 5f;
+        sunriseAngle = 20f;
+        noonAngle = 90f;
+        sunsetAngle = 20f;
+        totalCycleDuration = dayDuration + sunsetDuration + nightDuration + sunriseDuration;
+        Debug.Log("Day/Night cycle set to debug speed (50 seconds total) with corrected angles");
+    }
+
+    [ContextMenu("Set Normal Speed")]
+    private void SetNormalSpeed()
+    {
+        dayDuration = 360f;
+        sunsetDuration = 120f;
+        nightDuration = 360f;
+        sunriseDuration = 120f;
+        totalCycleDuration = dayDuration + sunsetDuration + nightDuration + sunriseDuration;
+        Debug.Log("Day/Night cycle set to normal speed (16 minutes total)");
+    }
 
     [Header("Lighting")]
     [SerializeField] private Light directionalLight;
     [SerializeField] private Color dayLightColor = new Color(1f, 0.96f, 0.84f);
     [SerializeField] private Color sunsetLightColor = new Color(1f, 0.6f, 0.4f);
-    [SerializeField] private Color nightLightColor = new Color(0.4f, 0.5f, 0.7f);
+    [SerializeField] private Color nightLightColor = new Color(0.5f, 0.6f, 0.8f);
     [SerializeField] private Color sunriseLightColor = new Color(1f, 0.7f, 0.5f);
     
     [Header("Light Intensity")]
     [SerializeField] private float dayLightIntensity = 1.2f;
     [SerializeField] private float sunsetLightIntensity = 0.8f;
-    [SerializeField] private float nightLightIntensity = 0.3f;
+    [SerializeField] private float nightLightIntensity = 0.4f;
     [SerializeField] private float sunriseLightIntensity = 0.7f;
 
     [Header("Sun Rotation")]
-    [SerializeField] private float dayRotationStart = -30f; // Sunrise angle
-    [SerializeField] private float dayRotationEnd = 210f; // Sunset angle
+    [SerializeField] private float sunriseAngle = 20f; // Low angle at sunrise (positive = from above)
+    [SerializeField] private float noonAngle = 90f; // Directly overhead at noon
+    [SerializeField] private float sunsetAngle = 20f; // Low angle at sunset (positive = from above)
     
     [Header("Ambient Lighting")]
     [SerializeField] private Color dayAmbientColor = new Color(0.5f, 0.5f, 0.5f);
@@ -53,13 +79,33 @@ public class DayNightCycleManager : MonoBehaviour
     {
         totalCycleDuration = dayDuration + sunsetDuration + nightDuration + sunriseDuration;
         
+        // Find directional light
         if (directionalLight == null)
         {
-            directionalLight = FindFirstObjectByType<Light>();
-            if (directionalLight == null)
+            Light[] lights = FindObjectsByType<Light>(FindObjectsSortMode.None);
+            Debug.Log($"Found {lights.Length} lights in scene");
+            
+            foreach (Light light in lights)
             {
-                Debug.LogWarning("No directional light found for day/night cycle!");
+                Debug.Log($"Light: {light.gameObject.name}, Type: {light.type}, Enabled: {light.enabled}");
+                if (light.type == LightType.Directional)
+                {
+                    directionalLight = light;
+                    Debug.Log($"Assigned Directional Light: {light.gameObject.name}");
+                    break;
+                }
             }
+        }
+        
+        if (directionalLight != null)
+        {
+            // Position light above the world center (-175, -20, -175)
+            directionalLight.transform.position = new Vector3(-175f, 100f, -175f);
+            Debug.Log($"Directional Light positioned at: {directionalLight.transform.position}");
+        }
+        else
+        {
+            Debug.LogWarning("No directional light found!");
         }
 
         // Start at day
@@ -139,12 +185,22 @@ public class DayNightCycleManager : MonoBehaviour
     {
         if (directionalLight == null) return;
 
-        // During day, sun moves from sunrise position to midday to sunset position
-        float rotationAngle = Mathf.Lerp(dayRotationStart, dayRotationEnd * 0.5f, progress);
+        // Sun moves from low angle (sunrise) through high angle (noon) back to low (sunset)
+        float rotationAngle = Mathf.Lerp(sunriseAngle, noonAngle, Mathf.Clamp01(progress * 2f));
+        if (progress > 0.5f)
+        {
+            rotationAngle = Mathf.Lerp(noonAngle, sunsetAngle, (progress - 0.5f) * 2f);
+        }
+        
         directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, 170f, 0f);
-
         directionalLight.color = dayLightColor;
         directionalLight.intensity = dayLightIntensity;
+        
+        if (Time.frameCount % 120 == 0) // Log every 2 seconds at 60fps
+        {
+            Debug.Log($"DAY - Progress: {progress:F2}, Angle: {rotationAngle:F1}°, Intensity: {directionalLight.intensity}, Rotation: {directionalLight.transform.rotation.eulerAngles}");
+        }
+        
         RenderSettings.ambientLight = dayAmbientColor;
     }
 
@@ -152,13 +208,14 @@ public class DayNightCycleManager : MonoBehaviour
     {
         if (directionalLight == null) return;
 
-        // Sun continues rotating down during sunset
-        float rotationAngle = Mathf.Lerp(dayRotationEnd * 0.5f, dayRotationEnd, progress);
+        // Sun goes from sunset angle down below horizon (negative angles)
+        float rotationAngle = Mathf.Lerp(sunsetAngle, -20f, progress);
         directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, 170f, 0f);
 
-        // Interpolate between day and sunset colors
+        // Interpolate colors
         directionalLight.color = Color.Lerp(dayLightColor, sunsetLightColor, progress);
         directionalLight.intensity = Mathf.Lerp(dayLightIntensity, sunsetLightIntensity, progress);
+        
         RenderSettings.ambientLight = Color.Lerp(dayAmbientColor, nightAmbientColor, progress);
     }
 
@@ -166,21 +223,16 @@ public class DayNightCycleManager : MonoBehaviour
     {
         if (directionalLight == null) return;
 
-        // Keep sun below horizon during night
-        float rotationAngle = Mathf.Lerp(dayRotationEnd, dayRotationEnd + 30f, progress);
+        // Moon light - keep at moderate angle from above
+        float rotationAngle = Mathf.Lerp(30f, 50f, Mathf.Sin(progress * Mathf.PI));
+        
         directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, 170f, 0f);
-
-        // Transition from sunset to full night color
-        if (progress < 0.3f)
+        directionalLight.color = nightLightColor;
+        directionalLight.intensity = nightLightIntensity;
+        
+        if (Time.frameCount % 120 == 0)
         {
-            float transitionProgress = progress / 0.3f;
-            directionalLight.color = Color.Lerp(sunsetLightColor, nightLightColor, transitionProgress);
-            directionalLight.intensity = Mathf.Lerp(sunsetLightIntensity, nightLightIntensity, transitionProgress);
-        }
-        else
-        {
-            directionalLight.color = nightLightColor;
-            directionalLight.intensity = nightLightIntensity;
+            Debug.Log($"NIGHT - Progress: {progress:F2}, Angle: {rotationAngle:F1}°, Intensity: {directionalLight.intensity}");
         }
         
         RenderSettings.ambientLight = nightAmbientColor;
@@ -190,13 +242,14 @@ public class DayNightCycleManager : MonoBehaviour
     {
         if (directionalLight == null) return;
 
-        // Sun rises during sunrise
-        float rotationAngle = Mathf.Lerp(dayRotationEnd + 30f, dayRotationStart, progress);
+        // Sun rises from below horizon to sunrise angle
+        float rotationAngle = Mathf.Lerp(-20f, sunriseAngle, progress);
         directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, 170f, 0f);
 
-        // Interpolate between night and sunrise colors
+        // Interpolate colors
         directionalLight.color = Color.Lerp(nightLightColor, sunriseLightColor, progress);
         directionalLight.intensity = Mathf.Lerp(nightLightIntensity, sunriseLightIntensity, progress);
+        
         RenderSettings.ambientLight = Color.Lerp(nightAmbientColor, dayAmbientColor, progress);
     }
 

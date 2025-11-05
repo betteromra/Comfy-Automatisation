@@ -8,8 +8,8 @@ Shader "Hidden/OutlineMask"
     {
         Tags { "RenderType"="Opaque" }
 
-        ZWrite On
-        ZTest LEqual
+        ZWrite Off
+        ZTest Always
         Cull Back
 
         Pass

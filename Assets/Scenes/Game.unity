@@ -3655,28 +3655,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1664112162}
     - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
-      propertyPath: noonAngle
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
       propertyPath: dayDuration
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
-      propertyPath: sunsetAngle
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
       propertyPath: nightDuration
-      value: 20
+      value: 3.6
       objectReference: {fileID: 0}
     - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
       propertyPath: sunsetDuration
-      value: 5
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
       propertyPath: sunriseDuration
-      value: 5
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
       propertyPath: directionalLight

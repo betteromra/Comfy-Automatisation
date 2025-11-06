@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlackCatIdleFront
+  m_Name: HeadPumpkinCatIdleFront
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
@@ -23,7 +23,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c2577b02f492bf74cbef9155d561e715, type: 2}
+  m_Motion: {fileID: 7400000, guid: 36497ca15278eba4ab74f21990a454d7, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -67,7 +67,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 1e8eff06139b5eb4fbaa86290e004e03, type: 2}
+    m_Motion: {fileID: 7400000, guid: a757176fe899f2a4bba999e55350f65c, type: 2}
     m_Threshold: 0
     m_Position: {x: 0.75, y: 0.75}
     m_TimeScale: 1
@@ -75,7 +75,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 1e8eff06139b5eb4fbaa86290e004e03, type: 2}
+    m_Motion: {fileID: 7400000, guid: a757176fe899f2a4bba999e55350f65c, type: 2}
     m_Threshold: 0.33333334
     m_Position: {x: -0.75, y: 0.75}
     m_TimeScale: 1
@@ -83,7 +83,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 32c57fdcc85354e43bbef3cb8d1ecc97, type: 2}
+    m_Motion: {fileID: 7400000, guid: 534dd0f5f8bae1f4d97c60937637065f, type: 2}
     m_Threshold: 0.6666667
     m_Position: {x: -0.75, y: -0.75}
     m_TimeScale: 1
@@ -91,7 +91,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 32c57fdcc85354e43bbef3cb8d1ecc97, type: 2}
+    m_Motion: {fileID: 7400000, guid: 534dd0f5f8bae1f4d97c60937637065f, type: 2}
     m_Threshold: 1
     m_Position: {x: 0.75, y: -0.75}
     m_TimeScale: 1
@@ -112,7 +112,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlackCatIdleFrontHolding
+  m_Name: HeadPumpkinCatIdleFrontHolding
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
@@ -127,7 +127,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 69f53b457ecf70b408f4e5626912dbfc, type: 2}
+  m_Motion: {fileID: 7400000, guid: b41db3678dc0d9543abc0f579a54f284, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -336,7 +336,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlackCatController
+  m_Name: HeadPumpkinCatController 1
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: XInput
@@ -472,7 +472,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: a237226a46b4fbf45a5f6d65a2b93131, type: 2}
+    m_Motion: {fileID: 7400000, guid: 5c6fec841547ef6498a127e97dc6b68e, type: 2}
     m_Threshold: 0
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -480,7 +480,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: a237226a46b4fbf45a5f6d65a2b93131, type: 2}
+    m_Motion: {fileID: 7400000, guid: 5c6fec841547ef6498a127e97dc6b68e, type: 2}
     m_Threshold: 0.33333334
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -488,7 +488,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: f11e41fec0f247f4ea475190c4c0ee9b, type: 2}
+    m_Motion: {fileID: 7400000, guid: 1a4de40ca41483940b730e63209cb40b, type: 2}
     m_Threshold: 0.6666667
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
@@ -496,7 +496,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: f11e41fec0f247f4ea475190c4c0ee9b, type: 2}
+    m_Motion: {fileID: 7400000, guid: 1a4de40ca41483940b730e63209cb40b, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: -1}
     m_TimeScale: 1

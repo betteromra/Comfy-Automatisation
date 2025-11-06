@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlackCatIdleFront
+  m_Name: BinturongIdle
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
@@ -23,7 +23,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c2577b02f492bf74cbef9155d561e715, type: 2}
+  m_Motion: {fileID: 7400000, guid: a8d3b8cf06b22da4195a05c49eee2398, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -67,7 +67,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 1e8eff06139b5eb4fbaa86290e004e03, type: 2}
+    m_Motion: {fileID: 7400000, guid: 349762b93585f1141afda7aa681e3fec, type: 2}
     m_Threshold: 0
     m_Position: {x: 0.75, y: 0.75}
     m_TimeScale: 1
@@ -75,7 +75,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 1e8eff06139b5eb4fbaa86290e004e03, type: 2}
+    m_Motion: {fileID: 7400000, guid: 349762b93585f1141afda7aa681e3fec, type: 2}
     m_Threshold: 0.33333334
     m_Position: {x: -0.75, y: 0.75}
     m_TimeScale: 1
@@ -83,7 +83,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 32c57fdcc85354e43bbef3cb8d1ecc97, type: 2}
+    m_Motion: {fileID: 7400000, guid: 0b14d2b6d3cc0e34b83cd8cb507b5a36, type: 2}
     m_Threshold: 0.6666667
     m_Position: {x: -0.75, y: -0.75}
     m_TimeScale: 1
@@ -91,7 +91,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 32c57fdcc85354e43bbef3cb8d1ecc97, type: 2}
+    m_Motion: {fileID: 7400000, guid: 0b14d2b6d3cc0e34b83cd8cb507b5a36, type: 2}
     m_Threshold: 1
     m_Position: {x: 0.75, y: -0.75}
     m_TimeScale: 1
@@ -112,7 +112,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlackCatIdleFrontHolding
+  m_Name: BinturongIdleHold
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
@@ -127,7 +127,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 69f53b457ecf70b408f4e5626912dbfc, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4ef7234dbe374aa4085bb1e234a192e0, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -336,7 +336,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlackCatController
+  m_Name: BinturongController
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: XInput
@@ -472,7 +472,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: a237226a46b4fbf45a5f6d65a2b93131, type: 2}
+    m_Motion: {fileID: 7400000, guid: 4e3eab7183e9db74fb81321593dcf14a, type: 2}
     m_Threshold: 0
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -480,7 +480,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: a237226a46b4fbf45a5f6d65a2b93131, type: 2}
+    m_Motion: {fileID: 7400000, guid: 4e3eab7183e9db74fb81321593dcf14a, type: 2}
     m_Threshold: 0.33333334
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -488,7 +488,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: f11e41fec0f247f4ea475190c4c0ee9b, type: 2}
+    m_Motion: {fileID: 7400000, guid: cf1c82a5a4895fb43b818d53ed6665be, type: 2}
     m_Threshold: 0.6666667
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
@@ -496,7 +496,7 @@ BlendTree:
     m_DirectBlendParameter: XInput
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: f11e41fec0f247f4ea475190c4c0ee9b, type: 2}
+    m_Motion: {fileID: 7400000, guid: cf1c82a5a4895fb43b818d53ed6665be, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: -1}
     m_TimeScale: 1

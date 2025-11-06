@@ -4109,7 +4109,7 @@ PrefabInstance:
       objectReference: {fileID: 208329097}
     - target: {fileID: 3799328801981626515, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
       propertyPath: _npcsSO.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3799328801981626515, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
       propertyPath: '_npcsSO.Array.data[0]'
@@ -4119,6 +4119,10 @@ PrefabInstance:
       propertyPath: '_npcsSO.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 8b347429bbb929846bf1cac65bf063b9, type: 2}
+    - target: {fileID: 3799328801981626515, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
+      propertyPath: '_npcsSO.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 2f14edc051e4b0047bf009a2dab6dfc9, type: 2}
     - target: {fileID: 6606712884057377677, guid: 3bd8b6ae28c78bd4da962c7f75b6b6b7, type: 3}
       propertyPath: m_Name
       value: NonPlayableCharacterManager

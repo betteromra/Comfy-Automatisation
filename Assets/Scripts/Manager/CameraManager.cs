@@ -69,7 +69,7 @@ public class CameraManager : MonoBehaviour
         Vector3 movement3d = new Vector3(mouvement2dDelta.x * _moveSpeed.x, 0, mouvement2dDelta.y * _moveSpeed.y);
         // rotate the movment to be relative to the camera
         movement3d = Quaternion.Euler(0, _mainCameraOrbit.HorizontalAxis.Value, 0) * movement3d;
-        Vector3 motion = movement3d * Time.deltaTime;
+        Vector3 motion = movement3d * Time.fixedDeltaTime;
 
         // The more zoomed you are the less move you will do
         float zoomMultiplier = _moveSpeedZoomCurve.Evaluate(_zoomLevel);
@@ -93,7 +93,7 @@ public class CameraManager : MonoBehaviour
 
     void ZoomCamera(float zoomDelta)
     {
-        float motion = zoomDelta * _zoomSpeed * Time.deltaTime;
+        float motion = zoomDelta * _zoomSpeed * Time.fixedDeltaTime;
         InputAxis radialAxis = _mainCameraOrbit.RadialAxis;
 
         // if we go in another direction don't make it go in the wrong way

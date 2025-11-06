@@ -3659,6 +3659,14 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
+      propertyPath: sunsetAngle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
+      propertyPath: sunriseAngle
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546104309244349942, guid: 0dde444799827b14bacf9020373c6fc1, type: 3}
       propertyPath: nightDuration
       value: 3.6
       objectReference: {fileID: 0}

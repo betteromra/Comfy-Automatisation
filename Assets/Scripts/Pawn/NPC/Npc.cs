@@ -210,6 +210,7 @@ public class Npc : Pawn
             
         if (previousTarget.Value.TryGetComponent(out InputNode previousInputNode))
         {
+            //Change this to next node, not previous!
             ressourcesAndAmountToTake = outputNode.RessourceAccesibleFromList(previousInputNode);
         }
         else
@@ -227,12 +228,6 @@ public class Npc : Pawn
                 carryAmount = _carrying.amount;
             else
                 return false;
-
-            // !!!
-            // Check if the _carrying.ressourceSO is inside the ressourcesAndAmountToTake.
-            // if it is inside then change the ressourceAndAmountToTake to be the same as the carrying one. Else { it is the player fault
-            // because if all securities are added, this should only happen by moving an npc with an item that shouldn't go there.
-            // We need remove all link and make npc idol, the player tried to unput ressource that wasn't approriate }
         }
         else
         {
@@ -242,7 +237,7 @@ public class Npc : Pawn
         // make sure we can t take more than the limit
         _carrying.amount = _nonPlayableCharacterSO.MaxCarryingCapacity - carryAmount;
 
-        int ressourceOutput = outputNode.Output(ressourcesAndAmountToTake[0]);
+        int ressourceOutput = outputNode.Output(_carrying);
         if (ressourceOutput == 0)
         {
             // NPC Idle handled in the Behaviour tree.

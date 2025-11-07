@@ -32,7 +32,7 @@ Shader "Sprites/Custom/SpriteShadow"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Core2D.hlsl"
 
             #pragma vertex CombinedShapeLightVertex
-            #pragma alphatest:_Cutoff addshadow
+            #pragma alphatest:_Cutoff
             #pragma fragment CombinedShapeLightFragment
 
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightShared.hlsl"

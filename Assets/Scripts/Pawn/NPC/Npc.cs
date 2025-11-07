@@ -64,6 +64,7 @@ public class Npc : Pawn
     private void Update()
     {
         Vector3 worldVelocity = _agent.velocity;
+        //Debug.Log(worldVelocity);
 
         Vector3 localVelocity = transform.InverseTransformDirection(worldVelocity);
 
@@ -317,6 +318,7 @@ public class Npc : Pawn
 
     private void HandleSelection(bool isSelected)
     {
+        Debug.Log(isSelected);
         _isSelected = isSelected;
         _npcPathRenderer.SetVisibilityOfLineRenderer(isSelected);
 

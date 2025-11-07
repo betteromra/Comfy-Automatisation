@@ -17,7 +17,7 @@ public class DayNightCycleManager : MonoBehaviour
         nightDuration = 20f;
         sunriseDuration = 5f;
         totalCycleDuration = dayDuration + sunsetDuration + nightDuration + sunriseDuration;
-        Debug.Log("Day/Night cycle set to debug speed (50 seconds total) with corrected angles");
+        //Debug.Log("Day/Night cycle set to debug speed (50 seconds total) with corrected angles");
     }
 
     [ContextMenu("Set Normal Speed")]
@@ -28,7 +28,7 @@ public class DayNightCycleManager : MonoBehaviour
         nightDuration = 360f;
         sunriseDuration = 120f;
         totalCycleDuration = dayDuration + sunsetDuration + nightDuration + sunriseDuration;
-        Debug.Log("Day/Night cycle set to normal speed (16 minutes total)");
+        //Debug.Log("Day/Night cycle set to normal speed (16 minutes total)");
     }
 
     [Header("Lighting")]
@@ -84,15 +84,15 @@ public class DayNightCycleManager : MonoBehaviour
         if (directionalLight == null)
         {
             Light[] lights = FindObjectsByType<Light>(FindObjectsSortMode.None);
-            Debug.Log($"Found {lights.Length} lights in scene");
+            //Debug.Log($"Found {lights.Length} lights in scene");
 
             foreach (Light light in lights)
             {
-                Debug.Log($"Light: {light.gameObject.name}, Type: {light.type}, Enabled: {light.enabled}");
+                //Debug.Log($"Light: {light.gameObject.name}, Type: {light.type}, Enabled: {light.enabled}");
                 if (light.type == LightType.Directional)
                 {
                     directionalLight = light;
-                    Debug.Log($"Assigned Directional Light: {light.gameObject.name}");
+                    //Debug.Log($"Assigned Directional Light: {light.gameObject.name}");
                     break;
                 }
             }
@@ -102,11 +102,11 @@ public class DayNightCycleManager : MonoBehaviour
         {
             // Position light above the world center
             directionalLight.transform.position = new Vector3(0, 100f, 0);
-            Debug.Log($"Directional Light positioned at: {directionalLight.transform.position}");
+            //Debug.Log($"Directional Light positioned at: {directionalLight.transform.position}");
         }
         else
         {
-            Debug.LogWarning("No directional light found!");
+            //Debug.LogWarning("No directional light found!");
         }
 
         // Start at day
@@ -194,7 +194,7 @@ public class DayNightCycleManager : MonoBehaviour
 
         if (Time.frameCount % 120 == 0) // Log every 2 seconds at 60fps
         {
-            Debug.Log($"DAY - Progress: {progress:F2}, Angle: {rotationAngle:F1}°, Intensity: {directionalLight.intensity}, Rotation: {directionalLight.transform.rotation.eulerAngles}");
+            //Debug.Log($"DAY - Progress: {progress:F2}, Angle: {rotationAngle:F1}°, Intensity: {directionalLight.intensity}, Rotation: {directionalLight.transform.rotation.eulerAngles}");
         }
     }
 
@@ -243,7 +243,7 @@ public class DayNightCycleManager : MonoBehaviour
 
         if (Time.frameCount % 120 == 0)
         {
-            Debug.Log($"NIGHT - Progress: {progress:F2}, Angle: {rotationAngle:F1}°, Intensity: {directionalLight.intensity}");
+            //Debug.Log($"NIGHT - Progress: {progress:F2}, Angle: {rotationAngle:F1}°, Intensity: {directionalLight.intensity}");
         }
     }
 

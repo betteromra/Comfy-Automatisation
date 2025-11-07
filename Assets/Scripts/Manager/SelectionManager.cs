@@ -27,8 +27,7 @@ public class SelectionManager : MonoBehaviour
             playerCamera = Camera.main;
 
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-        bool isMultiSelect = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
-                            Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool isMultiSelect = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, selectableLayers))
         {
@@ -48,6 +47,7 @@ public class SelectionManager : MonoBehaviour
                     {
                         ClearSelection();
                         SelectObject(selectable);
+                        Debug.Log("a");
                     }
                 }
             }

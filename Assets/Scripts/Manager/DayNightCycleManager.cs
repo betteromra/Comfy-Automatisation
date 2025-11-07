@@ -16,9 +16,6 @@ public class DayNightCycleManager : MonoBehaviour
         sunsetDuration = 5f;
         nightDuration = 20f;
         sunriseDuration = 5f;
-        sunriseAngle = 20f;
-        noonAngle = 90f;
-        sunsetAngle = 20f;
         totalCycleDuration = dayDuration + sunsetDuration + nightDuration + sunriseDuration;
         Debug.Log("Day/Night cycle set to debug speed (50 seconds total) with corrected angles");
     }
@@ -40,18 +37,13 @@ public class DayNightCycleManager : MonoBehaviour
     [SerializeField] private Color sunsetLightColor = new Color(1f, 0.6f, 0.4f);
     [SerializeField] private Color nightLightColor = new Color(0.5f, 0.6f, 0.8f);
     [SerializeField] private Color sunriseLightColor = new Color(1f, 0.7f, 0.5f);
-    
+
     [Header("Light Intensity")]
     [SerializeField] private float dayLightIntensity = 1.2f;
     [SerializeField] private float sunsetLightIntensity = 0.8f;
     [SerializeField] private float nightLightIntensity = 0.4f;
     [SerializeField] private float sunriseLightIntensity = 0.7f;
 
-    [Header("Sun Rotation")]
-    [SerializeField] private float sunriseAngle = 20f; // Low angle at sunrise (positive = from above)
-    [SerializeField] private float noonAngle = 90f; // Directly overhead at noon
-    [SerializeField] private float sunsetAngle = 20f; // Low angle at sunset (positive = from above)
-    
     [Header("Ambient Lighting")]
     [SerializeField] private Color dayAmbientColor = new Color(0.5f, 0.5f, 0.5f);
     [SerializeField] private Color nightAmbientColor = new Color(0.2f, 0.2f, 0.3f);
@@ -60,6 +52,10 @@ public class DayNightCycleManager : MonoBehaviour
     private float currentTime = 0f;
     private float totalCycleDuration;
     private TimeOfDay currentTimeOfDay = TimeOfDay.Day;
+    Timer dayTimer;
+    Timer sunsetTimer;
+    Timer nightTimer;
+    Timer sunriseTimer;
 
     // Events
     public event Action OnDayStart;
@@ -78,13 +74,18 @@ public class DayNightCycleManager : MonoBehaviour
     private void Start()
     {
         totalCycleDuration = dayDuration + sunsetDuration + nightDuration + sunriseDuration;
-        
+
+        dayTimer = new(dayDuration);
+        sunsetTimer = new(sunsetDuration);
+        nightTimer = new(nightDuration);
+        sunriseTimer = new(sunriseDuration);
+
         // Find directional light
         if (directionalLight == null)
         {
             Light[] lights = FindObjectsByType<Light>(FindObjectsSortMode.None);
             Debug.Log($"Found {lights.Length} lights in scene");
-            
+
             foreach (Light light in lights)
             {
                 Debug.Log($"Light: {light.gameObject.name}, Type: {light.type}, Enabled: {light.enabled}");
@@ -96,11 +97,11 @@ public class DayNightCycleManager : MonoBehaviour
                 }
             }
         }
-        
+
         if (directionalLight != null)
         {
-            // Position light above the world center (-175, -20, -175)
-            directionalLight.transform.position = new Vector3(-175f, 100f, -175f);
+            // Position light above the world center
+            directionalLight.transform.position = new Vector3(0, 100f, 0);
             Debug.Log($"Directional Light positioned at: {directionalLight.transform.position}");
         }
         else
@@ -109,7 +110,7 @@ public class DayNightCycleManager : MonoBehaviour
         }
 
         // Start at day
-        currentTime = 0f;
+        currentTime = totalCycleDuration - sunriseDuration - .001f;
         UpdateCycle();
     }
 
@@ -139,117 +140,127 @@ public class DayNightCycleManager : MonoBehaviour
         if (currentTime < dayEnd)
         {
             currentTimeOfDay = TimeOfDay.Day;
-            UpdateDay(currentTime / dayDuration);
+            if (previousTimeOfDay != currentTimeOfDay)
+            {
+                OnDayStart?.Invoke();
+                dayTimer.Restart();
+                directionalLight.color = dayLightColor;
+                directionalLight.intensity = dayLightIntensity;
+                RenderSettings.ambientLight = dayAmbientColor;
+            }
+            UpdateDay();
         }
         else if (currentTime < sunsetEnd)
         {
             currentTimeOfDay = TimeOfDay.Sunset;
-            float sunsetProgress = (currentTime - dayEnd) / sunsetDuration;
-            UpdateSunset(sunsetProgress);
+            if (previousTimeOfDay != currentTimeOfDay)
+            {
+                OnSunsetStart?.Invoke();
+                sunsetTimer.Restart();
+            }
+            UpdateSunset();
         }
         else if (currentTime < nightEnd)
         {
             currentTimeOfDay = TimeOfDay.Night;
-            float nightProgress = (currentTime - sunsetEnd) / nightDuration;
-            UpdateNight(nightProgress);
+            if (previousTimeOfDay != currentTimeOfDay)
+            {
+                OnNightStart?.Invoke();
+                nightTimer.Restart();
+            }
+            UpdateNight();
         }
         else
         {
             currentTimeOfDay = TimeOfDay.Sunrise;
-            float sunriseProgress = (currentTime - nightEnd) / sunriseDuration;
-            UpdateSunrise(sunriseProgress);
-        }
-
-        // Trigger events when time of day changes
-        if (previousTimeOfDay != currentTimeOfDay)
-        {
-            switch (currentTimeOfDay)
+            if (previousTimeOfDay != currentTimeOfDay)
             {
-                case TimeOfDay.Day:
-                    OnDayStart?.Invoke();
-                    break;
-                case TimeOfDay.Sunset:
-                    OnSunsetStart?.Invoke();
-                    break;
-                case TimeOfDay.Night:
-                    OnNightStart?.Invoke();
-                    break;
-                case TimeOfDay.Sunrise:
-                    OnSunriseStart?.Invoke();
-                    break;
+                OnSunriseStart?.Invoke();
+                sunriseTimer.Restart();
             }
+            UpdateSunrise();
         }
     }
 
-    private void UpdateDay(float progress)
+    private void UpdateDay()
     {
         if (directionalLight == null) return;
+        float progress = dayTimer.PercentTime();
 
         // Sun moves from low angle (sunrise) through high angle (noon) back to low (sunset)
-        float rotationAngle = Mathf.Lerp(sunriseAngle, noonAngle, Mathf.Clamp01(progress * 2f));
-        if (progress > 0.5f)
-        {
-            rotationAngle = Mathf.Lerp(noonAngle, sunsetAngle, (progress - 0.5f) * 2f);
-        }
-        
-        directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, 170f, 0f);
-        directionalLight.color = dayLightColor;
-        directionalLight.intensity = dayLightIntensity;
-        
+        float rotationAngle = Mathf.Lerp(150, 30, progress);
+
+        directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, -20, 0f);
+
         if (Time.frameCount % 120 == 0) // Log every 2 seconds at 60fps
         {
             Debug.Log($"DAY - Progress: {progress:F2}, Angle: {rotationAngle:F1}°, Intensity: {directionalLight.intensity}, Rotation: {directionalLight.transform.rotation.eulerAngles}");
         }
-        
-        RenderSettings.ambientLight = dayAmbientColor;
     }
 
-    private void UpdateSunset(float progress)
+    private void UpdateSunset()
     {
         if (directionalLight == null) return;
+        float progress = sunsetTimer.PercentTime();
 
         // Sun goes from sunset angle down below horizon (negative angles)
-        float rotationAngle = Mathf.Lerp(sunsetAngle, -20f, progress);
-        directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, 170f, 0f);
+        float rotationAngle = Mathf.Lerp(30, 10, progress);
+        directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, -20, 0f);
 
         // Interpolate colors
         directionalLight.color = Color.Lerp(dayLightColor, sunsetLightColor, progress);
         directionalLight.intensity = Mathf.Lerp(dayLightIntensity, sunsetLightIntensity, progress);
-        
+
         RenderSettings.ambientLight = Color.Lerp(dayAmbientColor, nightAmbientColor, progress);
     }
 
-    private void UpdateNight(float progress)
+    private void UpdateNight()
     {
         if (directionalLight == null) return;
+        float progress = nightTimer.PercentTime();
 
         // Moon light - keep at moderate angle from above
-        float rotationAngle = Mathf.Lerp(30f, 50f, Mathf.Sin(progress * Mathf.PI));
-        
-        directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, 170f, 0f);
-        directionalLight.color = nightLightColor;
-        directionalLight.intensity = nightLightIntensity;
-        
+        float rotationAngle;
+
+        if (progress <= .2f)
+        {
+            directionalLight.color = Color.Lerp(sunsetLightColor, nightLightColor, progress * 5);
+            directionalLight.intensity = Mathf.Lerp(sunsetLightIntensity, nightLightIntensity, progress * 5);
+            rotationAngle = Mathf.Lerp(10, -20, progress * 5);
+        }
+        else if (progress >= .8f)
+        {
+            directionalLight.color = Color.Lerp(nightLightColor, sunriseLightColor, progress * 5 - 4);
+            directionalLight.intensity = Mathf.Lerp(nightLightIntensity, sunriseLightIntensity, progress * 5 - 4);
+            rotationAngle = Mathf.Lerp(-160, -190, progress * 5 - 4);
+        }
+        else
+        {
+            rotationAngle = Mathf.Lerp(190, -10, progress * 1.6667f - .3334f);
+        }
+
+        directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, -20, 0f);
+
         if (Time.frameCount % 120 == 0)
         {
             Debug.Log($"NIGHT - Progress: {progress:F2}, Angle: {rotationAngle:F1}°, Intensity: {directionalLight.intensity}");
         }
-        
-        RenderSettings.ambientLight = nightAmbientColor;
     }
 
-    private void UpdateSunrise(float progress)
+    private void UpdateSunrise()
     {
         if (directionalLight == null) return;
+        float progress = sunriseTimer.PercentTime();
 
         // Sun rises from below horizon to sunrise angle
-        float rotationAngle = Mathf.Lerp(-20f, sunriseAngle, progress);
-        directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, 170f, 0f);
+        float rotationAngle = Mathf.Lerp(-190, -210, progress);
+        directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, -20, 0f);
 
         // Interpolate colors
-        directionalLight.color = Color.Lerp(nightLightColor, sunriseLightColor, progress);
-        directionalLight.intensity = Mathf.Lerp(nightLightIntensity, sunriseLightIntensity, progress);
-        
+        directionalLight.color = Color.Lerp(sunriseLightColor, dayLightColor, progress);
+        directionalLight.intensity = Mathf.Lerp(sunriseLightIntensity, dayLightIntensity, progress);
+
+
         RenderSettings.ambientLight = Color.Lerp(nightAmbientColor, dayAmbientColor, progress);
     }
 

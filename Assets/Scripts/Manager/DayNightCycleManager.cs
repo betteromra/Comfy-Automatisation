@@ -77,8 +77,7 @@ public class DayNightCycleManager : MonoBehaviour
     {
         totalCycleDuration = dayDuration + sunsetDuration + nightDuration + sunriseDuration;
 
-        updateLightTimer = new Timer(totalCycleDuration * 0.0075f);
-        updateLightTimer.Restart();
+        updateLightTimer = new Timer(.2f);
 
         dayTimer = new(dayDuration);
         sunsetTimer = new(sunsetDuration);

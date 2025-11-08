@@ -9,8 +9,10 @@ public class NpcSO : ScriptableObject
   public float Speed { get => _speed; }
   [SerializeField] RessourceSO _ressourceSO;
   public RessourceSO ressourceSO { get => _ressourceSO; }
-  [SerializeField] int _maxCarryingCapacity;
-  public int MaxCarryingCapacity { get => _maxCarryingCapacity; }
+  [SerializeField] int _maxSameRessourceSpace;
+  public int maxSameRessourceSpace { get => _maxSameRessourceSpace; }
+  [SerializeField] int _maxDifferentRessource;
+  public int maxDifferentRessource { get => _maxDifferentRessource; }
   [Tooltip("Time NPC waits after dropping reaching target.")]
   [SerializeField] float _waitDuration;
   public float WaitDuration { get => _waitDuration; }

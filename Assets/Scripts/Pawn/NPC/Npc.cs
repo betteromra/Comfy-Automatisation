@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Internal.Commands;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(BehaviorGraphAgent))]
 [RequireComponent(typeof(Selectable))]
@@ -27,7 +29,7 @@ public class Npc : Pawn
     private GameObject _tempClickTarget;
     private Vector3 _sideItemPosition;
 
-    private RessourceAndAmount _carrying;
+    private Inventory _inventory;
     private BehaviorGraphAgent _behaviorAgent;
     private Selectable _selectable;
     private NavMeshAgent _agent;
@@ -42,11 +44,14 @@ public class Npc : Pawn
     {
         _behaviorAgent = GetComponent<BehaviorGraphAgent>();
         _selectable = GetComponent<Selectable>();
+        _inventory = GetComponent<Inventory>();
+
+        _inventory.maxSameRessourceSpace = _nonPlayableCharacterSO.maxSameRessourceSpace;
+        _inventory.maxDifferentRessourceAmount = _nonPlayableCharacterSO.maxSameRessourceSpace;
 
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCSpeed", _nonPlayableCharacterSO.Speed);
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCWaitDuration", _nonPlayableCharacterSO.WaitDuration);
 
-        _carrying = null;
         _agent = GetComponent<NavMeshAgent>();
         _agent.updateRotation = false;
         _agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
@@ -106,7 +111,7 @@ public class Npc : Pawn
             _itemSpriteRenderer.transform.localRotation = Quaternion.Euler(0, 180, 0);
             _cardboardItemSpriteRenderer.transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
-        else if(_movingRight == false)
+        else if (_movingRight == false)
         {
             _itemSpriteParent.localPosition = new Vector3(_sideItemPosition.x, _sideItemPosition.y, _itemSpriteParent.localPosition.z);
             _spriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -139,7 +144,17 @@ public class Npc : Pawn
 
         if (_linkedNodeList.Count == 1)
         {
-            _behaviorAgent.BlackboardReference.SetVariableValue("PreviousTarget", nodeLink.NodeB);
+            // temporary >
+            InputNode inputNode1 = nodeLink.NodeA.GetComponent<InputNode>();
+            InputNode inputNode2 = nodeLink.NodeB.GetComponent<InputNode>();
+            if (inputNode1)
+                _behaviorAgent.BlackboardReference.SetVariableValue("PreviousTarget", inputNode1.gameObject);
+
+            if (inputNode2)
+                _behaviorAgent.BlackboardReference.SetVariableValue("PreviousTarget", inputNode2.gameObject);
+            // < temporary
+
+            //_behaviorAgent.BlackboardReference.SetVariableValue("PreviousTarget", nodeLink.NodeB);
         }
     }
 
@@ -240,23 +255,18 @@ public class Npc : Pawn
     /// Tells the NPC to pick up a resource. Picks up max at a time.
     /// </summary>
     /// <param name="target">The target</param>
-    public bool PickUp(GameObject target)
+    public bool PickUp(OutputNode outputNode)
     {
-        if (!target.TryGetComponent<OutputNode>(out var outputNode))
-        {
-            Debug.LogWarning("NPC tried to pickup at non output node!");
-            return true; //Returns success here because this function will never succeed in such a senario, so better to move the NPC along.
-        }
-
         // need to give outputNode.RessourceAccesibleFromList(); the previous input node
         // and then delete the tempory code after it
         _behaviorAgent.GetVariable("PreviousTarget", out BlackboardVariable<GameObject> previousTarget);
         RessourceAndAmount[] ressourcesAndAmountToTake;
+        InputNode inputNode = previousTarget.Value.GetComponent<InputNode>();
 
-        if (previousTarget.Value.TryGetComponent(out InputNode previousInputNode))
+        if (inputNode != null)
         {
             //Change this to next node, not previous!
-            ressourcesAndAmountToTake = outputNode.RessourceAccesibleFromList(previousInputNode);
+            ressourcesAndAmountToTake = outputNode.RessourceAccesibleFromList(inputNode);
         }
         else
         {
@@ -264,32 +274,35 @@ public class Npc : Pawn
             return true; //Returns success here because this function will never succeed in such a senario, so better to move the NPC along.
         }
 
-        int carryAmount = 0;
-        // the npc carry something
-        if (_carrying != null)
+        if (ressourcesAndAmountToTake.Length == 0)
         {
-            // update carry amount
-            if (ressourcesAndAmountToTake.Any(r => r.ressourceSO == _carrying.ressourceSO))
-                carryAmount = _carrying.amount;
-            else
-                return false;
-        }
-        else
-        {
-            _carrying = new RessourceAndAmount(ressourcesAndAmountToTake[0].ressourceSO, 0);
+            // there is nothing in the output that can be taken
+            return false;
         }
 
-        // make sure we can t take more than the limit
-        _carrying.amount = _nonPlayableCharacterSO.MaxCarryingCapacity - carryAmount;
+        int ressourceOutput = 0;
+        
+        foreach (RessourceAndAmount ressourceAndAmount in ressourcesAndAmountToTake)
+        {
+            Debug.Log(ressourceAndAmount.ressourceSO + "  " + ressourceAndAmount.amount);
+            int ressourceInputToInventory = Mathf.Min(outputNode.HowMuchCanOutput(ressourceAndAmount.ressourceSO), _inventory.CanAddHowMany(ressourceAndAmount.ressourceSO));
+            ressourceInputToInventory = Mathf.Min(ressourceAndAmount.amount, ressourceInputToInventory);
 
-        int ressourceOutput = outputNode.Output(_carrying);
+            RessourceAndAmount ressourceAndAmountToGet = new RessourceAndAmount(ressourceAndAmount.ressourceSO, ressourceInputToInventory);
+            
+            outputNode.Output(ressourceAndAmountToGet);
+            _inventory.Add(ressourceAndAmountToGet, false);
+
+            ressourceOutput += ressourceInputToInventory;
+        }
+
         if (ressourceOutput == 0)
         {
             // NPC Idle handled in the Behaviour tree.
             return false;
         }
 
-        _itemSpriteRenderer.sprite = _carrying.ressourceSO.sprite;
+        _itemSpriteRenderer.sprite = _inventory.MostRessourceInside().sprite;
         _animator.SetBool("IsCarrying", true);
         return true;
     }
@@ -298,28 +311,26 @@ public class Npc : Pawn
     /// Calls the NPC to drop of resource. Drops of all the resource at a time.
     /// </summary>
     /// <returns>Returns information about the dropped of resource.</returns>
-    public bool DropOff(GameObject target)
+    public bool DropOff(InputNode inputNode)
     {
-        if (_carrying == null)
+        if (_inventory.ressourcesStored.Count == 0)
             return true; //Returns success here because this function will never succeed in such a senario, so better to move the NPC along.
 
-        if (!target.TryGetComponent<InputNode>(out var inputNode))
+        // need to change where we drop everything in our inventory and if the inventory still have item inside wait until there is none
+        foreach (KeyValuePair<RessourceSO, int> ressourceAndSpace in _inventory.ressourcesStored)
         {
-            Debug.LogWarning("NPC tried to drop of at non input node!");
-            return true;  //Returns success here because this function will never succeed in such a senario, so better to move the NPC along.
+            int ressourceOutputFromInventory = inputNode.Input(new RessourceAndAmount(ressourceAndSpace));
+            _inventory.Remove(new RessourceAndAmount(ressourceAndSpace.Key, ressourceOutputFromInventory));
         }
 
-        // need to change where we drop everything in our inventory and if the inventory still have item inside wait until there is none
-        int ressourceInput = inputNode.Input(_carrying);
-        if (ressourceInput != _carrying.amount)
+        if (_inventory.ressourcesStored.Count != 0)
         {
-            _carrying.amount -= ressourceInput;
             // make npc idle
             // Wait for content to refresh using : inputNode.inventory.onContentChange += Function that check if we can input item again
             return false;
         }
 
-        _carrying = null;
+        _inventory.ClearInventory();
         _itemSpriteRenderer.sprite = null;
         _animator.SetBool("IsCarrying", false);
         return true;

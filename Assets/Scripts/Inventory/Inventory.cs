@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     public int value { get => _value; }
     // Maximum amount of different ressource
     [SerializeField] int _maxDifferentRessourceAmount = int.MaxValue;
+    public int maxDifferentRessourceAmount { get => _maxDifferentRessourceAmount; set => _maxDifferentRessourceAmount = value; }
     int _differentRessourceAmount = 0;
     // Maximum amount of the same ressource
     [SerializeField] int _maxSameRessourceSpace = int.MaxValue;

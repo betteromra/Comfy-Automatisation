@@ -15,5 +15,6 @@ MonoBehaviour:
   _prefab: {fileID: 6928152175513800417, guid: 97ea26d8ac3a7ab4aac09e23dea99450, type: 3}
   _speed: 1.5
   _ressourceSO: {fileID: 11400000, guid: 96a8df7fa1403a547b185365ad91dbae, type: 2}
-  _maxCarryingCapacity: 6
+  _maxSameRessourceSpace: 25
+  _maxDifferentRessource: 5
   _waitDuration: 1.5

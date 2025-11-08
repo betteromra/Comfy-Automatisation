@@ -4,7 +4,7 @@ using UnityEngine;
 public class OutputNode : BuildingNode
 {
   protected Dictionary<InputNode, int> _linkedPath = new Dictionary<InputNode, int>();
-  int HowMuchCanOutput(RessourceSO ressourceSO)
+  public int HowMuchCanOutput(RessourceSO ressourceSO)
   {
     return _inventory.ContainsHowMany(ressourceSO);
   }
@@ -46,6 +46,7 @@ public class OutputNode : BuildingNode
     if (priorityArray.Length == 0)
     {
       RessourceSO mostRessource = _inventory.MostRessourceInside();
+      if (mostRessource == null) return new RessourceAndAmount[0];
       return new RessourceAndAmount[] { new RessourceAndAmount(mostRessource, _inventory.ContainsHowMany(mostRessource)) };
     }
 

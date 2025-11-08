@@ -21,25 +21,32 @@ public partial class PickUpAction : Action
         _npc = Npc.Value;
         _npc.OnTargetUnlinked += TargetUnlik;
 
-        bool success = _npc.PickUp(Target.Value);
+        _outputNode = Target.Value.GetComponent<OutputNode>();
 
-        if (Target.Value.TryGetComponent(out OutputNode outputNode) && !success)
+        if (_outputNode)
         {
-            _outputNode = outputNode;
-            _outputNode.inventory.onContentChange += NPCPickup;
-            return Status.Running;
+            bool success = _npc.PickUp(_outputNode);
+
+            if (!success)
+            {
+                _outputNode.inventory.onContentChange += NPCPickup;
+                return Status.Running;
+            }
+
+            return Status.Success;
         }
 
-        return success ? Status.Success : Status.Failure;
+        return Status.Failure;
     }
 
     private void TargetUnlik() => _pickupSucceeded = true;
 
     private void NPCPickup()
     {
-        bool success = _npc.PickUp(Target.Value);
+        bool success = _npc.PickUp(_outputNode);
 
-        if (success && _outputNode != null)
+        Debug.Log("trying pickup : " + success);
+        if (success)
         {
             _outputNode.inventory.onContentChange -= NPCPickup;
             _pickupSucceeded = true;
@@ -58,12 +65,9 @@ public partial class PickUpAction : Action
     {
         _pickupSucceeded = false;
         _npc.OnTargetUnlinked -= TargetUnlik;
-        
-        if (_outputNode != null)
-        {
-            _outputNode.inventory.onContentChange -= NPCPickup;
-            _outputNode = null;
-        }
+
+        if (_outputNode) _outputNode.inventory.onContentChange -= NPCPickup;
+        _outputNode = null;
     }
 }
 

@@ -12,43 +12,50 @@ public partial class DropOfAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Target;
     private Npc _npc;
     private InputNode _inputNode;
-    private bool _pickupSucceeded;
+    private bool _dropOffSucceeded;
 
     protected override Status OnStart()
     {
-        _pickupSucceeded = false;
+        _dropOffSucceeded = false;
 
         _npc = Npc.Value;
         _npc.OnTargetUnlinked += TargetUnlik;
-        
-        bool success = _npc.DropOff(Target.Value);
 
-        if (Target.Value.TryGetComponent(out InputNode inputNode) && !success)
+        _inputNode = Target.Value.GetComponent<InputNode>();
+
+        if (_inputNode)
         {
-            _inputNode = inputNode;
-            _inputNode.inventory.onContentChange += NPCDropOff;
-            return Status.Running;
+            bool success = _npc.DropOff(_inputNode);
+
+            if (!success)
+            {
+                _inputNode.inventory.onContentChange += NPCDropOff;
+                return Status.Running;
+            }
+
+            return Status.Success;
         }
 
-        return success ? Status.Success : Status.Failure;
+        return Status.Failure;
     }
 
-    private void TargetUnlik() => _pickupSucceeded = true;
+    private void TargetUnlik() => _dropOffSucceeded = true;
 
     private void NPCDropOff()
     {
-        bool success = _npc.DropOff(Target.Value);
+        bool success = _npc.DropOff(_inputNode);
 
-        if (success && _inputNode != null)
+        Debug.Log("trying dropoff : " + success);
+        if (success)
         {
             _inputNode.inventory.onContentChange -= NPCDropOff;
-            _pickupSucceeded = true;
-        }   
+            _dropOffSucceeded = true;
+        }
     }
 
     protected override Status OnUpdate()
     {
-        if (_pickupSucceeded)
+        if (_dropOffSucceeded)
             return Status.Success;
 
         return Status.Running;
@@ -56,13 +63,11 @@ public partial class DropOfAction : Action
 
     protected override void OnEnd()
     {
-        _pickupSucceeded = false;
+        _dropOffSucceeded = false;
         _npc.OnTargetUnlinked -= TargetUnlik;
-        if (_inputNode != null)
-        {
-            _inputNode.inventory.onContentChange -= NPCDropOff;
-            _inputNode = null;
-        }
+
+        if (_inputNode) _inputNode.inventory.onContentChange -= NPCDropOff;
+        _inputNode = null;
     }
 }
 

@@ -134,22 +134,22 @@ public class CameraManager : MonoBehaviour
     void ClampCameraPosition()
     {
         // Clamping the position so the camera can't go ouside of the game bound
-        Vector3 clampedPos = _targetCameraTargetPosition;
+        Vector3 clampedPos = _targetCameraTargetPosition + new Vector3(-200, 0, 200);
 
         float maxCameraDistanceBasedZoom = _maxCameraDistance * _maxCameraDistanceZoomCurve.Evaluate(_zoomLevel);
 
         // give a little bit more room for camera to be looking down
-        if (_targetCameraTargetPosition.x - _targetCameraTargetPosition.z > 0)
+        if (clampedPos.x - clampedPos.z > 0)
         {
             // make sure this addition is to zero when fully zoomed in
             float fromZeroToMaxValue = _maxCameraDistanceZoomCurve.Evaluate(Mathf.Abs(1 - _zoomLevel)) - _maxCameraDistanceZoomCurve.keys[1].value;
             fromZeroToMaxValue *= _maxCameraDistanceDownMultiplier;
             // we give more room to the camera the lower it is to add a nice transition
-            maxCameraDistanceBasedZoom += (_targetCameraTargetPosition.x - _targetCameraTargetPosition.z) * fromZeroToMaxValue;
+            maxCameraDistanceBasedZoom += (clampedPos.x - clampedPos.z) * fromZeroToMaxValue;
         }
 
-        clampedPos.x = Mathf.Clamp(_targetCameraTargetPosition.x, -maxCameraDistanceBasedZoom, maxCameraDistanceBasedZoom);
-        clampedPos.z = Mathf.Clamp(_targetCameraTargetPosition.z, -maxCameraDistanceBasedZoom, maxCameraDistanceBasedZoom);
+        clampedPos.x = Mathf.Clamp(clampedPos.x, -maxCameraDistanceBasedZoom, maxCameraDistanceBasedZoom) + 200;
+        clampedPos.z = Mathf.Clamp(clampedPos.z, -maxCameraDistanceBasedZoom, maxCameraDistanceBasedZoom) - 200;
 
         _targetCameraTargetPosition = clampedPos;
     }

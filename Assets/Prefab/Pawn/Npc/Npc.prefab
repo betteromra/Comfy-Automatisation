@@ -346,9 +346,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nonPlayableCharacterSO: {fileID: 0}
   _npcPathRenderer: {fileID: 550562749293674135}
+  _spriteRenderer: {fileID: 5279491996059775504}
+  _cardboardSpriteRenderer: {fileID: 183624841660671925}
+  _itemSpriteParent: {fileID: 5634539390728095557}
   _itemSpriteRenderer: {fileID: 1203710383187402495}
+  _cardboardItemSpriteRenderer: {fileID: 6592328787455871834}
   _animator: {fileID: 7601039707646834251}
-  _spritesGameObject: {fileID: 5213794567920188634}
 --- !u!114 &5547845637641461293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,7 +398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5213794567920188634}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.040299073, y: 0.3823194, z: 0.016692432, w: -0.92300016}
+  m_LocalRotation: {x: -0.033353075, y: 0.9203639, z: 0.08052145, w: 0.3812272}
   m_LocalPosition: {x: 0, y: -0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -403,7 +406,7 @@ Transform:
   - {fileID: 1711669613554035626}
   - {fileID: 5634539390728095557}
   m_Father: {fileID: 6731402756440447333}
-  m_LocalEulerAnglesHint: {x: -5, y: 315, z: 0}
+  m_LocalEulerAnglesHint: {x: -10, y: 135, z: 0}
 --- !u!1001 &2335287093034402109
 PrefabInstance:
   m_ObjectHideFlags: 0

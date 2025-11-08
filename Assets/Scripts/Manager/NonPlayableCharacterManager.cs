@@ -31,7 +31,7 @@ public class NonPlayableCharacterManager : MonoBehaviour
     {
         for (int i = 0; i < 15; i++) //TEMP
         {
-            InstantiateNewNPC(_npcsSO[0], new(-60 + 2 * i, 6, 1.5f));
+            InstantiateNewNPC(_npcsSO[0], new(140 + 2 * i, 6, -200));
         }
     }
 

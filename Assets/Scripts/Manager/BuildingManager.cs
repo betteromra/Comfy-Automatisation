@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.Rendering;
-using Unity.VisualScripting;
+using System.Collections;
 
 public class BuildingManager : MonoBehaviour
 {
@@ -97,7 +96,7 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-    System.Collections.IEnumerator ShowGhostBuilding()
+    IEnumerator ShowGhostBuilding()
     {
         while (true)
         {

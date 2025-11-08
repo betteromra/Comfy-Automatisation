@@ -52,6 +52,8 @@ public class DayNightCycleManager : MonoBehaviour
     private float currentTime = 0f;
     private float totalCycleDuration;
     private TimeOfDay currentTimeOfDay = TimeOfDay.Day;
+    public TimeOfDay CurrentTimeOfDay { get => currentTimeOfDay; }
+    Timer updateLightTimer;
     Timer dayTimer;
     Timer sunsetTimer;
     Timer nightTimer;
@@ -75,42 +77,16 @@ public class DayNightCycleManager : MonoBehaviour
     {
         totalCycleDuration = dayDuration + sunsetDuration + nightDuration + sunriseDuration;
 
+        updateLightTimer = new Timer(totalCycleDuration * 0.0075f);
+        updateLightTimer.Restart();
+
         dayTimer = new(dayDuration);
         sunsetTimer = new(sunsetDuration);
         nightTimer = new(nightDuration);
         sunriseTimer = new(sunriseDuration);
 
-        // Find directional light
-        if (directionalLight == null)
-        {
-            Light[] lights = FindObjectsByType<Light>(FindObjectsSortMode.None);
-            //Debug.Log($"Found {lights.Length} lights in scene");
-
-            foreach (Light light in lights)
-            {
-                //Debug.Log($"Light: {light.gameObject.name}, Type: {light.type}, Enabled: {light.enabled}");
-                if (light.type == LightType.Directional)
-                {
-                    directionalLight = light;
-                    //Debug.Log($"Assigned Directional Light: {light.gameObject.name}");
-                    break;
-                }
-            }
-        }
-
-        if (directionalLight != null)
-        {
-            // Position light above the world center
-            directionalLight.transform.position = new Vector3(0, 100f, 0);
-            //Debug.Log($"Directional Light positioned at: {directionalLight.transform.position}");
-        }
-        else
-        {
-            //Debug.LogWarning("No directional light found!");
-        }
-
         // Start at day
-        currentTime = totalCycleDuration - sunriseDuration - .001f;
+        currentTime = -.001f;
         UpdateCycle();
     }
 
@@ -185,22 +161,20 @@ public class DayNightCycleManager : MonoBehaviour
     private void UpdateDay()
     {
         if (directionalLight == null) return;
+        if (!updateLightTimer.IsOverLoop()) return;
+
         float progress = dayTimer.PercentTime();
 
         // Sun moves from low angle (sunrise) through high angle (noon) back to low (sunset)
         float rotationAngle = Mathf.Lerp(150, 30, progress);
 
         directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, -20, 0f);
-
-        if (Time.frameCount % 120 == 0) // Log every 2 seconds at 60fps
-        {
-            //Debug.Log($"DAY - Progress: {progress:F2}, Angle: {rotationAngle:F1}°, Intensity: {directionalLight.intensity}, Rotation: {directionalLight.transform.rotation.eulerAngles}");
-        }
     }
 
     private void UpdateSunset()
     {
         if (directionalLight == null) return;
+        if (!updateLightTimer.IsOverLoop()) return;
         float progress = sunsetTimer.PercentTime();
 
         // Sun goes from sunset angle down below horizon (negative angles)
@@ -217,6 +191,7 @@ public class DayNightCycleManager : MonoBehaviour
     private void UpdateNight()
     {
         if (directionalLight == null) return;
+        if (!updateLightTimer.IsOverLoop()) return;
         float progress = nightTimer.PercentTime();
 
         // Moon light - keep at moderate angle from above
@@ -240,16 +215,12 @@ public class DayNightCycleManager : MonoBehaviour
         }
 
         directionalLight.transform.rotation = Quaternion.Euler(rotationAngle, -20, 0f);
-
-        if (Time.frameCount % 120 == 0)
-        {
-            //Debug.Log($"NIGHT - Progress: {progress:F2}, Angle: {rotationAngle:F1}°, Intensity: {directionalLight.intensity}");
-        }
     }
 
     private void UpdateSunrise()
     {
         if (directionalLight == null) return;
+        if (!updateLightTimer.IsOverLoop()) return;
         float progress = sunriseTimer.PercentTime();
 
         // Sun rises from below horizon to sunrise angle
@@ -259,7 +230,6 @@ public class DayNightCycleManager : MonoBehaviour
         // Interpolate colors
         directionalLight.color = Color.Lerp(sunriseLightColor, dayLightColor, progress);
         directionalLight.intensity = Mathf.Lerp(sunriseLightIntensity, dayLightIntensity, progress);
-
 
         RenderSettings.ambientLight = Color.Lerp(nightAmbientColor, dayAmbientColor, progress);
     }

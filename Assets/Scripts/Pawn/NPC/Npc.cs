@@ -12,28 +12,31 @@ public class Npc : Pawn
 {
     [SerializeField] private NpcSO _nonPlayableCharacterSO;
     [SerializeField] private NpcPathRenderer _npcPathRenderer;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private SpriteRenderer _cardboardSpriteRenderer;
+    [SerializeField] private Transform _itemSpriteParent;
     [SerializeField] private SpriteRenderer _itemSpriteRenderer;
+    [SerializeField] private SpriteRenderer _cardboardItemSpriteRenderer;
     [SerializeField] private Animator _animator;
-    [SerializeField] private GameObject _spritesGameObject;
-    
+
     public event Action<Npc, bool> OnSelfSelected;
     public event System.Action OnTargetUnlinked;
 
     private List<NodeLink> _linkedNodeList = new();
 
     private GameObject _tempClickTarget;
+    private Vector3 _sideItemPosition;
 
     private RessourceAndAmount _carrying;
     private BehaviorGraphAgent _behaviorAgent;
     private Selectable _selectable;
     private NavMeshAgent _agent;
 
-    private Vector3 _defaultRotation;
-
     private bool _isSelected = false;
-    private bool _movingRight = false;
-
-    private readonly float _flipThreshold = 0.1f;
+    private bool? _wasMovingRight = false;
+    private bool? _movingRight = false;
+    private bool? _wasMovingUp = false;
+    private bool? _movingUp = false;
 
     void Awake()
     {
@@ -47,8 +50,7 @@ public class Npc : Pawn
         _agent = GetComponent<NavMeshAgent>();
         _agent.updateRotation = false;
         _agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-
-        _defaultRotation = _spritesGameObject.transform.rotation.eulerAngles;
+        _sideItemPosition = _itemSpriteParent.localPosition;
     }
 
     void OnEnable()
@@ -63,24 +65,67 @@ public class Npc : Pawn
 
     private void Update()
     {
-        Vector3 worldVelocity = _agent.velocity;
-        //Debug.Log(worldVelocity);
+        if (_agent.velocity.magnitude < 0.1f)
+        {
+            Idle();
+            return;
+        }
 
-        Vector3 localVelocity = transform.InverseTransformDirection(worldVelocity);
+        Vector3 direction = _agent.velocity.normalized;
 
-        // Optionally normalize for consistent blending
-        float velocityX = localVelocity.x / _agent.speed;
-        float velocityZ = localVelocity.z / _agent.speed;
+        direction = Quaternion.Euler(0, 45f, 0) * direction;
 
-        if (velocityX > _flipThreshold)
-            _movingRight = true;
-        else if (velocityX < -_flipThreshold)
-            _movingRight = false;
+        _wasMovingRight = _movingRight;
+        _movingRight = direction.x > 0;
+
+        _wasMovingUp = _movingUp;
+        _movingUp = direction.z > 0;
+
+        if (_wasMovingRight != _movingRight) TurnSprite();
+        if (_wasMovingUp != _movingUp) SwapFrontBackSprite();
 
         // Send to animator
-        _animator.SetFloat("XInput", velocityX);
-        _animator.SetFloat("YInput", velocityZ);
-        TurnSprite();
+        _animator.SetFloat("XInput", direction.x);
+        _animator.SetFloat("YInput", direction.z);
+    }
+
+    private void Idle()
+    {
+        _movingUp = null;
+        _movingRight = null;
+        _itemSpriteParent.localPosition = new Vector3(0, _sideItemPosition.y, _sideItemPosition.z);
+    }
+
+    private void TurnSprite()
+    {
+        if (_movingRight == true)
+        {
+            _itemSpriteParent.localPosition = new Vector3(-_sideItemPosition.x, _sideItemPosition.y, _itemSpriteParent.localPosition.z);
+            _spriteRenderer.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            _cardboardSpriteRenderer.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            _itemSpriteRenderer.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            _cardboardItemSpriteRenderer.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        }
+        else if(_movingRight == false)
+        {
+            _itemSpriteParent.localPosition = new Vector3(_sideItemPosition.x, _sideItemPosition.y, _itemSpriteParent.localPosition.z);
+            _spriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            _cardboardSpriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            _itemSpriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            _cardboardItemSpriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    private void SwapFrontBackSprite()
+    {
+        if (_movingUp == true)
+        {
+            _itemSpriteParent.localPosition = new Vector3(_itemSpriteParent.localPosition.x, _sideItemPosition.y, -_sideItemPosition.z);
+        }
+        else if (_movingUp == false)
+        {
+            _itemSpriteParent.localPosition = new Vector3(_itemSpriteParent.localPosition.x, _sideItemPosition.y, _sideItemPosition.z);
+        }
     }
 
     public void LinkNode(NodeLink nodeLink)
@@ -207,7 +252,7 @@ public class Npc : Pawn
         // and then delete the tempory code after it
         _behaviorAgent.GetVariable("PreviousTarget", out BlackboardVariable<GameObject> previousTarget);
         RessourceAndAmount[] ressourcesAndAmountToTake;
-            
+
         if (previousTarget.Value.TryGetComponent(out InputNode previousInputNode))
         {
             //Change this to next node, not previous!
@@ -313,7 +358,6 @@ public class Npc : Pawn
 
     private void HandleSelection(bool isSelected)
     {
-        Debug.Log(isSelected);
         _isSelected = isSelected;
         _npcPathRenderer.SetVisibilityOfLineRenderer(isSelected);
 
@@ -323,18 +367,5 @@ public class Npc : Pawn
         }
 
         OnSelfSelected.Invoke(this, isSelected);
-    }
-
-    private void TurnSprite()
-    {
-        if (_movingRight)
-        {
-            _spritesGameObject.transform.rotation = Quaternion.Euler(_defaultRotation);
-        }
-        else
-        {
-            Quaternion flipped = Quaternion.Euler(new Vector3(-_defaultRotation.x, _defaultRotation.y - 180f, _defaultRotation.z));
-            _spritesGameObject.transform.rotation = flipped;
-        }
     }
 }

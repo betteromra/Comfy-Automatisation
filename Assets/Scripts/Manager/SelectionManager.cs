@@ -47,7 +47,6 @@ public class SelectionManager : MonoBehaviour
                     {
                         ClearSelection();
                         SelectObject(selectable);
-                        Debug.Log("a");
                     }
                 }
             }

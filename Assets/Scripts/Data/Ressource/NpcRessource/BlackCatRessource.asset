@@ -15,7 +15,7 @@ MonoBehaviour:
   _actualName: Black Cat
   _description: 
   _icon: {fileID: 895463672, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 895463672, guid: 77278957d3e68184483be741375e88b7, type: 3}
   _recipe: {fileID: 11400000, guid: bb6545779ee2545449d209fad9fd9d7c, type: 2}
   _spacePerUnit: 1
   _weight: 10

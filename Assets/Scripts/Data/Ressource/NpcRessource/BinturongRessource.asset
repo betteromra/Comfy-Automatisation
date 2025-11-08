@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actualName: Binturong
   _description: 
-  _icon: {fileID: 0}
-  _sprite: {fileID: 0}
+  _icon: {fileID: -322788134, guid: b2f5b8b85be72324eb0627f17c16e56a, type: 3}
+  _sprite: {fileID: -322788134, guid: b2f5b8b85be72324eb0627f17c16e56a, type: 3}
   _recipe: {fileID: 11400000, guid: 3698aeec9fb21d04b83dc3e31dd1fb6c, type: 2}
   _spacePerUnit: 5
   _weight: 50

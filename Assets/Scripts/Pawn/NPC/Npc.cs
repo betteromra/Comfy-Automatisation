@@ -20,6 +20,7 @@ public class Npc : Pawn
     [SerializeField] private SpriteRenderer _itemSpriteRenderer;
     [SerializeField] private SpriteRenderer _cardboardItemSpriteRenderer;
     [SerializeField] private Animator _animator;
+    [SerializeField] private NPCSound _npcSound;
 
     public event Action<Npc, bool> OnSelfSelected;
     public event System.Action OnTargetUnlinked;
@@ -92,6 +93,9 @@ public class Npc : Pawn
         // Send to animator
         _animator.SetFloat("XInput", direction.x);
         _animator.SetFloat("YInput", direction.z);
+
+        if(direction.x != 0 || direction.z != 0)
+            _npcSound.PlayRandomWalk();
     }
 
     private void Idle()
@@ -372,6 +376,9 @@ public class Npc : Pawn
         _isSelected = isSelected;
         _npcPathRenderer.SetVisibilityOfLineRenderer(isSelected);
 
+        if(isSelected)
+            _npcSound.PlayRandomMeow();
+        
         if (isSelected && _linkedNodeList.Count > 0)
         {
             _npcPathRenderer.DrawPathBetween(_linkedNodeList);

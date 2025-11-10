@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework.Internal.Commands;
+using Unity.AppUI.UI;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(BehaviorGraphAgent))]
 [RequireComponent(typeof(Selectable))]
@@ -13,6 +11,7 @@ using UnityEngine.InputSystem;
 public class Npc : Pawn
 {
     [SerializeField] private NpcSO _nonPlayableCharacterSO;
+    public NpcSO nonPlayableCharacterSO { get => _nonPlayableCharacterSO; }
     [SerializeField] private NpcPathRenderer _npcPathRenderer;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private SpriteRenderer _cardboardSpriteRenderer;
@@ -23,11 +22,10 @@ public class Npc : Pawn
     [SerializeField] private NPCSound _npcSound;
 
     public event Action<Npc, bool> OnSelfSelected;
-    public event System.Action OnTargetUnlinked;
 
-    private List<NodeLink> _linkedNodeList = new();
-
-    private GameObject _tempClickTarget;
+    private List<BuildingNode> _buildingNodesList = new();
+    public List<BuildingNode> buildingNodesList { get => _buildingNodesList; }
+    int _buildingNodesIndex = 0;
     private Vector3 _sideItemPosition;
 
     private Inventory _inventory;
@@ -35,7 +33,7 @@ public class Npc : Pawn
     private Selectable _selectable;
     private NavMeshAgent _agent;
 
-    private bool _isSelected = false;
+    bool _isSelected = false;
     private bool? _wasMovingRight = false;
     private bool? _movingRight = false;
     private bool? _wasMovingUp = false;
@@ -51,7 +49,7 @@ public class Npc : Pawn
         _inventory.maxDifferentRessourceAmount = _nonPlayableCharacterSO.maxSameRessourceSpace;
 
         _behaviorAgent.BlackboardReference.SetVariableValue("NPCSpeed", _nonPlayableCharacterSO.Speed);
-        _behaviorAgent.BlackboardReference.SetVariableValue("NPCWaitDuration", _nonPlayableCharacterSO.WaitDuration);
+        _behaviorAgent.BlackboardReference.SetVariableValue("PositionToGo", transform.position);
 
         _agent = GetComponent<NavMeshAgent>();
         _agent.updateRotation = false;
@@ -71,11 +69,28 @@ public class Npc : Pawn
 
     private void Update()
     {
+        if (_isSelected)
+        {
+            _behaviorAgent.BlackboardReference.GetVariableValue("Target", out BuildingNode buildingNode);
+            if (buildingNode == null)
+            {
+                _behaviorAgent.BlackboardReference.GetVariableValue("PositionToGo", out Vector3 positionToGo);
+                _npcPathRenderer.DrawPathNoBuildingNode(transform.position, positionToGo);
+            }
+            else if (_buildingNodesList.Count == 1)
+            {
+                _npcPathRenderer.DrawPathNoBuildingNode(transform.position, buildingNode.transform.position);
+            }
+        }
+        _animator.SetFloat("SpeedMagnitude", _agent.velocity.magnitude);
+
         if (_agent.velocity.magnitude < 0.1f)
         {
             Idle();
             return;
         }
+
+        _npcSound.PlayRandomWalk();
 
         Vector3 direction = _agent.velocity.normalized;
 
@@ -93,9 +108,6 @@ public class Npc : Pawn
         // Send to animator
         _animator.SetFloat("XInput", direction.x);
         _animator.SetFloat("YInput", direction.z);
-
-        if(direction.x != 0 || direction.z != 0)
-            _npcSound.PlayRandomWalk();
     }
 
     private void Idle()
@@ -137,122 +149,156 @@ public class Npc : Pawn
         }
     }
 
-    public void LinkNode(NodeLink nodeLink)
+    public bool AddBuildingNode(BuildingNode node)
     {
-        _linkedNodeList.Add(nodeLink);
-        Link(nodeLink.NodeA);
-        Link(nodeLink.NodeB);
-
-        if (_isSelected)
-            _npcPathRenderer.DrawPathBetween(_linkedNodeList);
-
-        if (_linkedNodeList.Count == 1)
+        if (_buildingNodesList.Count == 0)
         {
-            // temporary >
-            InputNode inputNode1 = nodeLink.NodeA.GetComponent<InputNode>();
-            InputNode inputNode2 = nodeLink.NodeB.GetComponent<InputNode>();
-            if (inputNode1)
-                _behaviorAgent.BlackboardReference.SetVariableValue("PreviousTarget", inputNode1.gameObject);
+            _buildingNodesList.Add(node);
+            BuildingNodeHighlight(node, true);
 
-            if (inputNode2)
-                _behaviorAgent.BlackboardReference.SetVariableValue("PreviousTarget", inputNode2.gameObject);
-            // < temporary
+            _behaviorAgent.BlackboardReference.SetVariableValue("Target", node);
+            ResetNpcAgentExecution();
 
-            //_behaviorAgent.BlackboardReference.SetVariableValue("PreviousTarget", nodeLink.NodeB);
-        }
-    }
-
-    public void UnlinkNode(NodeLink nodeLink)
-    {
-        bool exists = _linkedNodeList.Exists(l => l == nodeLink);
-
-        if (!exists)
-            return;
-
-        _linkedNodeList.Remove(nodeLink);
-        Unlink(nodeLink.NodeA); //Add check so the node isn't used elsewhere
-        Unlink(nodeLink.NodeB); //Add check so the node isn't used elsewhere
-
-
-        bool isOutputNode = nodeLink.NodeA.TryGetComponent<OutputNode>(out _);
-
-        //This is needed so that we in NonPlayableCharacterManager store the node link in only one direction
-        GameObject nodeA = isOutputNode ? nodeLink.NodeA : nodeLink.NodeB;
-        GameObject nodeB = isOutputNode ? nodeLink.NodeB : nodeLink.NodeA;
-
-        OutputNode outputNode = nodeA.GetComponent<OutputNode>();
-        InputNode inputNode = nodeB.GetComponent<InputNode>();
-
-        outputNode.Unlink(inputNode);
-        inputNode.Unlink(outputNode);
-
-        if (_isSelected)
-            _npcPathRenderer.DrawPathBetween(_linkedNodeList);
-    }
-
-    /// <summary>
-    /// To be used when no GameObject is present.
-    /// </summary>
-    /// <param name="position"></param>
-    public void Link(Vector3 position)
-    {
-        if (_tempClickTarget == null)
-        {
-            //Please forgive me for this crime of a code.
-            _tempClickTarget = new("ClickTarget");
-            _tempClickTarget.transform.SetParent(GameManager.instance.nonPlayableCharacter.transform, worldPositionStays: true);
+            return true;
         }
 
-        for (int i = _linkedNodeList.Count - 1; i >= 0; i--)
+        BuildingNode previousNode = _buildingNodesList[^1];
+
+        if (previousNode as OutputNode)
         {
-            UnlinkNode(_linkedNodeList[i]);
-        }
+            // previous is output
+            if (node as OutputNode) return false;
 
-        _tempClickTarget.transform.position = position;
-        Link(_tempClickTarget);
-    }
-
-    /// <summary>
-    /// Unlinks current target and sets it equal to provided GameObject
-    /// </summary>
-    /// <param name="gameObject">Position to walk</param>
-    public void Unlink(GameObject gameObject)
-    {
-        if (_behaviorAgent.BlackboardReference.GetVariable("WalkingPoints", out BlackboardVariable<List<GameObject>> walkingPoints))
-        {
-            _behaviorAgent.BlackboardReference.GetVariable("WalkingPointsIndex", out BlackboardVariable<int> index);
-            _behaviorAgent.BlackboardReference.GetVariable("Target", out BlackboardVariable<GameObject> target);
-
-            int currentIndex = index.Value;
-            int removeIndex = walkingPoints.Value.IndexOf(gameObject);
-
-            if (removeIndex < 0)
-                return;
-
-            if (removeIndex == currentIndex)
-                currentIndex++;
-
-            walkingPoints.Value.RemoveAt(removeIndex);
-
-            if (target.Value == gameObject)
-                OnTargetUnlinked?.Invoke();
-
-            currentIndex = Mathf.Clamp(currentIndex, 0, walkingPoints.Value.Count - 1);
-
-            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints.Value);
-
-            if (walkingPoints.Value.Count > 0)
+            if (_buildingNodesList.Count == 1 && _inventory.weight != 0)
             {
-                GameObject nextTarget = walkingPoints.Value[currentIndex];
-                _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPointsIndex", currentIndex);
-                _behaviorAgent.BlackboardReference.SetVariableValue("Target", nextTarget);
+                _behaviorAgent.BlackboardReference.SetVariableValue("Target", node);
+                ResetNpcAgentExecution();
+            }
+        }
+        else
+        {
+            // previous is input
+            if (node as InputNode) return false;
+
+            if (_buildingNodesList.Count == 1)
+            {
+                _buildingNodesList[0] = node;
+                _buildingNodesList.Add(previousNode);
+
+                BuildingNodeHighlight(node, true);
+                BuildingNodeHighlight(previousNode, true);
+
+                if (_inventory.weight == 0)
+                {
+                    _behaviorAgent.BlackboardReference.SetVariableValue("Target", node);
+                    ResetNpcAgentExecution();
+                }
+
+                _npcPathRenderer.SetVisibilityOfLineRenderer(true);
+                _npcPathRenderer.DrawPath(_buildingNodesList);
+
+                return true;
+            }
+        }
+
+        _buildingNodesList.Add(node);
+
+        BuildingNodeHighlight(node, true);
+        BuildingNodeHighlight(previousNode, true);
+
+        _npcPathRenderer.SetVisibilityOfLineRenderer(true);
+        _npcPathRenderer.DrawPath(_buildingNodesList);
+
+        return true;
+    }
+
+    public void RemoveBuildingNode(BuildingNode node, bool moveNpc = true)
+    {
+        if (_buildingNodesList[_buildingNodesIndex] == node)
+        {
+            if (moveNpc)
+            {
+                NextNode();
+                ResetNpcAgentExecution();
+            }
+        }
+
+        int nodeIndex = _buildingNodesList.IndexOf(node);
+
+        BuildingNodeHighlight(node, false);
+        _buildingNodesList.Remove(node);
+
+        // no need to remove one to the count since we removed the node
+        if (nodeIndex >= _buildingNodesList.Count)
+        {
+            if (_buildingNodesList.Count == 0)
+            {
+                _npcPathRenderer.SetVisibilityOfLineRenderer(false);
+                if (moveNpc)
+                {
+                    _behaviorAgent.BlackboardReference.SetVariableValue<BuildingNode>("Target", null);
+                    _behaviorAgent.BlackboardReference.SetVariableValue("PositionToGo", transform.position);
+                    ResetNpcAgentExecution();
+                }
             }
             else
             {
-                _behaviorAgent.BlackboardReference.SetVariableValue<GameObject>("Target", null);
-                _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPointsIndex", 0);
+                BuildingNodeHighlight(_buildingNodesList[^1], true);
             }
+
+            return;
         }
+
+        if (_buildingNodesList.Count == 1)
+        {
+            _npcPathRenderer.SetVisibilityOfLineRenderer(false);
+            BuildingNode lastNode = _buildingNodesList[0];
+
+            BuildingNodeHighlight(lastNode, true);
+
+            if (moveNpc)
+            {
+                _behaviorAgent.BlackboardReference.SetVariableValue("Target", lastNode);
+                ResetNpcAgentExecution();
+            }
+            return;
+        }
+
+        BuildingNodeHighlight(_buildingNodesList[nodeIndex], false);
+        _buildingNodesList.Remove(_buildingNodesList[nodeIndex]);
+
+        BuildingNodeHighlight(_buildingNodesList[^1], true);
+    }
+
+    public void NextNode()
+    {
+        if (_buildingNodesList.Count <= 1) return;
+
+        _buildingNodesIndex++;
+        if (_buildingNodesIndex >= _buildingNodesList.Count)
+        {
+            _buildingNodesIndex = 0;
+        }
+
+        _behaviorAgent.BlackboardReference.SetVariableValue("Target", _buildingNodesList[_buildingNodesIndex]);
+    }
+
+    public BuildingNode GetNextNode(BuildingNode node)
+    {
+        if (_buildingNodesList.Count == 1) return null;
+
+        int nextNodeIndex = _buildingNodesIndex + 1;
+        if (nextNodeIndex >= _buildingNodesList.Count)
+        {
+            nextNodeIndex = 0;
+        }
+
+        return _buildingNodesList[nextNodeIndex];
+    }
+
+    public void ResetNpcAgentExecution()
+    {
+        _behaviorAgent.Restart();
     }
 
     /// <summary>
@@ -263,9 +309,9 @@ public class Npc : Pawn
     {
         // need to give outputNode.RessourceAccesibleFromList(); the previous input node
         // and then delete the tempory code after it
-        _behaviorAgent.GetVariable("PreviousTarget", out BlackboardVariable<GameObject> previousTarget);
+
         RessourceAndAmount[] ressourcesAndAmountToTake;
-        InputNode inputNode = previousTarget.Value.GetComponent<InputNode>();
+        InputNode inputNode = GetNextNode(outputNode) as InputNode;
 
         if (inputNode != null)
         {
@@ -274,8 +320,12 @@ public class Npc : Pawn
         }
         else
         {
-            Debug.LogWarning("Walked from output node -> output node");
-            return true; //Returns success here because this function will never succeed in such a senario, so better to move the NPC along.
+            RessourceSO mostRessource = outputNode.inventory.MostRessourceInside();
+
+            // NPC Idle handled in the Behaviour tree.
+            if (mostRessource == null) return false;
+
+            ressourcesAndAmountToTake = new RessourceAndAmount[] { new RessourceAndAmount(mostRessource, outputNode.inventory.ContainsHowMany(mostRessource)) };
         }
 
         if (ressourcesAndAmountToTake.Length == 0)
@@ -285,26 +335,22 @@ public class Npc : Pawn
         }
 
         int ressourceOutput = 0;
-        
+
         foreach (RessourceAndAmount ressourceAndAmount in ressourcesAndAmountToTake)
         {
-            Debug.Log(ressourceAndAmount.ressourceSO + "  " + ressourceAndAmount.amount);
             int ressourceInputToInventory = Mathf.Min(outputNode.HowMuchCanOutput(ressourceAndAmount.ressourceSO), _inventory.CanAddHowMany(ressourceAndAmount.ressourceSO));
             ressourceInputToInventory = Mathf.Min(ressourceAndAmount.amount, ressourceInputToInventory);
 
             RessourceAndAmount ressourceAndAmountToGet = new RessourceAndAmount(ressourceAndAmount.ressourceSO, ressourceInputToInventory);
-            
+
             outputNode.Output(ressourceAndAmountToGet);
             _inventory.Add(ressourceAndAmountToGet, false);
 
             ressourceOutput += ressourceInputToInventory;
         }
 
-        if (ressourceOutput == 0)
-        {
-            // NPC Idle handled in the Behaviour tree.
-            return false;
-        }
+        // NPC Idle handled in the Behaviour tree.
+        if (ressourceOutput == 0 && _inventory.weight == 0) return false;
 
         _itemSpriteRenderer.sprite = _inventory.MostRessourceInside().sprite;
         _animator.SetBool("IsCarrying", true);
@@ -340,50 +386,59 @@ public class Npc : Pawn
         return true;
     }
 
-    /// <summary>
-    /// Links the GameObject to the NPC
-    /// </summary>
-    /// <param name="gameObject">Position to walk to</param>
-    private void Link(GameObject gameObject)
-    {
-        if (_behaviorAgent.BlackboardReference.GetVariable("WalkingPoints", out BlackboardVariable<List<GameObject>> walkingPoints))
-        {
-            //Stops the duplicate linking of same gameobject resulting in multidropof/pickup
-            if (walkingPoints.Value.Count > 0 && walkingPoints.Value[^1] == gameObject)
-                return;
-
-            walkingPoints.Value.Add(gameObject);
-            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", walkingPoints.Value);
-
-            if (_behaviorAgent.BlackboardReference.GetVariable("Target", out BlackboardVariable<GameObject> target))
-            {
-                if (target.Value == null)
-                {
-                    _behaviorAgent.BlackboardReference.SetVariableValue("Target", gameObject);
-                }
-            }
-        }
-        else
-        {
-            // If the variable doesn't exist, create a new one
-            var newList = new List<GameObject> { gameObject };
-            _behaviorAgent.BlackboardReference.SetVariableValue("WalkingPoints", newList);
-        }
-    }
-
     private void HandleSelection(bool isSelected)
     {
         _isSelected = isSelected;
-        _npcPathRenderer.SetVisibilityOfLineRenderer(isSelected);
+        _npcPathRenderer.SetVisibilityOfLineRenderer(_isSelected);
+        AllBuildingNodeHighlight(_isSelected);
 
-        if(isSelected)
-            _npcSound.PlayRandomMeow();
-        
-        if (isSelected && _linkedNodeList.Count > 0)
+        if (_isSelected)
         {
-            _npcPathRenderer.DrawPathBetween(_linkedNodeList);
+            _npcSound.PlayRandomMeow();
+            _npcPathRenderer.DrawPath(buildingNodesList);
         }
 
-        OnSelfSelected.Invoke(this, isSelected);
+        OnSelfSelected.Invoke(this, _isSelected);
+    }
+    void AllBuildingNodeHighlight(bool highlight)
+    {
+        foreach (BuildingNode buildingNode in _buildingNodesList)
+        {
+            BuildingNodeHighlight(buildingNode, highlight);
+        }
+    }
+    void BuildingNodeHighlight(BuildingNode buildingNode, bool highlight)
+    {
+        if (!highlight)
+        {
+            buildingNode.RemoveHighlight();
+            return;
+        }
+        if (_buildingNodesList[^1] == buildingNode)
+        {
+            buildingNode.HighlightLast();
+        }
+        else
+        {
+            buildingNode.HighlightSelected();
+        }
+    }
+
+    public void ResetAllPath()
+    {
+        _buildingNodesIndex = 0;
+
+        while (_buildingNodesList.Count != 0)
+        {
+            RemoveBuildingNode(_buildingNodesList[0], false);
+        }
+    }
+
+    public void GoToPositionWithoutNode(Vector3 position)
+    {
+        ResetAllPath();
+        _behaviorAgent.BlackboardReference.SetVariableValue<BuildingNode>("Target", null);
+        _behaviorAgent.BlackboardReference.SetVariableValue("PositionToGo", position);
+        ResetNpcAgentExecution();
     }
 }

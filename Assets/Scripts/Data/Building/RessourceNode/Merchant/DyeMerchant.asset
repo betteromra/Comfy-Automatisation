@@ -16,5 +16,5 @@ MonoBehaviour:
   _ressourceSO: {fileID: 11400000, guid: 449acd98b5b9da942a93746230d6d449, type: 2}
   _ressourceAndAmount:
     _ressourceSO: {fileID: 11400000, guid: dadc22ed52b647345a2f9f0826554230, type: 2}
-    _amount: 4
+    _amount: 10
   _extractionPerMinute: 0.1

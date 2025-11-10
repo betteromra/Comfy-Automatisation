@@ -14,11 +14,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3082328713118854363, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
       propertyPath: m_Color.b
-      value: 0.60341835
+      value: 0.11764706
       objectReference: {fileID: 0}
     - target: {fileID: 3082328713118854363, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.64705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 3082328713118854363, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6431373
       objectReference: {fileID: 0}
     - target: {fileID: 3528069727051092646, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -68,6 +72,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8363903429741794957}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
+--- !u!212 &5107997783456507238 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3082328713118854363, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
+  m_PrefabInstance: {fileID: 7792882436266248637}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7569844183980252462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 371718923528492179, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
@@ -87,3 +96,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventory: {fileID: 0}
   _maxPath: 3
+  _lastColour: {r: 0.7460427, g: 0.7490196, b: 0.28462747, a: 1}
+  _selectedColour: {r: 0.44727272, g: 0.45, b: 0.081818186, a: 1}
+  _spriteRenderer: {fileID: 5107997783456507238}

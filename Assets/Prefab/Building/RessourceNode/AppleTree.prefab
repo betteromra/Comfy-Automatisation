@@ -48,6 +48,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1774230344356848203, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -7200096157391493767, guid: 40bf151d1a4f77144a24f65327de6c64, type: 3}
+    - target: {fileID: 3306921047813897061, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3306921047813897061, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -1255982633427224767, guid: 40bf151d1a4f77144a24f65327de6c64, type: 3}
+    - target: {fileID: 3306921047813897061, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: -3671529089270998879, guid: 40bf151d1a4f77144a24f65327de6c64, type: 3}
+    - target: {fileID: 3306921047813897061, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 6849546283596164469, guid: 40bf151d1a4f77144a24f65327de6c64, type: 3}
     - target: {fileID: 4904889566687348917, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
       propertyPath: _buildingSO
       value: 
@@ -56,6 +76,22 @@ PrefabInstance:
       propertyPath: _ressourceNodeSO
       value: 
       objectReference: {fileID: 11400000, guid: 4bbaa54b1a936864eb1a3638bda62143, type: 2}
+    - target: {fileID: 5224453664347768570, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224453664347768570, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224453664347768570, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224453664347768570, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.6
+      objectReference: {fileID: 0}
     - target: {fileID: 9116543687190976274, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
       propertyPath: m_Name
       value: AppleTree

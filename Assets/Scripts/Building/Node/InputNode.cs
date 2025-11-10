@@ -5,34 +5,11 @@ using System;
 
 public class InputNode : BuildingNode
 {
-  protected Dictionary<OutputNode, int> _linkedPath = new Dictionary<OutputNode, int>();
   RecipeSO _recipeSO;
   public RecipeSO recipeSO { get => _recipeSO; set => _recipeSO = value; }
   int HowMuchCanInput(RessourceSO ressourceSO)
   {
     return _inventory.CanAddHowMany(ressourceSO);
-  }
-
-  bool CanLink(OutputNode outputNode)
-  {
-    return _linkedPath.Count < _maxPath;
-  }
-
-  public bool Link(OutputNode outputNode)
-  {
-    if (!CanLink(outputNode)) return false;
-    _linkedPath[outputNode] = _linkedPath.GetValueOrDefault(outputNode) + 1;
-
-    return true;
-  }
-
-  public void Unlink(OutputNode outputNode)
-  {
-    if (_linkedPath.ContainsKey(outputNode))
-    {
-      _linkedPath[outputNode]--;
-      if (_linkedPath[outputNode] == 0) _linkedPath.Remove(outputNode);
-    }
   }
 
   bool CanInput(RessourceSO ressourceSO)

@@ -7,21 +7,15 @@ public class NonPlayableCharacterManager : MonoBehaviour
     [Tooltip("It's weird but NPC needs to be clickable layer, else the ray travels through NPC and hits ground")]
     [SerializeField] private LayerMask clickableLayers = -1;
     [SerializeField] private NpcSO[] _npcsSO;
-    [SerializeField] private Color _inputSelectedColor;
-    [SerializeField] private Color _outputSelectedColor;
     public NpcSO[] npcsSO { get => _npcsSO; }
     [SerializeField] Transform _npcsParent;
     private List<Npc> _npcs = new();
     public List<Npc> npcs { get => _npcs; }
     private List<Npc> _currentSelectedNPCs = new();
-    private List<NodeLink> _linkedNodeList = new();
     public event Action onNpcCreated;
     public event Action onNpcDeleted;
 
-    private GameObject _lastSelected;
     Player _player;
-
-    private Color _lastColour;
 
     void Awake()
     {
@@ -75,7 +69,6 @@ public class NonPlayableCharacterManager : MonoBehaviour
     private void HandleDeselect()
     {
         _currentSelectedNPCs.Clear();
-        _lastSelected = null;
     }
 
     private void HandleClick()
@@ -84,94 +77,68 @@ public class NonPlayableCharacterManager : MonoBehaviour
             return;
 
         Camera playerCamera = GameManager.instance.cameraManager.mainCamera;
-        if (playerCamera == null)
-            playerCamera = Camera.main;
 
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, clickableLayers))
         {
             //Needed so that it doesn't instaselect the ground behind the NPC
             if (hit.collider.GetComponentInParent<Npc>() != null)
                 return;
 
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Buildings"))
+                return;
+
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                ResetLastSelected();
                 foreach (Npc npc in _currentSelectedNPCs)
                 {
-                    npc.Link(hit.point);
+                    npc.GoToPositionWithoutNode(hit.point);
                 }
+
+                return;
             }
-            else
+
+            BuildingNode clickedBuildingNode = hit.collider.gameObject.GetComponent<BuildingNode>();
+            BuildingNode lastSelectedNode = null;
+
+            // we check if the selection is the same lastNode, If not then we remove the link when chosing a new selected
+            bool firstLastSelectedNode = true;
+            foreach (Npc npc in _currentSelectedNPCs)
             {
-                GameObject clicked = hit.collider.gameObject;
-
-                if (_lastSelected == null)
+                if (npc.buildingNodesList.Count == 0)
                 {
-                    _lastSelected = clicked;
-
-                    SpriteRenderer sr = clicked.GetComponentInChildren<SpriteRenderer>();
-                    _lastColour = sr.color;
-                    if (_lastSelected.TryGetComponent<OutputNode>(out _))
-                        sr.color = _outputSelectedColor;
-                    else
-                        sr.color = _inputSelectedColor;
-
-                    return;
+                    lastSelectedNode = null;
+                    break;
                 }
 
-                //Stops binding output node to outputnode/input to input
-                if (_lastSelected.TryGetComponent<OutputNode>(out _) == clicked.TryGetComponent<OutputNode>(out _))
+                if (firstLastSelectedNode)
                 {
-                    ResetLastSelected();
-                    return; //TODO alert user to error
+                    lastSelectedNode = npc.buildingNodesList[^1];
                 }
-
-                NodeLink nodeLink = new(_lastSelected, clicked);
-                //This check is/should be order independent.
-                if (!_linkedNodeList.Exists(l => l == nodeLink))
+                if (lastSelectedNode != npc.buildingNodesList[^1])
                 {
-                    bool isOutputNode = _lastSelected.TryGetComponent<OutputNode>(out _);
-
-                    //This is needed so that we in NonPlayableCharacterManager store the node link in only one direction
-                    GameObject nodeA = isOutputNode ? _lastSelected : clicked;
-                    GameObject nodeB = isOutputNode ? clicked : _lastSelected;
-
-                    _linkedNodeList.Add(new NodeLink(nodeA, nodeB));
+                    lastSelectedNode = null;
+                    break;
                 }
+            }
 
+            if (lastSelectedNode == null)
+            {
                 foreach (Npc npc in _currentSelectedNPCs)
                 {
-                    //NodeA and NodeB should already be correctly assigned here
-                    NodeLink existing = _linkedNodeList.Find(l => l.GetHashCode() == nodeLink.GetHashCode());
-                    OutputNode outputNode = existing.NodeA.GetComponent<OutputNode>();
-                    InputNode inputNode = existing.NodeB.GetComponent<InputNode>();
-
-                    bool isAllowedToLinkOutput = outputNode.Link(inputNode);
-                    bool isAllowedToLinkInput = inputNode.Link(outputNode);
-
-                    if (isAllowedToLinkInput && isAllowedToLinkOutput)
-                        npc.LinkNode(nodeLink);
-                    else
-                    {
-                        outputNode.Unlink(inputNode);
-                        inputNode.Unlink(outputNode);
-                    }
+                    npc.ResetAllPath();
+                    npc.AddBuildingNode(clickedBuildingNode);
                 }
 
-                ResetLastSelected();
+                return;
+            }
+
+            foreach (Npc npc in _currentSelectedNPCs)
+            {
+                if (npc.buildingNodesList.Contains(clickedBuildingNode)) npc.RemoveBuildingNode(clickedBuildingNode);
+                else npc.AddBuildingNode(clickedBuildingNode);
             }
         }
-    }
-
-    private void ResetLastSelected()
-    {
-        if (_lastSelected != null)
-        {
-            var renderer = _lastSelected.GetComponentInChildren<SpriteRenderer>();
-            if (renderer != null)
-                renderer.color = _lastColour;
-        }
-        _lastSelected = null;
     }
 }

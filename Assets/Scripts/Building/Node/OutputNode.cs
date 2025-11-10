@@ -3,40 +3,9 @@ using UnityEngine;
 
 public class OutputNode : BuildingNode
 {
-  protected Dictionary<InputNode, int> _linkedPath = new Dictionary<InputNode, int>();
   public int HowMuchCanOutput(RessourceSO ressourceSO)
   {
     return _inventory.ContainsHowMany(ressourceSO);
-  }
-
-  bool CanLink(InputNode inputNode)
-  {
-    return _linkedPath.Count < _maxPath;
-  }
-
-  public bool Link(InputNode inputNode)
-  {
-    if (!CanLink(inputNode)) return false;
-    _linkedPath[inputNode] = _linkedPath.GetValueOrDefault(inputNode) + 1;
-
-    return true;
-  }
-  public void Unlink(InputNode inputNode)
-  {
-    if (_linkedPath.ContainsKey(inputNode))
-    {
-      _linkedPath[inputNode]--;
-      if (_linkedPath[inputNode] == 0) _linkedPath.Remove(inputNode);
-    }
-  }
-  public int PeopleOnPath(InputNode inputNode)
-  {
-    if (_linkedPath.ContainsKey(inputNode))
-    {
-      return _linkedPath[inputNode];
-    }
-
-    return 0;
   }
 
   public RessourceAndAmount[] RessourceAccesibleFromList(InputNode nodeThatWeWantToDrop)

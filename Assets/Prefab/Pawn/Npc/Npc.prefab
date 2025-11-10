@@ -138,7 +138,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -263,8 +263,6 @@ MonoBehaviour:
   m_BlackboardVariableOverridesList:
   - rid: 9020314879701286989
   - rid: 9020314879701287900
-  - rid: 9020314879701287917
-  - rid: 9020314883258056745
   - rid: 3119659799827185739
   m_OriginalGraph: {fileID: 0}
   m_IsInitialised: 0
@@ -296,22 +294,6 @@ MonoBehaviour:
           m_Value1: 16133748391933542623
         Name: NPCSpeed
         m_Value: 3
-    - rid: 9020314879701287917
-      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 10213664774666326608
-          m_Value1: 13192044061417481303
-        Name: Target
-        m_Value: {fileID: 0}
-    - rid: 9020314883258056745
-      type: {class: 'BlackboardVariable`1[[System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]], mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 16342996598589782466
-          m_Value1: 12901557796349128677
-        Name: WalkingPoints
-        m_Value: []
 --- !u!195 &7990612822399325167
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -333,7 +315,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &8738041327263256666
 MonoBehaviour:
   m_ObjectHideFlags: 0

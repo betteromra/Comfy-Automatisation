@@ -9,102 +9,70 @@ using UnityEngine.AI;
 public class NpcPathRenderer : MonoBehaviour
 {
     private LineRenderer _line;
-    private Transform _npcTransform;
 
     void Start()
     {
         _line = GetComponent<LineRenderer>();
-        _npcTransform = transform.parent;
     }
 
     public void SetVisibilityOfLineRenderer(bool visible) => _line.enabled = visible;
 
-    public void DrawPathBetween(List<NodeLink> nodeLinks)
+    public void DrawPath(List<BuildingNode> nodeLinks)
     {
-        if(nodeLinks.Count <= 0)
+        if (nodeLinks.Count <= 1)
         {
-            SetVisibilityOfLineRenderer(false);
+            if (nodeLinks.Count != 1)
+            {
+                SetVisibilityOfLineRenderer(false);
+            }
+
             return;
         }
 
         List<Vector3> fullPath = new();
-        Vector3? lastPoint = null;
 
-        IEnumerable<NodeLink> allLinks = nodeLinks;
-        if (nodeLinks[^1].NodeB != nodeLinks[0].NodeA)
+        Vector3 pastNodePosition = nodeLinks[^1].transform.position + Vector3.one * .01f;
+        foreach (BuildingNode buildingNode in nodeLinks)
         {
-            NodeLink nodeLink = new(nodeLinks[^1].NodeB, nodeLinks[0].NodeA);
-            allLinks = nodeLinks.Append(nodeLink);
-        }
+            NavMeshPath path = new NavMeshPath();
+            Vector3 nodePosition = buildingNode.transform.position;
 
-        foreach (NodeLink link in allLinks)
-        {
-            var path = new NavMeshPath();
-            Vector3 start = link.NodeA.transform.position;
-            Vector3 end = link.NodeB.transform.position;
-
-            if (lastPoint != null)
-            {
-                if (NavMesh.CalculatePath(lastPoint.Value, start, NavMesh.AllAreas, path))
-                {
-                    if (fullPath.Count > 0)
-                        fullPath.RemoveAt(fullPath.Count - 1);
-
-                    fullPath.AddRange(path.corners);
-                }
-            }
-
-            if (NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path))
+            if (NavMesh.CalculatePath(pastNodePosition, nodePosition, NavMesh.AllAreas, path))
             {
                 if (fullPath.Count > 0)
-                    fullPath.RemoveAt(fullPath.Count - 1); // avoid duplicate junction point
+                    fullPath.RemoveAt(fullPath.Count - 1);
 
                 fullPath.AddRange(path.corners);
             }
 
-            lastPoint = end;
+            pastNodePosition = nodePosition;
         }
 
-        if (fullPath.Count >= 2)
+        _line.enabled = fullPath.Count > 1;
+        if (_line.enabled)
         {
             _line.positionCount = fullPath.Count;
             _line.SetPositions(fullPath.ToArray());
-            _line.enabled = true;
-        }
-        else
-        {
-            _line.enabled = false; 
         }
     }
 
-    public void DrawPathThroughNPC(Vector3 start, Vector3 end)
+    public void DrawPathNoBuildingNode(Vector3 start, Vector3 end)
     {
         List<Vector3> combinedCorners = new();
 
-        NavMeshPath pathToNPC = new();
-        NavMeshPath pathFromNPC = new();
+        NavMeshPath path = new();
 
-        if (NavMesh.CalculatePath(start, _npcTransform.position, NavMesh.AllAreas, pathToNPC))
+        if (NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path))
         {
-            if (pathToNPC.corners.Length > 1)
-                combinedCorners.AddRange(pathToNPC.corners);
-        }
-        
-        if (NavMesh.CalculatePath(_npcTransform.position, end, NavMesh.AllAreas, pathFromNPC))
-        {
-            if (pathFromNPC.corners.Length > 1)
-                combinedCorners.AddRange(pathFromNPC.corners.Skip(1));
+            if (path.corners.Length > 1)
+                combinedCorners.AddRange(path.corners);
         }
 
-        if (combinedCorners.Count >= 2)
+        _line.enabled = combinedCorners.Count > 1;
+        if (_line.enabled)
         {
             _line.positionCount = combinedCorners.Count;
             _line.SetPositions(combinedCorners.ToArray());
-            _line.enabled = true;
-        }
-        else
-        {
-            _line.enabled = false;
         }
     }
 }

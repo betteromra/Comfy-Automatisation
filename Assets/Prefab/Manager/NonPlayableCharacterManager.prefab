@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickableLayers:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 1856
   _npcsSO: []
   _inputSelectedColor: {r: 0.8301887, g: 0.36294097, b: 0.27803493, a: 1}
   _outputSelectedColor: {r: 0.3066038, g: 0.37940827, b: 1, a: 1}

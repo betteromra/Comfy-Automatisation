@@ -14,15 +14,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3082328713118854363, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 0.18943547
       objectReference: {fileID: 0}
     - target: {fileID: 3082328713118854363, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.29116935
       objectReference: {fileID: 0}
     - target: {fileID: 3082328713118854363, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.87
       objectReference: {fileID: 0}
     - target: {fileID: 3528069727051092646, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -91,3 +91,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventory: {fileID: 0}
   _maxPath: 3
+  _lastColour: {r: 0.972549, g: 0.49279162, b: 0.4084706, a: 1}
+  _selectedColour: {r: 0.67, g: 0.22333334, b: 0.14486486, a: 1}
+  _spriteRenderer: {fileID: 3780327737879543784}
+--- !u!212 &3780327737879543784 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3082328713118854363, guid: 4cff1465db573bf42bd0a545a2eefcc3, type: 3}
+  m_PrefabInstance: {fileID: 2211493565667873587}
+  m_PrefabAsset: {fileID: 0}

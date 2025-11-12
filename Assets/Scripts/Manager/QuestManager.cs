@@ -346,4 +346,38 @@ public class QuestManager : MonoBehaviour
 
     public QuestSO GetCurrentQuest() => currentQuest;
     public bool HasActiveQuest() => currentQuest != null;
+    
+    // Save/Load support methods
+    public int GetCurrentQuestIndex() => currentQuestIndex;
+    public QuestSO[] GetAllQuests() => allQuests;
+    
+    public void SetCurrentQuestIndex(int index)
+    {
+        if (index >= 0 && index < allQuests.Length)
+        {
+            currentQuestIndex = index;
+            if (allQuests[index] != null)
+            {
+                StartQuest(allQuests[index]);
+            }
+        }
+    }
+    
+    public void LoadQuestProgress(System.Collections.Generic.List<QuestGoalProgress> goalProgressData)
+    {
+        if (currentQuest == null || currentQuest.goals == null) return;
+        
+        foreach (var progressData in goalProgressData)
+        {
+            if (progressData.goalIndex >= 0 && progressData.goalIndex < currentQuest.goals.Length)
+            {
+                var goal = currentQuest.goals[progressData.goalIndex];
+                goal.currentAmount = progressData.currentProgress;
+                goal.isCompleted = progressData.isCompleted;
+            }
+        }
+        
+        // Recheck if quest is complete
+        CheckQuestCompletion();
+    }
 }

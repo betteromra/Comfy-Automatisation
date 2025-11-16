@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static DayNightCycleManager;
 
 public enum SoundType
@@ -11,7 +12,8 @@ public enum SoundType
     SunsetAmbience,
     NightAmbience,
     Walking,
-    Meowing
+    Meowing,
+    Popping
 }
 
 [System.Serializable]
@@ -29,6 +31,7 @@ public class SoundManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] private AudioSource _musicAudioSource;
     [SerializeField] private AudioSource _ambienceSound;
+    [SerializeField] private AudioSource _sfxSound;
 
     [Header("Settings")]
     [Range(0, 1)][SerializeField] private float _chanceOfPlayingAmbience = 0.5f;
@@ -41,6 +44,18 @@ public class SoundManager : MonoBehaviour
 
     private Timer _ambienceTimer;
     private Timer _musicTimer;
+
+    private void OnEnable()
+    {
+        GameManager.instance.buildingManager.onBuildingCreated += PlayRandomPopping;
+        GameManager.instance.buildingManager.onBuildingDeleted += PlayRandomPopping;
+    }
+
+    private void Osable()
+    {
+        GameManager.instance.buildingManager.onBuildingCreated -= PlayRandomPopping;
+        GameManager.instance.buildingManager.onBuildingDeleted -= PlayRandomPopping;  
+    }
 
     private void Awake()
     {
@@ -80,11 +95,16 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlayRandomPopping()
+    {
+        List<AudioClip> clips = _audioClipsDictionary[SoundType.Popping];
+
+        AudioClip randomClip = clips[Random.Range(0, clips.Count)];
+        PlaySFX(randomClip, 1f);
+    }
 
     public void PlayRandomAmbience(float volume = 1f)
     {
-        if (Random.value > _chanceOfPlayingAmbience) return;
-
         SoundType soundType = GetAmbienceTypeForTimeOfDay(_timeOfDay);
 
         List<AudioClip> clips = _audioClipsDictionary[soundType];
@@ -96,6 +116,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayRandomMusic(float volume = 1f)
     {
+        if (_musicAudioSource.isPlaying) return;
+
         List<AudioClip> clips = _audioClipsDictionary[SoundType.Music];
         AudioClip randomClip = clips[Random.Range(0, clips.Count)];
         PlayMusic(randomClip, volume);
@@ -109,6 +131,11 @@ public class SoundManager : MonoBehaviour
     public void PlayMusic(AudioClip sound, float volume = 1)
     {
         _musicAudioSource.PlayOneShot(sound, volume);
+    }
+
+    public void PlaySFX(AudioClip sound, float volume = 1)
+    {
+        _sfxSound.PlayOneShot(sound, volume);
     }
 
     private SoundType GetAmbienceTypeForTimeOfDay(TimeOfDay time)

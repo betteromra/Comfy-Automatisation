@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 788374875138734833, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -488915155629614303, guid: b1554d8e484bf844ba610c7045ca3da8, type: 3}
     - target: {fileID: 2213668893080411894, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -60,13 +64,25 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4578754479567070175, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578754479567070175, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -1255982633427224767, guid: b1554d8e484bf844ba610c7045ca3da8, type: 3}
+    - target: {fileID: 4578754479567070175, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: -3671529089270998879, guid: b1554d8e484bf844ba610c7045ca3da8, type: 3}
     - target: {fileID: 5695452777459537859, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6552587039068954176, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6552587039068954176, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       propertyPath: m_LocalScale.y
@@ -74,7 +90,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6552587039068954176, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6552587039068954176, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7766817690221442490, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       propertyPath: m_Layer
@@ -141,8 +161,7 @@ MonoBehaviour:
   _destructable: 1
   _meshRenderer: {fileID: 7161466996725996720}
   _boxCollider: {fileID: 3393860856158166324}
-  _inputNode: []
-  _outputNode: []
+  _lights: []
   _buildingUI: {fileID: 0}
   _ressourceAndAmountToDisplayUI: {fileID: 0}
 --- !u!23 &7161466996725996720 stripped

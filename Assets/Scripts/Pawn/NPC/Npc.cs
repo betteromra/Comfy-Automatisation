@@ -169,7 +169,7 @@ public class Npc : Pawn
             // previous is output
             if (node as OutputNode) return false;
 
-            if (_buildingNodesList.Count == 1 && _inventory.weight != 0)
+            if (_buildingNodesList.Count == 1 && _inventory.differentRessourceAmount != 0)
             {
                 _behaviorAgent.BlackboardReference.SetVariableValue("Target", node);
                 ResetNpcAgentExecution();
@@ -188,7 +188,7 @@ public class Npc : Pawn
                 BuildingNodeHighlight(node, true);
                 BuildingNodeHighlight(previousNode, true);
 
-                if (_inventory.weight == 0)
+                if (_inventory.differentRessourceAmount == 0)
                 {
                     _behaviorAgent.BlackboardReference.SetVariableValue("Target", node);
                     ResetNpcAgentExecution();
@@ -350,7 +350,7 @@ public class Npc : Pawn
         }
 
         // NPC Idle handled in the Behaviour tree.
-        if (ressourceOutput == 0 && _inventory.weight == 0) return false;
+        if (ressourceOutput == 0 && _inventory.differentRessourceAmount == 0) return false;
 
         _itemSpriteRenderer.sprite = _inventory.MostRessourceInside().sprite;
         _animator.SetBool("IsCarrying", true);

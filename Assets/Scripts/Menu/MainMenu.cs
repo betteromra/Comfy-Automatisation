@@ -2,9 +2,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections;
 using Unity.AI.Navigation;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] RawImage _rawImage;
+    [SerializeField] VideoPlayer _videoPlayer;
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -16,6 +20,15 @@ public class MainMenu : MonoBehaviour
     }
     public IEnumerator LoadGameCoroutine()
     {
+        _rawImage.gameObject.SetActive(true);
+
+        bool finished = false;
+
+        _videoPlayer.loopPointReached += (vp) => finished = true;
+        _videoPlayer.Play();
+
+        yield return new WaitUntil(() => finished);
+        
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Game");
         asyncLoad.allowSceneActivation = false;
 

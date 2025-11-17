@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_Extents.z
       value: 1.2
       objectReference: {fileID: 0}
+    - target: {fileID: 3306921047813897061, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b63a6e9b4a5079f46b0ae949543e01b4, type: 2}
     - target: {fileID: 4904889566687348917, guid: a43e034c0b7f25f43b423040a5fe1357, type: 3}
       propertyPath: _buildingSO
       value: 

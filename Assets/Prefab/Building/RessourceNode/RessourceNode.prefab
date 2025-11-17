@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &995357543857876326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2555213854697140522}
+  m_Layer: 0
+  m_Name: MeshContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2555213854697140522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995357543857876326}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1760645866849563930}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1328434194512566458
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -160,6 +191,9 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 5877887536573833333, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 720745037061991840, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2555213854697140522}
     - targetCorrespondingSourceObject: {fileID: 2291625337149860718, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7639297839257129868}
@@ -188,6 +222,11 @@ MonoBehaviour:
 --- !u!4 &982619002414920660 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2291625337149860718, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
+  m_PrefabInstance: {fileID: 1328434194512566458}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1760645866849563930 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 720745037061991840, guid: 8a4d45adb3f4bee47bc0bd06df894666, type: 3}
   m_PrefabInstance: {fileID: 1328434194512566458}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &3306921047813897061 stripped
@@ -242,7 +281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095a09a3ee441394688d62804c76ff78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxWeight: 2147483647
   _maxDifferentRessourceAmount: 1
   _maxSameRessourceSpace: 100
 --- !u!1001 &2564562249894862491

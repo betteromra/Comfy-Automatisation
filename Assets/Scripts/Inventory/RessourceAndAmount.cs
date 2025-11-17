@@ -17,10 +17,6 @@ public class RessourceAndAmount
     {
         get => _ressourceSO.rawValue * _amount;
     }
-    public int weight
-    {
-        get => _ressourceSO.weight * _amount;
-    }
     public int spaceTotal
     {
         get => _ressourceSO.spacePerUnit * _amount;

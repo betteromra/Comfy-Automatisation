@@ -17,4 +17,4 @@ MonoBehaviour:
   _ressourceSO: {fileID: 11400000, guid: 91548422a47817a4faf9d16948a4a3d1, type: 2}
   _maxSameRessourceSpace: 5
   _maxDifferentRessource: 1
-  _waitDuration: 1
+  _waitDuration: 0.2

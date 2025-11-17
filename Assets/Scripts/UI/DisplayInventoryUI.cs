@@ -79,7 +79,7 @@ public class DisplayInventoryUI : MonoBehaviour
             }
         }
 
-        if (_weight != null) _weight.text = inventory.weight + "";
+        if (_weight != null) _weight.text = inventory.differentRessourceAmount + "";
         if (_value != null) _value.text = inventory.value + "";
     }
 }

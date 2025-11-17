@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 958818022653645268, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: -3671529089270998879, guid: d620064e53bc5304fafbb2d83d6821f1, type: 3}
+      objectReference: {fileID: 2100000, guid: 2e26c09f712f69b49bbd861ad2c747ac, type: 2}
     - target: {fileID: 958818022653645268, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1850287200128471479, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 750
+      value: 830
       objectReference: {fileID: 0}
     - target: {fileID: 1850287200128471479, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -248,7 +248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3146891026412745580, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 750
+      value: 830
       objectReference: {fileID: 0}
     - target: {fileID: 3146891026412745580, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -404,7 +404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4721063785771211730, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 750
+      value: 830
       objectReference: {fileID: 0}
     - target: {fileID: 4721063785771211730, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: m_SizeDelta.y
@@ -496,7 +496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7276217360930537181, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 750
+      value: 830
       objectReference: {fileID: 0}
     - target: {fileID: 7276217360930537181, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: m_AnchoredPosition.x

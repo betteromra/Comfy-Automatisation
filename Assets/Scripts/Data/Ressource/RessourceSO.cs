@@ -26,8 +26,6 @@ public class RessourceSO : ScriptableObject
   public RecipeSO recipe { get => _recipe; }
   [SerializeField] int _spacePerUnit = 1;
   public int spacePerUnit { get => _spacePerUnit; }
-  [SerializeField] int _weight;
-  public int weight { get => _weight; }
   // the value of the item based on his raw ressource
   [SerializeField] int _rawValue;
   public int rawValue

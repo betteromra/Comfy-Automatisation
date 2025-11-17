@@ -47,14 +47,14 @@ public class DisplayRessourceUI : MonoBehaviour
         _name.text = _ressourceAndAmount.ressourceSO.actualName;
         _name.color = GameManager.instance.userInterfaceManager.quality[(int)_ressourceAndAmount.ressourceSO.quality];
 
-        if (_ressourceAndAmount.weight == 0 || _ressourceAndAmount.value == 0)
+        if (_ressourceAndAmount.spaceTotal == 0 || _ressourceAndAmount.value == 0)
         {
             _weightAndValueContainer.SetActive(false);
         }
         else
         {
             _weightAndValueContainer.SetActive(true);
-            _weight.text = _ressourceAndAmount.weight + "";
+            _weight.text = _ressourceAndAmount.spaceTotal + "";
             _value.text = _ressourceAndAmount.value + "";
         }
 

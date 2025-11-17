@@ -307,7 +307,7 @@ public class SaveSystem : MonoBehaviour
                 }
             }
             
-            saveData.inventoryData.maxWeight = inventory.weight;
+            //saveData.inventoryData.maxWeight = inventory.weight;
             saveData.inventoryData.maxSameResourceSpace = inventory.maxSameRessourceSpace;
         }
     }

@@ -7,7 +7,7 @@ using UnityEngine.Video;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] RawImage _rawImage;
+    [SerializeField] GameObject _canvas;
     [SerializeField] VideoPlayer _videoPlayer;
     void Awake()
     {
@@ -20,10 +20,13 @@ public class MainMenu : MonoBehaviour
     }
     public IEnumerator LoadGameCoroutine()
     {
-        _rawImage.gameObject.SetActive(true);
+        _canvas.SetActive(false);
 
         bool finished = false;
 
+        _videoPlayer.source = VideoSource.Url;
+        _videoPlayer.url = Application.streamingAssetsPath + "/video/automatisationcutscene_vp8.webm";
+        //_videoPlayer.renderMode = VideoRenderMode.CameraNearPlane;
         _videoPlayer.loopPointReached += (vp) => finished = true;
         _videoPlayer.Play();
 

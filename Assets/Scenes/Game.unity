@@ -49086,9 +49086,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2495792918524848396, guid: 2183d4c7047ab6541bb173ad5a2d07c1, type: 3}
+      propertyPath: _treesPrefab.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495792918524848396, guid: 2183d4c7047ab6541bb173ad5a2d07c1, type: 3}
+      propertyPath: '_treesPrefab.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5848507772033713010, guid: 5c93c6c98db3cc848bb44bf9fea2fb6a, type: 3}
+    - target: {fileID: 2495792918524848396, guid: 2183d4c7047ab6541bb173ad5a2d07c1, type: 3}
+      propertyPath: '_treesPrefab.Array.data[1]'
+      value: 
+      objectReference: {fileID: 5848507772033713010, guid: 1a03ba303f6a3e2479462cf4253498b3, type: 3}
+    - target: {fileID: 2495792918524848396, guid: 2183d4c7047ab6541bb173ad5a2d07c1, type: 3}
+      propertyPath: '_treesPrefab.Array.data[2]'
+      value: 
+      objectReference: {fileID: 5848507772033713010, guid: 9cb5a17c3e9a6014388eb0a04d27789c, type: 3}
     - target: {fileID: 5747426614458584235, guid: 2183d4c7047ab6541bb173ad5a2d07c1, type: 3}
       propertyPath: m_ShadowCastingMode
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5747426614458584235, guid: 2183d4c7047ab6541bb173ad5a2d07c1, type: 3}
+      propertyPath: m_TreeBillboardDistance
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 8145871912519183706, guid: 2183d4c7047ab6541bb173ad5a2d07c1, type: 3}
       propertyPath: m_Name

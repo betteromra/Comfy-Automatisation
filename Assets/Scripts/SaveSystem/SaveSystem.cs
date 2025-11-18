@@ -34,7 +34,7 @@ public class SaveSystem : MonoBehaviour
         if (!Directory.Exists(savePath))
         {
             Directory.CreateDirectory(savePath);
-            Debug.Log($"Created save folder at: {savePath}");
+            //Debug.Log($"Created save folder at: {savePath}");
         }
     }
     
@@ -64,12 +64,12 @@ public class SaveSystem : MonoBehaviour
             string fullPath = Path.Combine(savePath, fileName);
             File.WriteAllText(fullPath, json);
             
-            Debug.Log($"Game saved to: {fullPath}");
+            //Debug.Log($"Game saved to: {fullPath}");
             OnGameSaved?.Invoke();
         }
         catch (Exception e)
         {
-            Debug.LogError($"Failed to save game: {e.Message}");
+            //Debug.LogError($"Failed to save game: {e.Message}");
         }
     }
     
@@ -80,7 +80,7 @@ public class SaveSystem : MonoBehaviour
     {
         if (slotNumber < 1 || slotNumber > MAX_SAVE_SLOTS)
         {
-            Debug.LogError($"Invalid slot number: {slotNumber}. Must be between 1 and {MAX_SAVE_SLOTS}");
+            //Debug.LogError($"Invalid slot number: {slotNumber}. Must be between 1 and {MAX_SAVE_SLOTS}");
             return;
         }
         
@@ -96,7 +96,7 @@ public class SaveSystem : MonoBehaviour
     {
         if (slotNumber < 1 || slotNumber > MAX_SAVE_SLOTS)
         {
-            Debug.LogError($"Invalid slot number: {slotNumber}. Must be between 1 and {MAX_SAVE_SLOTS}");
+            //Debug.LogError($"Invalid slot number: {slotNumber}. Must be between 1 and {MAX_SAVE_SLOTS}");
             return false;
         }
         
@@ -144,7 +144,7 @@ public class SaveSystem : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"Failed to read slot {slotNumber} info: {e.Message}");
+            //Debug.LogError($"Failed to read slot {slotNumber} info: {e.Message}");
             return null;
         }
     }
@@ -173,7 +173,7 @@ public class SaveSystem : MonoBehaviour
             
             if (!File.Exists(fullPath))
             {
-                Debug.LogWarning($"Save file not found: {fullPath}");
+                //Debug.LogWarning($"Save file not found: {fullPath}");
                 return false;
             }
             
@@ -183,7 +183,7 @@ public class SaveSystem : MonoBehaviour
             
             if (saveData == null)
             {
-                Debug.LogError("Failed to parse save data");
+                //Debug.LogError("Failed to parse save data");
                 return false;
             }
             
@@ -194,13 +194,13 @@ public class SaveSystem : MonoBehaviour
             ApplyQuestData(saveData);
             ApplyWorldData(saveData);
             
-            Debug.Log($"Game loaded from: {fullPath}");
+            //Debug.Log($"Game loaded from: {fullPath}");
             OnGameLoaded?.Invoke();
             return true;
         }
         catch (Exception e)
         {
-            Debug.LogError($"Failed to load game: {e.Message}");
+            //Debug.LogError($"Failed to load game: {e.Message}");
             return false;
         }
     }
@@ -218,18 +218,18 @@ public class SaveSystem : MonoBehaviour
             if (File.Exists(fullPath))
             {
                 File.Delete(fullPath);
-                Debug.Log($"Deleted save: {fullPath}");
+                //Debug.Log($"Deleted save: {fullPath}");
                 return true;
             }
             else
             {
-                Debug.LogWarning($"Save file not found: {fullPath}");
+                //Debug.LogWarning($"Save file not found: {fullPath}");
                 return false;
             }
         }
         catch (Exception e)
         {
-            Debug.LogError($"Failed to delete save: {e.Message}");
+            //Debug.LogError($"Failed to delete save: {e.Message}");
             return false;
         }
     }
@@ -418,7 +418,7 @@ public class SaveSystem : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning($"Could not find resource: {resourceEntry.resourceName}");
+                    //Debug.LogWarning($"Could not find resource: {resourceEntry.resourceName}");
                 }
             }
         }
@@ -438,7 +438,7 @@ public class SaveSystem : MonoBehaviour
             BuildingSO buildingSO = Resources.Load<BuildingSO>($"Buildings/{buildingData.buildingSOName}");
             if (buildingSO == null)
             {
-                Debug.LogWarning($"Could not find building SO: {buildingData.buildingSOName}");
+                //Debug.LogWarning($"Could not find building SO: {buildingData.buildingSOName}");
                 continue;
             }
             

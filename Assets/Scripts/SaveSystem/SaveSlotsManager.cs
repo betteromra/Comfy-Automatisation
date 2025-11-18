@@ -50,7 +50,7 @@ public class SaveSlotsManager : MonoBehaviour
     {
         if (slotsContainer == null || saveSlotPrefab == null)
         {
-            Debug.LogError("SaveSlotsManager: Missing required references!");
+            //Debug.LogError("SaveSlotsManager: Missing required references!");
             return;
         }
         
@@ -75,7 +75,7 @@ public class SaveSlotsManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"SaveSlotPrefab is missing SaveSlotUI component!");
+                //Debug.LogError($"SaveSlotPrefab is missing SaveSlotUI component!");
             }
         }
     }
@@ -137,7 +137,7 @@ public class SaveSlotsManager : MonoBehaviour
         }
         
         // If all slots full, save to slot 1
-        Debug.Log("All slots full, overwriting slot 1");
+        //Debug.Log("All slots full, overwriting slot 1");
         SaveSystem.Instance.SaveToSlot(1);
         RefreshAllSlots();
     }

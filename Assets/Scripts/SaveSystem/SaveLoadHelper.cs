@@ -34,7 +34,7 @@ public class SaveLoadHelper : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SaveSystem not found!");
+            //Debug.LogError("SaveSystem not found!");
         }
     }
     
@@ -48,12 +48,12 @@ public class SaveLoadHelper : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"Slot {slotNumber} is empty!");
+                //Debug.LogWarning($"Slot {slotNumber} is empty!");
             }
         }
         else
         {
-            Debug.LogError("SaveSystem not found!");
+            //Debug.LogError("SaveSystem not found!");
         }
     }
     
@@ -65,7 +65,7 @@ public class SaveLoadHelper : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SaveSystem not found!");
+            //Debug.LogError("SaveSystem not found!");
         }
     }
     

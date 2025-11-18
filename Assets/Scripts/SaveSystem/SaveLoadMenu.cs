@@ -126,7 +126,7 @@ public class SaveLoadMenu : MonoBehaviour
         
         if (string.IsNullOrWhiteSpace(saveName))
         {
-            Debug.LogWarning("Please enter a save name");
+            //Debug.LogWarning("Please enter a save name");
             return;
         }
         
@@ -143,7 +143,7 @@ public class SaveLoadMenu : MonoBehaviour
         
         if (string.IsNullOrWhiteSpace(saveName))
         {
-            Debug.LogWarning("Please select a save to load");
+            //Debug.LogWarning("Please select a save to load");
             return;
         }
         
@@ -163,7 +163,7 @@ public class SaveLoadMenu : MonoBehaviour
         
         if (string.IsNullOrWhiteSpace(saveName))
         {
-            Debug.LogWarning("Please select a save to delete");
+            //Debug.LogWarning("Please select a save to delete");
             return;
         }
         

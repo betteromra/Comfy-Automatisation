@@ -107,7 +107,7 @@ public class SaveSlotUI : MonoBehaviour
             if (isOccupied)
             {
                 // For now, just overwrite
-                Debug.Log($"Overwriting save in slot {slotNumber}");
+                //Debug.Log($"Overwriting save in slot {slotNumber}");
             }
             
             SaveSystem.Instance.SaveToSlot(slotNumber);

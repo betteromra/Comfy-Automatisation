@@ -144,6 +144,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MerchantCaptain
       objectReference: {fileID: 0}
+    - target: {fileID: 682993921338493600, guid: d68a9df948f7fc94e8e13f891236226e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1631509875321663554, guid: d68a9df948f7fc94e8e13f891236226e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

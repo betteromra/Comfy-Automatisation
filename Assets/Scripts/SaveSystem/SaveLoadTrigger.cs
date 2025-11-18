@@ -42,7 +42,7 @@ public class SaveLoadTrigger : MonoBehaviour
             if (SaveSystem.Instance.IsSlotOccupied(startupLoadSlot))
             {
                 SaveSystem.Instance.LoadFromSlot(startupLoadSlot);
-                Debug.Log($"Loaded save from slot {startupLoadSlot} on startup");
+                //Debug.Log($"Loaded save from slot {startupLoadSlot} on startup");
             }
         }
     }
@@ -87,7 +87,7 @@ public class SaveLoadTrigger : MonoBehaviour
         if (SaveSystem.Instance != null)
         {
             SaveSystem.Instance.SaveToSlot(quickSaveSlot);
-            Debug.Log($"Quick save to slot {quickSaveSlot}");
+            //Debug.Log($"Quick save to slot {quickSaveSlot}");
         }
     }
     
@@ -98,11 +98,11 @@ public class SaveLoadTrigger : MonoBehaviour
             bool success = SaveSystem.Instance.LoadFromSlot(quickSaveSlot);
             if (success)
             {
-                Debug.Log($"Quick load from slot {quickSaveSlot}");
+                //Debug.Log($"Quick load from slot {quickSaveSlot}");
             }
             else
             {
-                Debug.LogWarning($"No save found in slot {quickSaveSlot}");
+                //Debug.LogWarning($"No save found in slot {quickSaveSlot}");
             }
         }
     }
@@ -113,7 +113,7 @@ public class SaveLoadTrigger : MonoBehaviour
         {
             isAutoSaving = true;
             SaveSystem.Instance.SaveToSlot(autoSaveSlot);
-            Debug.Log($"Auto save to slot {autoSaveSlot}");
+            //Debug.Log($"Auto save to slot {autoSaveSlot}");
             isAutoSaving = false;
         }
     }
@@ -137,12 +137,12 @@ public class SaveLoadTrigger : MonoBehaviour
     private void OnGameSaved()
     {
         // You can trigger UI feedback here
-        Debug.Log("Game saved successfully!");
+        //Debug.Log("Game saved successfully!");
     }
     
     private void OnGameLoaded()
     {
         // You can trigger UI feedback here
-        Debug.Log("Game loaded successfully!");
+        //Debug.Log("Game loaded successfully!");
     }
 }

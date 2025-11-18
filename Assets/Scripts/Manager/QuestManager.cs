@@ -84,7 +84,7 @@ public class QuestManager : MonoBehaviour
 
         OnQuestStarted?.Invoke(currentQuest);
 
-        Debug.Log($"<color=cyan>Quest Started: {currentQuest.questName}</color>");
+        ////Debug.Log($"<color=cyan>Quest Started: {currentQuest.questName}</color>");
     }
 
     private void CheckForAutoCompletion()
@@ -109,7 +109,7 @@ public class QuestManager : MonoBehaviour
             {
                 anyProgress = true;
                 OnGoalCompleted?.Invoke(goal);
-                Debug.Log($"<color=yellow>Goal auto-completed: {goal.goalDescription}</color>");
+                ////Debug.Log($"<color=yellow>Goal auto-completed: {goal.goalDescription}</color>");
             }
         }
 
@@ -251,7 +251,7 @@ public class QuestManager : MonoBehaviour
         goal.isCompleted = true;
         OnGoalCompleted?.Invoke(goal);
         
-        Debug.Log($"<color=green>Goal Completed: {goal.goalDescription}</color>");
+        //Debug.Log($"<color=green>Goal Completed: {goal.goalDescription}</color>");
 
         CheckQuestCompletion();
     }
@@ -278,7 +278,7 @@ public class QuestManager : MonoBehaviour
 
     private void CompleteQuest()
     {
-        Debug.Log($"<color=lime>Quest Completed: {currentQuest.questName}</color>");
+        //Debug.Log($"<color=lime>Quest Completed: {currentQuest.questName}</color>");
         
         GiveRewards();
 
@@ -300,7 +300,7 @@ public class QuestManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("<color=orange>All quests completed!</color>");
+                //Debug.Log("<color=orange>All quests completed!</color>");
             }
         }
     }
@@ -317,10 +317,10 @@ public class QuestManager : MonoBehaviour
                     GiveResourceReward(reward.rewardID, reward.amount);
                     break;
                 case QuestReward.RewardType.UnlockBuilding:
-                    Debug.Log($"Unlocked building: {reward.rewardID}");
+                    //Debug.Log($"Unlocked building: {reward.rewardID}");
                     break;
                 case QuestReward.RewardType.UnlockRecipe:
-                    Debug.Log($"Unlocked recipe: {reward.rewardID}");
+                    //Debug.Log($"Unlocked recipe: {reward.rewardID}");
                     break;
             }
         }
@@ -335,11 +335,11 @@ public class QuestManager : MonoBehaviour
             {
                 RessourceAndAmount reward = new RessourceAndAmount(resourceSO, amount);
                 inventory.Add(reward);
-                Debug.Log($"Reward: {amount}x {resourceSO.actualName}");
+                //Debug.Log($"Reward: {amount}x {resourceSO.actualName}");
             }
             else
             {
-                Debug.LogWarning($"Could not find resource: {resourceID}");
+                //Debug.LogWarning($"Could not find resource: {resourceID}");
             }
         }
     }

@@ -19,29 +19,29 @@ public class OutlineDebugHelper : MonoBehaviour
         if (selectable == null)
         {
             selectable = gameObject.AddComponent<Selectable>();
-            Debug.Log($"Added Selectable to {gameObject.name}");
+            //Debug.Log($"Added Selectable to {gameObject.name}");
         }
 
         // Auto-select on start for testing
         if (playerController != null)
         {
             selectable.ForceSelect();
-            Debug.Log($"<color=green>OutlineDebugHelper: {gameObject.name} is now SELECTED for outline rendering</color>");
+            //Debug.Log($"<color=green>OutlineDebugHelper: {gameObject.name} is now SELECTED for outline rendering</color>");
         }
         else
         {
-            Debug.LogWarning($"<color=orange>OutlineDebugHelper: Player controller not found in scene!</color>");
+            //Debug.LogWarning($"<color=orange>OutlineDebugHelper: Player controller not found in scene!</color>");
         }
 
         // Check if object has a renderer
         var renderer = GetComponent<Renderer>();
         if (renderer == null)
         {
-            Debug.LogError($"<color=red>OutlineDebugHelper: {gameObject.name} has NO RENDERER! Outline will not work!</color>");
+            //Debug.LogError($"<color=red>OutlineDebugHelper: {gameObject.name} has NO RENDERER! Outline will not work!</color>");
         }
         else
         {
-            Debug.Log($"OutlineDebugHelper: {gameObject.name} has renderer: {renderer.GetType().Name}");
+            //Debug.Log($"OutlineDebugHelper: {gameObject.name} has renderer: {renderer.GetType().Name}");
         }
     }
 
@@ -55,12 +55,12 @@ public class OutlineDebugHelper : MonoBehaviour
                 if (selectable.IsSelected)
                 {
                     selectable.ForceDeselect();
-                    Debug.Log($"<color=yellow>OutlineDebugHelper: {gameObject.name} DESELECTED</color>");
+                    //Debug.Log($"<color=yellow>OutlineDebugHelper: {gameObject.name} DESELECTED</color>");
                 }
                 else
                 {
                     selectable.ForceSelect();
-                    Debug.Log($"<color=yellow>OutlineDebugHelper: {gameObject.name} SELECTED</color>");
+                    //Debug.Log($"<color=yellow>OutlineDebugHelper: {gameObject.name} SELECTED</color>");
                 }
             }
         }

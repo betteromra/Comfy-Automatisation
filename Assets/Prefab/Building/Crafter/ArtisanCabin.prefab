@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5893160060819351940, guid: d620064e53bc5304fafbb2d83d6821f1, type: 3}
+  - {fileID: 2100000, guid: 3caed221f9a12674eb19f15487bade55, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -129,23 +129,27 @@ PrefabInstance:
     - target: {fileID: 958818022653645268, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 54a413de0b25b5940807cbe087a55281, type: 2}
+      objectReference: {fileID: 2100000, guid: 8baf572a6a78f21449f94d7753cb4347, type: 2}
     - target: {fileID: 958818022653645268, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 2e26c09f712f69b49bbd861ad2c747ac, type: 2}
+      objectReference: {fileID: 2100000, guid: 8baf572a6a78f21449f94d7753cb4347, type: 2}
     - target: {fileID: 958818022653645268, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
-      objectReference: {fileID: -7791486788655378091, guid: d620064e53bc5304fafbb2d83d6821f1, type: 3}
+      objectReference: {fileID: 2100000, guid: 2e26c09f712f69b49bbd861ad2c747ac, type: 2}
     - target: {fileID: 958818022653645268, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: 'm_Materials.Array.data[3]'
       value: 
-      objectReference: {fileID: 8992934318045909824, guid: d620064e53bc5304fafbb2d83d6821f1, type: 3}
+      objectReference: {fileID: 2100000, guid: 9ed1bcd8b0f45da488634459962bfc05, type: 2}
     - target: {fileID: 958818022653645268, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: 'm_Materials.Array.data[4]'
       value: 
-      objectReference: {fileID: 2100000, guid: 54a413de0b25b5940807cbe087a55281, type: 2}
+      objectReference: {fileID: 2100000, guid: 61dbc828ffd82f74cadfc6e7170ed085, type: 2}
+    - target: {fileID: 958818022653645268, guid: 4bece2822762d904496fce689c28da85, type: 3}
+      propertyPath: 'm_Materials.Array.data[5]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 61dbc828ffd82f74cadfc6e7170ed085, type: 2}
     - target: {fileID: 1375273107038753200, guid: 4bece2822762d904496fce689c28da85, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

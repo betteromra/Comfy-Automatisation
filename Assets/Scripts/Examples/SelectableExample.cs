@@ -51,7 +51,7 @@ public class SelectableExample : MonoBehaviour
         // Set the specific renderers
         selectable.SetSpecificRenderers(selectedRenderers.ToArray());
 
-        Debug.Log($"Configured {targetObject.name} with {selectedRenderers.Count} specific renderers for outlining");
+        //Debug.Log($"Configured {targetObject.name} with {selectedRenderers.Count} specific renderers for outlining");
     }
 
     // Method to add a single renderer to an existing selectable
@@ -60,7 +60,7 @@ public class SelectableExample : MonoBehaviour
         if (selectable != null && renderer != null)
         {
             selectable.AddRenderer(renderer);
-            Debug.Log($"Added renderer {renderer.gameObject.name} to {selectable.gameObject.name}");
+            //Debug.Log($"Added renderer {renderer.gameObject.name} to {selectable.gameObject.name}");
         }
     }
 
@@ -70,7 +70,7 @@ public class SelectableExample : MonoBehaviour
         if (selectable != null && renderer != null)
         {
             selectable.RemoveRenderer(renderer);
-            Debug.Log($"Removed renderer {renderer.gameObject.name} from {selectable.gameObject.name}");
+            //Debug.Log($"Removed renderer {renderer.gameObject.name} from {selectable.gameObject.name}");
         }
     }
 }

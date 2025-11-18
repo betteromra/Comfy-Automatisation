@@ -3,7 +3,37 @@ guid: d620064e53bc5304fafbb2d83d6821f1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CardboardSide
+    second: {fileID: 2100000, guid: 153683d7798ae964eaca3bee87b40000, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door
+    second: {fileID: 2100000, guid: 3caed221f9a12674eb19f15487bade55, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stone
+    second: {fileID: 2100000, guid: 61dbc828ffd82f74cadfc6e7170ed085, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall
+    second: {fileID: 2100000, guid: 8baf572a6a78f21449f94d7753cb4347, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Window
+    second: {fileID: 2100000, guid: b383d4b15dbc99f40becac2db31d5405, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface1
+    second: {fileID: 2100000, guid: 40d747d0f6cd0cd418ef761e7dba6883, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

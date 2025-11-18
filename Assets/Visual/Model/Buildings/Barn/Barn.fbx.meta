@@ -3,7 +3,32 @@ guid: 505af21e89515ab46867af212fcc77a2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CardboardSide
+    second: {fileID: 2100000, guid: 9dcdcb24216924c46bcb596bbc1ad031, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door
+    second: {fileID: 2100000, guid: 6f8d8fe84f25d6544a32819f7820c6f4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tape
+    second: {fileID: 2100000, guid: 7ade196875f238d4d8f499fd423bcf41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall
+    second: {fileID: 2100000, guid: 57c52d1d9ca3c6444a7a2c1bbbb77843, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Window
+    second: {fileID: 2100000, guid: 34e96b842e21061419bd63675a011b9b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

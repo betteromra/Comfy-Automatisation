@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8399204b9880ea142a2ad2d2fc3f6bf5, type: 2}
+  - {fileID: 2100000, guid: 6f8d8fe84f25d6544a32819f7820c6f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,7 +150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8399204b9880ea142a2ad2d2fc3f6bf5, type: 2}
+  - {fileID: 2100000, guid: 6f8d8fe84f25d6544a32819f7820c6f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -642,19 +642,19 @@ PrefabInstance:
     - target: {fileID: 6492651727908333271, guid: d68a9df948f7fc94e8e13f891236226e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 3e99ecc060a95934f9b519b91735923a, type: 2}
+      objectReference: {fileID: 2100000, guid: 57c52d1d9ca3c6444a7a2c1bbbb77843, type: 2}
     - target: {fileID: 6492651727908333271, guid: d68a9df948f7fc94e8e13f891236226e, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 3e99ecc060a95934f9b519b91735923a, type: 2}
+      objectReference: {fileID: 2100000, guid: 57c52d1d9ca3c6444a7a2c1bbbb77843, type: 2}
     - target: {fileID: 6492651727908333271, guid: d68a9df948f7fc94e8e13f891236226e, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
-      objectReference: {fileID: 2584612820320457568, guid: 505af21e89515ab46867af212fcc77a2, type: 3}
+      objectReference: {fileID: 2100000, guid: 7ade196875f238d4d8f499fd423bcf41, type: 2}
     - target: {fileID: 6492651727908333271, guid: d68a9df948f7fc94e8e13f891236226e, type: 3}
       propertyPath: 'm_Materials.Array.data[3]'
       value: 
-      objectReference: {fileID: 8992934318045909824, guid: 505af21e89515ab46867af212fcc77a2, type: 3}
+      objectReference: {fileID: 2100000, guid: 9ed1bcd8b0f45da488634459962bfc05, type: 2}
     - target: {fileID: 6492651727908333271, guid: d68a9df948f7fc94e8e13f891236226e, type: 3}
       propertyPath: 'm_Materials.Array.data[4]'
       value: 

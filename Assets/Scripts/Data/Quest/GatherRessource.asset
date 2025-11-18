@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34228ef0f4015c246a742888396387d0, type: 3}
+  m_Name: GatherRessource
+  m_EditorClassIdentifier: 
+  questID: 0
+  questName: Beginning of a long journey
+  questDescription: Select a cat, then click on a green node, then click on a red
+    node. Gather ressource to the barn.
+  goals:
+  - goalDescription: 'Gather '
+    triggerType: 1
+    targetID: Wood
+    requiredAmount: 4
+    targetLocation: {x: 0, y: 0, z: 0}
+    locationRadius: 0
+    currentAmount: 0
+    isCompleted: 0
+  - goalDescription: 'Gather '
+    triggerType: 1
+    targetID: Pumpkin
+    requiredAmount: 1
+    targetLocation: {x: 0, y: 0, z: 0}
+    locationRadius: 0
+    currentAmount: 0
+    isCompleted: 0
+  rewards:
+  - type: 0
+    rewardID: Stone
+    amount: 90
+  nextQuest: {fileID: 11400000, guid: 446af03d939a5d843a0fa5829310261a, type: 2}

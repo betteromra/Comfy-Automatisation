@@ -10,23 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34228ef0f4015c246a742888396387d0, type: 3}
-  m_Name: New Quest
+  m_Name: MakeABakery
   m_EditorClassIdentifier: 
-  questID: 
+  questID: 1
   questName: 
   questDescription: 
   goals:
-  - goalDescription: Build Keep
+  - goalDescription: Build a bakery
     triggerType: 0
-    targetID: Keep
-    requiredAmount: 90
+    targetID: Bakery
+    requiredAmount: 1
     targetLocation: {x: 0, y: 0, z: 0}
     locationRadius: 0
-    customTriggerKey: 
     currentAmount: 0
     isCompleted: 0
   rewards:
   - type: 0
     rewardID: Stone
     amount: 90
-  nextQuest: {fileID: 0}
+  nextQuest: {fileID: 11400000, guid: 7bd8955d76408d1499caf08a00ba8518, type: 2}

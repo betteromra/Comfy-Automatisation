@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5294a471416aaee439ea6d8cac8f67da, type: 3}
   m_Name: GrandmaBasket
   m_EditorClassIdentifier: 
-  _actualName: Gramdma basket
+  _actualName: Gramdma's basket
   _description: So heavy you need a strong beast to carry it
   _icon: {fileID: -743861268, guid: f6072fb14fb48a24eb0f1a18e544848a, type: 3}
   _sprite: {fileID: -743861268, guid: 77278957d3e68184483be741375e88b7, type: 3}
   _recipe: {fileID: 11400000, guid: bf70c79602a99444db0cc4d05661aa62, type: 2}
   _spacePerUnit: 10
-  _weight: 20
   _rawValue: 0
   _value: 0
   _quality: 3

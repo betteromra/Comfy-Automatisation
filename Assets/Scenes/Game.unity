@@ -59580,12 +59580,40 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1890349529839731666, guid: 72bdc0c7a9067d849906e5b774912bed, type: 3}
       propertyPath: allQuests.Array.size
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1890349529839731666, guid: 72bdc0c7a9067d849906e5b774912bed, type: 3}
       propertyPath: 'allQuests.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 8a851ce99958e1f43a5c3dd45d5693f7, type: 2}
+    - target: {fileID: 1890349529839731666, guid: 72bdc0c7a9067d849906e5b774912bed, type: 3}
+      propertyPath: 'allQuests.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 446af03d939a5d843a0fa5829310261a, type: 2}
+    - target: {fileID: 1890349529839731666, guid: 72bdc0c7a9067d849906e5b774912bed, type: 3}
+      propertyPath: 'allQuests.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8987041513a62f74a8b835240bc35970, type: 2}
+    - target: {fileID: 1890349529839731666, guid: 72bdc0c7a9067d849906e5b774912bed, type: 3}
+      propertyPath: 'allQuests.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 964689a2e076400449b69eca41b258b1, type: 2}
+    - target: {fileID: 1890349529839731666, guid: 72bdc0c7a9067d849906e5b774912bed, type: 3}
+      propertyPath: 'allQuests.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b4e67cf5e2fbbb4c856df78644fe5c8, type: 2}
+    - target: {fileID: 1890349529839731666, guid: 72bdc0c7a9067d849906e5b774912bed, type: 3}
+      propertyPath: 'allQuests.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 574cda87b8d22554d87c600f1527f528, type: 2}
+    - target: {fileID: 1890349529839731666, guid: 72bdc0c7a9067d849906e5b774912bed, type: 3}
+      propertyPath: 'allQuests.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7bd8955d76408d1499caf08a00ba8518, type: 2}
+    - target: {fileID: 1890349529839731666, guid: 72bdc0c7a9067d849906e5b774912bed, type: 3}
+      propertyPath: 'allQuests.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 57f318538c7f10c418155bf37b58f267, type: 2}
     - target: {fileID: 2615252113215055022, guid: 72bdc0c7a9067d849906e5b774912bed, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
